@@ -7,7 +7,7 @@
 gendat(n, effect.size = 2, m = 3, alpha = 9)
 }
 \arguments{
-\item{n}{Number of mice}
+\item{n}{Number of mice (per group)}
 
 \item{effect.size}{Vector of effect sizes (default 2)}
 

@@ -7,14 +7,15 @@
 #'
 #' @return An array of p-values
 #'
-#' @example p <- tumrPower(8, 2, 6)
+#' @examples
+#' p <- tumrPower(8, 2, 6)
 #'
 #' @export
 
 tumrPower <- function(n, effect.size, N=1000, ...) {
   p <- array(NA, dim=c(N, length(n), length(effect.size)), dimnames=list(1:N, n, effect.size))
 
-  pb <- txtProgressBar(0, N, style=3)
+  pb <- utils::txtProgressBar(0, N, style=3)
   for (i in 1:N) {
     for (j in 1:length(n)) {
       for (k in 1:length(effect.size)) {
@@ -22,7 +23,7 @@ tumrPower <- function(n, effect.size, N=1000, ...) {
         p[i,j,k] <- rfeat(Data)
       }
     }
-    setTxtProgressBar(pb, i)
+    utils::setTxtProgressBar(pb, i)
   }
   p
 }

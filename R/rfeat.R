@@ -5,6 +5,10 @@
 #'
 #' @return A p-value
 #'
+#' @examples
+#' Data <- gendat(5, 2, 6)
+#' rfeat(Data)
+#'
 #' @export
 
 rfeat <- function(Data, linear=TRUE) {

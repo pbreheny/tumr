@@ -17,3 +17,8 @@ A p-value
 \description{
 Analysis based on response features
 }
+\examples{
+Data <- gendat(5, 2, 6)
+rfeat(Data)
+
+}

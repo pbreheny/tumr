@@ -1,6 +1,19 @@
+#' Analysis based on repeated measures ANOVA
+#'
+#' @param Data    From gendat
+#'
+#' @return A p-value
+#'
+#' @examples
+#' Data <- gendat(5, 2, 6)
+#' rmanova(Data)
+#'
+#' @export
+
 rmanova <- function(Data) {
-  df <- array2df(Data$Y, c("ID", "Time", "Group", "y"))
-  df$ID <- paste(df$Group, df$ID, sep="-")
-  fit <- aov(y~Time*Group + Error(ID), data=df)
+  DF <- reshape2::melt(Data$Y)
+  names(DF) <- c("ID", "Time", "Group", "y")
+  DF$ID <- paste(DF$Group, DF$ID, sep="-")
+  fit <- aov(y~Time*Group + Error(ID), data=DF)
   summary(fit)[[2]][[1]][2,5]
 }

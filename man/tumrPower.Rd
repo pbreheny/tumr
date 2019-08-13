@@ -21,3 +21,7 @@ An array of p-values
 \description{
 Power calculation for tumor growth
 }
+\examples{
+p <- tumrPower(8, 2, 6)
+
+}

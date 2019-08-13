@@ -11,8 +11,9 @@
 #' @export
 
 mixed <- function(Data) {
-  DF <- reshape2::melt(Data$Y)
+  DF <- as.data.frame.table(Data$Y, stringsAsFactors = FALSE)
   names(DF) <- c("ID", "Time", "Group", "y")
+  DF$Time <- as.numeric(DF$Time)
   DF$ID <- paste(DF$Group, DF$ID, sep="-")
   fit <- lme4::lmer(y~Time + Time:Group + (0+Time|ID), data=DF)
   tval <- summary(fit)$coef[3,3]

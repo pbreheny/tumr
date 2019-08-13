@@ -11,8 +11,9 @@
 #' @export
 
 rmanova <- function(Data) {
-  DF <- reshape2::melt(Data$Y)
+  DF <- as.data.frame.table(Data$Y, stringsAsFactors = FALSE)
   names(DF) <- c("ID", "Time", "Group", "y")
+  DF$Time <- as.numeric(DF$Time)
   DF$ID <- paste(DF$Group, DF$ID, sep="-")
   fit <- aov(y~Time*Group + Error(ID), data=DF)
   summary(fit)[[2]][[1]][2,5]

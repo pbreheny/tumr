@@ -1,13 +1,14 @@
 #' Generate tumor data: Time to reach endpoint
 #'
-#' @param n            Number of mice (per group)
-#' @param effect.size  Vector of effect sizes (default 2)
-#' @param m            Number of measurements per mouse (default 3)
-#' @param alpha        Shape parameter for gamma distribution (default 9)
+#' @param n             Number of mice (per group)
+#' @param effect.size   Vector of effect sizes, as a growth ratio (default 2)
+#' @param m             Number of measurements per mouse (default 3)
+#' @param alpha         Shape parameter for gamma distribution (default 9)
+#' @param sd            Noise (standard deviation, default 100)
 #'
-#' @return Y           Observed measurements
-#' @return M           Idealized 'true' size for each mouse at each time (no error)
-#' @return B           'True' growth rate for each mouse (in data-generating mechanism)
+#' @return Y            Observed measurements
+#' @return M            Idealized 'true' size for each mouse at each time (no error)
+#' @return B            'True' growth rate for each mouse (in data-generating mechanism)
 #'
 #' @examples
 #' Data <- gendat(5, effect.size=2, m=6)
@@ -17,7 +18,7 @@
 #'
 #' @export
 
-gendat <- function(n, effect.size=2, m=3, alpha=9) {
+gendat <- function(n, effect.size=2, m=3, alpha=9, sd=100) {
   t1000 <- 21*c(1, effect.size)
   g <- length(effect.size) + 1
   time <- seq(0, max(t1000), length=m)
@@ -33,7 +34,7 @@ gendat <- function(n, effect.size=2, m=3, alpha=9) {
     }
   }
   Y <- M
-  Y[,-1,] <- Y[,-1,] + rnorm(n*(m-1)*g, sd=100)
+  Y[,-1,] <- Y[,-1,] + rnorm(n*(m-1)*g, sd=sd)
   dimnames(Y) <- list(1:n, time, 1:g)
   list(Y=Y, M=M, time=time, B=B, t1000=t1000, T1000=T1000)
 }

@@ -3,7 +3,7 @@
 #' @param n            Sample size
 #' @param effect.size  Vector of effect sizes to consider
 #' @param N            Number of simulations (default 1000)
-#' @param ...          Other arguments to gendat
+#' @param ...          Other arguments to `gendat()`
 #'
 #' @return An array of p-values
 #'

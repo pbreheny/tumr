@@ -13,7 +13,7 @@ tumrPower(n, effect.size, N = 1000, ...)
 
 \item{N}{Number of simulations (default 1000)}
 
-\item{...}{Other arguments to gendat}
+\item{...}{Other arguments to `gendat()`}
 }
 \value{
 An array of p-values

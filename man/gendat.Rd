@@ -4,23 +4,25 @@
 \alias{gendat}
 \title{Generate tumor data: Time to reach endpoint}
 \usage{
-gendat(n, effect.size = 2, m = 3, alpha = 9)
+gendat(n, effect.size = 2, m = 3, alpha = 9, sd = 100)
 }
 \arguments{
 \item{n}{Number of mice (per group)}
 
-\item{effect.size}{Vector of effect sizes (default 2)}
+\item{effect.size}{Vector of effect sizes, as a growth ratio (default 2)}
 
 \item{m}{Number of measurements per mouse (default 3)}
 
 \item{alpha}{Shape parameter for gamma distribution (default 9)}
+
+\item{sd}{Noise (standard deviation, default 100)}
 }
 \value{
-Y           Observed measurements
+Y            Observed measurements
 
-M           Idealized 'true' size for each mouse at each time (no error)
+M            Idealized 'true' size for each mouse at each time (no error)
 
-B           'True' growth rate for each mouse (in data-generating mechanism)
+B            'True' growth rate for each mouse (in data-generating mechanism)
 }
 \description{
 Generate tumor data: Time to reach endpoint

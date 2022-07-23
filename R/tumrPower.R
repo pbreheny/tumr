@@ -1,8 +1,11 @@
 #' Power calculation for tumor growth
 #'
-#' @param n            Sample size
-#' @param effect.size  Vector of effect sizes to consider
-#' @param N            Number of simulations (default 1000)
+#' For speed, uses a response feature analysis `rfeat()`; this will likely underestimate
+#' power somewhat.
+#'
+#' @param n            Sample size per group (integer or vector)
+#' @param effect.size  As in `gendat()` (numeric or vector)
+#' @param N            Number of simulations (default: 1000)
 #' @param ...          Other arguments to `gendat()`
 #'
 #' @return An array of p-values

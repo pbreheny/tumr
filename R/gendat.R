@@ -1,10 +1,10 @@
 #' Generate tumor data: Time to reach endpoint
 #'
-#' @param n             Number of mice (per group)
-#' @param effect.size   Vector of effect sizes, as a growth ratio (default 2)
-#' @param m             Number of measurements per mouse (default 3)
-#' @param alpha         Shape parameter for gamma distribution (default 9)
-#' @param sd            Noise (standard deviation, default 100)
+#' @param n             Number of mice per group
+#' @param effect.size   Vector of effect sizes, as a growth ratio (default: 2)
+#' @param m             Number of measurements per mouse (default: 3)
+#' @param alpha         Shape parameter for gamma distribution (default: 9)
+#' @param sd            Noise (standard deviation, default: 100)
 #'
 #' @return Y            Observed measurements
 #' @return M            Idealized 'true' size for each mouse at each time (no error)

@@ -1,7 +1,7 @@
 Package: tumr
 Title: Analysis and Power Calculations for Tumor Growth Rates
-Version: 0.3.0
-Date: 2022-04-18
+Version: 0.3.1
+Date: 2022-07-23
 Description: This package contains functions for tumor growth rate experiments:
   analyzing existing data, simulating new data, and power/sample size
   calculations.

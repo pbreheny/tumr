@@ -16,8 +16,8 @@
 #' @export
 
 tumr_power <- function(n, effect_size, N=1000, ...) {
-  pb <- utils::txtProgressBar(0, N, style=3)
   out <- expand.grid(rep = 1:N, n = n, effect_size = effect_size, p=NA)
+  pb <- utils::txtProgressBar(0, nrow(out), style=3)
   for (i in 1:nrow(out)) {
     dat <- gendat(n=out$n[i], effect_size=out$effect_size[i], ...)
     out$p[i] <- rfeat(dat)

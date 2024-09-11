@@ -1,7 +1,7 @@
 #' Generate tumor data: Time to reach endpoint
 #'
 #' @param n             Number of mice per group
-#' @param effect.size   Vector of effect sizes, as a growth ratio (default: 2)
+#' @param effect_size   Vector of effect sizes, as a growth ratio (default: 2)
 #' @param m             Number of measurements per mouse (default: 3)
 #' @param alpha         Shape parameter for gamma distribution (default: 9)
 #' @param sd            Noise (standard deviation, default: 100)
@@ -11,16 +11,16 @@
 #' @return B            'True' growth rate for each mouse (in data-generating mechanism)
 #'
 #' @examples
-#' Data <- gendat(5, effect.size=2, m=6)
+#' Data <- gendat(5, effect_size=2, m=6)
 #' matplot(Data$time, t(Data$Y[,,1]), lty=1, type='l', col='#FF4E37', bty='n', las=1,
 #'         ylab=expression("Tumor volume "*(mm^3)), xlab='Day')
 #' matplot(Data$time, t(Data$Y[,,2]), lty=1, type='l', col='#008DFF', add=TRUE)
 #'
 #' @export
 
-gendat <- function(n, effect.size=2, m=3, alpha=9, sd=100) {
-  t1000 <- 21*c(1, effect.size)
-  g <- length(effect.size) + 1
+gendat <- function(n, effect_size=2, m=3, alpha=9, sd=100) {
+  t1000 <- 21*c(1, effect_size)
+  g <- length(effect_size) + 1
   time <- seq(0, max(t1000), length=m)
   M <- array(NA, dim=c(n, m, g))
   T1000 <- matrix(NA, n, g)

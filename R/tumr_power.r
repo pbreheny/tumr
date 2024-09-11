@@ -4,29 +4,25 @@
 #' power somewhat.
 #'
 #' @param n            Sample size per group (integer or vector)
-#' @param effect.size  As in `gendat()` (numeric or vector)
+#' @param effect_size  As in `gendat()` (numeric or vector)
 #' @param N            Number of simulations (default: 1000)
 #' @param ...          Other arguments to `gendat()`
 #'
 #' @return An array of p-values
 #'
 #' @examples
-#' p <- tumrPower(8, 2, 6)
-#'
+#' res <- tumr_power(8, 2, 10)
+#' mean(res$p < 0.05)
 #' @export
 
-tumrPower <- function(n, effect.size, N=1000, ...) {
-  p <- array(NA, dim=c(N, length(n), length(effect.size)), dimnames=list(1:N, n, effect.size))
-
+tumr_power <- function(n, effect_size, N=1000, ...) {
   pb <- utils::txtProgressBar(0, N, style=3)
-  for (i in 1:N) {
-    for (j in 1:length(n)) {
-      for (k in 1:length(effect.size)) {
-        Data <- gendat(n=n[j], effect.size=effect.size[k], ...)
-        p[i,j,k] <- rfeat(Data)
-      }
-    }
+  out <- expand.grid(rep = 1:N, n = n, effect_size = effect_size, p=NA)
+  for (i in 1:nrow(out)) {
+    dat <- gendat(n=out$n[i], effect_size=out$effect_size[i], ...)
+    out$p[i] <- rfeat(dat)
     utils::setTxtProgressBar(pb, i)
   }
-  p
+  close(pb)
+  out
 }

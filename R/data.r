@@ -10,7 +10,7 @@
 #'   \item{Treatment}{Treatment group (factor). A = control, B = Vemurafenib (BRAF inhibitor), C = Buthionine sulfoximine (BSO), D = Vemurafenib + BSO.}
 #' }
 #' @source University of Iowa, Holden Cancer Center, experiment SLB19-022.
-"Melanoma1"
+"melanoma1"
 
 #' Tumor growth data for a melanoma cancer model (451LuBR)
 #'
@@ -24,7 +24,7 @@
 #'   \item{Treatment}{Treatment group (factor). A = control, B = PB-212 (lead), C = PLX4032 (BRAF inhibitor), D = PLX4032 + PBA (4-Phenylbutyric acid), E = PB-212 + PLX4032 + PBA.}
 #' }
 #' @source University of Iowa, Holden Cancer Center, experiment GJZ16-091.
-"Melanoma2"
+"melanoma2"
 
 #' Tumor growth data for a breast cancer model
 #'
@@ -43,7 +43,7 @@
 #'   \item{Number}{Number of tumors (integer)}
 #' }
 #' @source University of Iowa, Holden Cancer Center, experiment PJB17-025.
-"Breast"
+"breast"
 
 #' Tumor growth data for a prostate cancer model
 #'
@@ -61,4 +61,4 @@
 #'   \item{Genotype}{p53 genotype (factor). WT = wild type, HET = single knockout, DOKO = double knockout.}
 #' }
 #' @source https://doi.org/10.1371/journal.pone.0232807
-"Prostate"
+"prostate"

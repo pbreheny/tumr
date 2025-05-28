@@ -10,7 +10,13 @@ A data frame with 568 rows and 4 variables:
 \item{ID}{Mouse identifier to indicate repeated measurements on the same mouse. (factor)}
 \item{Day}{Day of measurment (integer)}
 \item{Volume}{Tumor volume (double)}
-\item{Treatment}{Treatment group (factor). A = control, B = PB-212 (lead), C = PLX4032 (BRAF inhibitor), D = PLX4032 + PBA (4-Phenylbutyric acid), E = PB-212 + PLX4032 + PBA.}
+\item{Treatment}{Treatment group (factor).
+A = control,
+B = PB-212 (lead),
+C = PLX4032 (BRAF inhibitor),
+D = PLX4032 + PBA (4-Phenylbutyric acid),
+E = PB-212 + PLX4032 + PBA.
+}
 }
 }
 \source{
@@ -20,6 +26,7 @@ University of Iowa, Holden Cancer Center, experiment GJZ16-091.
 melanoma2
 }
 \description{
-The 451LuBR cell line (metastatic melanoma) was used to create CDX (Cell Line Derived Xenograft) mice.
+The 451LuBR cell line (metastatic melanoma) was used to create CDX (Cell Line
+Derived Xenograft) mice.
 }
 \keyword{datasets}

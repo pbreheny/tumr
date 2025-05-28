@@ -8,8 +8,12 @@
 A data frame with 336 rows and 6 variables:
 \describe{
 \item{ID}{Mouse identifier to indicate repeated measurements on the same mouse. (factor)}
-\item{Cohort}{Indicator of which cohort the mouse belonged to, in order to account for potential batch effects. (factor)}
-\item{Treatment}{Treatment group (factor). VEH = control (vehicle), NR = nicotinamide riboside}
+\item{Cohort}{Indicator of which cohort the mouse belonged to, in order to
+account for potential batch effects. (factor)}
+\item{Treatment}{Treatment group (factor).
+VEH = control (vehicle),
+NR = nicotinamide riboside
+}
 \item{Week}{Week of measurment (integer)}
 \item{Volume}{Tumor volume, in cubic mm (double)}
 \item{Number}{Number of tumors (integer)}
@@ -23,8 +27,8 @@ breast
 }
 \description{
 In this strain of rat, tumors begin to appear about 6 weeks after carcinogen
-and are followed for another 6 weeks. The goal of the study is to estimate the
-effects of nicotinamide riboside (a dietary supplement) on growth of mammary
-gland tumors.
+and are followed for another 6 weeks. The goal of the study is to estimate
+the effects of nicotinamide riboside (a dietary supplement) on growth of
+mammary gland tumors.
 }
 \keyword{datasets}

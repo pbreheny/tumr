@@ -26,76 +26,11 @@
 
 #Volume ~ Week * Trt, separate function that picks apart this
 
-rfeat <- function(data, id, time, measure, group) {
-  unique_ids <- unique(data[[id]])
-
-  betas <- data.frame(
-    ID = numeric(length(unique_ids)),
-    Beta = numeric(length(unique_ids)),
-    Group = character(length(unique_ids)),
-    stringsAsFactors = FALSE
-  )
-
-  for (j in seq_along(unique_ids)) {
-    i <- unique_ids[j]
-    smaller <- data[data[[id]] == i, ]
-
-    # Skip if insufficient data for linear model
-    if (nrow(smaller) < 2) next
-
-    formula_str <- paste(measure, "~", time)
-    model <- lm(as.formula(formula_str), data = smaller)
-
-    betas[j, "ID"] <- i
-    betas[j, "Beta"] <- coef(model)[[time]]
-    betas[j, "Group"] <- as.character(unique(smaller[[group]]))
-  }
-
-  # Remove rows with NA (e.g., from skipped IDs)
-  #betas <- na.omit(betas)
-
-  # Group-level summary
-  betas_summary <- betas |>
-    dplyr::group_by(Group) |>
-    dplyr::summarise(average = mean(Beta), .groups = "drop")
-
-  # Corrected statistical test using individual-level data
-  if (length(unique(betas$Group)) == 2) {
-    stat_test <- t.test(Beta ~ Group, data = betas)
-  } else {
-    stat_test <- summary(aov(Beta ~ Group, data = betas))
-  }
-
-  # Plot
-  plot <- ggplot2::ggplot(betas, ggplot2::aes(x = Group, y = Beta, color = Group)) +
-    ggplot2::geom_jitter(width = 0.2, size = 2) +
-    ggplot2::stat_summary(fun = mean, geom = "point", shape = 18, size = 4, color = "black") +
-    ggplot2::labs(title = "Individual Slopes (Betas) by Group",
-                  y = paste("Slope of", measure, "vs", time),
-                  x = group) +
-    ggplot2::theme_minimal()
-
-  return(list(
-    betas = betas,
-    summary = betas_summary,
-    test = stat_test,
-    plot = plot
-  ))
-}
-
-rfeat(breast, "ID", "Week", "Volume", "Treatment")
-rfeat(melanoma1, "ID", "Day", "Volume", "Treatment")
-rfeat(melanoma2, "ID", "Day", "Volume", "Treatment")
-rfeat(prostate, "ID", "Age", "BLI", "Genotype")
-
 
 #exponential growth, separate packages
 
-#log1p function for log transformation
 
-#log transformed version
-
-rfeat_1p <- function(data, id, time, measure, group) {
+rfeat <- function(data, id, time, measure, group, transformation = NULL, comparison) {
    unique_ids <- unique(data[[id]])
 
   betas <- data.frame(
@@ -112,7 +47,12 @@ rfeat_1p <- function(data, id, time, measure, group) {
     # Skip if insufficient data for linear model
     if (nrow(smaller) < 2) next
 
-    formula_str <- paste("log1p(",measure, ")", "~", time)
+    if (is.null(transformation)){
+      formula_str <- paste(measure, "~", time)
+    } else {
+      formula_str <- paste("transformation", "(",measure, ")", "~", time)
+    }
+
     model <- lm(as.formula(formula_str), data = smaller)
 
     betas[j, "ID"] <- i
@@ -129,30 +69,41 @@ rfeat_1p <- function(data, id, time, measure, group) {
     dplyr::summarise(average = mean(Beta), .groups = "drop")
 
   # Corrected statistical test using individual-level data
-  if (length(unique(betas$Group)) == 2) {
+  #length(unique(betas$Group)) == 2
+  if (comparison == "t.test") {
     stat_test <- t.test(Beta ~ Group, data = betas)
-  } else {
+  } else if (comparison == "anova"){
     stat_test <- summary(aov(Beta ~ Group, data = betas))
+  } else if (comparison == "tukey"){
+    stat_test <- TukeyHSD(aov(Beta ~ Group, data = betas))
+  } else if (comparison == "both"){
+    stat_test <- list(
+      anova = summary(aov(Beta ~ Group, data = betas)),
+      tukey = TukeyHSD(aov(Beta ~ Group, data = betas))
+    )
   }
 
-  # Plot
-  plot <- ggplot2::ggplot(betas, ggplot2::aes(x = Group, y = Beta, color = Group)) +
-    ggplot2::geom_jitter(width = 0.2, size = 2) +
-    ggplot2::stat_summary(fun = mean, geom = "point", shape = 18, size = 4, color = "black") +
-    ggplot2::labs(title = "Individual Slopes (Betas) by Group",
-                  y = paste("Slope of", measure, "vs", time),
-                  x = group) +
-    ggplot2::theme_minimal()
 
-  return(list(
+  relevant_info <- list(
+    ID = id,
+    Time = time,
+    Measure = measure,
+    Group = group
+  )
+
+  result <- list(
+    relevant_information = relevant_info,
     betas = betas,
     summary = betas_summary,
-    test = stat_test,
-    plot = plot
-  ))
+    test = stat_test
+  )
+
+  class(result) <- "rfeat"
+
+  return(result)
 }
 
-rfeat_1p(breast, "ID", "Week", "Volume", "Treatment")
-rfeat_1p(melanoma1, "ID", "Day", "Volume", "Treatment")
-rfeat_1p(melanoma2, "ID", "Day", "Volume", "Treatment")
-rfeat_1p(prostate, "ID", "Age", "BLI", "Genotype")
+example2 <- rfeat(breast, "ID", "Week", "Volume", "Treatment", transformation = log1p, comparison = "t.test")
+rfeat(melanoma1, "ID", "Day", "Volume", "Treatment", comparison = "anova")
+rfeat(melanoma2, "ID", "Day", "Volume", "Treatment", comparison = "both")
+rfeat(prostate, "ID", "Age", "BLI", "Genotype")

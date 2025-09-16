@@ -6,6 +6,9 @@ Description: This package contains functions for tumor growth rate experiments:
   analyzing existing data, simulating new data, and power/sample size
   calculations.
 Depends: R (>= 4.3.0)
+Imports:
+  dplyr,
+  ggplot2
 Suggests: lme4
 Author: Patrick Breheny
 Maintainer: Patrick Breheny <patrick-breheny@uiowa.edu>

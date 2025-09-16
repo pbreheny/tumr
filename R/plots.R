@@ -2,6 +2,7 @@
 #Breast Data
 
 #NA values ignored
+data(breast)
 
 breast_summary <- breast |>
   dplyr::group_by(Treatment, Week) |>

@@ -1,7 +1,22 @@
-
-
-#default summary measure is the median
-#drop_last in summarise all the time or option?
+#' Plot of tumor growth over time
+#'
+#' @param data  tumor growth data
+#' @param id  Column of subject ID's
+#' @param time Column of repeated time measurements
+#' @param measure Column of repeated measurements of tumor
+#' @param group Column specifying the treatment group for each measurement
+#' @param stat method of data summary for each group
+#' @param remove_na removes NA values in measure column before plotting
+#'
+#' @return A plot
+#'
+#' @examples
+#' data(breast)
+#' plots(breast, Treatment, Week, Volume, ID, stat = median, remove_na = FALSE)
+#' plots(breast, Treatment, Week, Volume, ID, remove_na = TRUE)
+#' data(melanoma1)
+#' plots(melanoma1, Treatment, Day, Volume, ID)
+#' @export
 
 plots <- function(data, group, time, measure, id, stat = median, remove_na = FALSE){
   data_summary <- data |>
@@ -22,11 +37,6 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
 
 }
 
-plots(breast, Treatment, Week, Volume, ID, stat = median, remove_na = FALSE)
-plots(breast, Treatment, Week, Volume, ID, remove_na = TRUE)
-plots(melanoma1, Treatment, Day, Volume, ID)
-plots(melanoma2, Treatment, Day, Volume, ID)
-plots(prostate, Genotype, Age, BLI, ID)
 
 
 

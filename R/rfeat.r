@@ -1,34 +1,27 @@
 #' Analysis based on response features
 #'
-#' @param Data    From gendat
-#' @param linear  Assume linear growth?
+#' Volume ~ Week * Trt, separate function that picks apart this
+#'
+#' exponential growth, separate packages
+#'
+#' @param data    From gendat
+#' @param id  Column of subject ID's
+#' @param time Column of repeated time measurements
+#' @param measure Column of repeated measurements of tumor
+#' @param group Column specifying the treatment group for each measurement
+#' @param transformation transformation of measurement
+#' @param comparison Takes "t.test", "anova", "tukey", or "both"
 #'
 #' @return A p-value
 #'
 #' @examples
-#' Data <- gendat(5, 2, 6)
-#' rfeat(Data)
-#'
+#' data(breast)
+#' rfeat(breast, "ID", "Week", "Volume", "Treatment", transformation = log1p,
+#' comparison = "t.test")
+#' data(melanoma1)
+#' rfeat(melanoma1, "ID", "Day", "Volume", "Treatment", comparison = "anova")
+#' rfeat(melanoma1, "ID", "Day", "Volume", "Treatment", comparison = "both")
 #' @export
-
-# rfeat <- function(Data, linear=TRUE) {
-#   y <- as.numeric(apply(Data$Y, c(1,3), function(x) coef(lm(x~Data$time))[2]))
-#   n <- dim(Data$Y)[1]
-#   g <- dim(Data$Y)[3]
-#   x <- rep(dimnames(Data$Y)[[3]], rep(n,g))
-#   if (linear) x <- as.numeric(x)
-#   fit <- lm(y~x)
-#   summary(fit)$coef[2,4]
-# }
-
-
-
-
-#Volume ~ Week * Trt, separate function that picks apart this
-
-
-#exponential growth, separate packages
-
 
 rfeat <- function(data, id, time, measure, group, transformation = NULL, comparison) {
    unique_ids <- unique(data[[id]])
@@ -65,18 +58,18 @@ rfeat <- function(data, id, time, measure, group, transformation = NULL, compari
 
   # Group-level summary
   betas_summary <- betas |>
-    dplyr::group_by(Group) |>
-    dplyr::summarise(average = mean(Beta), .groups = "drop")
+    dplyr::group_by(betas$Group) |>
+    dplyr::summarise(average = mean(betas$Beta), .groups = "drop")
 
   # Corrected statistical test using individual-level data
   #length(unique(betas$Group)) == 2
   if (comparison == "t.test") {
     stat_test <- t.test(Beta ~ Group, data = betas)
-  } else if (comparison == "anova"){
+  } else if (comparison == "anova") {
     stat_test <- summary(aov(Beta ~ Group, data = betas))
-  } else if (comparison == "tukey"){
+  } else if (comparison == "tukey") {
     stat_test <- TukeyHSD(aov(Beta ~ Group, data = betas))
-  } else if (comparison == "both"){
+  } else if (comparison == "both") {
     stat_test <- list(
       anova = summary(aov(Beta ~ Group, data = betas)),
       tukey = TukeyHSD(aov(Beta ~ Group, data = betas))
@@ -102,8 +95,3 @@ rfeat <- function(data, id, time, measure, group, transformation = NULL, compari
 
   return(result)
 }
-
-example2 <- rfeat(breast, "ID", "Week", "Volume", "Treatment", transformation = log1p, comparison = "t.test")
-rfeat(melanoma1, "ID", "Day", "Volume", "Treatment", comparison = "anova")
-rfeat(melanoma2, "ID", "Day", "Volume", "Treatment", comparison = "both")
-rfeat(prostate, "ID", "Age", "BLI", "Genotype")

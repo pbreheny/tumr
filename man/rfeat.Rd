@@ -4,21 +4,37 @@
 \alias{rfeat}
 \title{Analysis based on response features}
 \usage{
-rfeat(Data, linear = TRUE)
+rfeat(data, id, time, measure, group, transformation = NULL, comparison)
 }
 \arguments{
-\item{Data}{From gendat}
+\item{data}{From gendat}
 
-\item{linear}{Assume linear growth?}
+\item{id}{Column of subject ID's}
+
+\item{time}{Column of repeated time measurements}
+
+\item{measure}{Column of repeated measurements of tumor}
+
+\item{group}{Column specifying the treatment group for each measurement}
+
+\item{transformation}{transformation of measurement}
+
+\item{comparison}{Takes "t.test", "anova", "tukey", or "both"}
 }
 \value{
 A p-value
 }
 \description{
-Analysis based on response features
+Volume ~ Week * Trt, separate function that picks apart this
+}
+\details{
+exponential growth, separate packages
 }
 \examples{
-Data <- gendat(5, 2, 6)
-rfeat(Data)
-
+data(breast)
+rfeat(breast, "ID", "Week", "Volume", "Treatment", transformation = log1p,
+comparison = "t.test")
+data(melanoma1)
+rfeat(melanoma1, "ID", "Day", "Volume", "Treatment", comparison = "anova")
+rfeat(melanoma1, "ID", "Day", "Volume", "Treatment", comparison = "both")
 }

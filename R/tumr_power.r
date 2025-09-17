@@ -20,9 +20,31 @@ tumr_power <- function(n, effect_size, N=1000, ...) {
   pb <- utils::txtProgressBar(0, nrow(out), style=3)
   for (i in 1:nrow(out)) {
     dat <- gendat(n=out$n[i], effect_size=out$effect_size[i], ...)
-    out$p[i] <- rfeat(dat)
+    out$p[i] <- rfeat_pwr(dat)
     utils::setTxtProgressBar(pb, i)
   }
   close(pb)
   out
+}
+
+#' Analysis based on response features
+#'
+#' @param Data    From gendat
+#' @param linear  Assume linear growth?
+#'
+#' @return A p-value
+#'
+#' @examples
+#' dat <- gendat(5, 2, 6)
+#' rfeat_pwr(dat)
+#' @export
+
+rfeat_pwr <- function(Data, linear=TRUE) {
+  y <- as.numeric(apply(Data$Y, c(1,3), function(x) coef(lm(x~Data$time))[2]))
+  n <- dim(Data$Y)[1]
+  g <- dim(Data$Y)[3]
+  x <- rep(dimnames(Data$Y)[[3]], rep(n,g))
+  if (linear) x <- as.numeric(x)
+  fit <- lm(y~x)
+  summary(fit)$coef[2,4]
 }

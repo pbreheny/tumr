@@ -32,8 +32,17 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
   }
 
   ggplot2::ggplot() +
-    ggplot2::geom_line(data = data_full, ggplot2::aes(x = {{time}}, y = {{measure}}, group = {{id}}), alpha = 0.3)  +
-    ggplot2::geom_line(data = data_summary, ggplot2::aes(x = {{time}}, y = measure, color = {{group}}), linewidth = 1.2)
+    ggplot2::geom_line(data = data_full,
+                       ggplot2::aes(x = {{time}},
+                                    y = {{measure}},
+                                    group = {{id}},
+                                    color = {{group}}),
+                       alpha = 0.5)  +
+    ggplot2::geom_line(data = data_summary,
+                       ggplot2::aes(x = {{time}},
+                                    y = measure,
+                                    color = {{group}}),
+                       linewidth = 1.2)
 
 }
 

@@ -8,7 +8,9 @@ Description: This package contains functions for tumor growth rate experiments:
 Depends: R (>= 4.3.0)
 Imports:
   dplyr,
-  ggplot2
+  ggplot2,
+  tibble,
+  survival
 Suggests: lme4
 Author: Patrick Breheny
 Maintainer: Patrick Breheny <patrick-breheny@uiowa.edu>

@@ -46,7 +46,151 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
 
 }
 
+#' Plot of tumor growth over time
+#'
+#' @param x tumor growth data
+#'
+#' @return Processed Data
+#'
+#' @export
 
+ process_data <- function(x){
+   y <- x
+
+   if (length(which(is.na(x))) == 0) {
+     all_na_at_end <- TRUE
+   }
+   all_na_at_end <- all(which(is.na(x)) == seq(from = length(x) - length(which(is.na(x))) + 1, to = length(x)))
+
+   if(all_na_at_end != TRUE){
+     stop("Cannot have embedded missing values")
+   }
+
+   if(all(is.na(x))){
+     stop("Must have at least 1 non-missing value")
+   }
+
+   last_val_index <- max(which(!is.na(x)))
+   last_val <- x[last_val_index]
+
+   if (last_val_index < length(x)) {
+     x[(last_val_index + 1):length(x)] <- last_val
+   }
+
+   if(length(which(is.na(y))) == 0){
+     y[(1:length(y))] <- 1
+   } else {
+     y[(last_val_index + 1):length(x)] <- 0
+     y[(1:last_val_index)] <- 1
+   }
+
+   return(list(
+     data_no_missing_values = x,
+     missing_vector = y
+   ))
+ }
+
+
+ #' Plot of tumor growth over time using the median
+ #'
+ #' @param data  tumor growth data
+ #' @param id  Column of subject ID's
+ #' @param time Column of repeated time measurements
+ #' @param measure Column of repeated measurements of tumor
+ #' @param group Column specifying the treatment group for each measurement
+ #'
+ #' @return A plot
+ #'
+ #' @examples
+ #' data(breast)
+ #' plots_surv(
+ #' data = breast,
+ #' group = "Treatment",
+ #' time = "Week",
+ #' measure = "Volume",
+ #' id = "ID"
+ #' )
+ #' data(melanoma1)
+ #' plots_surv(
+ #' data = melanoma1,
+ #' group = "Treatment",
+ #' time = "Day",
+ #' measure = "Volume",
+ #' id = "ID"
+ #' )
+ #' @export
+
+
+ plots_surv <- function(data, group, time, measure, id) {
+   # Step 1: Compute survival-adjusted medians using process_data()
+   processed_data <- data |>
+     dplyr::group_by(.data[[id]]) |>
+     dplyr::group_modify(~ {
+       processed <- process_data(.x[[measure]])
+
+       surv_list <- base::mapply(
+         FUN = function(time, event) survival::Surv(time, event),
+         time = processed$data_no_missing_values,
+         event = processed$missing_vector,
+         SIMPLIFY = FALSE
+       )
+
+       tibble::tibble(
+         !!id := .x[[id]],
+         !!group := .x[[group]],
+         !!time := .x[[time]],
+         SurvObj = surv_list
+       )
+     }) |>
+     dplyr::ungroup()
+
+   # Step 2: Compute survival-adjusted medians per group + time
+   summary_data <- processed_data |>
+     dplyr::group_by(.data[[time]], .data[[group]]) |>
+     dplyr::group_modify(~ {
+       surv_vec <- tryCatch({
+         base::do.call("c", .x$SurvObj)
+       }, error = function(e) return(NULL))
+
+       if (is.null(surv_vec) || length(surv_vec) == 0) {
+         tibble::tibble(MedianVolume = NA_real_)
+       } else {
+         surv_fit <- survival::survfit(surv_vec ~ 1)
+         median_volume <- tryCatch({
+           stats::quantile(surv_fit, probs = 0.5)$quantile
+         }, error = function(e) NA_real_)
+
+         tibble::tibble(MedianVolume = median_volume)
+       }
+     }) |>
+     dplyr::ungroup()
+
+   # Step 3: Plot
+   ggplot2::ggplot() +
+     ggplot2::geom_line(
+       data = data,
+       ggplot2::aes(
+         x = .data[[time]],
+         y = .data[[measure]],
+         group = .data[[id]],
+         color = .data[[group]]
+       ),
+       alpha = 0.5
+     ) +
+     ggplot2::geom_line(
+       data = summary_data,
+       ggplot2::aes(
+         x = .data[[time]],
+         y = summary_data$MedianVolume,
+         color = .data[[group]]
+       ),
+       linewidth = 1.2
+     ) +
+     ggplot2::labs(
+       y = "Volume",
+       title = "Volume over Time"
+     )
+ }
 
 
 

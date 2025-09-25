@@ -95,3 +95,4 @@ rfeat <- function(data, id, time, measure, group, transformation = NULL, compari
 
   return(result)
 }
+

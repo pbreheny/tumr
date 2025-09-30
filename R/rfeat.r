@@ -58,8 +58,8 @@ rfeat <- function(data, id, time, measure, group, transformation = NULL, compari
 
   # Group-level summary
   betas_summary <- betas |>
-    dplyr::group_by(betas$Group) |>
-    dplyr::summarise(average = mean(betas$Beta), .groups = "drop")
+    dplyr::group_by(Group) |>
+    dplyr::summarise(average = mean(Beta), .groups = "drop")
 
   # Corrected statistical test using individual-level data
   #length(unique(betas$Group)) == 2

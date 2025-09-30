@@ -122,7 +122,7 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
 
 
  plots_surv <- function(data, group, time, measure, id) {
-   # Step 1: Compute survival-adjusted medians using process_data()
+   # Compute survival-adjusted medians using process_data()
    processed_data <- data |>
      dplyr::group_by(.data[[id]]) |>
      dplyr::group_modify(~ {
@@ -144,7 +144,7 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
      }) |>
      dplyr::ungroup()
 
-   # Step 2: Compute survival-adjusted medians per group + time
+   # Compute survival-adjusted medians per group + time
    summary_data <- processed_data |>
      dplyr::group_by(.data[[time]], .data[[group]]) |>
      dplyr::group_modify(~ {
@@ -165,7 +165,7 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
      }) |>
      dplyr::ungroup()
 
-   # Step 3: Plot
+   # Plot
    ggplot2::ggplot() +
      ggplot2::geom_line(
        data = data,

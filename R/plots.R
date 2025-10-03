@@ -103,7 +103,7 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
  #'
  #' @examples
  #' data(breast)
- #' plots_surv(
+ #' plot_median(
  #' data = breast,
  #' group = "Treatment",
  #' time = "Week",
@@ -111,7 +111,7 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
  #' id = "ID"
  #' )
  #' data(melanoma1)
- #' plots_surv(
+ #' plot_median(
  #' data = melanoma1,
  #' group = "Treatment",
  #' time = "Day",
@@ -121,7 +121,34 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
  #' @export
 
 
- plots_surv <- function(data, group, time, measure, id) {
+ plot_median <- function(data, group, time, measure, id) {
+
+   #adding in missing rows
+   # data <- data |>
+   #   tidyr::complete(.data[[id]], .data[[time]]) |>
+   #   dplyr::group_by(.data[[id]]) |>
+   #   tidyr::fill(.data[[group]], .direction = "down")
+
+   all_combos <- expand.grid(
+     temp_id = unique(data[[id]]),
+     temp_time = unique(data[[time]])
+   )
+   names(all_combos) <- c(id, time)
+   data <- merge(all_combos, data, by = c(id, time), all.x = TRUE)
+   data <- data[order(data[[id]], data[[time]]), ]
+   data[[group]] <- ave(
+     data[[group]],
+     data[[id]],
+     FUN = function(x) {
+       for (i in seq_along(x)) {
+         if (is.na(x[i]) && i > 1) {
+           x[i] <- x[i - 1]
+         }
+       }
+       x
+     }
+   )
+
    # Compute survival-adjusted medians using process_data()
    processed_data <- data |>
      dplyr::group_by(.data[[id]]) |>
@@ -148,20 +175,14 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
    summary_data <- processed_data |>
      dplyr::group_by(.data[[time]], .data[[group]]) |>
      dplyr::group_modify(~ {
-       surv_vec <- tryCatch({
-         base::do.call("c", .x$SurvObj)
-       }, error = function(e) return(NULL))
+       surv_vec <- base::do.call("c", .x$SurvObj)
 
-       if (is.null(surv_vec) || length(surv_vec) == 0) {
-         tibble::tibble(MedianVolume = NA_real_)
-       } else {
          surv_fit <- survival::survfit(surv_vec ~ 1)
-         median_volume <- tryCatch({
-           stats::quantile(surv_fit, probs = 0.5)$quantile
-         }, error = function(e) NA_real_)
+         median_volume <- stats::quantile(surv_fit, probs = 0.5)$quantile
 
          tibble::tibble(MedianVolume = median_volume)
-       }
+
+
      }) |>
      dplyr::ungroup()
 
@@ -181,7 +202,7 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
        data = summary_data,
        ggplot2::aes(
          x = .data[[time]],
-         y = summary_data$MedianVolume,
+         y = .data[["MedianVolume"]],
          color = .data[[group]]
        ),
        linewidth = 1.2
@@ -190,8 +211,9 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
        y = "Volume",
        title = "Volume over Time"
      )
+
+   #print(data)
+
  }
-
-
 
 

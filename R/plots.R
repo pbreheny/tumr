@@ -178,9 +178,21 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
        surv_vec <- base::do.call("c", .x$SurvObj)
 
          surv_fit <- survival::survfit(surv_vec ~ 1)
-         median_volume <- stats::quantile(surv_fit, probs = 0.5)$quantile
+         # median_volume <- stats::quantile(surv_fit, probs = 0.5)$quantile
+         #
+         # tibble::tibble(MedianVolume = median_volume)
 
-         tibble::tibble(MedianVolume = median_volume)
+         fit_table <- summary(surv_fit)$table
+
+         median_volume <- fit_table["median"]
+         lower_ci <- fit_table["0.95LCL"]
+         upper_ci <- fit_table["0.95UCL"]
+
+         tibble::tibble(
+           MedianVolume = median_volume,
+           CI_Lower = lower_ci,
+           CI_Upper = upper_ci
+         )
 
 
      }) |>
@@ -212,6 +224,7 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
        title = "Volume over Time"
      )
 
+   #print(summary_data)
    #print(data)
 
  }

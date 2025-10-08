@@ -4,10 +4,12 @@
 \alias{process_data}
 \title{Plot of tumor growth over time}
 \usage{
-process_data(x)
+process_data(time, measure)
 }
 \arguments{
-\item{x}{tumor growth data}
+\item{time}{vector of time measurements}
+
+\item{measure}{vector of tumor growth measurements}
 }
 \value{
 Processed Data

@@ -11,7 +11,8 @@ Imports:
   ggplot2,
   rlang,
   survival,
-  tibble
+  tibble,
+  tidyr
 Suggests: lme4
 Author: Patrick Breheny
 Maintainer: Patrick Breheny <patrick-breheny@uiowa.edu>

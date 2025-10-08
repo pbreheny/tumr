@@ -48,47 +48,61 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
 
 #' Plot of tumor growth over time
 #'
-#' @param x tumor growth data
+#' @param time vector of time measurements
+#' @param measure vector of tumor growth measurements
 #'
 #' @return Processed Data
 #'
 #' @export
 
- process_data <- function(x){
-   y <- x
+process_data <- function(time, measure) {
 
-   if (length(which(is.na(x))) == 0) {
-     all_na_at_end <- TRUE
-   }
-   all_na_at_end <- all(which(is.na(x)) == seq(from = length(x) - length(which(is.na(x))) + 1, to = length(x)))
+  if (all(is.na(measure))) {
+    stop("Must have at least one non-missing value.")
+  }
 
-   if(all_na_at_end != TRUE){
-     stop("Cannot have embedded missing values")
-   }
+  # Identify NA positions
+  na_indices <- which(is.na(measure))
 
-   if(all(is.na(x))){
-     stop("Must have at least 1 non-missing value")
-   }
+  # Copy for cleaned output
+  measure_clean <- measure
 
-   last_val_index <- max(which(!is.na(x)))
-   last_val <- x[last_val_index]
+  # Find last non-NA index
+  last_val_index <- max(which(!is.na(measure)))
 
-   if (last_val_index < length(x)) {
-     x[(last_val_index + 1):length(x)] <- last_val
-   }
+  # Step 1: Interpolate embedded NAs
+  if (length(na_indices) > 0) {
+    interp_fun <- approxfun(
+      x = time[!is.na(measure)],
+      y = measure[!is.na(measure)],
+      rule = 1
+    )
 
-   if(length(which(is.na(y))) == 0){
-     y[(1:length(y))] <- 1
-   } else {
-     y[(last_val_index + 1):length(x)] <- 0
-     y[(1:last_val_index)] <- 1
-   }
+    for (i in na_indices) {
+      if (i <= last_val_index) {
+        # Interpolate only embedded NAs
+        measure_clean[i] <- interp_fun(time[i])
+      }
+    }
 
-   return(list(
-     data_no_missing_values = x,
-     missing_vector = y
-   ))
- }
+    # Step 2: Fill trailing NAs with last non-NA value
+    if (last_val_index < length(measure)) {
+      measure_clean[(last_val_index + 1):length(measure)] <- measure[last_val_index]
+    }
+  }
+
+  # Step 3: Construct missing vector
+  missing_vector <- rep(1, length(measure))
+  if (last_val_index < length(measure)) {
+    missing_vector[(last_val_index + 1):length(measure)] <- 0
+  }
+
+  return(list(
+    data_no_missing_values = measure_clean,
+    missing_vector = missing_vector
+  ))
+}
+
 
 
  #' Plot of tumor growth over time using the median
@@ -118,42 +132,39 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
  #' measure = "Volume",
  #' id = "ID"
  #' )
+ #' data(melanoma2)
+ #' plot_median(
+ #' data = melanoma2,
+ #' group = "Treatment",
+ #' time = "Day",
+ #' measure = "Volume",
+ #' id = "ID"
+ #' )
+ #' data(prostate)
+ #' plot_median(
+ #' data = prostate,
+ #' group = "Genotype",
+ #' time = "Age",
+ #' measure = "BLI",
+ #' id = "ID"
+ #' )
  #' @export
 
 
  plot_median <- function(data, group, time, measure, id) {
 
    #adding in missing rows
-   # data <- data |>
-   #   tidyr::complete(.data[[id]], .data[[time]]) |>
-   #   dplyr::group_by(.data[[id]]) |>
-   #   tidyr::fill(.data[[group]], .direction = "down")
+   data <- data |>
+     tidyr::complete(.data[[id]], .data[[time]]) |>
+     dplyr::group_by(.data[[id]]) |>
+     tidyr::fill(.data[[group]], .direction = "down")
 
-   all_combos <- expand.grid(
-     temp_id = unique(data[[id]]),
-     temp_time = unique(data[[time]])
-   )
-   names(all_combos) <- c(id, time)
-   data <- merge(all_combos, data, by = c(id, time), all.x = TRUE)
-   data <- data[order(data[[id]], data[[time]]), ]
-   data[[group]] <- ave(
-     data[[group]],
-     data[[id]],
-     FUN = function(x) {
-       for (i in seq_along(x)) {
-         if (is.na(x[i]) && i > 1) {
-           x[i] <- x[i - 1]
-         }
-       }
-       x
-     }
-   )
 
    # Compute survival-adjusted medians using process_data()
    processed_data <- data |>
      dplyr::group_by(.data[[id]]) |>
      dplyr::group_modify(~ {
-       processed <- process_data(.x[[measure]])
+       processed <- process_data(.x[[time]], .x[[measure]])
 
        surv_list <- base::mapply(
          FUN = function(time, event) survival::Surv(time, event),
@@ -178,9 +189,6 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
        surv_vec <- base::do.call("c", .x$SurvObj)
 
          surv_fit <- survival::survfit(surv_vec ~ 1)
-         # median_volume <- stats::quantile(surv_fit, probs = 0.5)$quantile
-         #
-         # tibble::tibble(MedianVolume = median_volume)
 
          fit_table <- summary(surv_fit)$table
 
@@ -199,9 +207,15 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
      dplyr::ungroup()
 
    # Plot
+    data_ind <- data |>
+      dplyr::filter(!is.na(.data[[measure]]))
+
+    data_sum <- summary_data |>
+     dplyr::filter(!is.na(summary_data$MedianVolume))
+
    ggplot2::ggplot() +
      ggplot2::geom_line(
-       data = data,
+       data = data_ind,
        ggplot2::aes(
          x = .data[[time]],
          y = .data[[measure]],
@@ -211,7 +225,7 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
        alpha = 0.5
      ) +
      ggplot2::geom_line(
-       data = summary_data,
+       data = data_sum,
        ggplot2::aes(
          x = .data[[time]],
          y = .data[["MedianVolume"]],
@@ -228,5 +242,4 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
    #print(data)
 
  }
-
 

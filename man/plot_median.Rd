@@ -40,4 +40,20 @@ time = "Day",
 measure = "Volume",
 id = "ID"
 )
+data(melanoma2)
+plot_median(
+data = melanoma2,
+group = "Treatment",
+time = "Day",
+measure = "Volume",
+id = "ID"
+)
+data(prostate)
+plot_median(
+data = prostate,
+group = "Genotype",
+time = "Age",
+measure = "BLI",
+id = "ID"
+)
 }

@@ -112,6 +112,7 @@ process_data <- function(time, measure) {
  #' @param time Column of repeated time measurements
  #' @param measure Column of repeated measurements of tumor
  #' @param group Column specifying the treatment group for each measurement
+ #' @param type type of plot produced
  #'
  #' @return A plot
  #'
@@ -130,7 +131,8 @@ process_data <- function(time, measure) {
  #' group = "Treatment",
  #' time = "Day",
  #' measure = "Volume",
- #' id = "ID"
+ #' id = "ID",
+ #' type = "conf_int"
  #' )
  #' data(melanoma2)
  #' plot_median(
@@ -151,7 +153,7 @@ process_data <- function(time, measure) {
  #' @export
 
 
- plot_median <- function(data, group, time, measure, id) {
+ plot_median <- function(data, group, time, measure, id, type = "spaghetti") {
 
    #adding in missing rows
    data <- data |>
@@ -211,34 +213,64 @@ process_data <- function(time, measure) {
       dplyr::filter(!is.na(.data[[measure]]))
 
     data_sum <- summary_data |>
-     dplyr::filter(!is.na(summary_data$MedianVolume))
+     dplyr::filter(!is.na(summary_data$MedianVolume)) |>
+     dplyr::mutate(CI_Lower = tidyr::replace_na(CI_Lower, 0),
+                   CI_Upper = tidyr::replace_na(CI_Upper, Inf))
 
-   ggplot2::ggplot() +
-     ggplot2::geom_line(
-       data = data_ind,
-       ggplot2::aes(
-         x = .data[[time]],
-         y = .data[[measure]],
-         group = .data[[id]],
-         color = .data[[group]]
-       ),
-       alpha = 0.5
-     ) +
-     ggplot2::geom_line(
-       data = data_sum,
-       ggplot2::aes(
-         x = .data[[time]],
-         y = .data[["MedianVolume"]],
-         color = .data[[group]]
-       ),
-       linewidth = 1.2
-     ) +
-     ggplot2::labs(
-       y = "Volume",
-       title = "Volume over Time"
-     )
+    if(type == "spaghetti") {
+      ggplot2::ggplot() +
+          ggplot2::geom_line(
+            data = data_ind,
+            ggplot2::aes(
+              x = .data[[time]],
+              y = .data[[measure]],
+              group = .data[[id]],
+              color = .data[[group]]
+            ),
+            alpha = 0.5
+          ) +
+          ggplot2::geom_line(
+            data = data_sum,
+            ggplot2::aes(
+              x = .data[[time]],
+              y = .data[["MedianVolume"]],
+              color = .data[[group]]
+            ),
+            linewidth = 1.2
+          ) +
+          ggplot2::labs(
+            y = "Volume",
+            title = "Volume over Time"
+          )
+    } else if(type == "conf_int"){
+      ggplot2::ggplot() +
+        ggplot2::geom_line(
+          data = data_sum,
+          ggplot2::aes(
+            x = .data[[time]],
+            y = .data[["MedianVolume"]],
+            color = .data[[group]]
+          ),
+          linewidth = 1.2
+        ) +
+        ggplot2::geom_ribbon(
+          data = data_sum,
+          ggplot2::aes(
+            x = .data[[time]],
+            ymin = CI_Lower,
+            ymax = CI_Upper,
+            fill = .data[[group]]
+          ),
+          alpha = 0.3
+        ) +
+        ggplot2::labs(
+          y = "Volume",
+          title = "Volume over Time"
+        )
+    }
 
    #print(summary_data)
+   #print(data_sum)
    #print(data)
 
  }

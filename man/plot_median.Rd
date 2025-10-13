@@ -4,7 +4,7 @@
 \alias{plot_median}
 \title{Plot of tumor growth over time using the median}
 \usage{
-plot_median(data, group, time, measure, id)
+plot_median(data, group, time, measure, id, type = "spaghetti")
 }
 \arguments{
 \item{data}{tumor growth data}
@@ -16,6 +16,8 @@ plot_median(data, group, time, measure, id)
 \item{measure}{Column of repeated measurements of tumor}
 
 \item{id}{Column of subject ID's}
+
+\item{type}{type of plot produced}
 }
 \value{
 A plot
@@ -38,7 +40,8 @@ data = melanoma1,
 group = "Treatment",
 time = "Day",
 measure = "Volume",
-id = "ID"
+id = "ID",
+type = "conf_int"
 )
 data(melanoma2)
 plot_median(

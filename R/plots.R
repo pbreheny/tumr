@@ -58,7 +58,6 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
 process_data <- function(time, measure) {
 
   if (all(is.na(measure))) {
-    browser()
     stop("Must have at least one non-missing value.")
   }
 

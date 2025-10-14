@@ -5,4 +5,5 @@
 ^\.github$
 ^\.lintr$
 ^\.version\.json$
-
+^\.quarto$
+^vignettes/.quarto$

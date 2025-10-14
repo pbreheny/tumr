@@ -1,0 +1,9 @@
+---
+title: "Getting started with the tumr package"
+vignette: >
+  %\VignetteIndexEntry{Quarto HTML Vignettes}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+We should write a brief intro here for one of the data sets.

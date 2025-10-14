@@ -4,7 +4,7 @@
 \alias{plot_median}
 \title{Plot of tumor growth over time using the median}
 \usage{
-plot_median(data, group, time, measure, id, type = "spaghetti")
+plot_median(data, group, time, measure, id, type = c("spaghetti", "conf_int"))
 }
 \arguments{
 \item{data}{tumor growth data}

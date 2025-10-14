@@ -7,5 +7,22 @@
 \title{tumr: Analysis and Power Calculations for Tumor Growth Rates
 Analysis and power calculations for tumor growth rates.}
 \description{
-This package contains functions for tumor growth rate experiments: analyzing existing data, simulating new data, and power/sample size calculations.
+This package contains functions for tumor growth rate experiments: plotting and analyzing existing data, simulating new data, and power/sample size calculations.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://pbreheny.github.io/tumr/}
+  \item \url{https://github.com/pbreheny/tumr}
+}
+
+}
+\author{
+\strong{Maintainer}: Patrick Breheny \email{patrick-breheny@uiowa.edu} (\href{https://orcid.org/0000-0002-0650-1119}{ORCID})
+
+Authors:
+\itemize{
+  \item Sydney Plowman
+}
+
 }

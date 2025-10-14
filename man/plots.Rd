@@ -30,7 +30,7 @@ Plot of tumor growth over time
 \examples{
 data(breast)
 plots(breast, Treatment, Week, Volume, ID, stat = median, remove_na = FALSE)
-plots(breast, Treatment, Week, Volume, ID, remove_na = TRUE)
+plots(breast, Treatment, Week, Volume, ID, stat = mean, remove_na = TRUE)
 data(melanoma1)
 plots(melanoma1, Treatment, Day, Volume, ID)
 }

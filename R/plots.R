@@ -13,7 +13,7 @@
 #' @examples
 #' data(breast)
 #' plots(breast, Treatment, Week, Volume, ID, stat = median, remove_na = FALSE)
-#' plots(breast, Treatment, Week, Volume, ID, remove_na = TRUE)
+#' plots(breast, Treatment, Week, Volume, ID, stat = mean, remove_na = TRUE)
 #' data(melanoma1)
 #' plots(melanoma1, Treatment, Day, Volume, ID)
 #' @export
@@ -58,6 +58,7 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
 process_data <- function(time, measure) {
 
   if (all(is.na(measure))) {
+    browser()
     stop("Must have at least one non-missing value.")
   }
 
@@ -153,7 +154,8 @@ process_data <- function(time, measure) {
  #' @export
 
 
- plot_median <- function(data, group, time, measure, id, type = "spaghetti") {
+ plot_median <- function(data, group, time, measure, id, type = c("spaghetti", "conf_int")) {
+   type <- match.arg(type)
 
    #adding in missing rows
    data <- data |>

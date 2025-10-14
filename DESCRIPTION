@@ -1,10 +1,13 @@
 Package: tumr
 Title: Analysis and Power Calculations for Tumor Growth Rates
 Version: 0.5.1
-Date: 2025-05-27
+Authors@R: c(
+  person("Patrick", "Breheny", role=c("aut","cre"),
+    email="patrick-breheny@uiowa.edu", comment=c(ORCID="0000-0002-0650-1119")),
+  person("Sydney", "Plowman", role='aut'))
 Description: This package contains functions for tumor growth rate experiments:
-  analyzing existing data, simulating new data, and power/sample size
-  calculations.
+  plotting and analyzing existing data, simulating new data, and power/sample
+  size calculations.
 Depends: R (>= 4.3.0)
 Imports:
   dplyr,
@@ -13,11 +16,13 @@ Imports:
   survival,
   tibble,
   tidyr
-Suggests: lme4
-Author: Patrick Breheny
-Maintainer: Patrick Breheny <patrick-breheny@uiowa.edu>
+Suggests:
+  lme4,
+  quarto
+VignetteBuilder: quarto
+URL: https://pbreheny.github.io/tumr/, https://github.com/pbreheny/tumr
 Encoding: UTF-8
 License: GPL-3
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-LazyData: true
+LazyData: TRUE

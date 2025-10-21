@@ -11,20 +11,42 @@
 #' @param group Column specifying the treatment group for each measurement
 #' @param transformation transformation of measurement
 #' @param comparison Takes "t.test", "anova", "tukey", or "both"
+#' @param tumr_obj takes tumr_obj created by tumr()
 #'
 #' @return A p-value
 #'
 #' @examples
 #' data(breast)
-#' rfeat(breast, "ID", "Week", "Volume", "Treatment", transformation = log1p,
+#' rfeat(
+#' data = breast,
+#' id = "ID",
+#' time = "Week",
+#' measure = "Volume",
+#' group = "Treatment",
+#' transformation = log1p,
 #' comparison = "t.test")
 #' data(melanoma1)
-#' rfeat(melanoma1, "ID", "Day", "Volume", "Treatment", comparison = "anova")
-#' rfeat(melanoma1, "ID", "Day", "Volume", "Treatment", comparison = "both")
+#' rfeat(
+#' data = melanoma1,
+#' id = "ID",
+#' time = "Day",
+#' measure = "Volume",
+#' group = "Treatment",
+#' comparison = "anova")
+#'
 #' @export
 
-rfeat <- function(data, id, time, measure, group, transformation = NULL, comparison) {
-   unique_ids <- unique(data[[id]])
+rfeat <- function(data, tumr_obj = NULL, id = NULL, time = NULL, measure = NULL, group = NULL, transformation = NULL, comparison = c("t.test", "anova", "tukey", "both")) {
+  comparison <- match.arg(comparison)
+
+  if (!is.null(tumr_obj)) {
+    if (is.null(id)) id <- tumr_obj$id
+    if (is.null(time)) time <- tumr_obj$time
+    if (is.null(measure)) measure <- tumr_obj$measure
+    if (is.null(group)) group <- tumr_obj$group
+  }
+
+  unique_ids <- unique(data[[id]])
 
   betas <- data.frame(
     ID = numeric(length(unique_ids)),

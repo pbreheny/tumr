@@ -4,10 +4,20 @@
 \alias{plot_median}
 \title{Plot of tumor growth over time using the median}
 \usage{
-plot_median(data, group, time, measure, id, type = c("spaghetti", "conf_int"))
+plot_median(
+  data,
+  tumr_obj = NULL,
+  group = NULL,
+  time = NULL,
+  measure = NULL,
+  id = NULL,
+  type = c("spaghetti", "conf_int")
+)
 }
 \arguments{
 \item{data}{tumor growth data}
+
+\item{tumr_obj}{takes tumr_obj created by tumr()}
 
 \item{group}{Column specifying the treatment group for each measurement}
 
@@ -32,9 +42,15 @@ data = breast,
 group = "Treatment",
 time = "Week",
 measure = "Volume",
-id = "ID"
+id = "ID",
+type = "conf_int"
 )
 data(melanoma1)
+meta_data <- tumr(ID, Day, Volume, Treatment)
+plot_median(
+data = melanoma1,
+tumr_obj = meta_data
+)
 plot_median(
 data = melanoma1,
 group = "Treatment",

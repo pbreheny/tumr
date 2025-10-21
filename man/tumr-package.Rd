@@ -2,7 +2,6 @@
 % Please edit documentation in R/tumr.r
 \docType{package}
 \name{tumr-package}
-\alias{tumr}
 \alias{tumr-package}
 \title{tumr: Analysis and Power Calculations for Tumor Growth Rates
 Analysis and power calculations for tumor growth rates.}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plots.R
 \name{process_data}
 \alias{process_data}
-\title{Plot of tumor growth over time}
+\title{Process data to be used in plot_median}
 \usage{
 process_data(time, measure)
 }
@@ -15,5 +15,5 @@ process_data(time, measure)
 Processed Data
 }
 \description{
-Plot of tumor growth over time
+Process data to be used in plot_median
 }

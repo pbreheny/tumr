@@ -46,7 +46,7 @@ plots <- function(data, group, time, measure, id, stat = median, remove_na = FAL
 
 }
 
-#' Plot of tumor growth over time
+#' Process data to be used in plot_median
 #'
 #' @param time vector of time measurements
 #' @param measure vector of tumor growth measurements
@@ -113,6 +113,7 @@ process_data <- function(time, measure) {
  #' @param measure Column of repeated measurements of tumor
  #' @param group Column specifying the treatment group for each measurement
  #' @param type type of plot produced
+ #' @param tumr_obj takes tumr_obj created by tumr()
  #'
  #' @return A plot
  #'
@@ -123,9 +124,15 @@ process_data <- function(time, measure) {
  #' group = "Treatment",
  #' time = "Week",
  #' measure = "Volume",
- #' id = "ID"
+ #' id = "ID",
+ #' type = "conf_int"
  #' )
  #' data(melanoma1)
+ #' meta_data <- tumr(ID, Day, Volume, Treatment)
+ #' plot_median(
+ #' data = melanoma1,
+ #' tumr_obj = meta_data
+ #' )
  #' plot_median(
  #' data = melanoma1,
  #' group = "Treatment",
@@ -153,8 +160,15 @@ process_data <- function(time, measure) {
  #' @export
 
 
- plot_median <- function(data, group, time, measure, id, type = c("spaghetti", "conf_int")) {
+ plot_median <- function(data, tumr_obj = NULL, group = NULL, time = NULL, measure = NULL, id = NULL, type = c("spaghetti", "conf_int")) {
    type <- match.arg(type)
+
+   if (!is.null(tumr_obj)) {
+     if (is.null(id)) id <- tumr_obj$id
+     if (is.null(time)) time <- tumr_obj$time
+     if (is.null(measure)) measure <- tumr_obj$measure
+     if (is.null(group)) group <- tumr_obj$group
+   }
 
    #adding in missing rows
    data <- data |>
@@ -271,8 +285,8 @@ process_data <- function(time, measure) {
     }
 
    #print(summary_data)
-   #print(data_sum)
-   #print(data)
+   #print(data_sum, n = 100)
+   #print(fit_table)
 
  }
 

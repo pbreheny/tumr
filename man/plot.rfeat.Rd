@@ -18,7 +18,12 @@ A plot
 Plot based on rfeat analysis
 }
 \examples{
-example <- rfeat(breast, "ID", "Week", "Volume", "Treatment",
-transformation = log1p, comparison = "t.test")
+example <- rfeat(data = breast,
+id = "ID",
+time = "Week",
+measure = "Volume",
+group = "Treatment",
+transformation = log1p,
+comparison = "t.test")
 plot(example)
 }

@@ -4,10 +4,21 @@
 \alias{rfeat}
 \title{Analysis based on response features}
 \usage{
-rfeat(data, id, time, measure, group, transformation = NULL, comparison)
+rfeat(
+  data,
+  tumr_obj = NULL,
+  id = NULL,
+  time = NULL,
+  measure = NULL,
+  group = NULL,
+  transformation = NULL,
+  comparison = c("t.test", "anova", "tukey", "both")
+)
 }
 \arguments{
 \item{data}{From gendat}
+
+\item{tumr_obj}{takes tumr_obj created by tumr()}
 
 \item{id}{Column of subject ID's}
 
@@ -32,9 +43,21 @@ exponential growth, separate packages
 }
 \examples{
 data(breast)
-rfeat(breast, "ID", "Week", "Volume", "Treatment", transformation = log1p,
+rfeat(
+data = breast,
+id = "ID",
+time = "Week",
+measure = "Volume",
+group = "Treatment",
+transformation = log1p,
 comparison = "t.test")
 data(melanoma1)
-rfeat(melanoma1, "ID", "Day", "Volume", "Treatment", comparison = "anova")
-rfeat(melanoma1, "ID", "Day", "Volume", "Treatment", comparison = "both")
+rfeat(
+data = melanoma1,
+id = "ID",
+time = "Day",
+measure = "Volume",
+group = "Treatment",
+comparison = "anova")
+
 }

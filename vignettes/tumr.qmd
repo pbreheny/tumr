@@ -7,3 +7,55 @@ vignette: >
 ---
 
 We should write a brief intro here for one of the data sets.
+
+## melanoma2 data set
+
+```{r}
+data("melanoma2")
+```
+
+## Plotting the Mean
+
+```{r}
+plots(melanoma2, Treatment, Day, Volume, ID, stat = mean)
+```
+
+
+## Plotting the Median
+
+```{r}
+ plot_median(
+ data = melanoma2,
+group = "Treatment",
+ time = "Day",
+ measure = "Volume",
+ id = "ID"
+ )
+```
+
+
+## Plotting the median using meta data produced from the tumr function
+
+```{r}
+meta_data <- tumr(ID, Day, Volume, Treatment)
+
+meta_data |>
+  plot_median(data = melanoma2)
+```
+
+
+## Response Feature Analysis of melanoma2
+
+```{r}
+(rfeat_ex <- meta_data |>
+              rfeat(data = melanoma2,
+              comparison = "both"))
+```
+
+
+## rfeat plot
+
+```{r}
+plot(rfeat_ex)
+```
+

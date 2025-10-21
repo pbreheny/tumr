@@ -43,7 +43,16 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rfeat</span><span class="op">(</span><span class="va">data</span>, <span class="va">id</span>, <span class="va">time</span>, <span class="va">measure</span>, <span class="va">group</span>, transformation <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">comparison</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rfeat</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  tumr_obj <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  time <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  measure <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  transformation <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  comparison <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"t.test"</span>, <span class="st">"anova"</span>, <span class="st">"tukey"</span>, <span class="st">"both"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -52,6 +61,10 @@
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>From gendat</p></dd>
+
+
+<dt id="arg-tumr-obj">tumr_obj<a class="anchor" aria-label="anchor" href="#arg-tumr-obj"></a></dt>
+<dd><p>takes tumr_obj created by tumr()</p></dd>
 
 
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
@@ -90,7 +103,13 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">breast</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">rfeat</span><span class="op">(</span><span class="va">breast</span>, <span class="st">"ID"</span>, <span class="st">"Week"</span>, <span class="st">"Volume"</span>, <span class="st">"Treatment"</span>, transformation <span class="op">=</span> <span class="va">log1p</span>,</span></span>
+<span class="r-in"><span><span class="fu">rfeat</span><span class="op">(</span></span></span>
+<span class="r-in"><span>data <span class="op">=</span> <span class="va">breast</span>,</span></span>
+<span class="r-in"><span>id <span class="op">=</span> <span class="st">"ID"</span>,</span></span>
+<span class="r-in"><span>time <span class="op">=</span> <span class="st">"Week"</span>,</span></span>
+<span class="r-in"><span>measure <span class="op">=</span> <span class="st">"Volume"</span>,</span></span>
+<span class="r-in"><span>group <span class="op">=</span> <span class="st">"Treatment"</span>,</span></span>
+<span class="r-in"><span>transformation <span class="op">=</span> <span class="va">log1p</span>,</span></span>
 <span class="r-in"><span>comparison <span class="op">=</span> <span class="st">"t.test"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $relevant_information</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $relevant_information$ID</span>
@@ -161,7 +180,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "rfeat"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">melanoma1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">rfeat</span><span class="op">(</span><span class="va">melanoma1</span>, <span class="st">"ID"</span>, <span class="st">"Day"</span>, <span class="st">"Volume"</span>, <span class="st">"Treatment"</span>, comparison <span class="op">=</span> <span class="st">"anova"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">rfeat</span><span class="op">(</span></span></span>
+<span class="r-in"><span>data <span class="op">=</span> <span class="va">melanoma1</span>,</span></span>
+<span class="r-in"><span>id <span class="op">=</span> <span class="st">"ID"</span>,</span></span>
+<span class="r-in"><span>time <span class="op">=</span> <span class="st">"Day"</span>,</span></span>
+<span class="r-in"><span>measure <span class="op">=</span> <span class="st">"Volume"</span>,</span></span>
+<span class="r-in"><span>group <span class="op">=</span> <span class="st">"Treatment"</span>,</span></span>
+<span class="r-in"><span>comparison <span class="op">=</span> <span class="st">"anova"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $relevant_information</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $relevant_information$ID</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ID"</span>
@@ -232,95 +257,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "rfeat"</span>
-<span class="r-in"><span><span class="fu">rfeat</span><span class="op">(</span><span class="va">melanoma1</span>, <span class="st">"ID"</span>, <span class="st">"Day"</span>, <span class="st">"Volume"</span>, <span class="st">"Treatment"</span>, comparison <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $relevant_information</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $relevant_information$ID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ID"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $relevant_information$Time</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Day"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $relevant_information$Measure</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Volume"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $relevant_information$Group</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Treatment"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $betas</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ID       Beta Group</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 25.0243498     A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 27.5655607     A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3 31.1303778     A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4 17.7765127     A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5 28.3981325     A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   6 38.3254132     A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   7 22.9843460     A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   8 29.3868723     A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9 28.8107735     A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 13.6500593     B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 11 14.0434304     B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 12  1.3993283     B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 13  4.9324724     B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 14 -0.2875842     B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 15 15.3946020     B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 16  0.5472040     B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 17  1.5044424     B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 18 -0.3080538     B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 19 25.1772612     C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 20 25.2077692     C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 21 30.0712155     C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 22 22.0009279     C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 23 24.1466416     C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 24 30.6078329     C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 25 31.9903857     C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 26 20.1146366     C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 27  0.2376730     C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 28 -0.2640063     D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 29 -0.2115069     D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 30 -0.1780819     D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31 31 -0.2713905     D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32 32  1.2511679     D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33 33  0.3475548     D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34 34 -0.2252633     D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35 35 -0.2201779     D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $summary</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Group average</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> A     27.7   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> B      5.65  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> C     23.3   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> D      0.028<span style="text-decoration: underline;">5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $test$anova</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Group        3   4645  1548.3   35.62 3.64e-10 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals   31   1347    43.5                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $test$tukey</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Tukey multiple comparisons of means</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     95% family-wise confidence level</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fit: aov(formula = Beta ~ Group, data = betas)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $Group</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           diff        lwr        upr     p adj</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B-A -22.058493 -30.493598 -13.623388 0.0000003</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C-A  -4.427555 -12.862660   4.007550 0.4940635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D-A -27.682834 -36.377542 -18.988126 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C-B  17.630938   9.195833  26.066043 0.0000179</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D-B  -5.624341 -14.319048   3.070367 0.3134169</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D-C -23.255279 -31.949987 -14.560571 0.0000002</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "rfeat"</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -332,7 +269,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: October 14, 2025</p>
+  <p>Last updated: October 21, 2025</p>
 </div>
 
     </footer></div>

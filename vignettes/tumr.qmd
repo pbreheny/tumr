@@ -11,6 +11,7 @@ We should write a brief intro here for one of the data sets.
 ## melanoma2 data set
 
 ```{r}
+library(tumr)
 data("melanoma2")
 ```
 

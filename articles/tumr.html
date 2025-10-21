@@ -252,6 +252,47 @@ attr(,"class")
 </div>
 </div>
 </div>
+</section><section class="level2"><h2 id="linear-mixed-model">Linear mixed model<a class="anchor" aria-label="anchor" href="#linear-mixed-model"></a>
+</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">meta_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">melanoma2</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: Volume ~ Treatment + Day + (1 | ID)
+   Data: data
+
+REML criterion at convergence: 8207.5
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-2.5036 -0.5912 -0.2033  0.3925  3.1671
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ ID       (Intercept)  53278   230.8
+ Residual             104705   323.6
+Number of obs: 568, groups:  ID, 47
+
+Fixed effects:
+             Estimate Std. Error t value
+(Intercept)  240.0646    81.5211   2.945
+TreatmentB  -285.1202   114.7322  -2.485
+TreatmentC   -40.2426   112.2145  -0.359
+TreatmentD   138.7324   114.1567   1.215
+TreatmentE  -327.8276   118.1130  -2.776
+Day           11.6088     0.6492  17.881
+
+Correlation of Fixed Effects:
+           (Intr) TrtmnB TrtmnC TrtmnD TrtmnE
+TreatmentB -0.667
+TreatmentC -0.691  0.494
+TreatmentD -0.688  0.483  0.495
+TreatmentE -0.647  0.471  0.479  0.469
+Day        -0.213 -0.053 -0.013  0.029 -0.057</code></pre>
+</div>
+</div>
 </section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);

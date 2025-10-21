@@ -60,3 +60,12 @@ meta_data |>
 plot(rfeat_ex)
 ```
 
+
+## Linear mixed model
+
+```{r}
+meta_data |>
+  lmm(data = melanoma2)
+```
+
+

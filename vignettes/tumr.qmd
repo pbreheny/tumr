@@ -15,42 +15,50 @@ library(tumr)
 data("melanoma2")
 ```
 
-## Plotting the Mean
-
 ```{r}
-plots(melanoma2, Treatment, Day, Volume, ID, stat = mean)
+plot_mean <- function(data, group, time, measure, id, stat = median, remove_na = FALSE){
+  data_summary <- data |>
+    dplyr::group_by({{group}}, {{time}}) |>
+    dplyr::summarise(measure = stat({{measure}}, na.rm = remove_na), .groups = "drop_last") |>
+    dplyr::ungroup()
+
+  if (remove_na == TRUE){
+    data_full <- data |>
+      na.omit(data)
+  } else {
+    data_full <- data
+  }
+
+  ggplot2::ggplot() +
+    ggplot2::geom_line(data = data_full,
+                       ggplot2::aes(x = {{time}},
+                                    y = {{measure}},
+                                    group = {{id}},
+                                    color = {{group}}),
+                       alpha = 0.5)  +
+    ggplot2::geom_line(data = data_summary,
+                       ggplot2::aes(x = {{time}},
+                                    y = measure,
+                                    color = {{group}}),
+                       linewidth = 1.2)
+
+}
 ```
 
+## Plotting the Mean vs the Median
 
-## Plotting the Median
-
-```{r}
- plot_median(
- data = melanoma2,
-group = "Treatment",
- time = "Day",
- measure = "Volume",
- id = "ID"
- )
-```
-
-
-## Plotting the median using meta data produced from the tumr function
-
-```{r}
-meta_data <- tumr(ID, Day, Volume, Treatment)
-
+```{r, fig.show='hold', out.width='50%'}
+meta_data <- tumr(melanoma2, ID, Day, Volume, Treatment)
+plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
 meta_data |>
-  plot_median(data = melanoma2)
+  plot_median()
 ```
-
 
 ## Response Feature Analysis of melanoma2
 
 ```{r}
 (rfeat_ex <- meta_data |>
-              rfeat(data = melanoma2,
-              comparison = "both"))
+              rfeat(comparison = "both"))
 ```
 
 
@@ -64,8 +72,10 @@ plot(rfeat_ex)
 ## Linear mixed model
 
 ```{r}
-meta_data |>
-  lmm(data = melanoma2)
+(example <- meta_data |>
+  lmm())
+
+#emmeans(example, c("Treatment", "Day"))
 ```
 
 

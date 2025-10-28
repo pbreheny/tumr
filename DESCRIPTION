@@ -18,6 +18,7 @@ Imports:
   tidyr
 Suggests:
   lme4,
+  lmerTest,
   quarto
 VignetteBuilder: quarto
 URL: https://pbreheny.github.io/tumr/, https://github.com/pbreheny/tumr

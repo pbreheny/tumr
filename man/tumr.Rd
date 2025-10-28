@@ -4,9 +4,11 @@
 \alias{tumr}
 \title{Create tumr object}
 \usage{
-tumr(id, time, measure, group)
+tumr(data, id, time, measure, group)
 }
 \arguments{
+\item{data}{Data frame}
+
 \item{id}{Column of subject ID's}
 
 \item{time}{Column of repeated time measurements}
@@ -23,6 +25,6 @@ Create tumr object
 }
 \examples{
 data(breast)
-tumr(ID, Week, Volume, Treatment)
+tumr(breast, ID, Week, Volume, Treatment)
 
 }

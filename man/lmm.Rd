@@ -5,9 +5,9 @@
 \title{Linear Mixed Model for Tumor Growth Data}
 \usage{
 lmm(
-  data,
   tumr_obj = NULL,
   formula = NULL,
+  data = NULL,
   id = NULL,
   time = NULL,
   measure = NULL,
@@ -15,11 +15,11 @@ lmm(
 )
 }
 \arguments{
-\item{data}{tumor growth data}
-
 \item{tumr_obj}{takes tumr_obj created by tumr()}
 
 \item{formula}{linear mixed model formula}
+
+\item{data}{tumor growth data}
 
 \item{id}{Column of subject ID's}
 
@@ -37,14 +37,12 @@ Linear Mixed Model for Tumor Growth Data
 }
 \examples{
 data(melanoma1)
-meta_data <- tumr(ID, Day, Volume, Treatment)
+meta_data <- tumr(melanoma1, ID, Day, Volume, Treatment)
 lmm(
-data = melanoma1,
 tumr_obj = meta_data
 )
 
 lmm(
-data = melanoma2,
 tumr_obj = meta_data,
 formula = "Volume ~ Day + (1 | ID)"
 )

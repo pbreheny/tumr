@@ -12,14 +12,12 @@
 #'
 #' @examples
 #' data(melanoma1)
-#' meta_data <- tumr(ID, Day, Volume, Treatment)
+#' meta_data <- tumr(melanoma1, ID, Day, Volume, Treatment)
 #' lmm(
-#' data = melanoma1,
 #' tumr_obj = meta_data
 #' )
 #'
 #' lmm(
-#' data = melanoma2,
 #' tumr_obj = meta_data,
 #' formula = "Volume ~ Day + (1 | ID)"
 #' )
@@ -35,17 +33,19 @@
 #'
 #' @export
 
-lmm <- function(data, tumr_obj = NULL, formula = NULL, id = NULL, time = NULL, measure = NULL, group = NULL){
+lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = NULL, measure = NULL, group = NULL){
 
   if (!is.null(tumr_obj)) {
     if (is.null(id)) id <- tumr_obj$id
     if (is.null(time)) time <- tumr_obj$time
     if (is.null(measure)) measure <- tumr_obj$measure
     if (is.null(group)) group <- tumr_obj$group
+    if (is.null(data)) data <- tumr_obj$data
   }
 
+
   if (is.null(formula)) {
-    formula_string <- paste0(measure, " ~ ", group, " + ", time, " + (1 | ", id, ")")
+    formula_string <- paste0(measure, " ~ ", group, " * ", time, " + (", time, "| ", id, ")")
     formula <- as.formula(formula_string)
   }
 
@@ -53,7 +53,8 @@ lmm <- function(data, tumr_obj = NULL, formula = NULL, id = NULL, time = NULL, m
     formula <- as.formula(formula)
   }
 
-  summary(lme4::lmer(formula = formula, data = data))
+  summary(lmerTest::lmer(formula = formula, data = data))
+  #lme4::lmer(formula = formula, data = data)
 }
 
 

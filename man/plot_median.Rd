@@ -5,8 +5,8 @@
 \title{Plot of tumor growth over time using the median}
 \usage{
 plot_median(
-  data,
   tumr_obj = NULL,
+  data = NULL,
   group = NULL,
   time = NULL,
   measure = NULL,
@@ -15,9 +15,9 @@ plot_median(
 )
 }
 \arguments{
-\item{data}{tumor growth data}
-
 \item{tumr_obj}{takes tumr_obj created by tumr()}
+
+\item{data}{tumor growth data}
 
 \item{group}{Column specifying the treatment group for each measurement}
 
@@ -46,9 +46,8 @@ id = "ID",
 type = "conf_int"
 )
 data(melanoma1)
-meta_data <- tumr(ID, Day, Volume, Treatment)
+meta_data <- tumr(melanoma1, ID, Day, Volume, Treatment)
 plot_median(
-data = melanoma1,
 tumr_obj = meta_data
 )
 plot_median(

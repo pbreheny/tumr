@@ -1,5 +1,6 @@
 #' Create tumr object
 #'
+#' @param data Data frame
 #' @param id  Column of subject ID's
 #' @param time Column of repeated time measurements
 #' @param measure Column of repeated measurements of tumor
@@ -9,12 +10,12 @@
 #'
 #' @examples
 #' data(breast)
-#' tumr(ID, Week, Volume, Treatment)
+#' tumr(breast, ID, Week, Volume, Treatment)
 #'
 #' @export
 
 
-tumr <- function(id, time, measure, group){
+tumr <- function(data, id, time, measure, group){
   id <- deparse(substitute(id))
   time <- deparse(substitute(time))
   measure <- deparse(substitute(measure))
@@ -24,7 +25,8 @@ tumr <- function(id, time, measure, group){
     id = id,
     time = time,
     measure = measure,
-    group = group
+    group = group,
+    data = data
   )
 
 

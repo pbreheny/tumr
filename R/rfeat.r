@@ -110,21 +110,12 @@ rfeat <- function(tumr_obj = NULL, data = NULL, id = NULL, time = NULL, measure 
   )
 
 
-  if(all_output == TRUE){
     result <- list(
       relevant_information = relevant_info,
       betas = betas,
       summary = betas_summary,
       test = stat_test
     )
-  }else if (all_output == FALSE){
-    result <- list(
-      relevant_information = relevant_info,
-      test = stat_test
-    )
-  }
-
-
   class(result) <- "rfeat"
 
   return(result)

@@ -12,10 +12,8 @@
 #'
 #' @examples
 #' data(melanoma1)
-#' meta_data <- tumr(melanoma1, ID, Day, Volume, Treatment)
-#' lmm(
-#' tumr_obj = meta_data
-#' )
+#' mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+#' lmm(mel1)
 #'
 #' lmm(
 #' tumr_obj = meta_data,

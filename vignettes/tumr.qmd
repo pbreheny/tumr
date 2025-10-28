@@ -16,6 +16,7 @@ data("melanoma2")
 ```
 
 ```{r}
+#| code-fold: true
 plot_mean <- function(data, group, time, measure, id, stat = median, remove_na = FALSE){
   data_summary <- data |>
     dplyr::group_by({{group}}, {{time}}) |>
@@ -47,7 +48,10 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
 
 ## Plotting the Mean vs the Median
 
-```{r, fig.show='hold', out.width='50%'}
+```{r}
+#| layout-ncol: 2
+#| fig-width: 4
+#| fig-height: 3.5
 meta_data <- tumr(melanoma2, ID, Day, Volume, Treatment)
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
 meta_data |>

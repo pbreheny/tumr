@@ -43,14 +43,18 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tumr</span><span class="op">(</span><span class="va">id</span>, <span class="va">time</span>, <span class="va">measure</span>, <span class="va">group</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tumr</span><span class="op">(</span><span class="va">data</span>, <span class="va">id</span>, <span class="va">time</span>, <span class="va">measure</span>, <span class="va">group</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
+<dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
+<dd><p>Data frame</p></dd>
+
+
+<dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
 <dd><p>Column of subject ID's</p></dd>
 
 
@@ -74,7 +78,7 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">breast</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">tumr</span><span class="op">(</span><span class="va">ID</span>, <span class="va">Week</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">tumr</span><span class="op">(</span><span class="va">breast</span>, <span class="va">ID</span>, <span class="va">Week</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ID"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -86,6 +90,345 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Treatment"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ID Cohort Treatment Week   Volume Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1      1       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    1      1       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    1      1       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    1      1       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    1      1       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    1      1       VEH    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    1      1       VEH    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    1      1       VEH    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    1      1       VEH    9      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   1      1       VEH   10      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   1      1       VEH   11      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   1      1       VEH   12      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   2      1       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   2      1       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   2      1       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   2      1       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17   2      1       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18   2      1       VEH    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19   2      1       VEH    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20   2      1       VEH    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21   2      1       VEH    9      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22   2      1       VEH   10      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23   2      1       VEH   11   1035.6      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24   2      1       VEH   12   1710.8     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25   3      1       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26   3      1       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27   3      1       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28   3      1       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29   3      1       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30   3      1       VEH    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31   3      1       VEH    7   5326.5      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32   3      1       VEH    8  15713.0      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33   3      1       VEH    9  26788.1      3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34   3      1       VEH   10  31453.2      4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35   3      1       VEH   11  34129.1     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36   3      1       VEH   12  22446.9     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37   4      1       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38   4      1       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39   4      1       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40   4      1       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41   4      1       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42   4      1       VEH    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43   4      1       VEH    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44   4      1       VEH    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45   4      1       VEH    9      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46   4      1       VEH   10      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47   4      1       VEH   11      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48   4      1       VEH   12      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49   5      1       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50   5      1       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51   5      1       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52   5      1       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53   5      1       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54   5      1       VEH    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55   5      1       VEH    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56   5      1       VEH    8   3732.1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57   5      1       VEH    9  20194.1     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58   5      1       VEH   10  26175.5     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59   5      1       VEH   11  69967.2     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60   5      1       VEH   12       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61   6      1       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62   6      1       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63   6      1       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64   6      1       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65   6      1       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66   6      1       VEH    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67   6      1       VEH    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68   6      1       VEH    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69   6      1       VEH    9      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70   6      1       VEH   10      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71   6      1       VEH   11      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72   6      1       VEH   12      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73   7      1       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74   7      1       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75   7      1       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76   7      1       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77   7      1       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78   7      1       VEH    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79   7      1       VEH    7   5326.5      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80   7      1       VEH    8  15713.0      3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81   7      1       VEH    9  26788.1     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82   7      1       VEH   10  31453.2     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83   7      1       VEH   11  34129.1     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84   7      1       VEH   12  22446.9     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85   8      1       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86   8      1       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87   8      1       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88   8      1       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89   8      1       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90   8      1       VEH    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91   8      1       VEH    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92   8      1       VEH    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93   8      1       VEH    9      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94   8      1       VEH   10      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95   8      1       VEH   11      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96   8      1       VEH   12      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97   9      1        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98   9      1        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99   9      1        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100  9      1        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101  9      1        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102  9      1        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103  9      1        NR    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104  9      1        NR    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105  9      1        NR    9    843.3      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 106  9      1        NR   10   1919.2     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 107  9      1        NR   11   2511.1     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 108  9      1        NR   12   2544.6     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109 10      1        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 110 10      1        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 111 10      1        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 112 10      1        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 113 10      1        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 114 10      1        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 115 10      1        NR    7   6959.6      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 116 10      1        NR    8  30720.3      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 117 10      1        NR    9  34339.2     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 118 10      1        NR   10  41048.8     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 119 10      1        NR   11  49325.0     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 120 10      1        NR   12  47161.8     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 121 11      1        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 122 11      1        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 123 11      1        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 124 11      1        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 125 11      1        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 126 11      1        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 127 11      1        NR    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 128 11      1        NR    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129 11      1        NR    9   1836.6      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 130 11      1        NR   10  12630.8      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 131 11      1        NR   11  35327.5     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 132 11      1        NR   12  42615.0     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 133 12      1        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 134 12      1        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 135 12      1        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 136 12      1        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 137 12      1        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 138 12      1        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 139 12      1        NR    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 140 12      1        NR    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 141 12      1        NR    9      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 142 12      1        NR   10      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 143 12      1        NR   11    255.9      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 144 12      1        NR   12    555.5     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 145 13      1        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 146 13      1        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 147 13      1        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 148 13      1        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149 13      1        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 150 13      1        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 151 13      1        NR    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 152 13      1        NR    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 153 13      1        NR    9      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 154 13      1        NR   10      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 155 13      1        NR   11      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 156 13      1        NR   12      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 157 14      1        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 158 14      1        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 159 14      1        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 160 14      1        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 161 14      1        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 162 14      1        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 163 14      1        NR    7   2317.1      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 164 14      1        NR    8   8297.2      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 165 14      1        NR    9  13101.2      3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 166 14      1        NR   10  16603.5     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 167 14      1        NR   11  16981.3     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 168 14      1        NR   12  21833.9     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 169 15      1        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 170 15      1        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 171 15      1        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 172 15      1        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 173 15      1        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 174 15      1        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 175 15      1        NR    7   2167.8      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 176 15      1        NR    8   7413.5      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 177 15      1        NR    9  29786.3      3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 178 15      1        NR   10  39250.0      4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 179 15      1        NR   11  58446.5      6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 180 15      1        NR   12       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 181 16      1        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 182 16      1        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 183 16      1        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 184 16      1        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 185 16      1        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 186 16      1        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 187 16      1        NR    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 188 16      1        NR    8    897.0      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 189 16      1        NR    9  11849.2      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 190 16      1        NR   10  17718.4     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 191 16      1        NR   11  48264.7     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 192 16      1        NR   12       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 193 61      2       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 194 61      2       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 195 61      2       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 196 61      2       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 197 61      2       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 198 61      2       VEH    6   6639.0      3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 199 61      2       VEH    7  42726.4      6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 200 61      2       VEH    8  88968.1      6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 201 61      2       VEH    9 167024.0      7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 202 61      2       VEH   10       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 203 61      2       VEH   11       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 204 61      2       VEH   12       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 205 62      2       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 206 62      2       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 207 62      2       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 208 62      2       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 209 62      2       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 210 62      2       VEH    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 211 62      2       VEH    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 212 62      2       VEH    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 213 62      2       VEH    9      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 214 62      2       VEH   10      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 215 62      2       VEH   11    220.0      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 216 62      2       VEH   12       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 217 63      2       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 218 63      2       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 219 63      2       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 220 63      2       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 221 63      2       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 222 63      2       VEH    6   1097.8      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 223 63      2       VEH    7   8368.2      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 224 63      2       VEH    8  13618.0      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 225 63      2       VEH    9  26068.0      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 226 63      2       VEH   10       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 227 63      2       VEH   11       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 228 63      2       VEH   12       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 229 64      2       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 230 64      2       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 231 64      2       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 232 64      2       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 233 64      2       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 234 64      2       VEH    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 235 64      2       VEH    7   1706.4      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 236 64      2       VEH    8  12940.0     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 237 64      2       VEH    9  51129.8     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 238 64      2       VEH   10       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 239 64      2       VEH   11       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 240 64      2       VEH   12       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 241 65      2       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 242 65      2       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 243 65      2       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 244 65      2       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 245 65      2       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 246 65      2       VEH    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 247 65      2       VEH    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 248 65      2       VEH    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 249 65      2       VEH    9      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 250 65      2       VEH   10      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 251 65      2       VEH   11      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 252 65      2       VEH   12      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 253 66      2       VEH    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 254 66      2       VEH    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 255 66      2       VEH    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 256 66      2       VEH    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 257 66      2       VEH    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 258 66      2       VEH    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 259 66      2       VEH    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 260 66      2       VEH    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 261 66      2       VEH    9      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 262 66      2       VEH   10   2739.0      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 263 66      2       VEH   11   5394.0      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 264 66      2       VEH   12   5394.0      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 265 67      2        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 266 67      2        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 267 67      2        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 268 67      2        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 269 67      2        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 270 67      2        NR    6   2159.6      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 271 67      2        NR    7   4789.9     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 272 67      2        NR    8   5933.5     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 273 67      2        NR    9   7891.0     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 274 67      2        NR   10  12240.0     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 275 67      2        NR   11  16886.0     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 276 67      2        NR   12  22399.0     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 277 68      2        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 278 68      2        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 279 68      2        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 280 68      2        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 281 68      2        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 282 68      2        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 283 68      2        NR    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 284 68      2        NR    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 285 68      2        NR    9      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 286 68      2        NR   10      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 287 68      2        NR   11      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 288 68      2        NR   12      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 289 69      2        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 290 69      2        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 291 69      2        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 292 69      2        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 293 69      2        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 294 69      2        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 295 69      2        NR    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 296 69      2        NR    8      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 297 69      2        NR    9      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 298 69      2        NR   10      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 299 69      2        NR   11      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 300 69      2        NR   12      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 301 70      2        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 302 70      2        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 303 70      2        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 304 70      2        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 305 70      2        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 306 70      2        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 307 70      2        NR    7   3337.5      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 308 70      2        NR    8   4122.8      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 309 70      2        NR    9  12823.0      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 310 70      2        NR   10  18121.0      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 311 70      2        NR   11  30537.0      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 312 70      2        NR   12  37628.0     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 313 71      2        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 314 71      2        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 315 71      2        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 316 71      2        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 317 71      2        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 318 71      2        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 319 71      2        NR    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 320 71      2        NR    8    484.5      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 321 71      2        NR    9   7667.0      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 322 71      2        NR   10  32996.0      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 323 71      2        NR   11  52965.0     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 324 71      2        NR   12       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 325 72      2        NR    1      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 326 72      2        NR    2      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 327 72      2        NR    3      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 328 72      2        NR    4      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 329 72      2        NR    5      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 330 72      2        NR    6      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 331 72      2        NR    7      0.0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 332 72      2        NR    8  20501.6      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 333 72      2        NR    9  55158.9     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 334 72      2        NR   10       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 335 72      2        NR   11       NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 336 72      2        NR   12       NA     NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -99,7 +442,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: October 21, 2025</p>
+  <p>Last updated: October 28, 2025</p>
 </div>
 
     </footer></div>

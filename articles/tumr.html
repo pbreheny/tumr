@@ -80,47 +80,53 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pbreheny.github.io/tumr/">tumr</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"melanoma2"</span><span class="op">)</span></span></code></pre></div>
 </div>
-</section><section class="level2"><h2 id="plotting-the-mean">Plotting the Mean<a class="anchor" aria-label="anchor" href="#plotting-the-mean"></a>
-</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plots.html">plots</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">Treatment</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">ID</span>, stat <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span></code></pre></div>
-<div class="cell-output-display">
-<div>
-<figure><p><img src="tumr_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
-</figure>
+<code class="sourceCode R"><span><span class="va">plot_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">group</span>, <span class="va">time</span>, <span class="va">measure</span>, <span class="va">id</span>, <span class="va">stat</span> <span class="op">=</span> <span class="va">median</span>, <span class="va">remove_na</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">data_summary</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">group</span><span class="op">}</span><span class="op">}</span>, <span class="op">{</span><span class="op">{</span><span class="va">time</span><span class="op">}</span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>measure <span class="op">=</span> <span class="fu">stat</span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">measure</span><span class="op">}</span><span class="op">}</span>, na.rm <span class="op">=</span> <span class="va">remove_na</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop_last"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">remove_na</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="va">data_full</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="va">data_full</span> <span class="op">&lt;-</span> <span class="va">data</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_full</span>,</span>
+<span>                       <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">{</span><span class="op">{</span><span class="va">time</span><span class="op">}</span><span class="op">}</span>,</span>
+<span>                                    y <span class="op">=</span> <span class="op">{</span><span class="op">{</span><span class="va">measure</span><span class="op">}</span><span class="op">}</span>,</span>
+<span>                                    group <span class="op">=</span> <span class="op">{</span><span class="op">{</span><span class="va">id</span><span class="op">}</span><span class="op">}</span>,</span>
+<span>                                    color <span class="op">=</span> <span class="op">{</span><span class="op">{</span><span class="va">group</span><span class="op">}</span><span class="op">}</span><span class="op">)</span>,</span>
+<span>                       alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>  <span class="op">+</span></span>
+<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_summary</span>,</span>
+<span>                       <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">{</span><span class="op">{</span><span class="va">time</span><span class="op">}</span><span class="op">}</span>,</span>
+<span>                                    y <span class="op">=</span> <span class="va">measure</span>,</span>
+<span>                                    color <span class="op">=</span> <span class="op">{</span><span class="op">{</span><span class="va">group</span><span class="op">}</span><span class="op">}</span><span class="op">)</span>,</span>
+<span>                       linewidth <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
-</div>
-</div>
-</section><section class="level2"><h2 id="plotting-the-median">Plotting the Median<a class="anchor" aria-label="anchor" href="#plotting-the-median"></a>
+</section><section class="level2"><h2 id="plotting-the-mean-vs-the-median">Plotting the Mean vs the Median<a class="anchor" aria-label="anchor" href="#plotting-the-mean-vs-the-median"></a>
 </h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span></span>
-<span> data <span class="op">=</span> <span class="va">melanoma2</span>,</span>
-<span>group <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
-<span> time <span class="op">=</span> <span class="st">"Day"</span>,</span>
-<span> measure <span class="op">=</span> <span class="st">"Volume"</span>,</span>
-<span> id <span class="op">=</span> <span class="st">"ID"</span></span>
-<span> <span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">meta_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
+<span><span class="fu">plot_mean</span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">Treatment</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">ID</span>, stat <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="va">meta_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure><p><img src="tumr_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-3-1.png" style="width:50.0%"></p>
 </figure>
 </div>
 </div>
-</div>
-</section><section class="level2"><h2 id="plotting-the-median-using-meta-data-produced-from-the-tumr-function">Plotting the median using meta data produced from the tumr function<a class="anchor" aria-label="anchor" href="#plotting-the-median-using-meta-data-produced-from-the-tumr-function"></a>
-</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">meta_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">meta_data</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">melanoma2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure><p><img src="tumr_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-3-2.png" style="width:50.0%"></p>
 </figure>
 </div>
 </div>
@@ -128,10 +134,9 @@
 </section><section class="level2"><h2 id="response-feature-analysis-of-melanoma2">Response Feature Analysis of melanoma2<a class="anchor" aria-label="anchor" href="#response-feature-analysis-of-melanoma2"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">rfeat_ex</span> <span class="op">&lt;-</span> <span class="va">meta_data</span> <span class="op">|&gt;</span></span>
-<span>              <span class="fu"><a href="../reference/rfeat.html">rfeat</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">melanoma2</span>,</span>
-<span>              comparison <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>              <span class="fu"><a href="../reference/rfeat.html">rfeat</a></span><span class="op">(</span>comparison <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$relevant_information
 $relevant_information$ID
@@ -146,66 +151,6 @@ $relevant_information$Measure
 $relevant_information$Group
 [1] "Treatment"
 
-
-$betas
-   ID       Beta Group
-1   1 47.0148950     A
-2   2 16.0901253     B
-3   3 21.0324009     E
-4   4 28.7093841     C
-5   5 32.0516382     D
-6   6 16.2776725     A
-7   7 32.1910564     B
-8   8 19.2286772     C
-9   9 10.6340211     D
-10 10 24.0759514     A
-11 11 19.8278748     C
-12 12 21.1606679     D
-13 13 26.0464154     A
-14 14  1.6506856     B
-15 15 -0.8443708     E
-16 16 27.7222379     C
-17 17 33.0581178     D
-18 18 29.0481531     A
-19 19  0.4198989     B
-20 20 23.9243121     E
-21 21 20.0906382     C
-22 22 21.7307173     D
-23 23 22.9872394     A
-24 24 32.0718530     B
-25 25 24.8975827     E
-26 26 27.6958231     C
-27 27 39.8723510     D
-28 28 33.1520322     A
-29 29 23.3120488     B
-30 30 19.8711773     E
-31 31 19.9633243     C
-32 32 59.2112275     D
-33 33 32.6405842     A
-34 34  5.3277781     B
-35 35 16.4144511     E
-36 36  3.0714478     C
-37 37 38.9607063     D
-38 38 17.5366811     A
-39 39 -0.6351389     B
-40 40  0.5088185     E
-41 41 32.1539405     C
-42 42 29.4622148     D
-43 43 37.1976095     A
-44 44 30.7903660     B
-45 45 14.2636072     E
-46 46 28.5329927     C
-47 47 14.4089561     D
-
-$summary
-# A tibble: 5 × 2
-  Group average
-  &lt;chr&gt;   &lt;dbl&gt;
-1 A        28.6
-2 B        15.7
-3 C        22.7
-4 D        30.1
-5 E        15.0
 
 $test
 $test$anova
@@ -243,11 +188,11 @@ attr(,"class")
 </section><section class="level2"><h2 id="rfeat-plot">rfeat plot<a class="anchor" aria-label="anchor" href="#rfeat-plot"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rfeat_ex</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure><p><img src="tumr_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -255,43 +200,57 @@ attr(,"class")
 </section><section class="level2"><h2 id="linear-mixed-model">Linear mixed model<a class="anchor" aria-label="anchor" href="#linear-mixed-model"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">meta_data</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">melanoma2</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">example</span> <span class="op">&lt;-</span> <span class="va">meta_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Linear mixed model fit by REML ['lmerMod']
-Formula: Volume ~ Treatment + Day + (1 | ID)
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: formula
    Data: data
 
-REML criterion at convergence: 8207.5
+REML criterion at convergence: 7789
 
 Scaled residuals:
     Min      1Q  Median      3Q     Max
--2.5036 -0.5912 -0.2033  0.3925  3.1671
+-2.7347 -0.6073 -0.0389  0.3987  4.4738
 
 Random effects:
- Groups   Name        Variance Std.Dev.
- ID       (Intercept)  53278   230.8
- Residual             104705   323.6
+ Groups   Name        Variance Std.Dev. Corr
+ ID       (Intercept)  8301.2   91.11
+          Day           113.1   10.64   -0.35
+ Residual             44360.7  210.62
 Number of obs: 568, groups:  ID, 47
 
 Fixed effects:
-             Estimate Std. Error t value
-(Intercept)  240.0646    81.5211   2.945
-TreatmentB  -285.1202   114.7322  -2.485
-TreatmentC   -40.2426   112.2145  -0.359
-TreatmentD   138.7324   114.1567   1.215
-TreatmentE  -327.8276   118.1130  -2.776
-Day           11.6088     0.6492  17.881
+                Estimate Std. Error        df t value Pr(&gt;|t|)
+(Intercept)    -153.6719    50.2615   57.0852  -3.057  0.00339 **
+TreatmentB      129.6719    68.3401   43.2842   1.897  0.06445 .
+TreatmentC       74.9644    70.2446   54.4477   1.067  0.29060
+TreatmentD      212.5222    73.1235   63.5403   2.906  0.00503 **
+TreatmentE       40.3268    69.9839   42.3904   0.576  0.56751
+Day              28.1750     3.6613   40.5201   7.695 1.89e-09 ***
+TreatmentB:Day  -13.4311     5.1990   37.1357  -2.583  0.01385 *
+TreatmentC:Day   -5.6366     5.1316   39.2621  -1.098  0.27871
+TreatmentD:Day    0.7635     5.3654   45.2927   0.142  0.88748
+TreatmentE:Day  -13.6494     5.3356   36.3461  -2.558  0.01483 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
-           (Intr) TrtmnB TrtmnC TrtmnD TrtmnE
-TreatmentB -0.667
-TreatmentC -0.691  0.494
-TreatmentD -0.688  0.483  0.495
-TreatmentE -0.647  0.471  0.479  0.469
-Day        -0.213 -0.053 -0.013  0.029 -0.057</code></pre>
+            (Intr) TrtmnB TrtmnC TrtmnD TrtmnE Day    TrtB:D TrtC:D TrtD:D
+TreatmentB  -0.735
+TreatmentC  -0.716  0.526
+TreatmentD  -0.687  0.506  0.492
+TreatmentE  -0.718  0.528  0.514  0.494
+Day         -0.457  0.336  0.327  0.314  0.328
+TretmntB:Dy  0.322 -0.424 -0.230 -0.221 -0.231 -0.704
+TretmntC:Dy  0.326 -0.240 -0.447 -0.224 -0.234 -0.713  0.502
+TretmntD:Dy  0.312 -0.229 -0.223 -0.486 -0.224 -0.682  0.481  0.487
+TretmntE:Dy  0.314 -0.231 -0.225 -0.216 -0.416 -0.686  0.483  0.490  0.468</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#emmeans(example, c("Treatment", "Day"))</span></span></code></pre></div>
 </div>
 </section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -386,7 +345,7 @@ Day        -0.213 -0.053 -0.013  0.029 -0.057</code></pre>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: October 21, 2025</p>
+  <p>Last updated: October 28, 2025</p>
 </div>
 
     </footer>

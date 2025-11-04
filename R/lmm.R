@@ -16,7 +16,7 @@
 #' lmm(mel1)
 #'
 #' lmm(
-#' tumr_obj = meta_data,
+#' tumr_obj = mel1,
 #' formula = "Volume ~ Day + (1 | ID)"
 #' )
 #'
@@ -43,7 +43,7 @@ lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = 
 
 
   if (is.null(formula)) {
-    formula_string <- paste0(measure, " ~ ", group, " * ", time, " + (", time, "| ", id, ")")
+    formula_string <- paste0("log1p(", measure, ") ~ ", group, " * ", time, " + (", time, "| ", id, ")")
     formula <- as.formula(formula_string)
   }
 
@@ -51,8 +51,28 @@ lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = 
     formula <- as.formula(formula)
   }
 
-  summary(lmerTest::lmer(formula = formula, data = data))
-  #lme4::lmer(formula = formula, data = data)
+  relevant_info <- list(
+    ID = id,
+    Time = time,
+    Measure = measure,
+    Group = group
+  )
+
+  model_p <- lmerTest::lmer(formula = formula, data = data)
+  model <- lme4::lmer(formula = formula, data = data)
+
+  result <- list(
+    relevant_info = relevant_info,
+    model_sum = model,
+    model = summary(model_p)
+  )
+
+  class(result) <- "lmm"
+
+  return(result)
+
+  print(result)
+
 }
 
 

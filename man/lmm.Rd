@@ -41,7 +41,7 @@ mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 lmm(mel1)
 
 lmm(
-tumr_obj = meta_data,
+tumr_obj = mel1,
 formula = "Volume ~ Day + (1 | ID)"
 )
 

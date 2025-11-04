@@ -11,6 +11,7 @@ Description: This package contains functions for tumor growth rate experiments:
 Depends: R (>= 4.3.0)
 Imports:
   dplyr,
+  emmeans,
   ggplot2,
   rlang,
   survival,

@@ -10,8 +10,7 @@ plot_median(
   group = NULL,
   time = NULL,
   measure = NULL,
-  id = NULL,
-  type = c("spaghetti", "conf_int")
+  id = NULL
 )
 }
 \arguments{
@@ -26,8 +25,6 @@ plot_median(
 \item{measure}{Column of repeated measurements of tumor}
 
 \item{id}{Column of subject ID's}
-
-\item{type}{type of plot produced}
 }
 \value{
 A plot
@@ -36,27 +33,10 @@ A plot
 Plot of tumor growth over time using the median
 }
 \examples{
-data(breast)
-plot_median(
-data = breast,
-group = "Treatment",
-time = "Week",
-measure = "Volume",
-id = "ID",
-type = "conf_int"
-)
 data(melanoma1)
-meta_data <- tumr(melanoma1, ID, Day, Volume, Treatment)
+mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 plot_median(
-tumr_obj = meta_data
-)
-plot_median(
-data = melanoma1,
-group = "Treatment",
-time = "Day",
-measure = "Volume",
-id = "ID",
-type = "conf_int"
+tumr_obj = mel1
 )
 data(melanoma2)
 plot_median(

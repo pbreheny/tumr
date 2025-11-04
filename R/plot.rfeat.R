@@ -25,9 +25,9 @@ plot.rfeat <- function (x, ...) {
     ggplot2::stat_summary(fun = mean, geom = "point", shape = 18, size = 4, color = "black") +
     ggplot2::labs(title = "Individual Slopes (Betas) by Group",
                   y = paste("Slope of", x$relevant_information["Measure"], "vs", x$relevant_information["Time"]),
-                  x = x$relevant_information["Group"],
-                  color = "Treatment Group") +
-    ggplot2::theme_minimal()
+                  x = x$relevant_information["Group"]) +
+    ggplot2::theme_minimal() +
+    ggplot2::guides(color = "none")
 
 }
 

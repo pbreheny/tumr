@@ -29,13 +29,7 @@ tumr <- function(data, id, time, measure, group){
     data = data
   )
 
-
-  #returns tumr object but would need to be saved to use
-  #problem would be that it might have different names
   return(meta_data)
-
-  #creates tumr object for user and goes straight to environment
-  #tumr_obj <<- meta_data
 
   class(meta_data) <- "tumr"
 }

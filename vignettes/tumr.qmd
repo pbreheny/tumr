@@ -15,6 +15,7 @@ library(tumr)
 data("melanoma2")
 ```
 
+#### Code for plot_mean()
 ```{r}
 #| code-fold: true
 plot_mean <- function(data, group, time, measure, id, stat = median, remove_na = FALSE){
@@ -52,16 +53,16 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-meta_data <- tumr(melanoma2, ID, Day, Volume, Treatment)
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
-meta_data |>
+mel2 |>
   plot_median()
 ```
 
 ## Response Feature Analysis of melanoma2
 
 ```{r}
-(rfeat_ex <- meta_data |>
+(rfeat_mel2 <- mel2 |>
               rfeat(comparison = "both"))
 ```
 
@@ -69,17 +70,20 @@ meta_data |>
 ## rfeat plot
 
 ```{r}
-plot(rfeat_ex)
+plot(rfeat_mel2)
 ```
 
 
 ## Linear mixed model
 
 ```{r}
-(example <- meta_data |>
+(lmm_mel2 <- mel2 |>
   lmm())
-
-#emmeans(example, c("Treatment", "Day"))
 ```
 
+## summary of mixed model
+
+```{r}
+summary(lmm_mel2)
+```
 

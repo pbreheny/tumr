@@ -64,33 +64,15 @@ process_data <- function(time, measure) {
  #' @param time Column of repeated time measurements
  #' @param measure Column of repeated measurements of tumor
  #' @param group Column specifying the treatment group for each measurement
- #' @param type type of plot produced
  #' @param tumr_obj takes tumr_obj created by tumr()
  #'
  #' @return A plot
  #'
  #' @examples
- #' data(breast)
- #' plot_median(
- #' data = breast,
- #' group = "Treatment",
- #' time = "Week",
- #' measure = "Volume",
- #' id = "ID",
- #' type = "conf_int"
- #' )
  #' data(melanoma1)
- #' meta_data <- tumr(melanoma1, ID, Day, Volume, Treatment)
+ #' mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
  #' plot_median(
- #' tumr_obj = meta_data
- #' )
- #' plot_median(
- #' data = melanoma1,
- #' group = "Treatment",
- #' time = "Day",
- #' measure = "Volume",
- #' id = "ID",
- #' type = "conf_int"
+ #' tumr_obj = mel1
  #' )
  #' data(melanoma2)
  #' plot_median(
@@ -111,8 +93,7 @@ process_data <- function(time, measure) {
  #' @export
 
 
- plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL, measure = NULL, id = NULL, type = c("spaghetti", "conf_int")) {
-   type <- match.arg(type)
+ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL, measure = NULL, id = NULL) {
 
    if (!is.null(tumr_obj)) {
      if (is.null(id)) id <- tumr_obj$id
@@ -166,9 +147,7 @@ process_data <- function(time, measure) {
          upper_ci <- fit_table["0.95UCL"]
 
          tibble::tibble(
-           MedianVolume = median_volume,
-           CI_Lower = lower_ci,
-           CI_Upper = upper_ci
+           MedianVolume = median_volume
          )
 
 
@@ -180,11 +159,8 @@ process_data <- function(time, measure) {
       dplyr::filter(!is.na(.data[[measure]]))
 
     data_sum <- summary_data |>
-     dplyr::filter(!is.na(summary_data$MedianVolume)) |>
-     dplyr::mutate(CI_Lower = tidyr::replace_na(CI_Lower, 0),
-                   CI_Upper = tidyr::replace_na(CI_Upper, Inf))
+     dplyr::filter(!is.na(summary_data$MedianVolume))
 
-    if(type == "spaghetti") {
       ggplot2::ggplot() +
           ggplot2::geom_line(
             data = data_ind,
@@ -209,32 +185,7 @@ process_data <- function(time, measure) {
             y = "Volume",
             title = "Volume over Time"
           )
-    } else if(type == "conf_int"){
-      ggplot2::ggplot() +
-        ggplot2::geom_line(
-          data = data_sum,
-          ggplot2::aes(
-            x = .data[[time]],
-            y = .data[["MedianVolume"]],
-            color = .data[[group]]
-          ),
-          linewidth = 1.2
-        ) +
-        ggplot2::geom_ribbon(
-          data = data_sum,
-          ggplot2::aes(
-            x = .data[[time]],
-            ymin = CI_Lower,
-            ymax = CI_Upper,
-            fill = .data[[group]]
-          ),
-          alpha = 0.3
-        ) +
-        ggplot2::labs(
-          y = "Volume",
-          title = "Volume over Time"
-        )
-    }
+
 
  }
 

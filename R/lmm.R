@@ -7,6 +7,7 @@
 #' @param measure Column of repeated measurements of tumor
 #' @param group Column specifying the treatment group for each measurement
 #' @param formula linear mixed model formula
+#' @param ... Further arguments to [lme4::lmer()]
 #'
 #' @return summary of linear mixed model fit
 #'
@@ -31,7 +32,7 @@
 #'
 #' @export
 
-lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = NULL, measure = NULL, group = NULL){
+lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = NULL, measure = NULL, group = NULL, ...){
 
   if (!is.null(tumr_obj)) {
     if (is.null(id)) id <- tumr_obj$id
@@ -58,8 +59,8 @@ lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = 
     Group = group
   )
 
-  model_p <- lmerTest::lmer(formula = formula, data = data)
-  model <- lme4::lmer(formula = formula, data = data)
+  model <- lme4::lmer(formula = formula, data = data, ...)
+  model_p <- lmerTest::as_lmerModLmerTest(model)
 
   result <- list(
     relevant_info = relevant_info,

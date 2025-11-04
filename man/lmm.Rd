@@ -11,7 +11,8 @@ lmm(
   id = NULL,
   time = NULL,
   measure = NULL,
-  group = NULL
+  group = NULL,
+  ...
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ lmm(
 \item{measure}{Column of repeated measurements of tumor}
 
 \item{group}{Column specifying the treatment group for each measurement}
+
+\item{...}{Further arguments to \code{\link[lme4:lmer]{lme4::lmer()}}}
 }
 \value{
 summary of linear mixed model fit

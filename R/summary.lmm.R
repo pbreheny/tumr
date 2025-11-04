@@ -1,6 +1,7 @@
 #' Creates a summary of an lmm object
 #'
-#' @param x lmm object
+#' @param object lmm object
+#' @param ... further arguments passed to or from other methods
 #'
 #' @return a summary of the lmm object
 #'
@@ -11,17 +12,15 @@
 #'
 #' @export
 
-summary.lmm <- function(x) {
-  #UseMethod("summary")
+summary.lmm <- function(object, ...) {
+  group_var <- object$relevant_info$Group
 
-  group_var <- x$relevant_info$Group
-
-  overall_effect <- emmeans::emtrends(x$model_sum,
+  overall_effect <- emmeans::emtrends(object$model_sum,
                                       ~ 1,
-                                      var = x$relevant_info$Time)
-  effect_by_time <- emmeans::emtrends(x$model_sum,
+                                      var = object$relevant_info$Time)
+  effect_by_time <- emmeans::emtrends(object$model_sum,
                                       specs = reformulate(group_var),
-                                      var = x$relevant_info$Time)
+                                      var = object$relevant_info$Time)
   contrast_slopes <- emmeans::contrast(effect_by_time, method = "pairwise")
 
 

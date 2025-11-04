@@ -4,10 +4,12 @@
 \alias{summary.lmm}
 \title{Creates a summary of an lmm object}
 \usage{
-\method{summary}{lmm}(x)
+\method{summary}{lmm}(object, ...)
 }
 \arguments{
-\item{x}{lmm object}
+\item{object}{lmm object}
+
+\item{...}{further arguments passed to or from other methods}
 }
 \value{
 a summary of the lmm object

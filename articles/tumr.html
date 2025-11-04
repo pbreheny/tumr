@@ -184,14 +184,12 @@ E-D -15.0465644 -30.5920181  0.4988893 0.0619834</code></pre>
 <span>  <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
-Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
-Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
 Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
-Formula: formula
+Formula: log1p(Volume) ~ Treatment * Day + (Day | ID)
    Data: data
 
 REML criterion at convergence: 1216.5

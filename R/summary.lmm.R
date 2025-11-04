@@ -11,7 +11,8 @@
 #'
 #' @export
 
-summary.lmm <- function(x){
+summary.lmm <- function(x) {
+  #UseMethod("summary")
 
   group_var <- x$relevant_info$Group
 

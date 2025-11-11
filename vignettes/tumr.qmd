@@ -106,8 +106,8 @@ mel1_meta <- tumr(melanoma1, ID, Day, Volume, Treatment)
 plot_median(mel1_meta)
 (mel1_rfeat <- rfeat(mel1_meta, comparison = "both"))
 plot(mel1_rfeat)
-(mel1_lmm <- lmm(mel1_meta, log1p(Volume) ~ Treatment*Day + (Day | ID)))
-summary(mel1_lmm)
+#(mel1_lmm <- lmm(mel1_meta, log1p(Volume) ~ Treatment*Day + (Day | ID)))
+#summary(mel1_lmm)
 ```
 
 ```{r}
@@ -122,24 +122,27 @@ summary(pros_lmm)
 
 
 ```{r}
-# model <- lmm_mel2$model_sum
-# 
-# pred <- ggeffects::ggpredict(model, terms = "Day")
-# plot(pred2)
-# 
-# pred2 <- ggeffects::ggpredict(model, terms = c("Day", "Treatment"))
-# plot(pred)
-# 
-# emm <- emmeans::emmeans(model, ~ "Treatment")
-# plot(emm)
-# 
-# plot(emm_sum$`slope of treatment over time`)
-# 
-# sjPlot::plot_model(model, type = "re")
-# sjPlot::plot_model(model, type = "est")
-# sjPlot::plot_model(model, type = "pred", terms = c("Day", "Treatment"))
-# #Diagnostics
-# sjPlot::plot_model(model, type = "diag")
+#| echo: false
+#| eval: false
+model <- lmm_mel2$model_sum
+
+pred <- ggeffects::ggpredict(model, terms = "Day")
+plot(pred)
+
+pred2 <- ggeffects::ggpredict(model, terms = c("Day", "Treatment"))
+plot(pred2)
+
+emm <- emmeans::emmeans(model, ~ "Treatment")
+plot(emm)
+
+plot(emm_sum$`slope of treatment over time`)
+
+sjPlot::plot_model(model, type = "re")
+sjPlot::plot_model(model, type = "est")
+sjPlot::plot_model(model, type = "pred", terms = c("Day", "Treatment"))
+
+#Diagnostics
+sjPlot::plot_model(model, type = "diag")
 ```
 
 

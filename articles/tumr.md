@@ -160,42 +160,39 @@ plot(rfeat_mel2)
 (emm_sum <- summary(lmm_mel2))
 ```
 
-    Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed
-    Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed
-
     $`overall effect of time`
-     1       Day.trend     SE   df lower.CL upper.CL
-     overall    0.0553 0.0041 45.4    0.047   0.0636
+     1       Day.trend      SE   df lower.CL upper.CL
+     overall    0.0553 0.00411 41.3    0.047   0.0636
 
     Results are averaged over the levels of: Treatment
-    Degrees-of-freedom method: satterthwaite
+    Degrees-of-freedom method: kenward-roger
     Confidence level used: 0.95
 
     $`slope of treatment over time`
      Treatment Day.trend      SE   df lower.CL upper.CL
-     A            0.0797 0.00897 47.9   0.0617   0.0977
-     B            0.0400 0.00898 39.4   0.0218   0.0581
-     C            0.0530 0.00878 44.6   0.0353   0.0707
-     D            0.0547 0.00970 60.6   0.0354   0.0741
-     E            0.0491 0.00940 37.8   0.0301   0.0681
+     A            0.0797 0.00898 43.6   0.0616   0.0978
+     B            0.0400 0.00898 35.8   0.0218   0.0582
+     C            0.0530 0.00879 40.6   0.0352   0.0707
+     D            0.0547 0.00972 55.4   0.0353   0.0742
+     E            0.0491 0.00941 34.4   0.0300   0.0682
 
-    Degrees-of-freedom method: satterthwaite
+    Degrees-of-freedom method: kenward-roger
     Confidence level used: 0.95
 
     $`test slope differences`
      contrast estimate     SE   df t.ratio p.value
-     A - B     0.03972 0.0127 43.4   3.130  0.0246
-     A - C     0.02673 0.0126 46.2   2.129  0.2254
-     A - D     0.02497 0.0132 54.2   1.890  0.3349
-     A - E     0.03060 0.0130 42.2   2.355  0.1481
-     B - C    -0.01300 0.0126 41.9  -1.035  0.8377
-     B - D    -0.01476 0.0132 49.2  -1.117  0.7968
-     B - E    -0.00912 0.0130 38.6  -0.702  0.9549
-     C - D    -0.00176 0.0131 52.5  -0.135  0.9999
-     C - E     0.00388 0.0129 40.8   0.301  0.9981
-     D - E     0.00564 0.0135 47.6   0.417  0.9934
+     A - B     0.03972 0.0127 39.4   3.128  0.0258
+     A - C     0.02673 0.0126 42.1   2.128  0.2277
+     A - D     0.02497 0.0132 49.4   1.887  0.3378
+     A - E     0.03060 0.0130 38.4   2.354  0.1505
+     B - C    -0.01300 0.0126 38.0  -1.034  0.8378
+     B - D    -0.01476 0.0132 44.8  -1.115  0.7977
+     B - E    -0.00912 0.0130 35.0  -0.701  0.9548
+     C - D    -0.00176 0.0131 47.9  -0.134  0.9999
+     C - E     0.00388 0.0129 37.0   0.301  0.9981
+     D - E     0.00564 0.0135 43.4   0.417  0.9934
 
-    Degrees-of-freedom method: satterthwaite
+    Degrees-of-freedom method: kenward-roger
     P value adjustment: tukey method for comparing a family of 5 estimates 
 
 ## Looking at different data sets
@@ -225,31 +222,27 @@ breast_lmm <- lmm(breast_meta)
 summary(breast_lmm)
 ```
 
-    Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed
-
-    Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed
-
     $`overall effect of time`
-     1       Week.trend   SE   df lower.CL upper.CL
-     overall      0.802 0.12 25.7    0.557     1.05
+     1       Week.trend   SE df lower.CL upper.CL
+     overall      0.802 0.12 26    0.557     1.05
 
     Results are averaged over the levels of: Treatment
-    Degrees-of-freedom method: satterthwaite
+    Degrees-of-freedom method: kenward-roger
     Confidence level used: 0.95
 
     $`slope of treatment over time`
      Treatment Week.trend    SE   df lower.CL upper.CL
-     NR             0.882 0.169 25.4    0.535     1.23
-     VEH            0.723 0.169 25.9    0.374     1.07
+     NR             0.882 0.169 25.7    0.535     1.23
+     VEH            0.723 0.170 26.2    0.374     1.07
 
-    Degrees-of-freedom method: satterthwaite
+    Degrees-of-freedom method: kenward-roger
     Confidence level used: 0.95
 
     $`test slope differences`
-     contrast estimate    SE   df t.ratio p.value
-     NR - VEH     0.16 0.239 25.7   0.667  0.5106
+     contrast estimate    SE df t.ratio p.value
+     NR - VEH     0.16 0.239 26   0.667  0.5106
 
-    Degrees-of-freedom method: satterthwaite 
+    Degrees-of-freedom method: kenward-roger 
 
 ``` r
 mel1_meta <- tumr(melanoma1, ID, Day, Volume, Treatment)
@@ -292,9 +285,88 @@ plot(mel1_rfeat)
 ![](tumr_files/figure-html/unnamed-chunk-9-2.png)
 
 ``` r
-#(mel1_lmm <- lmm(mel1_meta, log1p(Volume) ~ Treatment*Day + (Day | ID)))
-#summary(mel1_lmm)
+(mel1_lmm <- lmm(mel1_meta, log1p(Volume) ~ Treatment*Day + (Day | ID)))
 ```
+
+    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
+    Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
+
+    Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+    lmerModLmerTest]
+    Formula: log1p(Volume) ~ Treatment * Day + (Day | ID)
+       Data: data
+
+    REML criterion at convergence: 2057.9
+
+    Scaled residuals:
+        Min      1Q  Median      3Q     Max
+    -2.7388 -0.4455  0.0897  0.5194  3.2523
+
+    Random effects:
+     Groups   Name        Variance  Std.Dev. Corr
+     ID       (Intercept) 0.1006944 0.31732
+              Day         0.0005492 0.02344  -0.29
+     Residual             1.4496878 1.20403
+    Number of obs: 600, groups:  ID, 35
+
+    Fixed effects:
+                    Estimate Std. Error        df t value Pr(>|t|)
+    (Intercept)     3.803278   0.241055 63.696770  15.778  < 2e-16 ***
+    TreatmentB     -2.077289   0.311809 44.850653  -6.662 3.29e-08 ***
+    TreatmentC     -0.151380   0.336695 58.812300  -0.450  0.65465
+    TreatmentD     -1.482092   0.315893 42.320462  -4.692 2.84e-05 ***
+    Day             0.064163   0.010131 58.005388   6.333 3.82e-08 ***
+    TreatmentB:Day -0.042430   0.013049 41.175964  -3.252  0.00229 **
+    TreatmentC:Day -0.003019   0.014348 55.455508  -0.210  0.83412
+    TreatmentD:Day -0.081544   0.013289 39.417584  -6.136 3.21e-07 ***
+    ---
+    Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+    Correlation of Fixed Effects:
+                (Intr) TrtmnB TrtmnC TrtmnD Day    TrtB:D TrtC:D
+    TreatmentB  -0.773
+    TreatmentC  -0.716  0.553
+    TreatmentD  -0.763  0.590  0.546
+    Day         -0.567  0.438  0.406  0.432
+    TretmntB:Dy  0.440 -0.489 -0.315 -0.336 -0.776
+    TretmntC:Dy  0.400 -0.309 -0.559 -0.305 -0.706  0.548
+    TretmntD:Dy  0.432 -0.334 -0.309 -0.475 -0.762  0.592  0.538
+    optimizer (nloptwrap) convergence code: 0 (OK)
+    Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
+
+``` r
+summary(mel1_lmm)
+```
+
+    $`overall effect of time`
+     1       Day.trend      SE   df lower.CL upper.CL
+     overall    0.0324 0.00467 33.8   0.0229   0.0419
+
+    Results are averaged over the levels of: Treatment
+    Degrees-of-freedom method: kenward-roger
+    Confidence level used: 0.95
+
+    $`slope of treatment over time`
+     Treatment Day.trend      SE   df lower.CL upper.CL
+     A            0.0642 0.01010 50.2   0.0438 0.084541
+     B            0.0217 0.00823 22.8   0.0047 0.038767
+     C            0.0611 0.01020 45.6   0.0405 0.081744
+     D           -0.0174 0.00860 21.7  -0.0352 0.000469
+
+    Degrees-of-freedom method: kenward-roger
+    Confidence level used: 0.95
+
+    $`test slope differences`
+     contrast estimate     SE   df t.ratio p.value
+     A - B     0.04243 0.0131 35.4   3.248  0.0130
+     A - C     0.00302 0.0144 47.8   0.210  0.9967
+     A - D     0.08154 0.0133 33.9   6.131  <.0001
+     B - C    -0.03941 0.0131 33.7  -3.001  0.0247
+     B - D     0.03911 0.0119 22.2   3.286  0.0164
+     C - D     0.07852 0.0134 32.4   5.875  <.0001
+
+    Degrees-of-freedom method: kenward-roger
+    P value adjustment: tukey method for comparing a family of 4 estimates 
 
 ``` r
 pros_meta <- tumr(prostate, ID, Age, BLI, Genotype)
@@ -383,31 +455,28 @@ plot(pros_rfeat)
 summary(pros_lmm)
 ```
 
-    Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed
-    Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed
-
     $`overall effect of time`
-     1       Age.trend      SE   df lower.CL upper.CL
-     overall    0.0946 0.00497 51.1   0.0846    0.105
+     1       Age.trend    SE   df lower.CL upper.CL
+     overall    0.0946 0.005 46.4   0.0845    0.105
 
     Results are averaged over the levels of: Genotype
-    Degrees-of-freedom method: satterthwaite
+    Degrees-of-freedom method: kenward-roger
     Confidence level used: 0.95
 
     $`slope of treatment over time`
      Genotype Age.trend      SE   df lower.CL upper.CL
-     DOKO        0.1723 0.00961 95.3   0.1532   0.1914
-     HET         0.0646 0.00805 39.6   0.0483   0.0809
-     WT          0.0469 0.00807 32.4   0.0305   0.0633
+     DOKO        0.1723 0.00962 86.8   0.1532   0.1914
+     HET         0.0646 0.00812 36.0   0.0481   0.0811
+     WT          0.0469 0.00814 29.3   0.0303   0.0635
 
-    Degrees-of-freedom method: satterthwaite
+    Degrees-of-freedom method: kenward-roger
     Confidence level used: 0.95
 
     $`test slope differences`
      contrast   estimate     SE   df t.ratio p.value
-     DOKO - HET   0.1077 0.0125 63.7   8.588  <.0001
-     DOKO - WT    0.1254 0.0126 57.2   9.988  <.0001
-     HET - WT     0.0177 0.0114 35.7   1.551  0.2800
+     DOKO - HET   0.1077 0.0126 57.9   8.553  <.0001
+     DOKO - WT    0.1254 0.0126 51.9   9.949  <.0001
+     HET - WT     0.0177 0.0115 32.4   1.538  0.2869
 
-    Degrees-of-freedom method: satterthwaite
+    Degrees-of-freedom method: kenward-roger
     P value adjustment: tukey method for comparing a family of 3 estimates 

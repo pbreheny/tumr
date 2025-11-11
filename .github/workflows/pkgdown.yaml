@@ -32,6 +32,7 @@ jobs:
         with:
           extra-packages: |
             any::pkgdown
+            any::pbkrtest
             local::.
           needs: website
 

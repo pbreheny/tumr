@@ -106,8 +106,8 @@ mel1_meta <- tumr(melanoma1, ID, Day, Volume, Treatment)
 plot_median(mel1_meta)
 (mel1_rfeat <- rfeat(mel1_meta, comparison = "both"))
 plot(mel1_rfeat)
-#(mel1_lmm <- lmm(mel1_meta, log1p(Volume) ~ Treatment*Day + (Day | ID)))
-#summary(mel1_lmm)
+(mel1_lmm <- lmm(mel1_meta, log1p(Volume) ~ Treatment*Day + (Day | ID)))
+summary(mel1_lmm)
 ```
 
 ```{r}

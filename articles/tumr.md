@@ -53,7 +53,7 @@ plot_median(mel2)
 
 ![](tumr_files/figure-html/unnamed-chunk-3-2.png)
 
-### Response Feature Analysis of melanoma2
+### Response feature analysis
 
 ``` r
 (rfeat_mel2 <- rfeat(mel2, comparison = "both"))
@@ -235,15 +235,15 @@ summary(breast_lmm)
 ### Another melanoma
 
 ``` r
-mel1_meta <- tumr(melanoma1, ID, Day, Volume, Treatment)
+mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 
-plot_median(mel1_meta)
+plot_median(mel1)
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-7-1.png)
 
 ``` r
-(mel1_rfeat <- rfeat(mel1_meta, comparison = "both"))
+(mel1_rfeat <- rfeat(mel1, comparison = "both"))
 ```
 
     $anova
@@ -275,54 +275,49 @@ plot(mel1_rfeat)
 ![](tumr_files/figure-html/unnamed-chunk-7-2.png)
 
 ``` r
-(mel1_lmm <- lmm(mel1_meta, log1p(Volume) ~ Treatment*Day + (Day | ID)))
+(mel1_lmm <- lmm(mel1))
 ```
-
-    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
-    Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
 
     Linear mixed model fit by REML. t-tests use Satterthwaite's method [
     lmerModLmerTest]
-    Formula: log1p(Volume) ~ Treatment * Day + (Day | ID)
+    Formula: log1p(Volume) ~ Treatment * scale(Day) + (scale(Day) | ID)
        Data: data
 
-    REML criterion at convergence: 2057.9
+    REML criterion at convergence: 2028.9
 
     Scaled residuals:
         Min      1Q  Median      3Q     Max
-    -2.7388 -0.4455  0.0897  0.5194  3.2523
+    -2.7387 -0.4428  0.0883  0.5192  3.2744
 
     Random effects:
-     Groups   Name        Variance  Std.Dev. Corr
-     ID       (Intercept) 0.1006944 0.31732
-              Day         0.0005492 0.02344  -0.29
-     Residual             1.4496878 1.20403
+     Groups   Name        Variance Std.Dev. Corr
+     ID       (Intercept) 1.3872   1.1778
+              scale(Day)  0.7463   0.8639   0.97
+     Residual             1.4535   1.2056
     Number of obs: 600, groups:  ID, 35
 
     Fixed effects:
-                    Estimate Std. Error        df t value Pr(>|t|)
-    (Intercept)     3.803278   0.241055 63.696770  15.778  < 2e-16 ***
-    TreatmentB     -2.077289   0.311809 44.850653  -6.662 3.29e-08 ***
-    TreatmentC     -0.151380   0.336695 58.812300  -0.450  0.65465
-    TreatmentD     -1.482092   0.315893 42.320462  -4.692 2.84e-05 ***
-    Day             0.064163   0.010131 58.005388   6.333 3.82e-08 ***
-    TreatmentB:Day -0.042430   0.013049 41.175964  -3.252  0.00229 **
-    TreatmentC:Day -0.003019   0.014348 55.455508  -0.210  0.83412
-    TreatmentD:Day -0.081544   0.013289 39.417584  -6.136 3.21e-07 ***
+                          Estimate Std. Error      df t value Pr(>|t|)
+    (Intercept)             7.1736     0.4429 41.2795  16.197  < 2e-16 ***
+    TreatmentB             -4.3047     0.5987 34.8445  -7.190 2.23e-08 ***
+    TreatmentC             -0.3122     0.6309 41.8851  -0.495  0.62331
+    TreatmentD             -5.7652     0.6146 34.3159  -9.380 5.34e-11 ***
+    scale(Day)              2.3725     0.3740 59.2521   6.343 3.41e-08 ***
+    TreatmentB:scale(Day)  -1.5660     0.4815 41.9847  -3.252  0.00226 **
+    TreatmentC:scale(Day)  -0.1146     0.5295 56.5919  -0.216  0.82944
+    TreatmentD:scale(Day)  -3.0148     0.4904 40.1877  -6.148 2.87e-07 ***
     ---
     Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
     Correlation of Fixed Effects:
-                (Intr) TrtmnB TrtmnC TrtmnD Day    TrtB:D TrtC:D
-    TreatmentB  -0.773
-    TreatmentC  -0.716  0.553
-    TreatmentD  -0.763  0.590  0.546
-    Day         -0.567  0.438  0.406  0.432
-    TretmntB:Dy  0.440 -0.489 -0.315 -0.336 -0.776
-    TretmntC:Dy  0.400 -0.309 -0.559 -0.305 -0.706  0.548
-    TretmntD:Dy  0.432 -0.334 -0.309 -0.475 -0.762  0.592  0.538
-    optimizer (nloptwrap) convergence code: 0 (OK)
-    Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
+                (Intr) TrtmnB TrtmnC TrtmnD scl(D) TB:(D) TC:(D)
+    TreatmentB  -0.740
+    TreatmentC  -0.702  0.519
+    TreatmentD  -0.721  0.533  0.506
+    scale(Day)   0.898 -0.664 -0.630 -0.647
+    TrtmntB:(D) -0.697  0.895  0.489  0.502 -0.777
+    TrtmntC:(D) -0.634  0.469  0.901  0.457 -0.706  0.549
+    TrtmntD:(D) -0.685  0.507  0.481  0.897 -0.763  0.593  0.539
 
 ``` r
 summary(mel1_lmm)
@@ -330,7 +325,7 @@ summary(mel1_lmm)
 
     $`overall effect of time`
      1       Day.trend      SE   df lower.CL upper.CL
-     overall    0.0324 0.00467 33.8   0.0229   0.0419
+     overall    0.0324 0.00466 33.9    0.023   0.0419
 
     Results are averaged over the levels of: Treatment
     Degrees-of-freedom method: kenward-roger
@@ -338,22 +333,22 @@ summary(mel1_lmm)
 
     $`slope of treatment over time`
      Treatment Day.trend      SE   df lower.CL upper.CL
-     A            0.0642 0.01010 50.2   0.0438 0.084541
-     B            0.0217 0.00823 22.8   0.0047 0.038767
-     C            0.0611 0.01020 45.6   0.0405 0.081744
-     D           -0.0174 0.00860 21.7  -0.0352 0.000469
+     A            0.0642 0.01010 50.5  0.04384  0.08454
+     B            0.0218 0.00821 22.8  0.00483  0.03881
+     C            0.0611 0.01020 45.6  0.04052  0.08165
+     D           -0.0174 0.00858 21.7 -0.03518  0.00043
 
     Degrees-of-freedom method: kenward-roger
     Confidence level used: 0.95
 
     $`test slope differences`
      contrast estimate     SE   df t.ratio p.value
-     A - B     0.04243 0.0131 35.4   3.248  0.0130
-     A - C     0.00302 0.0144 47.8   0.210  0.9967
-     A - D     0.08154 0.0133 33.9   6.131  <.0001
-     B - C    -0.03941 0.0131 33.7  -3.001  0.0247
-     B - D     0.03911 0.0119 22.2   3.286  0.0164
-     C - D     0.07852 0.0134 32.4   5.875  <.0001
+     A - B      0.0424 0.0130 35.6   3.248  0.0129
+     A - C      0.0031 0.0144 48.0   0.215  0.9964
+     A - D      0.0816 0.0133 34.0   6.143  <.0001
+     B - C     -0.0393 0.0131 33.8  -2.996  0.0250
+     B - D      0.0392 0.0119 22.2   3.301  0.0158
+     C - D      0.0785 0.0133 32.4   5.882  <.0001
 
     Degrees-of-freedom method: kenward-roger
     P value adjustment: tukey method for comparing a family of 4 estimates 

@@ -239,7 +239,7 @@ Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)<
 </h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">emm_sum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed
 Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed</code></pre>
@@ -279,6 +279,234 @@ $`test slope differences`
 
 Degrees-of-freedom method: satterthwaite
 P value adjustment: tukey method for comparing a family of 5 estimates </code></pre>
+</div>
+</div>
+</section><section class="level2"><h2 id="looking-at-different-data-sets">Looking at different data sets<a class="anchor" aria-label="anchor" href="#looking-at-different-data-sets"></a>
+</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">breast_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">breast</span>, <span class="va">ID</span>, <span class="va">Week</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">breast_meta</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">breast_rfeat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rfeat.html">rfeat</a></span><span class="op">(</span><span class="va">breast_meta</span>, comparison <span class="op">=</span> <span class="st">"t.test"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">breast_rfeat</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-8-2.png" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">breast_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="va">breast_meta</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>boundary (singular) fit: see help('isSingular')</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">breast_lmm</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`overall effect of time`
+ 1       Week.trend   SE   df lower.CL upper.CL
+ overall      0.802 0.12 25.7    0.557     1.05
+
+Results are averaged over the levels of: Treatment
+Degrees-of-freedom method: satterthwaite
+Confidence level used: 0.95
+
+$`slope of treatment over time`
+ Treatment Week.trend    SE   df lower.CL upper.CL
+ NR             0.882 0.169 25.4    0.535     1.23
+ VEH            0.723 0.169 25.9    0.374     1.07
+
+Degrees-of-freedom method: satterthwaite
+Confidence level used: 0.95
+
+$`test slope differences`
+ contrast estimate    SE   df t.ratio p.value
+ NR - VEH     0.16 0.239 25.7   0.667  0.5106
+
+Degrees-of-freedom method: satterthwaite </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mel1_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma1</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel1_meta</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">mel1_rfeat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rfeat.html">rfeat</a></span><span class="op">(</span><span class="va">mel1_meta</span>, comparison <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$anova
+            Df Sum Sq Mean Sq F value   Pr(&gt;F)
+Group        3   4645  1548.3   35.62 3.64e-10 ***
+Residuals   31   1347    43.5
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+$tukey
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = Beta ~ Group, data = betas)
+
+$Group
+          diff        lwr        upr     p adj
+B-A -22.058493 -30.493598 -13.623388 0.0000003
+C-A  -4.427555 -12.862660   4.007550 0.4940635
+D-A -27.682834 -36.377542 -18.988126 0.0000000
+C-B  17.630938   9.195833  26.066043 0.0000179
+D-B  -5.624341 -14.319048   3.070367 0.3134169
+D-C -23.255279 -31.949987 -14.560571 0.0000002</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1_rfeat</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-9-2.png" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#(mel1_lmm &lt;- lmm(mel1_meta, log1p(Volume) ~ Treatment*Day + (Day | ID)))</span></span>
+<span><span class="co">#summary(mel1_lmm)</span></span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pros_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">prostate</span>, <span class="va">ID</span>, <span class="va">Age</span>, <span class="va">BLI</span>, <span class="va">Genotype</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">pros_meta</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">pros_rfeat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rfeat.html">rfeat</a></span><span class="op">(</span><span class="va">pros_meta</span>, comparison <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$anova
+            Df    Sum Sq   Mean Sq F value   Pr(&gt;F)
+Group        2 6.588e+18 3.294e+18   13.71 2.14e-05 ***
+Residuals   46 1.105e+19 2.403e+17
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+$tukey
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = Beta ~ Group, data = betas)
+
+$Group
+               diff         lwr        upr     p adj
+HET-DOKO -656394790 -1063611872 -249177709 0.0008827
+WT-DOKO  -858422884 -1278994877 -437850891 0.0000313
+WT-HET   -202028094  -622600087  218543899 0.4808144</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pros_rfeat</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-10-2.png" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">pros_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="va">pros_meta</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
+Model failed to converge with max|grad| = 0.00478111 (tol = 0.002, component 1)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: log1p(BLI) ~ Genotype * Age + (Age | ID)
+   Data: data
+
+REML criterion at convergence: 1423.8
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-5.2046 -0.4834  0.0116  0.5532  3.2088
+
+Random effects:
+ Groups   Name        Variance  Std.Dev. Corr
+ ID       (Intercept) 0.1824792 0.42718
+          Age         0.0006397 0.02529  -0.91
+ Residual             0.4264456 0.65303
+Number of obs: 662, groups:  ID, 49
+
+Fixed effects:
+                 Estimate Std. Error        df t value Pr(&gt;|t|)
+(Intercept)     18.849994   0.159658 73.273902 118.065  &lt; 2e-16 ***
+GenotypeHET      1.161121   0.215336 58.907212   5.392 1.29e-06 ***
+GenotypeWT       1.203959   0.217579 53.964181   5.533 9.45e-07 ***
+Age              0.172293   0.009613 95.312319  17.923  &lt; 2e-16 ***
+GenotypeHET:Age -0.107699   0.012541 63.665873  -8.588 3.10e-12 ***
+GenotypeWT:Age  -0.125381   0.012553 57.175131  -9.988 3.79e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) GntHET GntyWT Age    GHET:A
+GenotypeHET -0.741
+GenotypeWT  -0.734  0.544
+Age         -0.911  0.675  0.668
+GntypHET:Ag  0.698 -0.903 -0.512 -0.767
+GentypWT:Ag  0.697 -0.517 -0.901 -0.766  0.587
+optimizer (nloptwrap) convergence code: 0 (OK)
+Model failed to converge with max|grad| = 0.00478111 (tol = 0.002, component 1)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pros_lmm</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed
+Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`overall effect of time`
+ 1       Age.trend      SE   df lower.CL upper.CL
+ overall    0.0946 0.00497 51.1   0.0846    0.105
+
+Results are averaged over the levels of: Genotype
+Degrees-of-freedom method: satterthwaite
+Confidence level used: 0.95
+
+$`slope of treatment over time`
+ Genotype Age.trend      SE   df lower.CL upper.CL
+ DOKO        0.1723 0.00961 95.3   0.1532   0.1914
+ HET         0.0646 0.00805 39.6   0.0483   0.0809
+ WT          0.0469 0.00807 32.4   0.0305   0.0633
+
+Degrees-of-freedom method: satterthwaite
+Confidence level used: 0.95
+
+$`test slope differences`
+ contrast   estimate     SE   df t.ratio p.value
+ DOKO - HET   0.1077 0.0125 63.7   8.588  &lt;.0001
+ DOKO - WT    0.1254 0.0126 57.2   9.988  &lt;.0001
+ HET - WT     0.0177 0.0114 35.7   1.551  0.2800
+
+Degrees-of-freedom method: satterthwaite
+P value adjustment: tukey method for comparing a family of 3 estimates </code></pre>
 </div>
 </div>
 </section><script id="quarto-html-after-body" type="application/javascript">
@@ -374,7 +602,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: November 04, 2025</p>
+  <p>Last updated: November 11, 2025</p>
 </div>
 
     </footer>

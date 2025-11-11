@@ -56,7 +56,7 @@ plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
 plot_median(mel2)
 ```
 
-## Response Feature Analysis of melanoma2
+## Response feature analysis
 
 ```{r}
 (rfeat_mel2 <- rfeat(mel2, comparison = "both"))
@@ -87,12 +87,12 @@ summary(breast_lmm)
 ## Another melanoma
 
 ```{r}
-mel1_meta <- tumr(melanoma1, ID, Day, Volume, Treatment)
+mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 
-plot_median(mel1_meta)
-(mel1_rfeat <- rfeat(mel1_meta, comparison = "both"))
+plot_median(mel1)
+(mel1_rfeat <- rfeat(mel1, comparison = "both"))
 plot(mel1_rfeat)
-(mel1_lmm <- lmm(mel1_meta, log1p(Volume) ~ Treatment*Day + (Day | ID)))
+(mel1_lmm <- lmm(mel1))
 summary(mel1_lmm)
 ```
 

@@ -62,50 +62,46 @@ summary of linear mixed model fit
 data(melanoma1)
 mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 lmm(mel1)
-#> Warning: Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
 #> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 #> lmerModLmerTest]
-#> Formula: log1p(Volume) ~ Treatment * Day + (Day | ID)
+#> Formula: log1p(Volume) ~ Treatment * scale(Day) + (scale(Day) | ID)
 #>    Data: data
 #> 
-#> REML criterion at convergence: 2057.9
+#> REML criterion at convergence: 2028.9
 #> 
 #> Scaled residuals: 
 #>     Min      1Q  Median      3Q     Max 
-#> -2.7388 -0.4455  0.0897  0.5194  3.2523 
+#> -2.7387 -0.4428  0.0883  0.5192  3.2744 
 #> 
 #> Random effects:
-#>  Groups   Name        Variance  Std.Dev. Corr 
-#>  ID       (Intercept) 0.1006944 0.31732       
-#>           Day         0.0005492 0.02344  -0.29
-#>  Residual             1.4496878 1.20403       
+#>  Groups   Name        Variance Std.Dev. Corr
+#>  ID       (Intercept) 1.3872   1.1778       
+#>           scale(Day)  0.7463   0.8639   0.97
+#>  Residual             1.4535   1.2056       
 #> Number of obs: 600, groups:  ID, 35
 #> 
 #> Fixed effects:
-#>                 Estimate Std. Error        df t value Pr(>|t|)    
-#> (Intercept)     3.803278   0.241055 63.696770  15.778  < 2e-16 ***
-#> TreatmentB     -2.077289   0.311809 44.850653  -6.662 3.29e-08 ***
-#> TreatmentC     -0.151380   0.336695 58.812300  -0.450  0.65465    
-#> TreatmentD     -1.482092   0.315893 42.320462  -4.692 2.84e-05 ***
-#> Day             0.064163   0.010131 58.005388   6.333 3.82e-08 ***
-#> TreatmentB:Day -0.042430   0.013049 41.175964  -3.252  0.00229 ** 
-#> TreatmentC:Day -0.003019   0.014348 55.455508  -0.210  0.83412    
-#> TreatmentD:Day -0.081544   0.013289 39.417584  -6.136 3.21e-07 ***
+#>                       Estimate Std. Error      df t value Pr(>|t|)    
+#> (Intercept)             7.1736     0.4429 41.2795  16.197  < 2e-16 ***
+#> TreatmentB             -4.3047     0.5987 34.8445  -7.190 2.23e-08 ***
+#> TreatmentC             -0.3122     0.6309 41.8851  -0.495  0.62331    
+#> TreatmentD             -5.7652     0.6146 34.3159  -9.380 5.34e-11 ***
+#> scale(Day)              2.3725     0.3740 59.2521   6.343 3.41e-08 ***
+#> TreatmentB:scale(Day)  -1.5660     0.4815 41.9847  -3.252  0.00226 ** 
+#> TreatmentC:scale(Day)  -0.1146     0.5295 56.5919  -0.216  0.82944    
+#> TreatmentD:scale(Day)  -3.0148     0.4904 40.1877  -6.148 2.87e-07 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> Correlation of Fixed Effects:
-#>             (Intr) TrtmnB TrtmnC TrtmnD Day    TrtB:D TrtC:D
-#> TreatmentB  -0.773                                          
-#> TreatmentC  -0.716  0.553                                   
-#> TreatmentD  -0.763  0.590  0.546                            
-#> Day         -0.567  0.438  0.406  0.432                     
-#> TretmntB:Dy  0.440 -0.489 -0.315 -0.336 -0.776              
-#> TretmntC:Dy  0.400 -0.309 -0.559 -0.305 -0.706  0.548       
-#> TretmntD:Dy  0.432 -0.334 -0.309 -0.475 -0.762  0.592  0.538
-#> optimizer (nloptwrap) convergence code: 0 (OK)
-#> Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
-#> 
+#>             (Intr) TrtmnB TrtmnC TrtmnD scl(D) TB:(D) TC:(D)
+#> TreatmentB  -0.740                                          
+#> TreatmentC  -0.702  0.519                                   
+#> TreatmentD  -0.721  0.533  0.506                            
+#> scale(Day)   0.898 -0.664 -0.630 -0.647                     
+#> TrtmntB:(D) -0.697  0.895  0.489  0.502 -0.777              
+#> TrtmntC:(D) -0.634  0.469  0.901  0.457 -0.706  0.549       
+#> TrtmntD:(D) -0.685  0.507  0.481  0.897 -0.763  0.593  0.539
 
 lmm(
 tumr_obj = mel1,
@@ -150,36 +146,36 @@ measure = "Volume"
 #> boundary (singular) fit: see help('isSingular')
 #> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 #> lmerModLmerTest]
-#> Formula: log1p(Volume) ~ Treatment * Week + (Week | ID)
+#> Formula: log1p(Volume) ~ Treatment * scale(Week) + (scale(Week) | ID)
 #>    Data: data
 #> 
-#> REML criterion at convergence: 1425.4
+#> REML criterion at convergence: 1420.4
 #> 
 #> Scaled residuals: 
 #>      Min       1Q   Median       3Q      Max 
-#> -2.55646 -0.38793  0.01298  0.56080  2.09235 
+#> -2.55645 -0.38793  0.01296  0.56081  2.09235 
 #> 
 #> Random effects:
-#>  Groups   Name        Variance Std.Dev. Corr 
-#>  ID       (Intercept) 2.4895   1.5778        
-#>           Week        0.3673   0.6061   -1.00
-#>  Residual             3.8081   1.9514        
+#>  Groups   Name        Variance Std.Dev. Corr
+#>  ID       (Intercept) 5.577    2.362        
+#>           scale(Week) 4.390    2.095    1.00
+#>  Residual             3.808    1.951        
 #> Number of obs: 319, groups:  ID, 28
 #> 
 #> Fixed effects:
-#>                   Estimate Std. Error      df t value Pr(>|t|)    
-#> (Intercept)        -2.6356     0.5345 28.9902  -4.931 3.07e-05 ***
-#> TreatmentVEH        0.5622     0.7588 29.3956   0.741    0.465    
-#> Week                0.8822     0.1686 25.4077   5.233 1.95e-05 ***
-#> TreatmentVEH:Week  -0.1595     0.2391 25.6613  -0.667    0.511    
+#>                          Estimate Std. Error      df t value Pr(>|t|)    
+#> (Intercept)                3.0986     0.6502 25.6306   4.766 6.45e-05 ***
+#> TreatmentVEH              -0.4747     0.9206 25.7558  -0.516    0.611    
+#> scale(Week)                3.0499     0.5829 25.4085   5.233 1.95e-05 ***
+#> TreatmentVEH:scale(Week)  -0.5515     0.8265 25.6620  -0.667    0.511    
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> Correlation of Fixed Effects:
-#>             (Intr) TrtVEH Week  
-#> TreatmntVEH -0.704              
-#> Week        -0.908  0.640       
-#> TrtmntVEH:W  0.640 -0.909 -0.705
+#>             (Intr) TrtVEH scl(W)
+#> TreatmntVEH -0.706              
+#> scale(Week)  0.939 -0.663       
+#> TrtmVEH:(W) -0.662  0.939 -0.705
 #> optimizer (nloptwrap) convergence code: 0 (OK)
 #> boundary (singular) fit: see help('isSingular')
 #> 

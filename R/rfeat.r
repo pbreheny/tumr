@@ -76,16 +76,12 @@ rfeat <- function(tumr_obj = NULL, data = NULL, id = NULL, time = NULL, measure 
     betas[j, "Group"] <- as.character(unique(smaller[[group]]))
   }
 
-  # Remove rows with NA (e.g., from skipped IDs)
-  #betas <- na.omit(betas)
-
   # Group-level summary
   betas_summary <- betas |>
     dplyr::group_by(.data[["Group"]]) |>
     dplyr::summarise(average = mean(.data[["Beta"]]), .groups = "drop")
 
   # Corrected statistical test using individual-level data
-  #length(unique(betas$Group)) == 2
   if (comparison == "t.test") {
     stat_test <- t.test(Beta ~ Group, data = betas)
   } else if (comparison == "anova") {

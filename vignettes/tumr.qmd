@@ -84,6 +84,64 @@ plot(rfeat_mel2)
 ## summary of mixed model
 
 ```{r}
-summary(lmm_mel2)
+(emm_sum <- summary(lmm_mel2))
 ```
+
+
+## Looking at different data sets
+
+```{r}
+breast_meta <- tumr(breast, ID, Week, Volume, Treatment)
+
+plot_median(breast_meta)
+breast_rfeat <- rfeat(breast_meta, comparison = "t.test")
+plot(breast_rfeat)
+breast_lmm <- lmm(breast_meta)
+summary(breast_lmm)
+```
+
+```{r}
+mel1_meta <- tumr(melanoma1, ID, Day, Volume, Treatment)
+
+plot_median(mel1_meta)
+(mel1_rfeat <- rfeat(mel1_meta, comparison = "both"))
+plot(mel1_rfeat)
+(mel1_lmm <- lmm(mel1_meta, log1p(Volume) ~ Treatment*Day + (Day | ID)))
+summary(mel1_lmm)
+```
+
+```{r}
+pros_meta <- tumr(prostate, ID, Age, BLI, Genotype)
+
+plot_median(pros_meta)
+(pros_rfeat <- rfeat(pros_meta, comparison = "both"))
+plot(pros_rfeat)
+(pros_lmm <- lmm(pros_meta))
+summary(pros_lmm)
+```
+
+
+```{r}
+# model <- lmm_mel2$model_sum
+# 
+# pred <- ggeffects::ggpredict(model, terms = "Day")
+# plot(pred2)
+# 
+# pred2 <- ggeffects::ggpredict(model, terms = c("Day", "Treatment"))
+# plot(pred)
+# 
+# emm <- emmeans::emmeans(model, ~ "Treatment")
+# plot(emm)
+# 
+# plot(emm_sum$`slope of treatment over time`)
+# 
+# sjPlot::plot_model(model, type = "re")
+# sjPlot::plot_model(model, type = "est")
+# sjPlot::plot_model(model, type = "pred", terms = c("Day", "Treatment"))
+# #Diagnostics
+# sjPlot::plot_model(model, type = "diag")
+```
+
+
+
 

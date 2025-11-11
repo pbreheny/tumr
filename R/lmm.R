@@ -48,7 +48,7 @@ lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = 
     formula <- as.formula(formula_string)
   }
 
-  if (!is.null(formula)){
+  if (!is.null(formula)) {
     formula <- as.formula(formula)
   }
 

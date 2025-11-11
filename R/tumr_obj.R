@@ -28,10 +28,8 @@ tumr <- function(data, id, time, measure, group){
     group = group,
     data = data
   )
-
-  return(meta_data)
-
   class(meta_data) <- "tumr"
+  return(meta_data)
 }
 
 

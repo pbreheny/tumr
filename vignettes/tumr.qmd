@@ -6,9 +6,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-We should write a brief intro here for one of the data sets.
-
-## melanoma2 data set
+# Melanoma
 
 ```{r}
 library(tumr)
@@ -24,7 +22,7 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
     dplyr::summarise(measure = stat({{measure}}, na.rm = remove_na), .groups = "drop_last") |>
     dplyr::ungroup()
 
-  if (remove_na == TRUE){
+  if (remove_na == TRUE) {
     data_full <- data |>
       na.omit(data)
   } else {
@@ -55,40 +53,26 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
 #| fig-height: 3.5
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
-mel2 |>
-  plot_median()
+plot_median(mel2)
 ```
 
 ## Response Feature Analysis of melanoma2
 
 ```{r}
-(rfeat_mel2 <- mel2 |>
-              rfeat(comparison = "both"))
-```
-
-
-## rfeat plot
-
-```{r}
+(rfeat_mel2 <- rfeat(mel2, comparison = "both"))
 plot(rfeat_mel2)
 ```
-
 
 ## Linear mixed model
 
 ```{r}
-(lmm_mel2 <- mel2 |>
-  lmm())
-```
-
-## summary of mixed model
-
-```{r}
+(lmm_mel2 <- lmm(mel2))
 (emm_sum <- summary(lmm_mel2))
 ```
 
+# Other data sets
 
-## Looking at different data sets
+## Breast cancer
 
 ```{r}
 breast_meta <- tumr(breast, ID, Week, Volume, Treatment)
@@ -100,6 +84,8 @@ breast_lmm <- lmm(breast_meta)
 summary(breast_lmm)
 ```
 
+## Another melanoma
+
 ```{r}
 mel1_meta <- tumr(melanoma1, ID, Day, Volume, Treatment)
 
@@ -110,6 +96,8 @@ plot(mel1_rfeat)
 summary(mel1_lmm)
 ```
 
+## Prostate cancer
+
 ```{r}
 pros_meta <- tumr(prostate, ID, Age, BLI, Genotype)
 
@@ -119,7 +107,6 @@ plot(pros_rfeat)
 (pros_lmm <- lmm(pros_meta))
 summary(pros_lmm)
 ```
-
 
 ```{r}
 #| echo: false
@@ -144,7 +131,3 @@ sjPlot::plot_model(model, type = "pred", terms = c("Day", "Treatment"))
 #Diagnostics
 sjPlot::plot_model(model, type = "diag")
 ```
-
-
-
-

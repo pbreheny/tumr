@@ -42,9 +42,8 @@ lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = 
     if (is.null(data)) data <- tumr_obj$data
   }
 
-
   if (is.null(formula)) {
-    formula_string <- paste0("log1p(", measure, ") ~ ", group, " * ", time, " + (", time, "| ", id, ")")
+    formula_string <- paste0("log1p(", measure, ") ~ ", group, " * scale(", time, ") + (scale(", time, ")| ", id, ")")
     formula <- as.formula(formula_string)
   }
 
@@ -71,9 +70,6 @@ lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = 
   class(result) <- "lmm"
 
   return(result)
-
-  print(result)
-
 }
 
 

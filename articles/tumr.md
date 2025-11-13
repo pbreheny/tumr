@@ -142,44 +142,23 @@ plot(rfeat_mel2)
     TrtmntD:(D) -0.449  0.311  0.319  0.680  0.303 -0.679  0.480  0.485
     TrtmntE:(D) -0.457  0.316  0.324  0.315  0.659 -0.690  0.488  0.493  0.469
 
+### Plot of linear mixed model
+
 ``` r
-(emm_sum <- summary(lmm_mel2))
+plot(lmm_mel2)
 ```
 
-    $`overall effect of time`
-     1       Day.trend      SE   df lower.CL upper.CL
-     overall    0.0553 0.00411 41.3    0.047   0.0636
+    Model has log1p-transformed response. Back-transforming predictions to
+      original response scale. Standard errors are still on the transformed
+      scale.
 
-    Results are averaged over the levels of: Treatment
-    Degrees-of-freedom method: kenward-roger
-    Confidence level used: 0.95
+    [[1]]
 
-    $`slope of treatment over time`
-     Treatment Day.trend      SE   df lower.CL upper.CL
-     A            0.0797 0.00898 43.6   0.0616   0.0978
-     B            0.0400 0.00898 35.8   0.0218   0.0582
-     C            0.0530 0.00879 40.6   0.0352   0.0707
-     D            0.0547 0.00972 55.4   0.0353   0.0742
-     E            0.0491 0.00941 34.4   0.0300   0.0682
+![](tumr_files/figure-html/unnamed-chunk-6-1.png)
 
-    Degrees-of-freedom method: kenward-roger
-    Confidence level used: 0.95
+    [[2]]
 
-    $`test slope differences`
-     contrast estimate     SE   df t.ratio p.value
-     A - B     0.03972 0.0127 39.4   3.128  0.0259
-     A - C     0.02673 0.0126 42.1   2.128  0.2278
-     A - D     0.02497 0.0132 49.4   1.887  0.3378
-     A - E     0.03060 0.0130 38.4   2.353  0.1505
-     B - C    -0.01300 0.0126 38.0  -1.034  0.8378
-     B - D    -0.01476 0.0132 44.8  -1.115  0.7978
-     B - E    -0.00912 0.0130 35.0  -0.701  0.9549
-     C - D    -0.00176 0.0131 47.9  -0.134  0.9999
-     C - E     0.00388 0.0129 37.0   0.301  0.9981
-     D - E     0.00564 0.0135 43.4   0.417  0.9935
-
-    Degrees-of-freedom method: kenward-roger
-    P value adjustment: tukey method for comparing a family of 5 estimates 
+![](tumr_files/figure-html/unnamed-chunk-6-2.png)
 
 ## Other data sets
 
@@ -191,14 +170,14 @@ breast_meta <- tumr(breast, ID, Week, Volume, Treatment)
 plot_median(breast_meta)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-6-1.png)
+![](tumr_files/figure-html/unnamed-chunk-7-1.png)
 
 ``` r
 breast_rfeat <- rfeat(breast_meta, comparison = "t.test")
 plot(breast_rfeat)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-6-2.png)
+![](tumr_files/figure-html/unnamed-chunk-7-2.png)
 
 ``` r
 breast_lmm <- lmm(breast_meta)
@@ -240,7 +219,7 @@ mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 plot_median(mel1)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-7-1.png)
+![](tumr_files/figure-html/unnamed-chunk-8-1.png)
 
 ``` r
 (mel1_rfeat <- rfeat(mel1, comparison = "both"))
@@ -272,7 +251,7 @@ plot_median(mel1)
 plot(mel1_rfeat)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-7-2.png)
+![](tumr_files/figure-html/unnamed-chunk-8-2.png)
 
 ``` r
 (mel1_lmm <- lmm(mel1))
@@ -361,7 +340,7 @@ pros_meta <- tumr(prostate, ID, Age, BLI, Genotype)
 plot_median(pros_meta)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-8-1.png)
+![](tumr_files/figure-html/unnamed-chunk-9-1.png)
 
 ``` r
 (pros_rfeat <- rfeat(pros_meta, comparison = "both"))
@@ -390,7 +369,7 @@ plot_median(pros_meta)
 plot(pros_rfeat)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-8-2.png)
+![](tumr_files/figure-html/unnamed-chunk-9-2.png)
 
 ``` r
 (pros_lmm <- lmm(pros_meta))

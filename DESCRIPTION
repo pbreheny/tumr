@@ -13,6 +13,7 @@ Imports:
   dplyr,
   emmeans,
   ggplot2,
+  ggeffects,
   rlang,
   survival,
   tibble,

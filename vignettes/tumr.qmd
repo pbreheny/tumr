@@ -67,8 +67,15 @@ plot(rfeat_mel2)
 
 ```{r}
 (lmm_mel2 <- lmm(mel2))
-(emm_sum <- summary(lmm_mel2))
 ```
+
+## Plot of linear mixed model
+
+```{r}
+plot(lmm_mel2)
+```
+
+
 
 # Other data sets
 
@@ -92,7 +99,9 @@ mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 plot_median(mel1)
 (mel1_rfeat <- rfeat(mel1, comparison = "both"))
 plot(mel1_rfeat)
+
 (mel1_lmm <- lmm(mel1))
+
 summary(mel1_lmm)
 ```
 
@@ -108,26 +117,3 @@ plot(pros_rfeat)
 summary(pros_lmm)
 ```
 
-```{r}
-#| echo: false
-#| eval: false
-model <- lmm_mel2$model_sum
-
-pred <- ggeffects::ggpredict(model, terms = "Day")
-plot(pred)
-
-pred2 <- ggeffects::ggpredict(model, terms = c("Day", "Treatment"))
-plot(pred2)
-
-emm <- emmeans::emmeans(model, ~ "Treatment")
-plot(emm)
-
-plot(emm_sum$`slope of treatment over time`)
-
-sjPlot::plot_model(model, type = "re")
-sjPlot::plot_model(model, type = "est")
-sjPlot::plot_model(model, type = "pred", terms = c("Day", "Treatment"))
-
-#Diagnostics
-sjPlot::plot_model(model, type = "diag")
-```

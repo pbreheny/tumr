@@ -94,53 +94,44 @@ plot(rfeat_mel2)
 ### Linear mixed model
 
 ``` r
-(lmm_mel2 <- lmm(mel2))
+lmm_mel2 <- lmm(mel2)
+summary(lmm_mel2)
 ```
 
-    Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-    lmerModLmerTest]
-    Formula: log1p(Volume) ~ Treatment * scale(Day) + (scale(Day) | ID)
-       Data: data
+    $`overall effect of time`
+     1       Day.trend      SE   df lower.CL upper.CL
+     overall    0.0553 0.00411 41.3    0.047   0.0636
 
-    REML criterion at convergence: 1185
+    Results are averaged over the levels of: Treatment
+    Degrees-of-freedom method: kenward-roger
+    Confidence level used: 0.95
 
-    Scaled residuals:
-        Min      1Q  Median      3Q     Max
-    -6.8683 -0.3590  0.0569  0.4891  4.0759
+    $`slope of treatment over time`
+     Treatment Day.trend      SE   df lower.CL upper.CL
+     A            0.0797 0.00898 43.6   0.0616   0.0978
+     B            0.0400 0.00898 35.8   0.0218   0.0582
+     C            0.0530 0.00879 40.6   0.0352   0.0707
+     D            0.0547 0.00972 55.4   0.0353   0.0742
+     E            0.0491 0.00941 34.4   0.0300   0.0682
 
-    Random effects:
-     Groups   Name        Variance Std.Dev. Corr
-     ID       (Intercept) 0.5632   0.7505
-              scale(Day)  0.3549   0.5957   0.69
-     Residual             0.3221   0.5675
-    Number of obs: 568, groups:  ID, 47
+    Degrees-of-freedom method: kenward-roger
+    Confidence level used: 0.95
 
-    Fixed effects:
-                          Estimate Std. Error       df t value Pr(>|t|)
-    (Intercept)            6.27702    0.24708 40.35039  25.405  < 2e-16 ***
-    TreatmentB            -0.76541    0.35653 39.36987  -2.147  0.03802 *
-    TreatmentC            -0.09667    0.34770 39.66829  -0.278  0.78245
-    TreatmentD             0.51350    0.35839 43.64015   1.433  0.15904
-    TreatmentE            -1.15136    0.36695 38.91498  -3.138  0.00324 **
-    scale(Day)             1.86064    0.20941 47.87999   8.885 1.07e-11 ***
-    TreatmentB:scale(Day) -0.92726    0.29623 43.34792  -3.130  0.00312 **
-    TreatmentC:scale(Day) -0.62389    0.29304 46.22995  -2.129  0.03861 *
-    TreatmentD:scale(Day) -0.58278    0.30836 54.19020  -1.890  0.06412 .
-    TreatmentE:scale(Day) -0.71437    0.30339 42.18104  -2.355  0.02327 *
-    ---
-    Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    $`test slope differences`
+     contrast estimate     SE   df t.ratio p.value
+     A - B     0.03972 0.0127 39.4   3.128  0.0259
+     A - C     0.02673 0.0126 42.1   2.128  0.2278
+     A - D     0.02497 0.0132 49.4   1.887  0.3378
+     A - E     0.03060 0.0130 38.4   2.353  0.1505
+     B - C    -0.01300 0.0126 38.0  -1.034  0.8378
+     B - D    -0.01476 0.0132 44.8  -1.115  0.7978
+     B - E    -0.00912 0.0130 35.0  -0.701  0.9549
+     C - D    -0.00176 0.0131 47.9  -0.134  0.9999
+     C - E     0.00388 0.0129 37.0   0.301  0.9981
+     D - E     0.00564 0.0135 43.4   0.417  0.9935
 
-    Correlation of Fixed Effects:
-                (Intr) TrtmnB TrtmnC TrtmnD TrtmnE scl(D) TB:(D) TC:(D) TD:(D)
-    TreatmentB  -0.693
-    TreatmentC  -0.711  0.492
-    TreatmentD  -0.689  0.478  0.490
-    TreatmentE  -0.673  0.467  0.478  0.464
-    scale(Day)   0.662 -0.458 -0.470 -0.456 -0.445
-    TrtmntB:(D) -0.468  0.662  0.332  0.322  0.315 -0.707
-    TrtmntC:(D) -0.473  0.328  0.658  0.326  0.318 -0.715  0.505
-    TrtmntD:(D) -0.449  0.311  0.319  0.680  0.303 -0.679  0.480  0.485
-    TrtmntE:(D) -0.457  0.316  0.324  0.315  0.659 -0.690  0.488  0.493  0.469
+    Degrees-of-freedom method: kenward-roger
+    P value adjustment: tukey method for comparing a family of 5 estimates 
 
 ### Plot of linear mixed model
 

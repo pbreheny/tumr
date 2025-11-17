@@ -66,7 +66,8 @@ plot(rfeat_mel2)
 ## Linear mixed model
 
 ```{r}
-(lmm_mel2 <- lmm(mel2))
+lmm_mel2 <- lmm(mel2)
+summary(lmm_mel2)
 ```
 
 ## Plot of linear mixed model

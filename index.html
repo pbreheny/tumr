@@ -64,9 +64,11 @@
 <p>tumr is a collection of tools for analyzing tumor growth data.</p>
 <p>An example of how to use tumr can be seen under the Get Started tab.</p>
 <p>tumr includes:</p>
-<p>*plot_median() - creates a spaghetti plot and plots the median tumor growth measurement for each treatment group.</p>
-<p>*rfeat() - tests whether the beta coefficients (slope of tumor measure over time) of individuals in different treatment groups are different from each other using either t-test, ANOVA, Tukey, or both ANOVA and Tukey. rfeat() has a plot() function that shows the individual beta coefficients and mean slope by treatment group.</p>
-<p><em>lmm() - fits a linear mixed model with the default formula of log1p(Volume) ~ Treatment </em> scale(Day) + (scale(Day) | ID) where the time variable is centered. lmm() includes a summary() function that provides the overall effect of time averaged over the levels of the treatment group, the slope of treatment over time for each treatment group, and the results of a contrast to test the slope differences between the treatment groups. lmm() also includes a plot() function that shows the predicted values of the tumor growth measurements over time and the mean slope for each treatment with their 95% confidence intervals.</p>
+<ul>
+<li><p>plot_median() - creates a spaghetti plot and plots the median tumor growth measurement for each treatment group.</p></li>
+<li><p>rfeat() - tests whether the beta coefficients (slope of tumor measure over time) of individuals in different treatment groups are different from each other using either t-test, ANOVA, Tukey, or both ANOVA and Tukey. rfeat() has a plot() function that shows the individual beta coefficients and mean slope by treatment group.</p></li>
+<li><p>lmm() - fits a linear mixed model with the default formula of log1p(Volume) ~ Treatment * scale(Day) + (scale(Day) | ID) where the time variable is centered. lmm() includes a summary() function that provides the overall effect of time averaged over the levels of the treatment group, the slope of treatment over time for each treatment group, and the results of a contrast to test the slope differences between the treatment groups. lmm() also includes a plot() function that shows the predicted values of the tumor growth measurements over time and the mean slope for each treatment with their 95% confidence intervals.</p></li>
+</ul>
 <div class="section level3">
 <h3 id="how-to-install-tumr">How to install tumr<a class="anchor" aria-label="anchor" href="#how-to-install-tumr"></a>
 </h3>

@@ -7,11 +7,11 @@
 
 tumr is a collection of tools for analyzing tumor growth data. 
 
-An example of how to use tumr can be seen under the [Get Started](#Melanoma) tab.
+An example of how to use tumr can be seen under the [Get Started](vignettes/tumr.qmd) tab.
 
 **tumr** includes:
 
-+ **tumr()** - creates a tumr object that can be passed into **plot_median()**, **rfeat()**, and **lmm()**
++ **tumr()** - creates a tumr object that can be passed into **plot_median()**, **rfeat()**, and **lmm()**.
 
 + **plot_median()** - creates a spaghetti plot and plots the median tumor growth 
 measurement for each treatment group.

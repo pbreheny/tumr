@@ -95,6 +95,12 @@ plot(rfeat_mel2)
 
 ``` r
 lmm_mel2 <- lmm(mel2)
+```
+
+    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
+    Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
+
+``` r
 summary(lmm_mel2)
 ```
 
@@ -119,16 +125,16 @@ summary(lmm_mel2)
 
     $`test slope differences`
      contrast estimate     SE   df t.ratio p.value
-     A - B     0.03972 0.0127 39.4   3.128  0.0259
-     A - C     0.02673 0.0126 42.1   2.128  0.2278
+     A - B     0.03972 0.0127 39.4   3.128  0.0258
+     A - C     0.02673 0.0126 42.1   2.128  0.2277
      A - D     0.02497 0.0132 49.4   1.887  0.3378
-     A - E     0.03060 0.0130 38.4   2.353  0.1505
+     A - E     0.03060 0.0130 38.4   2.354  0.1505
      B - C    -0.01300 0.0126 38.0  -1.034  0.8378
-     B - D    -0.01476 0.0132 44.8  -1.115  0.7978
-     B - E    -0.00912 0.0130 35.0  -0.701  0.9549
+     B - D    -0.01476 0.0132 44.8  -1.115  0.7977
+     B - E    -0.00912 0.0130 35.0  -0.701  0.9548
      C - D    -0.00176 0.0131 47.9  -0.134  0.9999
      C - E     0.00388 0.0129 37.0   0.301  0.9981
-     D - E     0.00564 0.0135 43.4   0.417  0.9935
+     D - E     0.00564 0.0135 43.4   0.417  0.9934
 
     Degrees-of-freedom method: kenward-roger
     P value adjustment: tukey method for comparing a family of 5 estimates 
@@ -248,46 +254,51 @@ plot(mel1_rfeat)
 (mel1_lmm <- lmm(mel1))
 ```
 
+    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
+    Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
+
     Linear mixed model fit by REML. t-tests use Satterthwaite's method [
     lmerModLmerTest]
-    Formula: log1p(Volume) ~ Treatment * scale(Day) + (scale(Day) | ID)
+    Formula: log1p(Volume) ~ Treatment * Day + (Day | ID)
        Data: data
 
-    REML criterion at convergence: 2028.9
+    REML criterion at convergence: 2057.9
 
     Scaled residuals:
         Min      1Q  Median      3Q     Max
-    -2.7387 -0.4428  0.0883  0.5192  3.2744
+    -2.7388 -0.4455  0.0897  0.5194  3.2523
 
     Random effects:
-     Groups   Name        Variance Std.Dev. Corr
-     ID       (Intercept) 1.3872   1.1778
-              scale(Day)  0.7463   0.8639   0.97
-     Residual             1.4535   1.2056
+     Groups   Name        Variance  Std.Dev. Corr
+     ID       (Intercept) 0.1006944 0.31732
+              Day         0.0005492 0.02344  -0.29
+     Residual             1.4496878 1.20403
     Number of obs: 600, groups:  ID, 35
 
     Fixed effects:
-                          Estimate Std. Error      df t value Pr(>|t|)
-    (Intercept)             7.1736     0.4429 41.2795  16.197  < 2e-16 ***
-    TreatmentB             -4.3047     0.5987 34.8445  -7.190 2.23e-08 ***
-    TreatmentC             -0.3122     0.6309 41.8851  -0.495  0.62331
-    TreatmentD             -5.7652     0.6146 34.3159  -9.380 5.34e-11 ***
-    scale(Day)              2.3725     0.3740 59.2521   6.343 3.41e-08 ***
-    TreatmentB:scale(Day)  -1.5660     0.4815 41.9847  -3.252  0.00226 **
-    TreatmentC:scale(Day)  -0.1146     0.5295 56.5919  -0.216  0.82944
-    TreatmentD:scale(Day)  -3.0148     0.4904 40.1877  -6.148 2.87e-07 ***
+                    Estimate Std. Error        df t value Pr(>|t|)
+    (Intercept)     3.803278   0.241055 63.696770  15.778  < 2e-16 ***
+    TreatmentB     -2.077289   0.311809 44.850653  -6.662 3.29e-08 ***
+    TreatmentC     -0.151380   0.336695 58.812300  -0.450  0.65465
+    TreatmentD     -1.482092   0.315893 42.320462  -4.692 2.84e-05 ***
+    Day             0.064163   0.010131 58.005388   6.333 3.82e-08 ***
+    TreatmentB:Day -0.042430   0.013049 41.175964  -3.252  0.00229 **
+    TreatmentC:Day -0.003019   0.014348 55.455508  -0.210  0.83412
+    TreatmentD:Day -0.081544   0.013289 39.417584  -6.136 3.21e-07 ***
     ---
     Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
     Correlation of Fixed Effects:
-                (Intr) TrtmnB TrtmnC TrtmnD scl(D) TB:(D) TC:(D)
-    TreatmentB  -0.740
-    TreatmentC  -0.702  0.519
-    TreatmentD  -0.721  0.533  0.506
-    scale(Day)   0.898 -0.664 -0.630 -0.647
-    TrtmntB:(D) -0.697  0.895  0.489  0.502 -0.777
-    TrtmntC:(D) -0.634  0.469  0.901  0.457 -0.706  0.549
-    TrtmntD:(D) -0.685  0.507  0.481  0.897 -0.763  0.593  0.539
+                (Intr) TrtmnB TrtmnC TrtmnD Day    TrtB:D TrtC:D
+    TreatmentB  -0.773
+    TreatmentC  -0.716  0.553
+    TreatmentD  -0.763  0.590  0.546
+    Day         -0.567  0.438  0.406  0.432
+    TretmntB:Dy  0.440 -0.489 -0.315 -0.336 -0.776
+    TretmntC:Dy  0.400 -0.309 -0.559 -0.305 -0.706  0.548
+    TretmntD:Dy  0.432 -0.334 -0.309 -0.475 -0.762  0.592  0.538
+    optimizer (nloptwrap) convergence code: 0 (OK)
+    Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
 
 ``` r
 summary(mel1_lmm)
@@ -295,7 +306,7 @@ summary(mel1_lmm)
 
     $`overall effect of time`
      1       Day.trend      SE   df lower.CL upper.CL
-     overall    0.0324 0.00466 33.9    0.023   0.0419
+     overall    0.0324 0.00467 33.8   0.0229   0.0419
 
     Results are averaged over the levels of: Treatment
     Degrees-of-freedom method: kenward-roger
@@ -303,22 +314,22 @@ summary(mel1_lmm)
 
     $`slope of treatment over time`
      Treatment Day.trend      SE   df lower.CL upper.CL
-     A            0.0642 0.01010 50.5  0.04384  0.08454
-     B            0.0218 0.00821 22.8  0.00483  0.03881
-     C            0.0611 0.01020 45.6  0.04052  0.08165
-     D           -0.0174 0.00858 21.7 -0.03518  0.00043
+     A            0.0642 0.01010 50.2   0.0438 0.084541
+     B            0.0217 0.00823 22.8   0.0047 0.038767
+     C            0.0611 0.01020 45.6   0.0405 0.081744
+     D           -0.0174 0.00860 21.7  -0.0352 0.000469
 
     Degrees-of-freedom method: kenward-roger
     Confidence level used: 0.95
 
     $`test slope differences`
      contrast estimate     SE   df t.ratio p.value
-     A - B      0.0424 0.0130 35.6   3.248  0.0129
-     A - C      0.0031 0.0144 48.0   0.215  0.9964
-     A - D      0.0816 0.0133 34.0   6.143  <.0001
-     B - C     -0.0393 0.0131 33.8  -2.996  0.0250
-     B - D      0.0392 0.0119 22.2   3.301  0.0158
-     C - D      0.0785 0.0133 32.4   5.882  <.0001
+     A - B     0.04243 0.0131 35.4   3.248  0.0130
+     A - C     0.00302 0.0144 47.8   0.210  0.9967
+     A - D     0.08154 0.0133 33.9   6.131  <.0001
+     B - C    -0.03941 0.0131 33.7  -3.001  0.0247
+     B - D     0.03911 0.0119 22.2   3.286  0.0164
+     C - D     0.07852 0.0134 32.4   5.875  <.0001
 
     Degrees-of-freedom method: kenward-roger
     P value adjustment: tukey method for comparing a family of 4 estimates 
@@ -366,42 +377,47 @@ plot(pros_rfeat)
 (pros_lmm <- lmm(pros_meta))
 ```
 
+    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
+    Model failed to converge with max|grad| = 0.00478111 (tol = 0.002, component 1)
+
     Linear mixed model fit by REML. t-tests use Satterthwaite's method [
     lmerModLmerTest]
-    Formula: log1p(BLI) ~ Genotype * scale(Age) + (scale(Age) | ID)
+    Formula: log1p(BLI) ~ Genotype * Age + (Age | ID)
        Data: data
 
-    REML criterion at convergence: 1409.2
+    REML criterion at convergence: 1423.8
 
     Scaled residuals:
         Min      1Q  Median      3Q     Max
-    -5.2048 -0.4834  0.0116  0.5532  3.2088
+    -5.2046 -0.4834  0.0116  0.5532  3.2088
 
     Random effects:
-     Groups   Name        Variance Std.Dev. Corr
-     ID       (Intercept) 0.04699  0.2168
-              scale(Age)  0.08275  0.2877   0.55
-     Residual             0.42641  0.6530
+     Groups   Name        Variance  Std.Dev. Corr
+     ID       (Intercept) 0.1824792 0.42718
+              Age         0.0006397 0.02529  -0.91
+     Residual             0.4264456 0.65303
     Number of obs: 662, groups:  ID, 49
 
     Fixed effects:
-                           Estimate Std. Error       df t value Pr(>|t|)
-    (Intercept)            22.29482    0.08086 63.85366 275.733  < 2e-16 ***
-    GenotypeHET            -0.99222    0.10811 49.15151  -9.178 3.12e-12 ***
-    GenotypeWT             -1.30289    0.10940 46.67990 -11.909 9.45e-16 ***
-    scale(Age)              1.95835    0.10929 95.14607  17.918  < 2e-16 ***
-    GenotypeHET:scale(Age) -1.22415    0.14258 63.57659  -8.585 3.16e-12 ***
-    GenotypeWT:scale(Age)  -1.42509    0.14272 57.09813  -9.985 3.90e-14 ***
+                     Estimate Std. Error        df t value Pr(>|t|)
+    (Intercept)     18.849994   0.159658 73.273902 118.065  < 2e-16 ***
+    GenotypeHET      1.161121   0.215336 58.907212   5.392 1.29e-06 ***
+    GenotypeWT       1.203959   0.217579 53.964181   5.533 9.45e-07 ***
+    Age              0.172293   0.009613 95.312319  17.923  < 2e-16 ***
+    GenotypeHET:Age -0.107699   0.012541 63.665873  -8.588 3.10e-12 ***
+    GenotypeWT:Age  -0.125381   0.012553 57.175131  -9.988 3.79e-14 ***
     ---
     Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
     Correlation of Fixed Effects:
-                (Intr) GntHET GntyWT scl(A) GHET:(
-    GenotypeHET -0.748
-    GenotypeWT  -0.739  0.553
-    scale(Age)   0.579 -0.433 -0.428
-    GntyHET:(A) -0.443  0.520  0.328 -0.767
-    GntypWT:(A) -0.443  0.331  0.503 -0.766  0.587
+                (Intr) GntHET GntyWT Age    GHET:A
+    GenotypeHET -0.741
+    GenotypeWT  -0.734  0.544
+    Age         -0.911  0.675  0.668
+    GntypHET:Ag  0.698 -0.903 -0.512 -0.767
+    GentypWT:Ag  0.697 -0.517 -0.901 -0.766  0.587
+    optimizer (nloptwrap) convergence code: 0 (OK)
+    Model failed to converge with max|grad| = 0.00478111 (tol = 0.002, component 1)
 
 ``` r
 summary(pros_lmm)
@@ -417,18 +433,18 @@ summary(pros_lmm)
 
     $`slope of treatment over time`
      Genotype Age.trend      SE   df lower.CL upper.CL
-     DOKO        0.1723 0.00963 86.8   0.1532   0.1914
+     DOKO        0.1723 0.00962 86.8   0.1532   0.1914
      HET         0.0646 0.00812 36.0   0.0481   0.0811
-     WT          0.0469 0.00814 29.3   0.0303   0.0636
+     WT          0.0469 0.00814 29.3   0.0303   0.0635
 
     Degrees-of-freedom method: kenward-roger
     Confidence level used: 0.95
 
     $`test slope differences`
      contrast   estimate     SE   df t.ratio p.value
-     DOKO - HET   0.1077 0.0126 57.9   8.551  <.0001
-     DOKO - WT    0.1254 0.0126 51.9   9.946  <.0001
-     HET - WT     0.0177 0.0115 32.4   1.537  0.2873
+     DOKO - HET   0.1077 0.0126 57.9   8.553  <.0001
+     DOKO - WT    0.1254 0.0126 51.9   9.949  <.0001
+     HET - WT     0.0177 0.0115 32.4   1.538  0.2869
 
     Degrees-of-freedom method: kenward-roger
     P value adjustment: tukey method for comparing a family of 3 estimates 

@@ -7,7 +7,7 @@
 
 tumr is a collection of tools for analyzing tumor growth data. 
 
-An example of how to use tumr can be seen under the [Get Started](vignettes/tumr.qmd) tab.
+An example of how to use tumr can be seen in the [Get Started](https://pbreheny.github.io/tumr/articles/tumr.html) page.
 
 **tumr** includes:
 

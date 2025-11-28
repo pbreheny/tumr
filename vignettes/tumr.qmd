@@ -40,7 +40,11 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
                        ggplot2::aes(x = {{time}},
                                     y = measure,
                                     color = {{group}}),
-                       linewidth = 1.2)
+                       linewidth = 1.2) +
+    ggplot2::labs(
+            y = "Volume",
+            title = "Volume over Time"
+          )
 
 }
 ```

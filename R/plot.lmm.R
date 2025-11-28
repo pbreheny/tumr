@@ -25,8 +25,8 @@ plot.lmm <- function(x, ...){
   emm_plot <- plot(emm_sum$`slope of treatment over time`)
 
   return(list(
-    pred_plot,
-    emm_plot
+    predicted_measure = pred_plot,
+    mean_betas = emm_plot
   ))
 
 }

@@ -36,7 +36,11 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
                        ggplot2::aes(x = {{time}},
                                     y = measure,
                                     color = {{group}}),
-                       linewidth = 1.2)
+                       linewidth = 1.2) +
+    ggplot2::labs(
+            y = "Volume",
+            title = "Volume over Time"
+          )
 
 }
 ```
@@ -149,11 +153,11 @@ plot(lmm_mel2)
       original response scale. Standard errors are still on the transformed
       scale.
 
-    [[1]]
+    $predicted_measure
 
 ![](tumr_files/figure-html/unnamed-chunk-6-1.png)
 
-    [[2]]
+    $mean_betas
 
 ![](tumr_files/figure-html/unnamed-chunk-6-2.png)
 

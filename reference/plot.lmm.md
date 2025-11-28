@@ -33,10 +33,10 @@ plot(mel1_lmm)
 #> Model has log1p-transformed response. Back-transforming predictions to
 #>   original response scale. Standard errors are still on the transformed
 #>   scale.
-#> [[1]]
+#> $predicted_measure
 
 #> 
-#> [[2]]
+#> $mean_betas
 
 #> 
 ```

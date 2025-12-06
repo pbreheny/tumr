@@ -69,6 +69,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">mel1</span> <span class="op">&lt;-</span> <span class="fu"><a href="tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma1</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mel1_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel1</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   See ?lme4::convergence and ?lme4::troubleshooting.</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mel1_lmm</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`overall effect of time`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1       Day.trend      SE   df lower.CL upper.CL</span>
@@ -112,7 +113,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: November 28, 2025</p>
+  <p>Last updated: December 06, 2025</p>
 </div>
 
     </footer></div>

@@ -64,9 +64,9 @@ plot_median(mel2)
 ```
 
     $anova
-                Df Sum Sq Mean Sq F value Pr(>F)
-    Group        4   1803   450.7   3.408 0.0168 *
-    Residuals   42   5554   132.2
+                Df   Sum Sq   Mean Sq F value Pr(>F)
+    Group        4 0.008424 0.0021061   2.938 0.0314 *
+    Residuals   42 0.030106 0.0007168
     ---
     Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -77,17 +77,17 @@ plot_median(mel2)
     Fit: aov(formula = Beta ~ Group, data = betas)
 
     $Group
-               diff         lwr        upr     p adj
-    B-A -12.9067597 -27.9647734  2.1512540 0.1239895
-    C-A  -5.8980893 -20.5544836  8.7583050 0.7807978
-    D-A   1.4573384 -13.1990559 16.1137327 0.9985310
-    E-A -13.5892260 -29.1346797  1.9562277 0.1120331
-    C-B   7.0086704  -8.0493433 22.0666841 0.6765864
-    D-B  14.3640981  -0.6939156 29.4221119 0.0679418
-    E-B  -0.6824663 -16.6071331 15.2422006 0.9999476
-    D-C   7.3554277  -7.3009666 22.0118221 0.6121467
-    E-C  -7.6911367 -23.2365904  7.8543170 0.6248441
-    E-D -15.0465644 -30.5920181  0.4988893 0.0619834
+                diff         lwr          upr     p adj
+    B-A -0.039562710 -0.07461937 -0.004506050 0.0200139
+    C-A -0.027355317 -0.06147696  0.006766330 0.1701000
+    D-A -0.023685320 -0.05780697  0.010436327 0.2941216
+    E-A -0.030852007 -0.06704348  0.005339465 0.1274422
+    C-B  0.012207393 -0.02284927  0.047264052 0.8572838
+    D-B  0.015877390 -0.01917927  0.050934049 0.6982531
+    E-B  0.008710703 -0.02836362  0.045785023 0.9618601
+    D-C  0.003669997 -0.03045165  0.037791644 0.9980027
+    E-C -0.003496690 -0.03968816  0.032694782 0.9986875
+    E-D -0.007166687 -0.04335816  0.029024785 0.9794890
 
 ``` r
 plot(rfeat_mel2)
@@ -101,8 +101,8 @@ plot(rfeat_mel2)
 lmm_mel2 <- lmm(mel2)
 ```
 
-    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
-    Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
+    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
+      See ?lme4::convergence and ?lme4::troubleshooting.
 
 ``` r
 summary(lmm_mel2)
@@ -227,9 +227,9 @@ plot_median(mel1)
 ```
 
     $anova
-                Df Sum Sq Mean Sq F value   Pr(>F)
-    Group        3   4645  1548.3   35.62 3.64e-10 ***
-    Residuals   31   1347    43.5
+                Df  Sum Sq  Mean Sq F value   Pr(>F)
+    Group        3 0.04132 0.013775    26.4 1.13e-08 ***
+    Residuals   31 0.01618 0.000522
     ---
     Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -240,13 +240,13 @@ plot_median(mel1)
     Fit: aov(formula = Beta ~ Group, data = betas)
 
     $Group
-              diff        lwr        upr     p adj
-    B-A -22.058493 -30.493598 -13.623388 0.0000003
-    C-A  -4.427555 -12.862660   4.007550 0.4940635
-    D-A -27.682834 -36.377542 -18.988126 0.0000000
-    C-B  17.630938   9.195833  26.066043 0.0000179
-    D-B  -5.624341 -14.319048   3.070367 0.3134169
-    D-C -23.255279 -31.949987 -14.560571 0.0000002
+                diff         lwr          upr     p adj
+    B-A -0.043746530 -0.07297381 -0.014519252 0.0016633
+    C-A  0.002859032 -0.02636825  0.032086310 0.9933133
+    D-A -0.082228407 -0.11235520 -0.052101618 0.0000001
+    C-B  0.046605562  0.01737828  0.075832840 0.0008013
+    D-B -0.038481877 -0.06860867 -0.008355088 0.0080907
+    D-C -0.085087439 -0.11521423 -0.054960650 0.0000001
 
 ``` r
 plot(mel1_rfeat)
@@ -258,8 +258,8 @@ plot(mel1_rfeat)
 (mel1_lmm <- lmm(mel1))
 ```
 
-    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
-    Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
+    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
+      See ?lme4::convergence and ?lme4::troubleshooting.
 
     Linear mixed model fit by REML. t-tests use Satterthwaite's method [
     lmerModLmerTest]
@@ -303,6 +303,7 @@ plot(mel1_rfeat)
     TretmntD:Dy  0.432 -0.334 -0.309 -0.475 -0.762  0.592  0.538
     optimizer (nloptwrap) convergence code: 0 (OK)
     Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
+      See ?lme4::convergence and ?lme4::troubleshooting.
 
 ``` r
 summary(mel1_lmm)
@@ -353,9 +354,9 @@ plot_median(pros_meta)
 ```
 
     $anova
-                Df    Sum Sq   Mean Sq F value   Pr(>F)
-    Group        2 6.588e+18 3.294e+18   13.71 2.14e-05 ***
-    Residuals   46 1.105e+19 2.403e+17
+                Df  Sum Sq Mean Sq F value   Pr(>F)
+    Group        2 0.14850 0.07425   62.41 7.86e-14 ***
+    Residuals   46 0.05473 0.00119
     ---
     Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -366,10 +367,10 @@ plot_median(pros_meta)
     Fit: aov(formula = Beta ~ Group, data = betas)
 
     $Group
-                   diff         lwr        upr     p adj
-    HET-DOKO -656394790 -1063611872 -249177709 0.0008827
-    WT-DOKO  -858422884 -1278994877 -437850891 0.0000313
-    WT-HET   -202028094  -622600087  218543899 0.4808144
+                     diff         lwr         upr     p adj
+    HET-DOKO -0.110898513 -0.13955117 -0.08224585 0.0000000
+    WT-DOKO  -0.120444046 -0.15003639 -0.09085170 0.0000000
+    WT-HET   -0.009545533 -0.03913787  0.02004681 0.7163468
 
 ``` r
 plot(pros_rfeat)
@@ -381,8 +382,8 @@ plot(pros_rfeat)
 (pros_lmm <- lmm(pros_meta))
 ```
 
-    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
-    Model failed to converge with max|grad| = 0.00478111 (tol = 0.002, component 1)
+    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00478111 (tol = 0.002, component 1)
+      See ?lme4::convergence and ?lme4::troubleshooting.
 
     Linear mixed model fit by REML. t-tests use Satterthwaite's method [
     lmerModLmerTest]
@@ -422,6 +423,7 @@ plot(pros_rfeat)
     GentypWT:Ag  0.697 -0.517 -0.901 -0.766  0.587
     optimizer (nloptwrap) convergence code: 0 (OK)
     Model failed to converge with max|grad| = 0.00478111 (tol = 0.002, component 1)
+      See ?lme4::convergence and ?lme4::troubleshooting.
 
 ``` r
 summary(pros_lmm)

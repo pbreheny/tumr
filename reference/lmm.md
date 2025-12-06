@@ -63,6 +63,7 @@ data(melanoma1)
 mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 lmm(mel1)
 #> Warning: Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
+#>   See ?lme4::convergence and ?lme4::troubleshooting.
 #> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 #> lmerModLmerTest]
 #> Formula: log1p(Volume) ~ Treatment * Day + (Day | ID)
@@ -105,6 +106,7 @@ lmm(mel1)
 #> TretmntD:Dy  0.432 -0.334 -0.309 -0.475 -0.762  0.592  0.538
 #> optimizer (nloptwrap) convergence code: 0 (OK)
 #> Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
+#>   See ?lme4::convergence and ?lme4::troubleshooting.
 #> 
 
 lmm(

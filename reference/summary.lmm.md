@@ -29,6 +29,7 @@ a summary of the lmm object
 mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 mel1_lmm <- lmm(mel1)
 #> Warning: Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
+#>   See ?lme4::convergence and ?lme4::troubleshooting.
 summary(mel1_lmm)
 #> $`overall effect of time`
 #>  1       Day.trend      SE   df lower.CL upper.CL

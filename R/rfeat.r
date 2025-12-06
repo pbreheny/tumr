@@ -8,7 +8,7 @@
 #' @param time Column of repeated time measurements
 #' @param measure Column of repeated measurements of tumor
 #' @param group Column specifying the treatment group for each measurement
-#' @param transformation transformation of measurement
+#' @param log log transformation of measurement using log1p
 #' @param comparison Takes "t.test", "anova", "tukey", or "both"
 #' @param tumr_obj takes tumr_obj created by tumr()
 #'

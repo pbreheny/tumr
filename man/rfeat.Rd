@@ -11,7 +11,7 @@ rfeat(
   time = NULL,
   measure = NULL,
   group = NULL,
-  transformation = NULL,
+  log = TRUE,
   comparison = c("t.test", "anova", "tukey", "both")
 )
 }
@@ -28,7 +28,7 @@ rfeat(
 
 \item{group}{Column specifying the treatment group for each measurement}
 
-\item{transformation}{transformation of measurement}
+\item{log}{log transformation of measurement using log1p}
 
 \item{comparison}{Takes "t.test", "anova", "tukey", or "both"}
 }
@@ -36,9 +36,6 @@ rfeat(
 A p-value
 }
 \description{
-Volume ~ Week * Trt, separate function that picks apart this
-}
-\details{
 exponential growth, separate packages
 }
 \examples{
@@ -49,7 +46,6 @@ id = "ID",
 time = "Week",
 measure = "Volume",
 group = "Treatment",
-transformation = log1p,
 comparison = "t.test")
 data(melanoma1)
 rfeat(

@@ -1,6 +1,5 @@
 #' Analysis based on response features
 #'
-#' Volume ~ Week * Trt, separate function that picks apart this
 #'
 #' exponential growth, separate packages
 #'
@@ -23,7 +22,6 @@
 #' time = "Week",
 #' measure = "Volume",
 #' group = "Treatment",
-#' transformation = log1p,
 #' comparison = "t.test")
 #' data(melanoma1)
 #' rfeat(
@@ -36,7 +34,7 @@
 #'
 #' @export
 
-rfeat <- function(tumr_obj = NULL, data = NULL, id = NULL, time = NULL, measure = NULL, group = NULL, transformation = NULL, comparison = c("t.test", "anova", "tukey", "both")) {
+rfeat <- function(tumr_obj = NULL, data = NULL, id = NULL, time = NULL, measure = NULL, group = NULL, log = TRUE, comparison = c("t.test", "anova", "tukey", "both")) {
   comparison <- match.arg(comparison)
 
   if (!is.null(tumr_obj)) {
@@ -63,10 +61,10 @@ rfeat <- function(tumr_obj = NULL, data = NULL, id = NULL, time = NULL, measure 
     # Skip if insufficient data for linear model
     if (nrow(smaller) < 2) next
 
-    if (is.null(transformation)){
+    if (log == FALSE){
       formula_str <- paste(measure, "~", time)
     } else {
-      formula_str <- paste("transformation", "(",measure, ")", "~", time)
+      formula_str <- paste("log1p(", measure, ")", "~", time)
     }
 
     model <- lm(as.formula(formula_str), data = smaller)

@@ -1,6 +1,6 @@
 # Analysis based on response features
 
-Volume ~ Week \* Trt, separate function that picks apart this
+exponential growth, separate packages
 
 ## Usage
 
@@ -12,7 +12,7 @@ rfeat(
   time = NULL,
   measure = NULL,
   group = NULL,
-  transformation = NULL,
+  log = TRUE,
   comparison = c("t.test", "anova", "tukey", "both")
 )
 ```
@@ -43,9 +43,9 @@ rfeat(
 
   Column specifying the treatment group for each measurement
 
-- transformation:
+- log:
 
-  transformation of measurement
+  log transformation of measurement using log1p
 
 - comparison:
 
@@ -54,10 +54,6 @@ rfeat(
 ## Value
 
 A p-value
-
-## Details
-
-exponential growth, separate packages
 
 ## Examples
 
@@ -69,9 +65,19 @@ id = "ID",
 time = "Week",
 measure = "Volume",
 group = "Treatment",
-transformation = log1p,
 comparison = "t.test")
-#> Error in rfeat(data = breast, id = "ID", time = "Week", measure = "Volume",     group = "Treatment", transformation = log1p, comparison = "t.test"): unused argument (transformation = log1p)
+#> 
+#>  Welch Two Sample t-test
+#> 
+#> data:  Beta by Group
+#> t = 0.64605, df = 24.351, p-value = 0.5243
+#> alternative hypothesis: true difference in means between group NR and group VEH is not equal to 0
+#> 95 percent confidence interval:
+#>  -0.3345751  0.6398147
+#> sample estimates:
+#>  mean in group NR mean in group VEH 
+#>         0.8872739         0.7346541 
+#> 
 data(melanoma1)
 rfeat(
 data = melanoma1,

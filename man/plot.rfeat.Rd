@@ -23,7 +23,6 @@ id = "ID",
 time = "Week",
 measure = "Volume",
 group = "Treatment",
-transformation = log1p,
 comparison = "t.test")
 plot(example)
 }

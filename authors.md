@@ -10,7 +10,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/pbreheny/tumr/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/pbreheny/tumr/blob/main/DESCRIPTION)
 
 Breheny P, Plowman S (2025). *tumr: Analysis and Power Calculations for
 Tumor Growth Rates*. R package version 0.5.1,

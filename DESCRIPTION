@@ -26,6 +26,8 @@ Suggests:
   lmerTest,
   quarto,
   cmdstanr
+Additional_repositories:
+    https://mc-stan.org/r-packages/
 VignetteBuilder: quarto
 URL: https://pbreheny.github.io/tumr/, https://github.com/pbreheny/tumr
 Encoding: UTF-8

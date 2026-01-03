@@ -26,7 +26,6 @@ Suggests:
   lmerTest,
   quarto,
   cmdstanr (>= 0.6.0)
-Additional_repositories: https://mc-stan.org/r-packages/
 SystemRequirements: CmdStan (https://mc-stan.org/users/interfaces/cmdstan)
 VignetteBuilder: quarto
 URL: https://pbreheny.github.io/tumr/, https://github.com/pbreheny/tumr

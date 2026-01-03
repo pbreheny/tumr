@@ -17,11 +17,15 @@ Imports:
   rlang,
   survival,
   tibble,
-  tidyr
+  tidyr,
+  instantiate,
+  posterior,
+  bayesplot
 Suggests:
   lme4,
   lmerTest,
-  quarto
+  quarto,
+  cmdstanr
 VignetteBuilder: quarto
 URL: https://pbreheny.github.io/tumr/, https://github.com/pbreheny/tumr
 Encoding: UTF-8

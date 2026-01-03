@@ -21,7 +21,6 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-repositories: https://mc-stan.org/r-packages/
           extra-packages: |
             any::rcmdcheck
             any::pbkrtest

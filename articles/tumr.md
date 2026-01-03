@@ -331,10 +331,10 @@ summary(mel1_lmm)
      contrast estimate     SE   df t.ratio p.value
      A - B     0.04243 0.0131 35.4   3.248  0.0130
      A - C     0.00302 0.0144 47.8   0.210  0.9967
-     A - D     0.08154 0.0133 33.9   6.131  <.0001
+     A - D     0.08154 0.0133 33.9   6.131 <0.0001
      B - C    -0.03941 0.0131 33.7  -3.001  0.0247
      B - D     0.03911 0.0119 22.2   3.286  0.0164
-     C - D     0.07852 0.0134 32.4   5.875  <.0001
+     C - D     0.07852 0.0134 32.4   5.875 <0.0001
 
     Degrees-of-freedom method: kenward-roger
     P value adjustment: tukey method for comparing a family of 4 estimates 
@@ -448,8 +448,8 @@ summary(pros_lmm)
 
     $`test slope differences`
      contrast   estimate     SE   df t.ratio p.value
-     DOKO - HET   0.1077 0.0126 57.9   8.553  <.0001
-     DOKO - WT    0.1254 0.0126 51.9   9.949  <.0001
+     DOKO - HET   0.1077 0.0126 57.9   8.553 <0.0001
+     DOKO - WT    0.1254 0.0126 51.9   9.949 <0.0001
      HET - WT     0.0177 0.0115 32.4   1.538  0.2869
 
     Degrees-of-freedom method: kenward-roger

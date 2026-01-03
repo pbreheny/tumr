@@ -12,14 +12,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/pbreheny/tumr/blob/main/DESCRIPTION)
 
-Breheny P, Plowman S (2025). *tumr: Analysis and Power Calculations for
+Breheny P, Plowman S (2026). *tumr: Analysis and Power Calculations for
 Tumor Growth Rates*. R package version 0.5.1,
 <https://pbreheny.github.io/tumr/>.
 
     @Manual{,
       title = {tumr: Analysis and Power Calculations for Tumor Growth Rates},
       author = {Patrick Breheny and Sydney Plowman},
-      year = {2025},
+      year = {2026},
       note = {R package version 0.5.1},
       url = {https://pbreheny.github.io/tumr/},
     }

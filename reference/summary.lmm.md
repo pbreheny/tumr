@@ -53,10 +53,10 @@ summary(mel1_lmm)
 #>  contrast estimate     SE   df t.ratio p.value
 #>  A - B     0.04243 0.0131 35.4   3.248  0.0130
 #>  A - C     0.00302 0.0144 47.8   0.210  0.9967
-#>  A - D     0.08154 0.0133 33.9   6.131  <.0001
+#>  A - D     0.08154 0.0133 33.9   6.131 <0.0001
 #>  B - C    -0.03941 0.0131 33.7  -3.001  0.0247
 #>  B - D     0.03911 0.0119 22.2   3.286  0.0164
-#>  C - D     0.07852 0.0134 32.4   5.875  <.0001
+#>  C - D     0.07852 0.0134 32.4   5.875 <0.0001
 #> 
 #> Degrees-of-freedom method: kenward-roger 
 #> P value adjustment: tukey method for comparing a family of 4 estimates 

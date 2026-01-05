@@ -33,6 +33,7 @@ jobs:
           extra-packages: |
             any::pkgdown
             any::pbkrtest
+            stan-dev/cmdstanr
             local::.
           needs: website
 

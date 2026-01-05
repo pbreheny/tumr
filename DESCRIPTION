@@ -18,14 +18,14 @@ Imports:
   survival,
   tibble,
   tidyr,
-  instantiate,
-  posterior,
-  bayesplot
+  instantiate
 Suggests:
   lme4,
   lmerTest,
   quarto,
-  cmdstanr (>= 0.6.0)
+  cmdstanr (>= 0.6.0),
+  posterior,
+  bayesplot
 SystemRequirements: CmdStan (https://mc-stan.org/users/interfaces/cmdstan)
 Additional_repositories: https://stan-dev.r-universe.dev/
 VignetteBuilder: quarto

@@ -26,6 +26,12 @@ jobs:
             any::pbkrtest
             stan-dev/cmdstanr
 
+      - name: Build Cmdstan
+        run: |
+          cmdstanr::check_cmdstan_toolchain(fix = TRUE)
+          cmdstanr::install_cmdstan(cores = parallel::detectCores())
+        shell: Rscript {0}
+
       - uses: r-lib/actions/check-r-package@v2
         with:
           args: '"--no-manual"'

@@ -36,6 +36,12 @@ jobs:
             stan-dev/cmdstanr
             local::.
           needs: website
+      
+      - name: Build Cmdstan
+        run: |
+          cmdstanr::check_cmdstan_toolchain(fix = TRUE)
+          cmdstanr::install_cmdstan(cores = parallel::detectCores())
+        shell: Rscript {0}
 
       - name: Build site
         run: options(yaml.eval.expr = TRUE); pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)

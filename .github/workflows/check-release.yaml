@@ -24,6 +24,7 @@ jobs:
           extra-packages: |
             any::rcmdcheck
             any::pbkrtest
+            stan-dev/cmdstanr
 
       - uses: r-lib/actions/check-r-package@v2
         with:

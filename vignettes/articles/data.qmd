@@ -6,8 +6,27 @@ format:
     toc-depth: 3
 ---
 
-Hi there
+## Another Melanoma Data Set, *melanoma1*
 
 ```{r}
-plot(1:10)
+mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+
+plot_median(mel1)
 ```
+
+## Breast Cancer Data Set, *breast*
+
+```{r}
+breast_meta <- tumr(breast, ID, Week, Volume, Treatment)
+
+plot_median(breast_meta)
+```
+
+## Prostate Cancer Data Set, *prostate*
+
+```{r}
+pros_meta <- tumr(prostate, ID, Age, BLI, Genotype)
+
+plot_median(pros_meta)
+```
+

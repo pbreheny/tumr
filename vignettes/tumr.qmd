@@ -6,12 +6,18 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Melanoma
+In this guide, we demonstrate the core functionality of the tumr package using the melanoma2 dataset included with the package. All code required to reproduce the examples is provided below.
+
+# Loading the Data
 
 ```{r}
 library(tumr)
 data("melanoma2")
 ```
+
+# A Naive Mean-Based Visualization
+
+Before introducing tumr functionality, we first construct a simple plotting function to illustrate a common pitfall in tumor growth visualization.
 
 #### Code for plot_mean()
 ```{r}
@@ -49,32 +55,113 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
 }
 ```
 
-## Plotting the Mean vs the Median
+Note: plot_mean() is not part of the tumr package. It is defined here solely to provide a baseline visualization for comparison with tumr’s methods.
+
+# Creating a tumr Object
+
+Most tumr functions operate on a tumr object, which stores both the data and its associated metadata (subject ID, time, outcome, and grouping variable).
+
+To create a tumr object, use the tumr() function:
+
+```{r}
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+```
+
+This object can now be passed directly into other tumr functions.
+
+## Visualizing Tumor Growth
+
+The figure below compares a naive longitudinal visualization with a tumr-based approach that explicitly accounts for censoring and missing observations.
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
 plot_median(mel2)
 ```
 
+The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect.
+
+The visualization produced by plot_median() addresses these issues through an explicit preprocessing step designed for longitudinal tumor data.
+
+Before any summary statistic is computed, the function:
+
+1. **Aligns time points across subjects**
+Rows are added for unobserved time points so that all subjects share a common time grid.
+2. **Handles trailing missing values due to censoring**
+The last observed value is carried forward and marked with a "+" to indicate right-censoring.
+  * Example: 3, 6, 9, NA → 3, 6, 9, 9+
+3. **Interpolates embedded missing values**
+Missing observations that occur between recorded time points are interpolated to preserve trajectory continuity.
+
+After preprocessing, tumor volume summaries are computed at each time point within each treatment group using a Kaplan–Meier–based approach. This strategy ensures that summaries reflect both observed data and informative missingness, producing a visualization that more accurately represents tumor growth dynamics over time.
+
 ## Response feature analysis
+
+One of the primary analysis tools in tumr is the rfeat() function, which implements response feature analysis. This two-stage approach simplifies complex longitudinal data by extracting a single interpretable summary measure per subject.
+
+Specifically, rfeat():
+
+1. Computes a growth slope (beta coefficient) for each subject
+2. Averages these slopes within each treatment group
+3. Compares group-level summaries using one of the following methods:
+
+  * t-test
+  * ANOVA
+  * Tukey post-hoc test
+  * Both ANOVA and Tukey post-hoc tests
+  
+The example below uses comparison = "both" to perform ANOVA followed by Tukey post-hoc comparisons.
 
 ```{r}
 (rfeat_mel2 <- rfeat(mel2, comparison = "both"))
+```
+
+# Plotting Response Feature Results
+
+The plot() method for rfeat objects displays both the individual subject slopes and the group-level means.
+
+```{r}
 plot(rfeat_mel2)
 ```
 
 ## Linear mixed model
 
+The tumr package also includes lmm(), which fits a linear mixed effects model to tumor growth data. Linear mixed models are well suited for longitudinal data because they account for:
+
+  * Fixed effects: population-level effects of interest (e.g., treatment, time)
+  * Random effects: subject-specific variability that induces correlation among repeated measurements
+
+By default, lmm() fits the model:
+
+`log1p(measure) ~ group * time + (time | id)`
+
+This specification allows each subject to have their own growth trajectory while estimating overall treatment effects. The model formula can be customized if desired.
+
 ```{r}
 lmm_mel2 <- lmm(mel2)
+```
+
+# Model Summary
+
+The summary() method for lmm objects uses the emmeans package to report:
+
+  * The overall effect of time
+  * Treatment-specific slopes over time
+  * Statistical tests comparing slope differences between groups
+
+```{r}
 summary(lmm_mel2)
 ```
 
-## Plot of linear mixed model
+
+# Plotting Linear Mixed Model Results
+
+Finally, tumr provides a plot() method for lmm objects that produces two visualizations:
+
+1. Predicted tumor growth trajectories over time
+2. Estimated mean growth slopes for each group with confidence intervals
 
 ```{r}
 plot(lmm_mel2)

@@ -27,7 +27,7 @@ Suggests:
   posterior,
   bayesplot
 SystemRequirements: CmdStan (https://mc-stan.org/users/interfaces/cmdstan)
-Additional_repositories: https://stan-dev.r-universe.dev/
+Additional_repositories: https://stan-dev.r-universe.dev/, https://mc-stan.org/r-packages/
 VignetteBuilder: quarto
 URL: https://pbreheny.github.io/tumr/, https://github.com/pbreheny/tumr
 Encoding: UTF-8

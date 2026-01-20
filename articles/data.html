@@ -40,6 +40,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/data.html">tumr data sets</a></li>
+    <li><a class="dropdown-item" href="../articles/troubleshooting.html">Troubleshooting</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -72,21 +73,59 @@
 
 
 
-    <p>Hi there</p>
-<div class="cell">
+    <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pbreheny.github.io/tumr/">tumr</a></span><span class="op">)</span></span></code></pre></div>
+</div>
+<section class="level2"><h2 id="another-melanoma-data-set-melanoma1">Another Melanoma Data Set, <em>melanoma1</em>
+<a class="anchor" aria-label="anchor" href="#another-melanoma-data-set-melanoma1"></a>
+</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">melanoma1</span><span class="op">)</span></span>
+<span><span class="va">mel1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma1</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel1</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
-<figure><p><img src="data_files/figure-html/unnamed-chunk-1-1.png" width="672"></p>
+<figure><p><img src="data_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-
-
-
-<script id="quarto-html-after-body" type="application/javascript">
+</section><section class="level2"><h2 id="breast-cancer-data-set-breast">Breast Cancer Data Set, <em>breast</em>
+<a class="anchor" aria-label="anchor" href="#breast-cancer-data-set-breast"></a>
+</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">breast</span><span class="op">)</span></span>
+<span><span class="va">breast_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">breast</span>, <span class="va">ID</span>, <span class="va">Week</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">breast_meta</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="data_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section class="level2"><h2 id="prostate-cancer-data-set-prostate">Prostate Cancer Data Set, <em>prostate</em>
+<a class="anchor" aria-label="anchor" href="#prostate-cancer-data-set-prostate"></a>
+</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">prostate</span><span class="op">)</span></span>
+<span><span class="va">pros_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">prostate</span>, <span class="va">ID</span>, <span class="va">Age</span>, <span class="va">BLI</span>, <span class="va">Genotype</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">pros_meta</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="data_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -169,7 +208,8 @@
       }
     }
   });
-  </script></main>
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
@@ -178,7 +218,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: January 05, 2026</p>
+  <p>Last updated: January 20, 2026</p>
 </div>
 
     </footer>

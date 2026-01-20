@@ -1,11 +1,21 @@
 # Getting started with the tumr package
 
-## Melanoma
+In this guide, we demonstrate the core functionality of the tumr package
+using the melanoma2 dataset included with the package. All code required
+to reproduce the examples is provided below.
+
+## Loading the Data
 
 ``` r
 library(tumr)
 data("melanoma2")
 ```
+
+## A Naive Mean-Based Visualization
+
+Before introducing tumr functionality, we first construct a simple
+plotting function to illustrate a common pitfall in tumor growth
+visualization.
 
 ##### Code for plot_mean()
 
@@ -45,19 +55,91 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
 }
 ```
 
-### Plotting the Mean vs the Median
+Note: plot_mean() is not part of the tumr package. It is defined here
+solely to provide a baseline visualization for comparison with tumr’s
+methods.
+
+## Creating a tumr Object
+
+Most tumr functions operate on a tumr object, which stores both the data
+and its associated metadata (subject ID, time, outcome, and grouping
+variable).
+
+To create a tumr object, use the tumr() function:
 
 ``` r
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+```
+
+This object can now be passed directly into other tumr functions.
+
+### Visualizing Tumor Growth
+
+The figure below compares a naive longitudinal visualization with a
+tumr-based approach that explicitly accounts for censoring and missing
+observations.
+
+``` r
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
 plot_median(mel2)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-3-1.png)
+![](tumr_files/figure-html/unnamed-chunk-4-1.png)
 
-![](tumr_files/figure-html/unnamed-chunk-3-2.png)
+![](tumr_files/figure-html/unnamed-chunk-4-2.png)
+
+The plot on the left uses a straightforward summary of observed data at
+each time point. This approach ignores the structure of missingness
+common in tumor growth studies, where subjects frequently leave the
+study due to censoring or dropout. As a result, the apparent decline in
+tumor volume over time is an artifact of estimating summaries from a
+progressively smaller subset of subjects rather than a true biological
+effect.
+
+The visualization produced by plot_median() addresses these issues
+through an explicit preprocessing step designed for longitudinal tumor
+data.
+
+Before any summary statistic is computed, the function:
+
+1.  **Aligns time points across subjects** Rows are added for unobserved
+    time points so that all subjects share a common time grid.
+2.  **Handles trailing missing values due to censoring** The last
+    observed value is carried forward and marked with a “+” to indicate
+    right-censoring.
+
+- Example: 3, 6, 9, NA → 3, 6, 9, 9+
+
+3.  **Interpolates embedded missing values** Missing observations that
+    occur between recorded time points are interpolated to preserve
+    trajectory continuity.
+
+After preprocessing, tumor volume summaries are computed at each time
+point within each treatment group using a Kaplan–Meier–based approach.
+This strategy ensures that summaries reflect both observed data and
+informative missingness, producing a visualization that more accurately
+represents tumor growth dynamics over time.
 
 ### Response feature analysis
+
+One of the primary analysis tools in tumr is the rfeat() function, which
+implements response feature analysis. This two-stage approach simplifies
+complex longitudinal data by extracting a single interpretable summary
+measure per subject.
+
+Specifically, rfeat():
+
+1.  Computes a growth slope (beta coefficient) for each subject
+2.  Averages these slopes within each treatment group
+3.  Compares group-level summaries using one of the following methods:
+
+- t-test
+- ANOVA
+- Tukey post-hoc test
+- Both ANOVA and Tukey post-hoc tests
+
+The example below uses comparison = “both” to perform ANOVA followed by
+Tukey post-hoc comparisons.
 
 ``` r
 (rfeat_mel2 <- rfeat(mel2, comparison = "both"))
@@ -89,13 +171,35 @@ plot_median(mel2)
     E-C -0.003496690 -0.03968816  0.032694782 0.9986875
     E-D -0.007166687 -0.04335816  0.029024785 0.9794890
 
+## Plotting Response Feature Results
+
+The plot() method for rfeat objects displays both the individual subject
+slopes and the group-level means.
+
 ``` r
 plot(rfeat_mel2)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-4-1.png)
+![](tumr_files/figure-html/unnamed-chunk-6-1.png)
 
 ### Linear mixed model
+
+The tumr package also includes lmm(), which fits a linear mixed effects
+model to tumor growth data. Linear mixed models are well suited for
+longitudinal data because they account for:
+
+- Fixed effects: population-level effects of interest (e.g., treatment,
+  time)
+- Random effects: subject-specific variability that induces correlation
+  among repeated measurements
+
+By default, lmm() fits the model:
+
+`log1p(measure) ~ group * time + (time | id)`
+
+This specification allows each subject to have their own growth
+trajectory while estimating overall treatment effects. The model formula
+can be customized if desired.
 
 ``` r
 lmm_mel2 <- lmm(mel2)
@@ -103,6 +207,14 @@ lmm_mel2 <- lmm(mel2)
 
     Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
       See ?lme4::convergence and ?lme4::troubleshooting.
+
+## Model Summary
+
+The summary() method for lmm objects uses the emmeans package to report:
+
+- The overall effect of time
+- Treatment-specific slopes over time
+- Statistical tests comparing slope differences between groups
 
 ``` r
 summary(lmm_mel2)
@@ -143,7 +255,14 @@ summary(lmm_mel2)
     Degrees-of-freedom method: kenward-roger
     P value adjustment: tukey method for comparing a family of 5 estimates 
 
-### Plot of linear mixed model
+## Plotting Linear Mixed Model Results
+
+Finally, tumr provides a plot() method for lmm objects that produces two
+visualizations:
+
+1.  Predicted tumor growth trajectories over time
+2.  Estimated mean growth slopes for each group with confidence
+    intervals
 
 ``` r
 plot(lmm_mel2)
@@ -155,302 +274,8 @@ plot(lmm_mel2)
 
     $predicted_measure
 
-![](tumr_files/figure-html/unnamed-chunk-6-1.png)
+![](tumr_files/figure-html/unnamed-chunk-9-1.png)
 
     $mean_betas
 
-![](tumr_files/figure-html/unnamed-chunk-6-2.png)
-
-## Other data sets
-
-### Breast cancer
-
-``` r
-breast_meta <- tumr(breast, ID, Week, Volume, Treatment)
-
-plot_median(breast_meta)
-```
-
-![](tumr_files/figure-html/unnamed-chunk-7-1.png)
-
-``` r
-breast_rfeat <- rfeat(breast_meta, comparison = "t.test")
-plot(breast_rfeat)
-```
-
-![](tumr_files/figure-html/unnamed-chunk-7-2.png)
-
-``` r
-breast_lmm <- lmm(breast_meta)
-```
-
-    boundary (singular) fit: see help('isSingular')
-
-``` r
-summary(breast_lmm)
-```
-
-    $`overall effect of time`
-     1       Week.trend   SE df lower.CL upper.CL
-     overall      0.802 0.12 26    0.557     1.05
-
-    Results are averaged over the levels of: Treatment
-    Degrees-of-freedom method: kenward-roger
-    Confidence level used: 0.95
-
-    $`slope of treatment over time`
-     Treatment Week.trend    SE   df lower.CL upper.CL
-     NR             0.882 0.169 25.7    0.535     1.23
-     VEH            0.723 0.170 26.2    0.374     1.07
-
-    Degrees-of-freedom method: kenward-roger
-    Confidence level used: 0.95
-
-    $`test slope differences`
-     contrast estimate    SE df t.ratio p.value
-     NR - VEH     0.16 0.239 26   0.667  0.5106
-
-    Degrees-of-freedom method: kenward-roger 
-
-### Another melanoma
-
-``` r
-mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
-
-plot_median(mel1)
-```
-
-![](tumr_files/figure-html/unnamed-chunk-8-1.png)
-
-``` r
-(mel1_rfeat <- rfeat(mel1, comparison = "both"))
-```
-
-    $anova
-                Df  Sum Sq  Mean Sq F value   Pr(>F)
-    Group        3 0.04132 0.013775    26.4 1.13e-08 ***
-    Residuals   31 0.01618 0.000522
-    ---
-    Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-    $tukey
-      Tukey multiple comparisons of means
-        95% family-wise confidence level
-
-    Fit: aov(formula = Beta ~ Group, data = betas)
-
-    $Group
-                diff         lwr          upr     p adj
-    B-A -0.043746530 -0.07297381 -0.014519252 0.0016633
-    C-A  0.002859032 -0.02636825  0.032086310 0.9933133
-    D-A -0.082228407 -0.11235520 -0.052101618 0.0000001
-    C-B  0.046605562  0.01737828  0.075832840 0.0008013
-    D-B -0.038481877 -0.06860867 -0.008355088 0.0080907
-    D-C -0.085087439 -0.11521423 -0.054960650 0.0000001
-
-``` r
-plot(mel1_rfeat)
-```
-
-![](tumr_files/figure-html/unnamed-chunk-8-2.png)
-
-``` r
-(mel1_lmm <- lmm(mel1))
-```
-
-    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
-      See ?lme4::convergence and ?lme4::troubleshooting.
-
-    Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-    lmerModLmerTest]
-    Formula: log1p(Volume) ~ Treatment * Day + (Day | ID)
-       Data: data
-
-    REML criterion at convergence: 2057.9
-
-    Scaled residuals:
-        Min      1Q  Median      3Q     Max
-    -2.7388 -0.4455  0.0897  0.5194  3.2523
-
-    Random effects:
-     Groups   Name        Variance  Std.Dev. Corr
-     ID       (Intercept) 0.1006944 0.31732
-              Day         0.0005492 0.02344  -0.29
-     Residual             1.4496878 1.20403
-    Number of obs: 600, groups:  ID, 35
-
-    Fixed effects:
-                    Estimate Std. Error        df t value Pr(>|t|)
-    (Intercept)     3.803278   0.241055 63.696770  15.778  < 2e-16 ***
-    TreatmentB     -2.077289   0.311809 44.850653  -6.662 3.29e-08 ***
-    TreatmentC     -0.151380   0.336695 58.812300  -0.450  0.65465
-    TreatmentD     -1.482092   0.315893 42.320462  -4.692 2.84e-05 ***
-    Day             0.064163   0.010131 58.005388   6.333 3.82e-08 ***
-    TreatmentB:Day -0.042430   0.013049 41.175964  -3.252  0.00229 **
-    TreatmentC:Day -0.003019   0.014348 55.455508  -0.210  0.83412
-    TreatmentD:Day -0.081544   0.013289 39.417584  -6.136 3.21e-07 ***
-    ---
-    Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-    Correlation of Fixed Effects:
-                (Intr) TrtmnB TrtmnC TrtmnD Day    TrtB:D TrtC:D
-    TreatmentB  -0.773
-    TreatmentC  -0.716  0.553
-    TreatmentD  -0.763  0.590  0.546
-    Day         -0.567  0.438  0.406  0.432
-    TretmntB:Dy  0.440 -0.489 -0.315 -0.336 -0.776
-    TretmntC:Dy  0.400 -0.309 -0.559 -0.305 -0.706  0.548
-    TretmntD:Dy  0.432 -0.334 -0.309 -0.475 -0.762  0.592  0.538
-    optimizer (nloptwrap) convergence code: 0 (OK)
-    Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
-      See ?lme4::convergence and ?lme4::troubleshooting.
-
-``` r
-summary(mel1_lmm)
-```
-
-    $`overall effect of time`
-     1       Day.trend      SE   df lower.CL upper.CL
-     overall    0.0324 0.00467 33.8   0.0229   0.0419
-
-    Results are averaged over the levels of: Treatment
-    Degrees-of-freedom method: kenward-roger
-    Confidence level used: 0.95
-
-    $`slope of treatment over time`
-     Treatment Day.trend      SE   df lower.CL upper.CL
-     A            0.0642 0.01010 50.2   0.0438 0.084541
-     B            0.0217 0.00823 22.8   0.0047 0.038767
-     C            0.0611 0.01020 45.6   0.0405 0.081744
-     D           -0.0174 0.00860 21.7  -0.0352 0.000469
-
-    Degrees-of-freedom method: kenward-roger
-    Confidence level used: 0.95
-
-    $`test slope differences`
-     contrast estimate     SE   df t.ratio p.value
-     A - B     0.04243 0.0131 35.4   3.248  0.0130
-     A - C     0.00302 0.0144 47.8   0.210  0.9967
-     A - D     0.08154 0.0133 33.9   6.131 <0.0001
-     B - C    -0.03941 0.0131 33.7  -3.001  0.0247
-     B - D     0.03911 0.0119 22.2   3.286  0.0164
-     C - D     0.07852 0.0134 32.4   5.875 <0.0001
-
-    Degrees-of-freedom method: kenward-roger
-    P value adjustment: tukey method for comparing a family of 4 estimates 
-
-### Prostate cancer
-
-``` r
-pros_meta <- tumr(prostate, ID, Age, BLI, Genotype)
-
-plot_median(pros_meta)
-```
-
-![](tumr_files/figure-html/unnamed-chunk-9-1.png)
-
-``` r
-(pros_rfeat <- rfeat(pros_meta, comparison = "both"))
-```
-
-    $anova
-                Df  Sum Sq Mean Sq F value   Pr(>F)
-    Group        2 0.14850 0.07425   62.41 7.86e-14 ***
-    Residuals   46 0.05473 0.00119
-    ---
-    Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-    $tukey
-      Tukey multiple comparisons of means
-        95% family-wise confidence level
-
-    Fit: aov(formula = Beta ~ Group, data = betas)
-
-    $Group
-                     diff         lwr         upr     p adj
-    HET-DOKO -0.110898513 -0.13955117 -0.08224585 0.0000000
-    WT-DOKO  -0.120444046 -0.15003639 -0.09085170 0.0000000
-    WT-HET   -0.009545533 -0.03913787  0.02004681 0.7163468
-
-``` r
-plot(pros_rfeat)
-```
-
 ![](tumr_files/figure-html/unnamed-chunk-9-2.png)
-
-``` r
-(pros_lmm <- lmm(pros_meta))
-```
-
-    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00478111 (tol = 0.002, component 1)
-      See ?lme4::convergence and ?lme4::troubleshooting.
-
-    Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-    lmerModLmerTest]
-    Formula: log1p(BLI) ~ Genotype * Age + (Age | ID)
-       Data: data
-
-    REML criterion at convergence: 1423.8
-
-    Scaled residuals:
-        Min      1Q  Median      3Q     Max
-    -5.2046 -0.4834  0.0116  0.5532  3.2088
-
-    Random effects:
-     Groups   Name        Variance  Std.Dev. Corr
-     ID       (Intercept) 0.1824792 0.42718
-              Age         0.0006397 0.02529  -0.91
-     Residual             0.4264456 0.65303
-    Number of obs: 662, groups:  ID, 49
-
-    Fixed effects:
-                     Estimate Std. Error        df t value Pr(>|t|)
-    (Intercept)     18.849994   0.159658 73.273902 118.065  < 2e-16 ***
-    GenotypeHET      1.161121   0.215336 58.907212   5.392 1.29e-06 ***
-    GenotypeWT       1.203959   0.217579 53.964181   5.533 9.45e-07 ***
-    Age              0.172293   0.009613 95.312319  17.923  < 2e-16 ***
-    GenotypeHET:Age -0.107699   0.012541 63.665873  -8.588 3.10e-12 ***
-    GenotypeWT:Age  -0.125381   0.012553 57.175131  -9.988 3.79e-14 ***
-    ---
-    Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-    Correlation of Fixed Effects:
-                (Intr) GntHET GntyWT Age    GHET:A
-    GenotypeHET -0.741
-    GenotypeWT  -0.734  0.544
-    Age         -0.911  0.675  0.668
-    GntypHET:Ag  0.698 -0.903 -0.512 -0.767
-    GentypWT:Ag  0.697 -0.517 -0.901 -0.766  0.587
-    optimizer (nloptwrap) convergence code: 0 (OK)
-    Model failed to converge with max|grad| = 0.00478111 (tol = 0.002, component 1)
-      See ?lme4::convergence and ?lme4::troubleshooting.
-
-``` r
-summary(pros_lmm)
-```
-
-    $`overall effect of time`
-     1       Age.trend    SE   df lower.CL upper.CL
-     overall    0.0946 0.005 46.4   0.0845    0.105
-
-    Results are averaged over the levels of: Genotype
-    Degrees-of-freedom method: kenward-roger
-    Confidence level used: 0.95
-
-    $`slope of treatment over time`
-     Genotype Age.trend      SE   df lower.CL upper.CL
-     DOKO        0.1723 0.00962 86.8   0.1532   0.1914
-     HET         0.0646 0.00812 36.0   0.0481   0.0811
-     WT          0.0469 0.00814 29.3   0.0303   0.0635
-
-    Degrees-of-freedom method: kenward-roger
-    Confidence level used: 0.95
-
-    $`test slope differences`
-     contrast   estimate     SE   df t.ratio p.value
-     DOKO - HET   0.1077 0.0126 57.9   8.553 <0.0001
-     DOKO - WT    0.1254 0.0126 51.9   9.949 <0.0001
-     HET - WT     0.0177 0.0115 32.4   1.538  0.2869
-
-    Degrees-of-freedom method: kenward-roger
-    P value adjustment: tukey method for comparing a family of 3 estimates 

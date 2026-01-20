@@ -84,11 +84,7 @@ lmm_mel2 <- lmm(
                )
 ```
 
-While the model fits successfully, calling summary() on this object will fail:
-
-```{r}
-summary(lmm_mel2)
-```
+While the model fits successfully, calling summary() on this object will fail.
 
 This occurs because the summary() method is designed around the default lmm() model structure and currently assumes that formula. As a result, alternative formulas may not be fully supported by summary().
 

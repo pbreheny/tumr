@@ -5,3 +5,6 @@
 .Ruserdata
 docs
 vignettes/.quarto
+vignettes/*.html
+vignettes/articles/*.html
+*_files

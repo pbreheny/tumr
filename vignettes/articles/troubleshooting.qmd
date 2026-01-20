@@ -6,6 +6,11 @@ format:
     toc-depth: 3
 ---
 
+```{r}
+library(tumr)
+```
+
+
 ## Convergence Failure with lmm()
 
 If you encounter the warning
@@ -21,6 +26,7 @@ when fitting a model with lmm(), one common cause is poor scaling of the time va
 Using the melanoma2 dataset, the following code produces a convergence warning:
 
 ```{r}
+data(melanoma2)
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 lmm(mel2)
 ```

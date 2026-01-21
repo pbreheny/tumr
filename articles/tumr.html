@@ -121,7 +121,7 @@
 <span><span class="op">}</span></span></code></pre></div>
 </details>
 </div>
-<p>Note: plot_mean() is not part of the tumr package. It is defined here solely to provide a baseline visualization for comparison with tumr’s methods.</p>
+<p><strong>Note:</strong> plot_mean() is not part of the tumr package. It is defined here solely to provide a baseline visualization for comparison with tumr’s methods.</p>
 </section></section><section class="section level2"><h2 id="creating-a-tumr-object">Creating a tumr Object<a class="anchor" aria-label="anchor" href="#creating-a-tumr-object"></a>
 </h2>
 <p>Most tumr functions operate on a tumr object, which stores both the data and its associated metadata (subject ID, time, outcome, and grouping variable).</p>
@@ -131,8 +131,8 @@
 <code class="sourceCode R"><span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></code></pre></div>
 </div>
 <p>This object can now be passed directly into other tumr functions.</p>
-<section class="level2"><h3 id="visualizing-tumor-growth">Visualizing Tumor Growth<a class="anchor" aria-label="anchor" href="#visualizing-tumor-growth"></a>
-</h3>
+</section><section class="section level2"><h2 id="visualizing-tumor-growth">Visualizing Tumor Growth<a class="anchor" aria-label="anchor" href="#visualizing-tumor-growth"></a>
+</h2>
 <p>The figure below compares a naive longitudinal visualization with a tumr-based approach that explicitly accounts for censoring and missing observations.</p>
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_mean</span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">Treatment</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">ID</span>, stat <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
@@ -164,21 +164,23 @@
 <strong>Interpolates embedded missing values</strong> Missing observations that occur between recorded time points are interpolated to preserve trajectory continuity.</li>
 </ol>
 <p>After preprocessing, tumor volume summaries are computed at each time point within each treatment group using a Kaplan–Meier–based approach. This strategy ensures that summaries reflect both observed data and informative missingness, producing a visualization that more accurately represents tumor growth dynamics over time.</p>
-</section><section class="level2"><h3 id="response-feature-analysis">Response feature analysis<a class="anchor" aria-label="anchor" href="#response-feature-analysis"></a>
-</h3>
+</section><section class="section level2"><h2 id="response-feature-analysis">Response feature analysis<a class="anchor" aria-label="anchor" href="#response-feature-analysis"></a>
+</h2>
 <p>One of the primary analysis tools in tumr is the rfeat() function, which implements response feature analysis. This two-stage approach simplifies complex longitudinal data by extracting a single interpretable summary measure per subject.</p>
 <p>Specifically, rfeat():</p>
 <ol type="1">
-<li>Computes a growth slope (beta coefficient) for each subject</li>
-<li>Averages these slopes within each treatment group</li>
-<li>Compares group-level summaries using one of the following methods:</li>
-</ol>
+<li><p>Computes a growth slope (beta coefficient) for each subject</p></li>
+<li><p>Averages these slopes within each treatment group</p></li>
+<li>
+<p>Compares group-level summaries using one of the following methods:</p>
 <ul>
 <li>t-test</li>
 <li>ANOVA</li>
 <li>Tukey post-hoc test</li>
 <li>Both ANOVA and Tukey post-hoc tests</li>
 </ul>
+</li>
+</ol>
 <p>The example below uses comparison = “both” to perform ANOVA followed by Tukey post-hoc comparisons.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
@@ -211,8 +213,8 @@ E-C -0.003496690 -0.03968816  0.032694782 0.9986875
 E-D -0.007166687 -0.04335816  0.029024785 0.9794890</code></pre>
 </div>
 </div>
-</section></section><section class="section level2"><h2 id="plotting-response-feature-results">Plotting Response Feature Results<a class="anchor" aria-label="anchor" href="#plotting-response-feature-results"></a>
-</h2>
+<section class="level2"><h3 id="plotting-response-feature-results">Plotting Response Feature Results<a class="anchor" aria-label="anchor" href="#plotting-response-feature-results"></a>
+</h3>
 <p>The plot() method for rfeat objects displays both the individual subject slopes and the group-level means.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
@@ -224,26 +226,78 @@ E-D -0.007166687 -0.04335816  0.029024785 0.9794890</code></pre>
 </div>
 </div>
 </div>
-<section class="level2"><h3 id="linear-mixed-model">Linear mixed model<a class="anchor" aria-label="anchor" href="#linear-mixed-model"></a>
-</h3>
+</section></section><section class="section level2"><h2 id="linear-mixed-model">Linear mixed model<a class="anchor" aria-label="anchor" href="#linear-mixed-model"></a>
+</h2>
 <p>The tumr package also includes lmm(), which fits a linear mixed effects model to tumor growth data. Linear mixed models are well suited for longitudinal data because they account for:</p>
 <ul>
 <li>Fixed effects: population-level effects of interest (e.g., treatment, time)</li>
 <li>Random effects: subject-specific variability that induces correlation among repeated measurements</li>
 </ul>
 <p>By default, lmm() fits the model:</p>
+<div class="text-center">
 <p><code>log1p(measure) ~ group * time + (time | id)</code></p>
+</div>
 <p>This specification allows each subject to have their own growth trajectory while estimating overall treatment effects. The model formula can be customized if desired.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lmm_mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">lmm_mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
   See ?lme4::convergence and ?lme4::troubleshooting.</code></pre>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: log1p(Volume) ~ Treatment * Day + (Day | ID)
+   Data: data
+
+REML criterion at convergence: 1216.5
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-6.8683 -0.3590  0.0569  0.4891  4.0759
+
+Random effects:
+ Groups   Name        Variance  Std.Dev. Corr
+ ID       (Intercept) 0.3909753 0.62528
+          Day         0.0006511 0.02552  -0.51
+ Residual             0.3220706 0.56751
+Number of obs: 568, groups:  ID, 47
+
+Fixed effects:
+               Estimate Std. Error       df t value Pr(&gt;|t|)
+(Intercept)     3.66092    0.22688 46.83127  16.136  &lt; 2e-16 ***
+TreatmentB      0.53834    0.32255 42.89746   1.669  0.10240
+TreatmentC      0.78053    0.31957 46.08359   2.442  0.01848 *
+TreatmentD      1.33290    0.32410 48.71755   4.113  0.00015 ***
+TreatmentE     -0.14693    0.33197 42.42209  -0.443  0.66031
+Day             0.07971    0.00897 47.89633   8.886 1.06e-11 ***
+TreatmentB:Day -0.03972    0.01269 43.36203  -3.130  0.00312 **
+TreatmentC:Day -0.02673    0.01255 46.24553  -2.129  0.03859 *
+TreatmentD:Day -0.02497    0.01321 54.20921  -1.890  0.06410 .
+TreatmentE:Day -0.03060    0.01300 42.19464  -2.355  0.02325 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) TrtmnB TrtmnC TrtmnD TrtmnE Day    TrtB:D TrtC:D TrtD:D
+TreatmentB  -0.703
+TreatmentC  -0.710  0.499
+TreatmentD  -0.700  0.492  0.497
+TreatmentE  -0.683  0.481  0.485  0.478
+Day         -0.577  0.406  0.410  0.404  0.394
+TretmntB:Dy  0.408 -0.560 -0.290 -0.286 -0.279 -0.707
+TretmntC:Dy  0.412 -0.290 -0.573 -0.289 -0.282 -0.715  0.505
+TretmntD:Dy  0.392 -0.276 -0.278 -0.585 -0.268 -0.679  0.480  0.485
+TretmntE:Dy  0.398 -0.280 -0.283 -0.279 -0.556 -0.690  0.488  0.493  0.469
+optimizer (nloptwrap) convergence code: 0 (OK)
+Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
+  See ?lme4::convergence and ?lme4::troubleshooting.</code></pre>
 </div>
-</section></section><section class="section level2"><h2 id="model-summary">Model Summary<a class="anchor" aria-label="anchor" href="#model-summary"></a>
-</h2>
+</div>
+<p><strong>Note:</strong> You may see a convergence warning when fitting this model. If this occurs, see the <a href="articles/troubleshooting.html">Troubleshooting</a> article for guidance.</p>
+<section class="level2"><h3 id="summarizing-linear-mixed-model-results">Summarizing Linear Mixed Model Results<a class="anchor" aria-label="anchor" href="#summarizing-linear-mixed-model-results"></a>
+</h3>
 <p>The summary() method for lmm objects uses the emmeans package to report:</p>
 <ul>
 <li>The overall effect of time</li>
@@ -251,7 +305,7 @@ E-D -0.007166687 -0.04335816  0.029024785 0.9794890</code></pre>
 <li>Statistical tests comparing slope differences between groups</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`overall effect of time`
@@ -290,15 +344,15 @@ Degrees-of-freedom method: kenward-roger
 P value adjustment: tukey method for comparing a family of 5 estimates </code></pre>
 </div>
 </div>
-</section><section class="section level2"><h2 id="plotting-linear-mixed-model-results">Plotting Linear Mixed Model Results<a class="anchor" aria-label="anchor" href="#plotting-linear-mixed-model-results"></a>
-</h2>
+</section><section class="level2"><h3 id="plotting-linear-mixed-model-results">Plotting Linear Mixed Model Results<a class="anchor" aria-label="anchor" href="#plotting-linear-mixed-model-results"></a>
+</h3>
 <p>Finally, tumr provides a plot() method for lmm objects that produces two visualizations:</p>
 <ol type="1">
 <li>Predicted tumor growth trajectories over time</li>
 <li>Estimated mean growth slopes for each group with confidence intervals</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Model has log1p-transformed response. Back-transforming predictions to
@@ -325,7 +379,7 @@ $mean_betas</code></pre>
 </div>
 </div>
 </div>
-</section><script id="quarto-html-after-body" type="application/javascript">
+</section></section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -418,7 +472,7 @@ $mean_betas</code></pre>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: January 20, 2026</p>
+  <p>Last updated: January 21, 2026</p>
 </div>
 
     </footer>

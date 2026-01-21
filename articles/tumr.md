@@ -55,9 +55,9 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
 }
 ```
 
-Note: plot_mean() is not part of the tumr package. It is defined here
-solely to provide a baseline visualization for comparison with tumr’s
-methods.
+**Note:** plot_mean() is not part of the tumr package. It is defined
+here solely to provide a baseline visualization for comparison with
+tumr’s methods.
 
 ## Creating a tumr Object
 
@@ -73,7 +73,7 @@ mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 
 This object can now be passed directly into other tumr functions.
 
-### Visualizing Tumor Growth
+## Visualizing Tumor Growth
 
 The figure below compares a naive longitudinal visualization with a
 tumr-based approach that explicitly accounts for censoring and missing
@@ -120,7 +120,7 @@ This strategy ensures that summaries reflect both observed data and
 informative missingness, producing a visualization that more accurately
 represents tumor growth dynamics over time.
 
-### Response feature analysis
+## Response feature analysis
 
 One of the primary analysis tools in tumr is the rfeat() function, which
 implements response feature analysis. This two-stage approach simplifies
@@ -130,13 +130,15 @@ measure per subject.
 Specifically, rfeat():
 
 1.  Computes a growth slope (beta coefficient) for each subject
+
 2.  Averages these slopes within each treatment group
+
 3.  Compares group-level summaries using one of the following methods:
 
-- t-test
-- ANOVA
-- Tukey post-hoc test
-- Both ANOVA and Tukey post-hoc tests
+    - t-test
+    - ANOVA
+    - Tukey post-hoc test
+    - Both ANOVA and Tukey post-hoc tests
 
 The example below uses comparison = “both” to perform ANOVA followed by
 Tukey post-hoc comparisons.
@@ -171,7 +173,7 @@ Tukey post-hoc comparisons.
     E-C -0.003496690 -0.03968816  0.032694782 0.9986875
     E-D -0.007166687 -0.04335816  0.029024785 0.9794890
 
-## Plotting Response Feature Results
+### Plotting Response Feature Results
 
 The plot() method for rfeat objects displays both the individual subject
 slopes and the group-level means.
@@ -182,7 +184,7 @@ plot(rfeat_mel2)
 
 ![](tumr_files/figure-html/unnamed-chunk-6-1.png)
 
-### Linear mixed model
+## Linear mixed model
 
 The tumr package also includes lmm(), which fits a linear mixed effects
 model to tumor growth data. Linear mixed models are well suited for
@@ -202,13 +204,66 @@ trajectory while estimating overall treatment effects. The model formula
 can be customized if desired.
 
 ``` r
-lmm_mel2 <- lmm(mel2)
+(lmm_mel2 <- lmm(mel2))
 ```
 
     Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
       See ?lme4::convergence and ?lme4::troubleshooting.
 
-## Model Summary
+    Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+    lmerModLmerTest]
+    Formula: log1p(Volume) ~ Treatment * Day + (Day | ID)
+       Data: data
+
+    REML criterion at convergence: 1216.5
+
+    Scaled residuals:
+        Min      1Q  Median      3Q     Max
+    -6.8683 -0.3590  0.0569  0.4891  4.0759
+
+    Random effects:
+     Groups   Name        Variance  Std.Dev. Corr
+     ID       (Intercept) 0.3909753 0.62528
+              Day         0.0006511 0.02552  -0.51
+     Residual             0.3220706 0.56751
+    Number of obs: 568, groups:  ID, 47
+
+    Fixed effects:
+                   Estimate Std. Error       df t value Pr(>|t|)
+    (Intercept)     3.66092    0.22688 46.83127  16.136  < 2e-16 ***
+    TreatmentB      0.53834    0.32255 42.89746   1.669  0.10240
+    TreatmentC      0.78053    0.31957 46.08359   2.442  0.01848 *
+    TreatmentD      1.33290    0.32410 48.71755   4.113  0.00015 ***
+    TreatmentE     -0.14693    0.33197 42.42209  -0.443  0.66031
+    Day             0.07971    0.00897 47.89633   8.886 1.06e-11 ***
+    TreatmentB:Day -0.03972    0.01269 43.36203  -3.130  0.00312 **
+    TreatmentC:Day -0.02673    0.01255 46.24553  -2.129  0.03859 *
+    TreatmentD:Day -0.02497    0.01321 54.20921  -1.890  0.06410 .
+    TreatmentE:Day -0.03060    0.01300 42.19464  -2.355  0.02325 *
+    ---
+    Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+    Correlation of Fixed Effects:
+                (Intr) TrtmnB TrtmnC TrtmnD TrtmnE Day    TrtB:D TrtC:D TrtD:D
+    TreatmentB  -0.703
+    TreatmentC  -0.710  0.499
+    TreatmentD  -0.700  0.492  0.497
+    TreatmentE  -0.683  0.481  0.485  0.478
+    Day         -0.577  0.406  0.410  0.404  0.394
+    TretmntB:Dy  0.408 -0.560 -0.290 -0.286 -0.279 -0.707
+    TretmntC:Dy  0.412 -0.290 -0.573 -0.289 -0.282 -0.715  0.505
+    TretmntD:Dy  0.392 -0.276 -0.278 -0.585 -0.268 -0.679  0.480  0.485
+    TretmntE:Dy  0.398 -0.280 -0.283 -0.279 -0.556 -0.690  0.488  0.493  0.469
+    optimizer (nloptwrap) convergence code: 0 (OK)
+    Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
+      See ?lme4::convergence and ?lme4::troubleshooting.
+
+**Note:** You may see a convergence warning when fitting this model. If
+this occurs, see the
+[Troubleshooting](https://pbreheny.github.io/tumr/articles/articles/troubleshooting.md)
+article for guidance.
+
+### Summarizing Linear Mixed Model Results
 
 The summary() method for lmm objects uses the emmeans package to report:
 
@@ -255,7 +310,7 @@ summary(lmm_mel2)
     Degrees-of-freedom method: kenward-roger
     P value adjustment: tukey method for comparing a family of 5 estimates 
 
-## Plotting Linear Mixed Model Results
+### Plotting Linear Mixed Model Results
 
 Finally, tumr provides a plot() method for lmm objects that produces two
 visualizations:

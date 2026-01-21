@@ -1,9 +1,5 @@
 # Troubleshooting
 
-``` r
-library(tumr)
-```
-
 ## Convergence Failure with lmm()
 
 If you encounter the warning

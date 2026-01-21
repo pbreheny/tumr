@@ -7,12 +7,14 @@ format:
 ---
 
 ```{r}
+#| include: false
 library(tumr)
 ```
 
 ## Another Melanoma Data Set, *melanoma1*
 
 ```{r}
+#| echo: false
 data(melanoma1)
 mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 
@@ -22,6 +24,7 @@ plot_median(mel1)
 ## Breast Cancer Data Set, *breast*
 
 ```{r}
+#| echo: false
 data(breast)
 breast_meta <- tumr(breast, ID, Week, Volume, Treatment)
 
@@ -31,6 +34,7 @@ plot_median(breast_meta)
 ## Prostate Cancer Data Set, *prostate*
 
 ```{r}
+#| echo: false
 data(prostate)
 pros_meta <- tumr(prostate, ID, Age, BLI, Genotype)
 

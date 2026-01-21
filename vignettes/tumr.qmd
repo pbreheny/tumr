@@ -55,7 +55,7 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
 }
 ```
 
-Note: plot_mean() is not part of the tumr package. It is defined here solely to provide a baseline visualization for comparison with tumr’s methods.
+**Note:** plot_mean() is not part of the tumr package. It is defined here solely to provide a baseline visualization for comparison with tumr’s methods.
 
 # Creating a tumr Object
 
@@ -69,7 +69,7 @@ mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 
 This object can now be passed directly into other tumr functions.
 
-## Visualizing Tumor Growth
+# Visualizing Tumor Growth
 
 The figure below compares a naive longitudinal visualization with a tumr-based approach that explicitly accounts for censoring and missing observations.
 
@@ -97,7 +97,7 @@ Missing observations that occur between recorded time points are interpolated to
 
 After preprocessing, tumor volume summaries are computed at each time point within each treatment group using a Kaplan–Meier–based approach. This strategy ensures that summaries reflect both observed data and informative missingness, producing a visualization that more accurately represents tumor growth dynamics over time.
 
-## Response feature analysis
+# Response feature analysis
 
 One of the primary analysis tools in tumr is the rfeat() function, which implements response feature analysis. This two-stage approach simplifies complex longitudinal data by extracting a single interpretable summary measure per subject.
 
@@ -107,10 +107,10 @@ Specifically, rfeat():
 2. Averages these slopes within each treatment group
 3. Compares group-level summaries using one of the following methods:
 
-  * t-test
-  * ANOVA
-  * Tukey post-hoc test
-  * Both ANOVA and Tukey post-hoc tests
+    * t-test
+    * ANOVA
+    * Tukey post-hoc test
+    * Both ANOVA and Tukey post-hoc tests
   
 The example below uses comparison = "both" to perform ANOVA followed by Tukey post-hoc comparisons.
 
@@ -118,7 +118,7 @@ The example below uses comparison = "both" to perform ANOVA followed by Tukey po
 (rfeat_mel2 <- rfeat(mel2, comparison = "both"))
 ```
 
-# Plotting Response Feature Results
+## Plotting Response Feature Results
 
 The plot() method for rfeat objects displays both the individual subject slopes and the group-level means.
 
@@ -126,7 +126,7 @@ The plot() method for rfeat objects displays both the individual subject slopes 
 plot(rfeat_mel2)
 ```
 
-## Linear mixed model
+# Linear mixed model
 
 The tumr package also includes lmm(), which fits a linear mixed effects model to tumor growth data. Linear mixed models are well suited for longitudinal data because they account for:
 
@@ -135,15 +135,19 @@ The tumr package also includes lmm(), which fits a linear mixed effects model to
 
 By default, lmm() fits the model:
 
+::: {.text-center}
 `log1p(measure) ~ group * time + (time | id)`
+:::
 
 This specification allows each subject to have their own growth trajectory while estimating overall treatment effects. The model formula can be customized if desired.
 
 ```{r}
-lmm_mel2 <- lmm(mel2)
+(lmm_mel2 <- lmm(mel2))
 ```
 
-# Model Summary
+**Note:** You may see a convergence warning when fitting this model. If this occurs, see the [Troubleshooting](articles/troubleshooting.html) article for guidance.
+
+## Summarizing Linear Mixed Model Results
 
 The summary() method for lmm objects uses the emmeans package to report:
 
@@ -156,7 +160,7 @@ summary(lmm_mel2)
 ```
 
 
-# Plotting Linear Mixed Model Results
+## Plotting Linear Mixed Model Results
 
 Finally, tumr provides a plot() method for lmm objects that produces two visualizations:
 

@@ -2,6 +2,8 @@
 
 ## All functions
 
+- [`bhm()`](https://pbreheny.github.io/tumr/reference/bhm.md) : Bayesian
+  hierarchical model for tumor growth
 - [`breast`](https://pbreheny.github.io/tumr/reference/breast.md) :
   Tumor growth data for a breast cancer model
 - [`gendat()`](https://pbreheny.github.io/tumr/reference/gendat.md) :

@@ -6,6 +6,12 @@
 #' @param ... further arguments passed to CmdStanR $sample()
 #'
 #' @return A list of posterior summaries (and optionally diagnostics / fit)
+#'
+#' @examples
+#' data(melanoma2)
+#' fit <- bhm(melanoma2)
+#' fit
+#'
 #' @export
 
 

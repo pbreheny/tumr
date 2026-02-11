@@ -34,7 +34,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Bayesian hierarchical model for tumor growth</h1>
-      <small class="dont-index">Source: <a href="https://github.com/pbreheny/tumr/blob/main/R/BHM.R" class="external-link"><code>R/BHM.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pbreheny/tumr/blob/main/R/bhm.R" class="external-link"><code>R/bhm.R</code></a></small>
       <div class="d-none name"><code>bhm.Rd</code></div>
     </div>
 
@@ -72,6 +72,16 @@
     <p>A list of posterior summaries (and optionally diagnostics / fit)</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">melanoma2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">bhm</span><span class="op">(</span><span class="va">melanoma2</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Model not compiled. Try running the compile() method first.</span>
+<span class="r-in"><span><span class="va">fit</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'fit' not found</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
@@ -81,7 +91,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: January 29, 2026</p>
+  <p>Last updated: February 11, 2026</p>
 </div>
 
     </footer></div>

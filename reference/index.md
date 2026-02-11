@@ -36,6 +36,8 @@
   : Analysis based on response features
 - [`rmanova()`](https://pbreheny.github.io/tumr/reference/rmanova.md) :
   Analysis based on repeated measures ANOVA
+- [`summary(`*`<bhm>`*`)`](https://pbreheny.github.io/tumr/reference/summary.bhm.md)
+  : Creates a summary of a bhm object
 - [`summary(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/summary.lmm.md)
   : Creates a summary of an lmm object
 - [`tumr-package`](https://pbreheny.github.io/tumr/reference/tumr-package.md)

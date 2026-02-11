@@ -141,5 +141,6 @@ bhm <- function(data, diagnostics = FALSE, return_fit = TRUE, ...) {
     out$fit <- fit
   }
 
+  class(out) <- "bhm"
   out
 }

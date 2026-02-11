@@ -42,8 +42,7 @@ bhm <- function(data, diagnostics = FALSE, return_fit = TRUE, ...) {
   N_subj <- length(id_levels)
   N <- nrow(data)
 
-  y <- log(data$Volume)
-  y[is.infinite(y)] <- log(0.1)
+  y <- log1p(data$Volume)
   t <- data$Day
 
   data$Treatment <- factor(data$Treatment)

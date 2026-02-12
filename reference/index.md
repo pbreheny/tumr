@@ -16,6 +16,8 @@
   : Tumor growth data for a melanoma cancer model (451LuBR)
 - [`mixed()`](https://pbreheny.github.io/tumr/reference/mixed.md) :
   Analysis based on mixed model
+- [`plot(`*`<bhm>`*`)`](https://pbreheny.github.io/tumr/reference/plot.bhm.md)
+  : Creates plots for a bhm object
 - [`plot(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/plot.lmm.md)
   : Creates Plots of an lmm object
 - [`plot(`*`<rfeat>`*`)`](https://pbreheny.github.io/tumr/reference/plot.rfeat.md)

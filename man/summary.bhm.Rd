@@ -18,8 +18,9 @@ a list containing posterior summaries on log scale and exp scale
 Creates a summary of a bhm object
 }
 \examples{
+\dontrun{
 data(melanoma2)
 fit <- bhm(melanoma2)
 summary(fit)
-
+}
 }

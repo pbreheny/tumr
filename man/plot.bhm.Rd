@@ -4,24 +4,33 @@
 \alias{plot.bhm}
 \title{Creates plots for a bhm object}
 \usage{
-\method{plot}{bhm}(x, ...)
+\method{plot}{bhm}(x, type = c("predicted", "slope", "contrast", "trace"), ...)
 }
 \arguments{
 \item{x}{A \code{bhm} object returned by \code{bhm()}.}
 
-\item{...}{Further arguments passed to or from other methods (currently unused).}
+\item{type}{Character string specifying which plot to produce. One of
+\code{"predicted"}, \code{"slope"}, \code{"contrast"}, or \code{"trace"}.}
+
+\item{...}{Further arguments passed to trace plotting functions (currently used
+only when \code{type = "trace"}).}
 }
 \value{
-Invisibly returns a list with two ggplot objects:
-\code{slope_each_plot} and \code{slope_diff_plot}.
+If \code{type} is \code{"slope"} or \code{"contrast"}, returns a \code{ggplot} object.
+If \code{type} is \code{"trace"}, returns a list of \code{ggplot} objects with elements
+\code{trace_intercept}, \code{trace_slope}, and \code{trace_slope_diff}.
 }
 \description{
-Produces interval plots for treatment-specific slopes and slope contrasts
-based on the posterior summaries returned by \code{summary()}.
+Produces interval plots for treatment-specific slopes, slope contrasts,
+or MCMC trace plots based on posterior summaries returned by \code{summary()}.
 }
 \examples{
+\dontrun{
 data("melanoma1")
 fit <- bhm(melanoma1)
-plot(fit)
+plot(fit, type = "slope")
+plot(fit, type = "contrast")
+plot(fit, type = "trace")
+}
 
 }

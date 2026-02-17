@@ -22,8 +22,9 @@ A list of posterior summaries (and optionally diagnostics / fit)
 Bayesian hierarchical model for tumor growth
 }
 \examples{
+\dontrun{
 data(melanoma2)
 fit <- bhm(melanoma2)
 fit
-
+}
 }

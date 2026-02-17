@@ -1,8 +1,5 @@
-// tumor_growth_curve.stan
-
-// ------------------------------------------------------------
-// DATA
-// ------------------------------------------------------------
+// Bayesian hierarchical linear model
+// data
 data {
   int<lower=1> N;                      // total observations
   int<lower=1> N_subj;                 // number of subjects
@@ -15,9 +12,7 @@ data {
   vector[N] t;                         // time
 }
 
-// ------------------------------------------------------------
-// PARAMETERS
-// ------------------------------------------------------------
+// parameters
 parameters {
   // treatment-level means (population)
   vector[K] Int;        // mean intercept for each treatment
@@ -25,16 +20,13 @@ parameters {
 
   // level-1 noise
   real<lower=0> sdLevel1;
-
-  // random effects (intercept, slope) - non-centered
-  vector<lower=0>[2] tau;                 // SDs of RE (intercept, slope)
-  cholesky_factor_corr[2] L_corr;         // correlation (Cholesky)
+  // random effects
+  vector<lower=0>[2] tau;                 // SDs of random effects
+  cholesky_factor_corr[2] L_corr;         // correlation
   array[N_subj] vector[2] z;              // i.i.d. N(0,1)
 }
 
-// ------------------------------------------------------------
-// TRANSFORMED PARAMETERS
-// ------------------------------------------------------------
+// transformed parameters
 transformed parameters {
   array[N_subj] vector[2] beta;           // subject-specific (int, slope)
   matrix[2,2] L = diag_pre_multiply(tau, L_corr);
@@ -50,37 +42,28 @@ transformed parameters {
   }
 }
 
-// ------------------------------------------------------------
-// MODEL
-// ------------------------------------------------------------
+// model
 model {
-  // Priors (you can tune later)
+  // priors
   Int   ~ normal(0, 10);
   Slope ~ normal(0, 10);
-
-  sdLevel1 ~ normal(0, 5);          // half-normal via <lower=0>
-
+  sdLevel1 ~ normal(0, 5);          // half-normal
   tau    ~ normal(0, 5);            // half-normal
   L_corr ~ lkj_corr_cholesky(2);    // correlation prior
   for (i in 1:N_subj) z[i] ~ normal(0, 1);
-
   // Likelihood
   for (n in 1:N) {
     y[n] ~ normal(beta[id[n]][1] + beta[id[n]][2] * t[n], sdLevel1);
   }
 }
 
-// ------------------------------------------------------------
-// GENERATED QUANTITIES
-// ------------------------------------------------------------
+// generate quantities
 generated quantities {
   matrix[K,K] IntDiff;
   matrix[K,K] SlopeDiff;
-
-  // pairwise differences: (row - col) = (i - j)
   for (i in 1:K) {
     for (j in 1:K) {
-      IntDiff[i,j]   = Int[i]   - Int[j];
+      IntDiff[i,j] = Int[i] - Int[j];
       SlopeDiff[i,j] = Slope[i] - Slope[j];
     }
   }

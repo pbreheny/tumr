@@ -22,6 +22,7 @@ Useful links:
 Authors:
 \itemize{
   \item Sydney Plowman
+  \item Tian Zhao \email{tian-zhao@uiowa.edu} (\href{https://orcid.org/0009-0006-9527-286X}{ORCID})
 }
 
 }

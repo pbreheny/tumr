@@ -6,12 +6,13 @@
 #' @param ... further arguments passed to CmdStanR $sample()
 #'
 #' @return A list of posterior summaries (and optionally diagnostics / fit)
-#'
+
 #' @examples
+#' \dontrun{
 #' data(melanoma2)
 #' fit <- bhm(melanoma2)
 #' fit
-#'
+#' }
 #' @export
 
 
@@ -143,3 +144,9 @@ bhm <- function(data, diagnostics = FALSE, return_fit = TRUE, ...) {
   class(out) <- "bhm"
   out
 }
+
+
+
+
+
+

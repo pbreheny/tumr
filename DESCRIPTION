@@ -4,7 +4,8 @@ Version: 0.5.1
 Authors@R: c(
   person("Patrick", "Breheny", role=c("aut","cre"),
     email="patrick-breheny@uiowa.edu", comment=c(ORCID="0000-0002-0650-1119")),
-  person("Sydney", "Plowman", role='aut'))
+  person("Sydney", "Plowman", role='aut'),
+  person("Tian", "Zhao", role='aut', email="tian-zhao@uiowa.edu", comment=c(ORCID="0009-0006-9527-286X")))
 Description: This package contains functions for tumor growth rate experiments:
   plotting and analyzing existing data, simulating new data, and power/sample
   size calculations.

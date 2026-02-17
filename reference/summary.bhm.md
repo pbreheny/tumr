@@ -26,9 +26,9 @@ a list containing posterior summaries on log scale and exp scale
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
 data(melanoma2)
 fit <- bhm(melanoma2)
-#> Error: Model not compiled. Try running the compile() method first.
 summary(fit)
-#> Error: object 'fit' not found
+} # }
 ```

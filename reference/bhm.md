@@ -33,9 +33,9 @@ A list of posterior summaries (and optionally diagnostics / fit)
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
 data(melanoma2)
 fit <- bhm(melanoma2)
-#> Error: Model not compiled. Try running the compile() method first.
 fit
-#> Error: object 'fit' not found
+} # }
 ```

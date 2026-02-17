@@ -1,14 +1,14 @@
 # Creates plots for a bhm object
 
-Produces interval plots for treatment-specific slopes and slope
-contrasts based on the posterior summaries returned by
+Produces interval plots for treatment-specific slopes, slope contrasts,
+or MCMC trace plots based on posterior summaries returned by
 [`summary()`](https://rdrr.io/r/base/summary.html).
 
 ## Usage
 
 ``` r
 # S3 method for class 'bhm'
-plot(x, ...)
+plot(x, type = c("predicted", "slope", "contrast", "trace"), ...)
 ```
 
 ## Arguments
@@ -18,21 +18,30 @@ plot(x, ...)
   A `bhm` object returned by
   [`bhm()`](https://pbreheny.github.io/tumr/reference/bhm.md).
 
+- type:
+
+  Character string specifying which plot to produce. One of
+  `"predicted"`, `"slope"`, `"contrast"`, or `"trace"`.
+
 - ...:
 
-  Further arguments passed to or from other methods (currently unused).
+  Further arguments passed to trace plotting functions (currently used
+  only when `type = "trace"`).
 
 ## Value
 
-Invisibly returns a list with two ggplot objects: `slope_each_plot` and
-`slope_diff_plot`.
+If `type` is `"slope"` or `"contrast"`, returns a `ggplot` object. If
+`type` is `"trace"`, returns a list of `ggplot` objects with elements
+`trace_intercept`, `trace_slope`, and `trace_slope_diff`.
 
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
 data("melanoma1")
 fit <- bhm(melanoma1)
-#> Error: Model not compiled. Try running the compile() method first.
-plot(fit)
-#> Error: object 'fit' not found
+plot(fit, type = "slope")
+plot(fit, type = "contrast")
+plot(fit, type = "trace")
+} # }
 ```

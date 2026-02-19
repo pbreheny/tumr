@@ -334,3 +334,46 @@ plot(lmm_mel2)
     $mean_betas
 
 ![](tumr_files/figure-html/unnamed-chunk-9-2.png)
+
+## Bayesian Hierarchical Linear Model
+
+In addition to the linear mixed model, the package also supports a
+Bayesian hierarchical linear model.
+
+For subject i in treatment group g, the outcome at time t_n is modeled
+as
+
+y_n \sim \mathcal{N}\big(\beta\_{i,1} + \beta\_{i,2} t_n,\\ \sigma\big),
+
+where subject-specific intercepts and slopes follow a hierarchical
+structure:
+
+\begin{pmatrix} \beta\_{i,1} \\ \beta\_{i,2} \end{pmatrix} =
+\begin{pmatrix} \text{Int}\_g \\ \text{Slope}\_g \end{pmatrix} + L z_i,
+\qquad z_i \sim \mathcal{N}(0, I).
+
+Here, \text{Int}\_g and \text{Slope}\_g denote treatment-level mean
+intercepts and slopes, and L is the Cholesky factor of the random-effect
+covariance matrix. Weakly informative normal priors are assigned to
+treatment-level effects and variance components, with an LKJ prior on
+the correlation structure.
+
+### Summary
+
+The [`summary()`](https://rdrr.io/r/base/summary.html) method provides
+posterior summaries of:
+
+- Treatment-specific intercepts with exponential transformation
+- Treatment-specific slopes with exponential transformation  
+- Pairwise treatment contrasts in slopes with exponential transformation
+
+Posterior means and credible intervals are reported for all quantities.
+
+### Plot
+
+The [`plot()`](https://rdrr.io/r/graphics/plot.default.html) method
+visualizes posterior summaries, including:
+
+- Treatment-specific slope estimates with 90% credible intervals  
+- Pairwise slope contrasts  
+- Optional MCMC trace plots for model diagnostics

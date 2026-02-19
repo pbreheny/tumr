@@ -8,7 +8,7 @@ or MCMC trace plots based on posterior summaries returned by
 
 ``` r
 # S3 method for class 'bhm'
-plot(x, type = c("predicted", "slope", "contrast", "trace"), ...)
+plot(x, type = c("slope", "contrast", "trace"), ...)
 ```
 
 ## Arguments
@@ -20,8 +20,8 @@ plot(x, type = c("predicted", "slope", "contrast", "trace"), ...)
 
 - type:
 
-  Character string specifying which plot to produce. One of
-  `"predicted"`, `"slope"`, `"contrast"`, or `"trace"`.
+  Character string specifying which plot to produce. One of `"slope"`,
+  `"contrast"`, or `"trace"`.
 
 - ...:
 
@@ -40,8 +40,11 @@ If `type` is `"slope"` or `"contrast"`, returns a `ggplot` object. If
 if (FALSE) { # \dontrun{
 data("melanoma1")
 fit <- bhm(melanoma1)
-plot(fit, type = "slope")
-plot(fit, type = "contrast")
+p1 <- plot(fit, type = "slope")
+p2 <- plot(fit, type = "contrast")
+p3 <- p2 + ggplot2::scale_x_continuous(transform = "exp",
+labels = function(z) sprintf("%.2f", exp(z)))
 plot(fit, type = "trace")
+p3
 } # }
 ```

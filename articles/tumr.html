@@ -381,7 +381,7 @@ $mean_betas</code></pre>
 </div>
 </section></section><section class="section level2"><h2 id="bayesian-hierarchical-linear-model">Bayesian Hierarchical Linear Model<a class="anchor" aria-label="anchor" href="#bayesian-hierarchical-linear-model"></a>
 </h2>
-<p>In addition to the linear mixed model, the package also supports a Bayesian hierarchical linear model.</p>
+<p>In addition to the linear mixed model, the package also supports fitting a Bayesian hierarchical linear model.</p>
 <p>For subject <span class="math inline">i</span> in treatment group <span class="math inline">g</span>, the outcome at time <span class="math inline">t_n</span> is modeled as</p>
 <p><span class="math display">
 y_n \sim \mathcal{N}\big(\beta_{i,1} + \beta_{i,2} t_n,\ \sigma\big),
@@ -403,6 +403,10 @@ L z_i,
 z_i \sim \mathcal{N}(0, I).
 </span></p>
 <p>Here, <span class="math inline">\text{Int}_g</span> and <span class="math inline">\text{Slope}_g</span> denote treatment-level mean intercepts and slopes, and <span class="math inline">L</span> is the Cholesky factor of the random-effect covariance matrix. Weakly informative normal priors are assigned to treatment-level effects and variance components, with an LKJ prior on the correlation structure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bhm.html">bhm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">melanoma2</span>, diagnostics <span class="op">=</span> <span class="cn">FALSE</span>, return_fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+</div>
 <section class="level2"><h3 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h3>
 <p>The <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> method provides posterior summaries of:</p>
@@ -413,6 +417,10 @@ z_i \sim \mathcal{N}(0, I).
 <li>Pairwise treatment contrasts in slopes with exponential transformation</li>
 </ul>
 <p>Posterior means and credible intervals are reported for all quantities.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
+</div>
 </section><section class="level2"><h3 id="plot">Plot<a class="anchor" aria-label="anchor" href="#plot"></a>
 </h3>
 <p>The <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method visualizes posterior summaries, including:</p>
@@ -422,7 +430,14 @@ z_i \sim \mathcal{N}(0, I).
 <li>Pairwise slope contrasts<br>
 </li>
 <li>Optional MCMC trace plots for model diagnostics</li>
-</ul></section></section><script id="quarto-html-after-body" type="application/javascript">
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"slope"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"contrast"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"trace"</span><span class="op">)</span></span></code></pre></div>
+</div>
+</section></section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);

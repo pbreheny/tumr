@@ -337,8 +337,8 @@ plot(lmm_mel2)
 
 ## Bayesian Hierarchical Linear Model
 
-In addition to the linear mixed model, the package also supports a
-Bayesian hierarchical linear model.
+In addition to the linear mixed model, the package also supports fitting
+a Bayesian hierarchical linear model.
 
 For subject i in treatment group g, the outcome at time t_n is modeled
 as
@@ -358,6 +358,10 @@ covariance matrix. Weakly informative normal priors are assigned to
 treatment-level effects and variance components, with an LKJ prior on
 the correlation structure.
 
+``` r
+fit <- bhm(data = melanoma2, diagnostics = FALSE, return_fit = TRUE)
+```
+
 ### Summary
 
 The [`summary()`](https://rdrr.io/r/base/summary.html) method provides
@@ -369,6 +373,10 @@ posterior summaries of:
 
 Posterior means and credible intervals are reported for all quantities.
 
+``` r
+summary(fit)
+```
+
 ### Plot
 
 The [`plot()`](https://rdrr.io/r/graphics/plot.default.html) method
@@ -377,3 +385,9 @@ visualizes posterior summaries, including:
 - Treatment-specific slope estimates with 90% credible intervals  
 - Pairwise slope contrasts  
 - Optional MCMC trace plots for model diagnostics
+
+``` r
+plot(fit, "slope")
+plot(fit, "contrast")
+plot(fit, "trace")
+```

@@ -203,7 +203,7 @@ $$
 Here, $\text{Int}_g$ and $\text{Slope}_g$ denote treatment-level mean intercepts and slopes, and $L$ is the Cholesky factor of the random-effect covariance matrix. Weakly informative normal priors are assigned to treatment-level effects and variance components, with an LKJ prior on the correlation structure.
 
 ```{r}
-fit <- bhm(data = melanoma1, diagnostics = FALSE, return_fit = TRUE)
+fit <- bhm(data = melanoma2, diagnostics = FALSE, return_fit = TRUE)
 ```
 
 

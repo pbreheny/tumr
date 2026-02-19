@@ -32,6 +32,12 @@ slope differences between the treatment groups.
   - lmm() includes a **plot()** function that shows the predicted values of the tumor growth measurements over time 
 and the mean slope for each treatment with their 95% confidence intervals.
 
++ **bhm()** - fits a Bayesian Hierarchical Linear Model.
+  - bhm() includes a **summary()** function that provides the treatment-specific intercepts with exponential transformation
+  , treatment-specific slopes with exponential transformation, and pairwise treatment contrasts in slopes with exponential transformation.
+  - bhm() includes a **plot()** function that shows the the mean slope for each treatment with their 90% credible intervals,
+  Pairwise slope contrasts with their 90% credible intervals, and MCMC trace plots for model diagnostics.
+
 ### How to install tumr
 
 To install tumr, copy and paste the following code into the console

@@ -203,6 +203,7 @@ $$
 Here, $\text{Int}_g$ and $\text{Slope}_g$ denote treatment-level mean intercepts and slopes, and $L$ is the Cholesky factor of the random-effect covariance matrix. Weakly informative normal priors are assigned to treatment-level effects and variance components, with an LKJ prior on the correlation structure.
 
 ```{r}
+#| eval: false
 fit <- bhm(data = melanoma2, diagnostics = FALSE, return_fit = TRUE)
 ```
 
@@ -218,6 +219,7 @@ The `summary()` method provides posterior summaries of:
 Posterior means and credible intervals are reported for all quantities.
 
 ```{r}
+#| eval: false
 summary(fit)
 ```
 
@@ -231,6 +233,7 @@ The `plot()` method visualizes posterior summaries, including:
 - Optional MCMC trace plots for model diagnostics  
 
 ```{r}
+#| eval: false
 plot(fit, "slope")
 plot(fit, "contrast")
 plot(fit, "trace")

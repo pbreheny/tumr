@@ -4,13 +4,13 @@
 \alias{plot.bhm}
 \title{Creates plots for a bhm object}
 \usage{
-\method{plot}{bhm}(x, type = c("predicted", "slope", "contrast", "trace"), ...)
+\method{plot}{bhm}(x, type = c("slope", "contrast", "trace"), ...)
 }
 \arguments{
 \item{x}{A \code{bhm} object returned by \code{bhm()}.}
 
 \item{type}{Character string specifying which plot to produce. One of
-\code{"predicted"}, \code{"slope"}, \code{"contrast"}, or \code{"trace"}.}
+\code{"slope"}, \code{"contrast"}, or \code{"trace"}.}
 
 \item{...}{Further arguments passed to trace plotting functions (currently used
 only when \code{type = "trace"}).}
@@ -28,9 +28,12 @@ or MCMC trace plots based on posterior summaries returned by \code{summary()}.
 \dontrun{
 data("melanoma1")
 fit <- bhm(melanoma1)
-plot(fit, type = "slope")
-plot(fit, type = "contrast")
+p1 <- plot(fit, type = "slope")
+p2 <- plot(fit, type = "contrast")
+p3 <- p2 + ggplot2::scale_x_continuous(transform = "exp",
+labels = function(z) sprintf("\%.2f", exp(z)))
 plot(fit, type = "trace")
+p3
 }
 
 }

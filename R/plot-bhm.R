@@ -18,12 +18,14 @@
 #' \dontrun{
 #' data("melanoma1")
 #' fit <- bhm(melanoma1)
-#' p1 <- plot(fit, type = "slope")
-#' p2 <- plot(fit, type = "contrast")
-#' p3 <- p2 + ggplot2::scale_x_continuous(transform = "exp",
-#' labels = function(z) sprintf("%.2f", exp(z)))
+#' plot(fit, type = "slope")
+#' plot(fit, type = "contrast")
+#' plot(fit, type = "contrast") +
+#'   ggplot2::scale_x_continuous(
+#'     transform = "exp",
+#'     labels = function(z) sprintf("%.2f", exp(z))
+#'   )
 #' plot(fit, type = "trace")
-#' p3
 #' }
 #'
 #' @export

@@ -168,7 +168,8 @@ Finally, tumr provides a plot() method for lmm objects that produces two visuali
 2. Estimated mean growth slopes for each group with confidence intervals
 
 ```{r}
-plot(lmm_mel2)
+plot(lmm_mel2, "predict")
+plot(lmm_mel2, "slope")
 ```
 
 

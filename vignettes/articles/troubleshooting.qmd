@@ -63,7 +63,7 @@ If you prefer to view the predicted volume values on the log scale, you can appl
 
 ```{r}
 lmm_mel2 <- lmm(mel2)
-plot(lmm_mel2)$predicted_measure + ggplot2::scale_y_continuous(trans = scales::log1p_trans())
+plot(lmm_mel2, "predict") + ggplot2::scale_y_continuous(trans = scales::log1p_trans())
 ```
 
 This approach preserves the model fit while allowing you to visualize predictions and uncertainty on the transformed scale.

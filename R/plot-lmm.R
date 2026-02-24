@@ -14,19 +14,18 @@
 #' @export
 
 plot.lmm <- function(x, type = c("predict", "slope"), ...){
+  type <- match.arg(type)
   model <- x$model_sum
   if (type == "predict") {
     pred <- ggeffects::ggpredict(model,
                                  terms = c(x$relevant_info$Time,
                                            x$relevant_info$Group))
-    pred_plot <- plot(pred)
-    pred_plot
+    return(plot(pred))
   }
 
-  if (type == "slope") {
+  if (type == "slope"){
     emm_sum <- summary(x)
-    emm_plot <- plot(emm_sum$`slope of treatment over time`)
-    emm_plot
+    return(plot(emm_sum$`slope of treatment over time`))
   }
 }
 

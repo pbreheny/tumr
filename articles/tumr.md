@@ -387,6 +387,7 @@ visualizes posterior summaries, including:
 - Optional MCMC trace plots for model diagnostics
 
 ``` r
+plot(fit, "predict")
 plot(fit, "slope")
 plot(fit, "contrast")
 plot(fit, "trace")

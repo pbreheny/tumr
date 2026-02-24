@@ -1,0 +1,160 @@
+---
+title: "Bayesian Hierarchical Linear Model"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+```{r}
+#| include: false
+library(tumr)
+```
+
+
+# Model setting and notation
+
+Let $g = 1,\ldots,K$ index treatment groups and $i = 1,\ldots,N_{\text{subj}}$ index subjects.  
+Subject $i$ belongs to treatment group $g_i \in \{1,\ldots,K\}$.  
+Let $V_{in} > 0$ denote the observed tumor volume for subject $i$ at time $t_{in}$, and define the log-volume
+
+$$
+y_{in} = \log(V_{in}).
+$$
+
+## Model (log-volume scale)
+
+### Observation model (Level 1)
+
+For each subject $i$ and measurement $n$,
+
+$$
+y_{in} \mid \alpha_i, \beta_i, \sigma
+\sim \mathcal{N}\left(\alpha_i + \beta_i t_{in}, \sigma^2\right),
+$$
+
+where $\alpha_i$ is the subject-specific intercept (baseline log-volume at $t=0$),  
+$\beta_i$ is the subject-specific slope (log-scale growth rate),  
+and $\sigma>0$ is the residual standard deviation.
+
+### Subject-level random effects (Level 2)
+
+Define the subject-specific parameter vector
+
+$$
+\theta_i =
+\begin{pmatrix}
+\alpha_i \\
+\beta_i
+\end{pmatrix},
+\qquad
+\mu_g =
+\begin{pmatrix}
+\alpha_g \\
+\beta_g
+\end{pmatrix}.
+$$
+
+Conditional on the treatment group $g_i$,
+
+$$
+\theta_i \mid g_i, \mu_{g_i}, \Sigma
+\sim \mathcal{N}_2(\mu_{g_i}, \Sigma).
+$$
+
+We parameterize the random-effects covariance matrix as
+
+$$
+\Sigma = D R D,
+\qquad
+D = \mathrm{diag}(\tau_\alpha,\tau_\beta),
+\qquad
+R =
+\begin{pmatrix}
+1 & \rho \\
+\rho & 1
+\end{pmatrix},
+$$
+
+where $\tau_\alpha>0$ and $\tau_\beta>0$ are the standard deviations of the random intercept and random slope, and $\rho \in (-1,1)$ is their correlation.
+
+### Priors (Level 3)
+
+For $g=1,\ldots,K$,
+
+$$
+\alpha_g \sim \mathcal{N}(0,10^2),
+\qquad
+\beta_g \sim \mathcal{N}(0,10^2).
+$$
+
+Residual standard deviation:
+
+$$
+\sigma \sim \text{Half-}\mathcal{N}(0,5^2).
+$$
+
+Random-effects standard deviations:
+
+$$
+\tau_\alpha \sim \text{Half-}\mathcal{N}(0,5^2),
+\qquad
+\tau_\beta \sim \text{Half-}\mathcal{N}(0,5^2).
+$$
+
+Correlation matrix prior:
+
+$$
+R \sim \mathrm{LKJ}(2).
+$$
+
+
+### Summary
+
+$$
+\begin{aligned}
+y_{in} \mid \alpha_i,\beta_i,\sigma 
+&\sim \mathcal{N}(\alpha_i+\beta_i t_{in},\sigma^2),\\
+\theta_i \mid g_i 
+&\sim \mathcal{N}_2(\mu_{g_i}, D R D),\\
+\alpha_g &\sim \mathcal{N}(0,10^2), \quad
+\beta_g \sim \mathcal{N}(0,10^2),\\
+\sigma &\sim \text{Half-}\mathcal{N}(0,5^2),\\
+\tau_\alpha,\tau_\beta 
+&\sim \text{Half-}\mathcal{N}(0,5^2), \quad
+R \sim \mathrm{LKJ}(2).
+\end{aligned}
+$$
+
+
+# Example
+
+
+## Model fit
+
+```{r}
+data(melanoma2)
+fit <- bhm(melanoma2)
+```
+
+## Summary of the results
+
+```{r}
+summary(fit)
+```
+
+## Plots
+
+
+```{r}
+plot(fit, type = "predict")
+plot(fit, type = "slope")
+plot(fit, type = "contrast")
+plot(fit, type = "contrast") +
+  ggplot2::scale_x_continuous(
+    transform = "exp",
+    labels = function(z) sprintf("%.2f", exp(z))
+  )
+plot(fit, type = "trace")
+```
+

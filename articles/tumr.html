@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tumr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -353,14 +353,11 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"predict"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Model has log1p-transformed response. Back-transforming predictions to
   original response scale. Standard errors are still on the transformed
   scale.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$predicted_measure</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -368,10 +365,8 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-$mean_betas</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"slope"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure><p><img src="tumr_files/figure-html/unnamed-chunk-9-2.png" width="672"></p>
@@ -404,7 +399,7 @@ z_i \sim \mathcal{N}(0, I).
 </span></p>
 <p>Here, <span class="math inline">\text{Int}_g</span> and <span class="math inline">\text{Slope}_g</span> denote treatment-level mean intercepts and slopes, and <span class="math inline">L</span> is the Cholesky factor of the random-effect covariance matrix. Weakly informative normal priors are assigned to treatment-level effects and variance components, with an LKJ prior on the correlation structure.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bhm.html">bhm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">melanoma2</span>, diagnostics <span class="op">=</span> <span class="cn">FALSE</span>, return_fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <section class="level2"><h3 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
@@ -418,7 +413,7 @@ z_i \sim \mathcal{N}(0, I).
 </ul>
 <p>Posterior means and credible intervals are reported for all quantities.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="plot">Plot<a class="anchor" aria-label="anchor" href="#plot"></a>
@@ -432,7 +427,7 @@ z_i \sim \mathcal{N}(0, I).
 <li>Optional MCMC trace plots for model diagnostics</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"slope"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"contrast"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"trace"</span><span class="op">)</span></span></code></pre></div>
@@ -530,7 +525,7 @@ z_i \sim \mathcal{N}(0, I).
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: February 19, 2026</p>
+  <p>Last updated: February 24, 2026</p>
 </div>
 
     </footer>

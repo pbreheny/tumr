@@ -320,18 +320,18 @@ visualizations:
     intervals
 
 ``` r
-plot(lmm_mel2)
+plot(lmm_mel2, "predict")
 ```
 
     Model has log1p-transformed response. Back-transforming predictions to
       original response scale. Standard errors are still on the transformed
       scale.
 
-    $predicted_measure
-
 ![](tumr_files/figure-html/unnamed-chunk-9-1.png)
 
-    $mean_betas
+``` r
+plot(lmm_mel2, "slope")
+```
 
 ![](tumr_files/figure-html/unnamed-chunk-9-2.png)
 

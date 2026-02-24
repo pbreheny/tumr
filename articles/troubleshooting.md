@@ -160,7 +160,7 @@ package.
 
 ``` r
 lmm_mel2 <- lmm(mel2)
-plot(lmm_mel2)$predicted_measure + ggplot2::scale_y_continuous(trans = scales::log1p_trans())
+plot(lmm_mel2, "predict") + ggplot2::scale_y_continuous(trans = scales::log1p_trans())
 ```
 
     Model has log1p-transformed response. Back-transforming predictions to

@@ -131,7 +131,10 @@ bhm <- function(data, diagnostics = FALSE, return_fit = TRUE, ...) {
   out <- list(
     slope_each = slope_each,
     slope_diff = slope_diff,
-    int_each = int_each
+    int_each = int_each,
+    K = K,
+    t_range = range(t),
+    trt_levels = trt_levels
   )
 
   if (isTRUE(diagnostics)) {

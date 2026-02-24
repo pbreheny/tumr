@@ -19,7 +19,8 @@ Imports:
   survival,
   tibble,
   tidyr,
-  instantiate
+  instantiate,
+  purrr
 Suggests:
   lme4,
   lmerTest,

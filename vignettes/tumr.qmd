@@ -235,6 +235,7 @@ The `plot()` method visualizes posterior summaries, including:
 
 ```{r}
 #| eval: false
+plot(fit, "predict")
 plot(fit, "slope")
 plot(fit, "contrast")
 plot(fit, "trace")

@@ -4,7 +4,7 @@
 \alias{plot.bhm}
 \title{Creates plots for a bhm object}
 \usage{
-\method{plot}{bhm}(x, type = c("slope", "contrast", "trace"), ...)
+\method{plot}{bhm}(x, type = c("predict", "slope", "contrast", "trace"), ...)
 }
 \arguments{
 \item{x}{A \code{bhm} object returned by \code{bhm()}.}
@@ -16,7 +16,7 @@
 only when \code{type = "trace"}).}
 }
 \value{
-If \code{type} is \code{"slope"} or \code{"contrast"}, returns a \code{ggplot} object.
+If \code{type} is \code{"predict"}, \code{"slope"}, or \code{"contrast"}, returns a \code{ggplot} object.
 If \code{type} is \code{"trace"}, returns a list of \code{ggplot} objects with elements
 \code{trace_intercept}, \code{trace_slope}, and \code{trace_slope_diff}.
 }
@@ -28,6 +28,7 @@ or MCMC trace plots based on posterior summaries returned by \code{summary()}.
 \dontrun{
 data("melanoma1")
 fit <- bhm(melanoma1)
+plot(fit, type = "predict")
 plot(fit, type = "slope")
 plot(fit, type = "contrast")
 plot(fit, type = "contrast") +

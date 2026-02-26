@@ -4,8 +4,6 @@
 #' @param measure vector of tumor growth measurements
 #'
 #' @return Processed Data
-#'
-#' @export
 
 process_data <- function(time, measure) {
 

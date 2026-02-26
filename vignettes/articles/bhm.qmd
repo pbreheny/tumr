@@ -133,6 +133,7 @@ $$
 ## Model fit
 
 ```{r}
+#| output: false
 data(melanoma2)
 fit <- bhm(melanoma2)
 ```

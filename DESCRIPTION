@@ -1,6 +1,6 @@
 Package: tumr
 Title: Analysis and Power Calculations for Tumor Growth Rates
-Version: 0.6.0
+Version: 0.6.1
 Authors@R: c(
   person("Patrick", "Breheny", role=c("aut","cre"),
     email="patrick-breheny@uiowa.edu", comment=c(ORCID="0000-0002-0650-1119")),

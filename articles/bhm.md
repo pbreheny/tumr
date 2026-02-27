@@ -69,7 +69,7 @@ R \sim \mathrm{LKJ}(2).
 
 \begin{aligned} y\_{in} \mid \alpha_i,\beta_i,\sigma &\sim
 \mathcal{N}(\alpha_i+\beta_i t\_{in},\sigma^2),\\ \theta_i \mid g_i
-&\sim \mathcal{N}\_2(\mu\_{g_i}, D R D),\\ \alpha_g &\sim
+&\sim \mathcal{N}\_2(\mu\_{g_i}, \Sigma),\\ \alpha_g &\sim
 \mathcal{N}(0,10^2), \quad \beta_g \sim \mathcal{N}(0,10^2),\\ \sigma
 &\sim \text{Half-}\mathcal{N}(0,5^2),\\ \tau\_\alpha,\tau\_\beta &\sim
 \text{Half-}\mathcal{N}(0,5^2), \quad R \sim \mathrm{LKJ}(2).
@@ -79,12 +79,28 @@ R \sim \mathrm{LKJ}(2).
 
 ### Model fit
 
+We begin by loading the example dataset and fitting the Bayesian
+hierarchical linear model using
+[`bhm()`](https://pbreheny.github.io/tumr/reference/bhm.md). By default,
+the model is estimated on the log scale.
+
 ``` r
 data(melanoma2)
 fit <- bhm(melanoma2)
 ```
 
 ### Summary of the results
+
+Posterior summaries can be obtained using the
+[`summary()`](https://rdrr.io/r/base/summary.html) method. The output
+reports posterior means and corresponding credible intervals for all
+estimated quantities, including:
+
+- Treatment-specific intercepts
+
+- Treatment-specific slopes
+
+- Pairwise treatment contrasts in slopes
 
 ``` r
 summary(fit)
@@ -131,6 +147,20 @@ summary(fit)
 
 ### Plots
 
+Posterior results can be visualized using the
+[`plot()`](https://rdrr.io/r/graphics/plot.default.html) method with
+different `type` options. The available plot types include:
+
+- “predict”: Posterior predicted treatment-specific mean trajectories
+
+- “slope”: Posterior summaries of treatment-specific slopes with 90%
+  credible intervals
+
+- “contrast”: Pairwise contrasts in slopes between treatment groups with
+  90% credible intervals
+
+- “trace”: MCMC trace plots for model diagnostics
+
 ``` r
 plot(fit, type = "predict")
 ```
@@ -152,8 +182,7 @@ plot(fit, type = "contrast")
 ``` r
 plot(fit, type = "contrast") +
   ggplot2::scale_x_continuous(
-    transform = "exp",
-    labels = function(z) sprintf("%.2f", exp(z))
+    labels = function(z) scales::number(exp(z), 0.01)
   )
 ```
 

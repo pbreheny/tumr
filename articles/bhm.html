@@ -156,7 +156,7 @@ R \sim \mathrm{LKJ}(2).
 y_{in} \mid \alpha_i,\beta_i,\sigma
 &amp;\sim \mathcal{N}(\alpha_i+\beta_i t_{in},\sigma^2),\\
 \theta_i \mid g_i
-&amp;\sim \mathcal{N}_2(\mu_{g_i}, D R D),\\
+&amp;\sim \mathcal{N}_2(\mu_{g_i}, \Sigma),\\
 \alpha_g &amp;\sim \mathcal{N}(0,10^2), \quad
 \beta_g \sim \mathcal{N}(0,10^2),\\
 \sigma &amp;\sim \text{Half-}\mathcal{N}(0,5^2),\\
@@ -169,6 +169,7 @@ R \sim \mathrm{LKJ}(2).
 </h2>
 <section class="level2"><h3 id="model-fit">Model fit<a class="anchor" aria-label="anchor" href="#model-fit"></a>
 </h3>
+<p>We begin by loading the example dataset and fitting the Bayesian hierarchical linear model using <code><a href="../reference/bhm.html">bhm()</a></code>. By default, the model is estimated on the log scale.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">melanoma2</span><span class="op">)</span></span>
@@ -176,6 +177,12 @@ R \sim \mathrm{LKJ}(2).
 </div>
 </section><section class="level2"><h3 id="summary-of-the-results">Summary of the results<a class="anchor" aria-label="anchor" href="#summary-of-the-results"></a>
 </h3>
+<p>Posterior summaries can be obtained using the <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> method. The output reports posterior means and corresponding credible intervals for all estimated quantities, including:</p>
+<ul>
+<li><p>Treatment-specific intercepts</p></li>
+<li><p>Treatment-specific slopes</p></li>
+<li><p>Pairwise treatment contrasts in slopes</p></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
@@ -222,6 +229,13 @@ $slope_diff
 </div>
 </section><section class="level2"><h3 id="plots">Plots<a class="anchor" aria-label="anchor" href="#plots"></a>
 </h3>
+<p>Posterior results can be visualized using the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method with different <code>type</code> options. The available plot types include:</p>
+<ul>
+<li><p>“predict”: Posterior predicted treatment-specific mean trajectories</p></li>
+<li><p>“slope”: Posterior summaries of treatment-specific slopes with 90% credible intervals</p></li>
+<li><p>“contrast”: Pairwise contrasts in slopes between treatment groups with 90% credible intervals</p></li>
+<li><p>“trace”: MCMC trace plots for model diagnostics</p></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, type <span class="op">=</span> <span class="st">"predict"</span><span class="op">)</span></span></code></pre></div>
@@ -250,8 +264,7 @@ $slope_diff
 <div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, type <span class="op">=</span> <span class="st">"contrast"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span></span>
-<span>    transform <span class="op">=</span> <span class="st">"exp"</span>,</span>
-<span>    labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.2f"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
+<span>    labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/number.html" class="external-link">number</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span>, <span class="fl">0.01</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
@@ -384,7 +397,7 @@ $trace_slope_diff</code></pre>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: February 26, 2026</p>
+  <p>Last updated: February 27, 2026</p>
 </div>
 
     </footer>

@@ -23,9 +23,7 @@
 #' plot(fit, type = "contrast")
 #' plot(fit, type = "contrast") +
 #'   ggplot2::scale_x_continuous(
-#'     transform = "exp",
-#'     labels = function(z) sprintf("%.2f", exp(z))
-#'   )
+#'     labels = function(z) scales::number(exp(z), 0.01))
 #' plot(fit, type = "trace")
 #' }
 #'

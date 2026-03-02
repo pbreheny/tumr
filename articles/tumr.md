@@ -320,7 +320,7 @@ visualizations:
     intervals
 
 ``` r
-plot(lmm_mel2, "predict")
+plot(lmm_mel2, "response")
 ```
 
     Model has log1p-transformed response. Back-transforming predictions to

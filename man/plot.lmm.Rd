@@ -4,13 +4,13 @@
 \alias{plot.lmm}
 \title{Creates Plots of an lmm object}
 \usage{
-\method{plot}{lmm}(x, type = c("predict", "slope"), ...)
+\method{plot}{lmm}(x, type = c("response", "slope"), ...)
 }
 \arguments{
 \item{x}{lmm object}
 
 \item{type}{Character string specifying which plot to produce. One of
-\code{"predict"} or \code{"slope"}.}
+\code{"response"} or \code{"slope"}.}
 
 \item{...}{further arguments passed to or from other methods}
 }
@@ -21,8 +21,8 @@ A list of ggplot objects.
 Creates Plots of an lmm object
 }
 \examples{
-mel1 <- mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 mel1_lmm <- lmm(mel1)
-plot(mel1_lmm, "predict")
+plot(mel1_lmm, "response")
 plot(mel1_lmm, "slope")
 }

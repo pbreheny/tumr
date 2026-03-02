@@ -82,7 +82,7 @@ plot.bhm <- function(x, type = c("predict", "slope", "contrast", "trace"), ...) 
       ggplot2::geom_line(linewidth = 1) +
       ggplot2::labs(
         title = "Predicted values of Volume",
-        x = "months",
+        x = "Days",
         y = "Volume",
         color = "Treatment",
         fill = "Treatment"

@@ -1,11 +1,12 @@
-# Bayesian hierarchical model for tumor growth
+# Bayesian hierarchical model for tumor growth Fits a Bayesian hierarchical linear model to longitudinal tumor volume data on the `log1p(Volume)` scale, allowing treatment-specific population intercepts and slopes and subject-specific random intercept/slope.
 
-Bayesian hierarchical model for tumor growth
+Optionally supports left-censoring at a user-specified cutoff `cens` on
+the same scale as `y = log1p(Volume)`.
 
 ## Usage
 
 ``` r
-bhm(data, diagnostics = FALSE, return_fit = TRUE, ...)
+bhm(data, cens = NULL, diagnostics = FALSE, return_fit = TRUE, ...)
 ```
 
 ## Arguments
@@ -13,6 +14,12 @@ bhm(data, diagnostics = FALSE, return_fit = TRUE, ...)
 - data:
 
   data.frame with columns ID, Day, Volume, Treatment
+
+- cens:
+
+  Optional numeric scalar. If provided, observations with
+  `log1p(Volume) <= cens` are treated as left-censored at `cens`. Set
+  `cens = NULL` (default) to fit the non-censored model.
 
 - diagnostics:
 
@@ -24,7 +31,7 @@ bhm(data, diagnostics = FALSE, return_fit = TRUE, ...)
 
 - ...:
 
-  further arguments passed to CmdStanR \$sample()
+  further arguments
 
 ## Value
 

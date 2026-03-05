@@ -2,10 +2,7 @@
 % Please edit documentation in R/bhm.R
 \name{bhm}
 \alias{bhm}
-\title{Bayesian hierarchical model for tumor growth
-Fits a Bayesian hierarchical linear model to longitudinal tumor
-volume data on the \code{log1p(Volume)} scale, allowing treatment-specific
-population intercepts and slopes and subject-specific random intercept/slope.}
+\title{Bayesian hierarchical linear model and options with censoring}
 \usage{
 bhm(data, cens = NULL, diagnostics = FALSE, return_fit = TRUE, ...)
 }
@@ -26,13 +23,12 @@ Set \code{cens = NULL} (default) to fit the non-censored model.}
 A list of posterior summaries (and optionally diagnostics / fit)
 }
 \description{
-Optionally supports left-censoring at a user-specified cutoff \code{cens} on
-the same scale as \code{y = log1p(Volume)}.
+Bayesian hierarchical linear model and options with censoring
 }
 \examples{
 \dontrun{
 data(melanoma2)
 fit <- bhm(melanoma2)
-fit
+fit_cens <- bhm(melanoma2, cens = log1p(10))
 }
 }

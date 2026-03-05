@@ -1,10 +1,18 @@
 #' Bayesian hierarchical model for tumor growth
+#' Fits a Bayesian hierarchical linear model to longitudinal tumor
+#' volume data on the \code{log1p(Volume)} scale, allowing treatment-specific
+#' population intercepts and slopes and subject-specific random intercept/slope.
+#'
+#' Optionally supports left-censoring at a user-specified cutoff \code{cens} on
+#' the same scale as \code{y = log1p(Volume)}.
 #'
 #' @param data data.frame with columns ID, Day, Volume, Treatment
+#' @param cens Optional numeric scalar. If provided, observations with
+#' \code{log1p(Volume) <= cens} are treated as left-censored at \code{cens}.
+#' Set \code{cens = NULL} (default) to fit the non-censored model.
 #' @param diagnostics logical; whether to return diagnostic summary
 #' @param return_fit logical; whether to return the CmdStan fit object
-#' @param ... further arguments passed to CmdStanR $sample()
-#'
+#' @param ... further arguments
 #' @return A list of posterior summaries (and optionally diagnostics / fit)
 
 #' @examples
@@ -15,9 +23,7 @@
 #' }
 #' @export
 
-
-bhm <- function(data, diagnostics = FALSE, return_fit = TRUE, ...) {
-
+bhm <- function(data, cens = NULL, diagnostics = FALSE, return_fit = TRUE, ...) {
   if (!requireNamespace("instantiate", quietly = TRUE)) {
     stop("Package 'instantiate' is required for bhm(). Please install it from CRAN.", call. = FALSE)
   }
@@ -30,24 +36,32 @@ bhm <- function(data, diagnostics = FALSE, return_fit = TRUE, ...) {
       call. = FALSE
     )
   }
-
   stopifnot(
     is.data.frame(data),
     all(c("ID", "Day", "Volume", "Treatment") %in% names(data))
   )
 
   data <- data[order(data$ID, data$Day), , drop = FALSE]
-
   id_levels <- sort(unique(data$ID))
   id <- match(data$ID, id_levels)
   N_subj <- length(id_levels)
   N <- nrow(data)
-
   y <- log1p(data$Volume)
   t <- data$Day
 
-  data$Treatment <- factor(data$Treatment)
+  if (!is.null(cens)) {
+    # create censored indicator
+    is_cens <- as.integer(y <= cens)
+    # copy the dataset
+    y_stan <- y
+    # set censored values
+    y_stan[is_cens == 1L] <- cens
+  } else {
+    is_cens <- NULL
+    y_stan <- y
+  }
 
+  data$Treatment <- factor(data$Treatment)
   id_first <- !duplicated(id)
   trt_by_id <- data$Treatment[id_first]
 
@@ -65,11 +79,15 @@ bhm <- function(data, diagnostics = FALSE, return_fit = TRUE, ...) {
     K = K,
     id = as.integer(id),
     trt_subj = as.integer(trt_subj),
-    y = as.vector(y),
+    y = as.vector(y_stan),
     t = as.vector(t)
   )
-
-  model <- instantiate::stan_package_model(name = "bhm", package = "tumr")
+  if (!is.null(cens)) {
+    stan_data$C <- as.numeric(cens)
+    stan_data$is_cens <- as.integer(is_cens)
+  }
+  stan_name <- if (is.null(cens)) "bhm" else "bhm_cens"
+  model <- instantiate::stan_package_model(name = stan_name, package = "tumr")
 
   fit <- model$sample(
     data = stan_data,

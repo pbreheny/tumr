@@ -76,10 +76,10 @@ lmm(mel1)
 #> -2.7388 -0.4455  0.0897  0.5194  3.2523 
 #> 
 #> Random effects:
-#>  Groups   Name        Variance  Std.Dev. Corr 
-#>  ID       (Intercept) 0.1006944 0.31732       
-#>           Day         0.0005492 0.02344  -0.29
-#>  Residual             1.4496878 1.20403       
+#>  Groups   Name        Variance  Std.Dev. Corr  
+#>  ID       (Intercept) 0.1006944 0.31732        
+#>           Day         0.0005492 0.02344  -0.29 
+#>  Residual             1.4496878 1.20403        
 #> Number of obs: 600, groups:  ID, 35
 #> 
 #> Fixed effects:
@@ -162,10 +162,10 @@ measure = "Volume"
 #> -2.55646 -0.38793  0.01298  0.56080  2.09235 
 #> 
 #> Random effects:
-#>  Groups   Name        Variance Std.Dev. Corr 
-#>  ID       (Intercept) 2.4895   1.5778        
-#>           Week        0.3673   0.6061   -1.00
-#>  Residual             3.8081   1.9514        
+#>  Groups   Name        Variance Std.Dev. Corr  
+#>  ID       (Intercept) 2.4895   1.5778         
+#>           Week        0.3673   0.6061   -1.00 
+#>  Residual             3.8081   1.9514         
 #> Number of obs: 319, groups:  ID, 28
 #> 
 #> Fixed effects:

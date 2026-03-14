@@ -103,9 +103,9 @@ process_data <- function(time, measure) {
 
    #adding in missing rows
    data <- data |>
-     tidyr::complete(.data[[id]], .data[[time]]) |>
+     tidyr::complete(!!rlang::sym(id), !!rlang::sym(time)) |>
      dplyr::group_by(.data[[id]]) |>
-     tidyr::fill(.data[[group]], .direction = "down")
+     tidyr::fill(!!rlang::sym(group), .direction = "down")
 
 
    # Compute survival-adjusted medians using process_data()

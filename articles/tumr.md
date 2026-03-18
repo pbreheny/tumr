@@ -100,6 +100,14 @@ The visualization produced by plot_median() addresses these issues
 through an explicit preprocessing step designed for longitudinal tumor
 data.
 
+Also, parametric methods can be used for visualization.
+
+``` r
+plot_median_para(mel2) + ggplot2::coord_cartesian(ylim = c(0, 2000))
+```
+
+![](tumr_files/figure-html/unnamed-chunk-5-1.png)
+
 Before any summary statistic is computed, the function:
 
 1.  **Aligns time points across subjects** Rows are added for unobserved
@@ -182,7 +190,7 @@ slopes and the group-level means.
 plot(rfeat_mel2)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-6-1.png)
+![](tumr_files/figure-html/unnamed-chunk-7-1.png)
 
 ## Linear mixed model
 
@@ -327,13 +335,13 @@ plot(lmm_mel2, "response")
       original response scale. Standard errors are still on the transformed
       scale.
 
-![](tumr_files/figure-html/unnamed-chunk-9-1.png)
+![](tumr_files/figure-html/unnamed-chunk-10-1.png)
 
 ``` r
 plot(lmm_mel2, "slope")
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-9-2.png)
+![](tumr_files/figure-html/unnamed-chunk-10-2.png)
 
 ## Bayesian Hierarchical Linear Model
 

@@ -187,3 +187,104 @@ process_data <- function(time, measure) {
 
  }
 
+
+ #' Plot of tumor growth over time using parametric method
+ #'
+ #' @param tumr_obj takes tumr_obj created by tumr()
+ #' @param data tumor growth data
+ #' @param id Column of subject ID's
+ #' @param time Column of repeated time measurements
+ #' @param measure Column of repeated measurements of tumor
+ #' @param group Column specifying the treatment group
+ #'
+ #' @return A ggplot object
+ #'
+ #' @examples
+ #' data(melanoma2)
+ #' mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+ #' plot_median_para(mel2) + ggplot2::coord_cartesian(ylim = c(0, 2000))
+ #' @export
+ #'
+
+ plot_median_para <- function(tumr_obj = NULL, data = NULL, group = NULL,
+                              time = NULL, measure = NULL, id = NULL) {
+   if (!is.null(tumr_obj)) {
+     if (is.null(id)) id <- tumr_obj$id
+     if (is.null(time)) time <- tumr_obj$time
+     if (is.null(measure)) measure <- tumr_obj$measure
+     if (is.null(group)) group <- tumr_obj$group
+     if (is.null(data)) data <- tumr_obj$data
+   }
+
+   data <- data |>
+     tidyr::complete(!!rlang::sym(id), !!rlang::sym(time)) |>
+     dplyr::group_by(.data[[id]]) |>
+     tidyr::fill(!!rlang::sym(group), .direction = "down") |>
+     dplyr::ungroup()
+
+   processed_data <- data |>
+     dplyr::group_by(.data[[id]]) |>
+     dplyr::group_modify(~ {
+       processed <- process_data(.x[[time]], .x[[measure]])
+
+       tibble::tibble(
+         !!time    := .x[[time]],
+         !!group   := .x[[group]],
+         volume    = processed$data_no_missing_values,
+         event     = processed$missing_vector
+       )
+     }) |>
+     dplyr::ungroup()
+
+   summary_data <- processed_data |>
+     dplyr::group_by(.data[[time]], .data[[group]]) |>
+     dplyr::group_modify(~ {
+       if (sum(.x$event == 1) < 2) {
+         return(tibble::tibble(MedianVolume = NA_real_))
+       }
+       surv_vec <- survival::Surv(.x$volume, .x$event)
+       fit <- tryCatch(
+         survival::survreg(surv_vec ~ 1, dist = "lognormal"),
+         error = function(e) NULL
+       )
+       if (is.null(fit)) {
+         return(tibble::tibble(MedianVolume = NA_real_))
+       }
+
+       median_volume <- exp(coef(fit)[["(Intercept)"]])
+
+       tibble::tibble(MedianVolume = median_volume)
+     }) |>
+     dplyr::ungroup()
+
+   data_ind <- data |>
+     dplyr::filter(!is.na(.data[[measure]]))
+
+   data_sum <- summary_data |>
+     dplyr::filter(!is.na(MedianVolume))
+
+   ggplot2::ggplot() +
+     ggplot2::geom_line(
+       data = data_ind,
+       ggplot2::aes(
+         x = .data[[time]],
+         y = .data[[measure]],
+         group = .data[[id]],
+         color = .data[[group]]
+       ),
+       alpha = 0.4
+     ) +
+     ggplot2::geom_line(
+       data = data_sum,
+       ggplot2::aes(
+         x = .data[[time]],
+         y = MedianVolume,
+         color = .data[[group]]
+       ),
+       linewidth = 1.2
+     ) +
+     ggplot2::labs(
+       y     = "Volume",
+       title = "Volume over Time (Log-Normal MLE Median)"
+     )
+ }

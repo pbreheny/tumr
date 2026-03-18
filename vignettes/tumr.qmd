@@ -85,6 +85,13 @@ The plot on the left uses a straightforward summary of observed data at each tim
 
 The visualization produced by plot_median() addresses these issues through an explicit preprocessing step designed for longitudinal tumor data.
 
+Also, parametric methods can be used for visualization.
+
+```{r}
+plot_median_para(mel2) + ggplot2::coord_cartesian(ylim = c(0, 2000))
+```
+
+
 Before any summary statistic is computed, the function:
 
 1. **Aligns time points across subjects**

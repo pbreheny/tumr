@@ -10,7 +10,8 @@ plot_median(
   group = NULL,
   time = NULL,
   measure = NULL,
-  id = NULL
+  id = NULL,
+  par = TRUE
 )
 }
 \arguments{
@@ -25,33 +26,21 @@ plot_median(
 \item{measure}{Column of repeated measurements of tumor}
 
 \item{id}{Column of subject ID's}
+
+\item{par}{Logical. If \code{TRUE}, uses the parametric method. If \code{FALSE},
+uses the nonparametric method based on Kaplan-Meier
+estimation. Default is \code{TRUE}.}
 }
 \value{
-A plot
+A ggplot object
 }
 \description{
 Plot of tumor growth over time using the median
 }
 \examples{
-data(melanoma1)
-mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
-plot_median(
-tumr_obj = mel1
-)
 data(melanoma2)
-plot_median(
-data = melanoma2,
-group = "Treatment",
-time = "Day",
-measure = "Volume",
-id = "ID"
-)
-data(prostate)
-plot_median(
-data = prostate,
-group = "Genotype",
-time = "Age",
-measure = "BLI",
-id = "ID"
-)
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+plot_median(mel2)
+plot_median(mel2, par = FALSE)
+
 }

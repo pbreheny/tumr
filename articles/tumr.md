@@ -81,7 +81,7 @@ observations.
 
 ``` r
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
-plot_median(mel2)
+plot_median(mel2, par = FALSE)
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-4-1.png)
@@ -96,17 +96,17 @@ tumor volume over time is an artifact of estimating summaries from a
 progressively smaller subset of subjects rather than a true biological
 effect.
 
-The visualization produced by plot_median() addresses these issues
-through an explicit preprocessing step designed for longitudinal tumor
-data.
-
 Also, parametric methods can be used for visualization.
 
 ``` r
-plot_median_para(mel2) + ggplot2::coord_cartesian(ylim = c(0, 2000))
+plot_median(mel2, par = TRUE)
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-5-1.png)
+
+The visualization produced by plot_median() addresses these issues
+through an explicit preprocessing step designed for longitudinal tumor
+data.
 
 Before any summary statistic is computed, the function:
 

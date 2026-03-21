@@ -11,7 +11,8 @@ plot_median(
   group = NULL,
   time = NULL,
   measure = NULL,
-  id = NULL
+  id = NULL,
+  par = TRUE
 )
 ```
 
@@ -41,34 +42,23 @@ plot_median(
 
   Column of subject ID's
 
+- par:
+
+  Logical. If `TRUE`, uses the parametric method. If `FALSE`, uses the
+  nonparametric method based on Kaplan-Meier estimation. Default is
+  `TRUE`.
+
 ## Value
 
-A plot
+A ggplot object
 
 ## Examples
 
 ``` r
-data(melanoma1)
-mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
-plot_median(
-tumr_obj = mel1
-)
-
 data(melanoma2)
-plot_median(
-data = melanoma2,
-group = "Treatment",
-time = "Day",
-measure = "Volume",
-id = "ID"
-)
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+plot_median(mel2)
 
-data(prostate)
-plot_median(
-data = prostate,
-group = "Genotype",
-time = "Age",
-measure = "BLI",
-id = "ID"
-)
+plot_median(mel2, par = FALSE)
+
 ```

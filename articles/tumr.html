@@ -137,7 +137,7 @@
 <p>The figure below compares a naive longitudinal visualization with a tumr-based approach that explicitly accounts for censoring and missing observations.</p>
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_mean</span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">Treatment</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">ID</span>, stat <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -149,11 +149,10 @@
 </div>
 </div>
 <p>The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect.</p>
-<p>The visualization produced by plot_median() addresses these issues through an explicit preprocessing step designed for longitudinal tumor data.</p>
 <p>Also, parametric methods can be used for visualization.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median_para.html">plot_median_para</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2000</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure><p><img src="tumr_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
@@ -161,6 +160,7 @@
 </div>
 </div>
 </div>
+<p>The visualization produced by plot_median() addresses these issues through an explicit preprocessing step designed for longitudinal tumor data.</p>
 <p>Before any summary statistic is computed, the function:</p>
 <ol type="1">
 <li>
@@ -519,7 +519,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: March 18, 2026</p>
+  <p>Last updated: March 21, 2026</p>
 </div>
 
     </footer>

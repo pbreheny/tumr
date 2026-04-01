@@ -23,5 +23,5 @@ A p-value
 ``` r
 Data <- gendat(5, 2, 6)
 rmanova(Data)
-#> [1] 0.0004801351
+#> [1] 2.768506e-22
 ```

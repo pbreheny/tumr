@@ -6,6 +6,8 @@
   hierarchical linear model and options with censoring
 - [`breast`](https://pbreheny.github.io/tumr/reference/breast.md) :
   Tumor growth data for a breast cancer model
+- [`dtime()`](https://pbreheny.github.io/tumr/reference/dtime.md) :
+  Tumor Doubling Time Based on Fitted Tumor Growth Model
 - [`gendat()`](https://pbreheny.github.io/tumr/reference/gendat.md) :
   Generate tumor data: Time to reach endpoint
 - [`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md) : Linear

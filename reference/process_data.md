@@ -20,4 +20,4 @@ process_data(time, measure)
 
 ## Value
 
-Processed Data
+A list with cleaned measurements and event indicators

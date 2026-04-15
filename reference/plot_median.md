@@ -1,6 +1,6 @@
-# Plot of tumor growth over time using the median
+# Plot tumor volume or fold change over time using median curves
 
-Plot of tumor growth over time using the median
+Plot tumor volume or fold change over time using median curves
 
 ## Usage
 
@@ -12,7 +12,8 @@ plot_median(
   time = NULL,
   measure = NULL,
   id = NULL,
-  par = TRUE
+  par = TRUE,
+  fold = FALSE
 )
 ```
 
@@ -20,15 +21,15 @@ plot_median(
 
 - tumr_obj:
 
-  takes tumr_obj created by tumr()
+  Optional tumr object created by tumr()
 
 - data:
 
-  tumor growth data
+  Tumor growth data
 
 - group:
 
-  Column specifying the treatment group for each measurement
+  Column specifying treatment group
 
 - time:
 
@@ -36,17 +37,20 @@ plot_median(
 
 - measure:
 
-  Column of repeated measurements of tumor
+  Column of repeated tumor measurements
 
 - id:
 
-  Column of subject ID's
+  Column of subject IDs
 
 - par:
 
-  Logical. If `TRUE`, uses the parametric method. If `FALSE`, uses the
-  nonparametric method based on Kaplan-Meier estimation. Default is
-  `TRUE`.
+  Logical. If TRUE, use parametric median estimation. If FALSE, use
+  nonparametric Kaplan-Meier estimation.
+
+- fold:
+
+  Logical. If TRUE, plot fold change instead of raw volume.
 
 ## Value
 
@@ -60,5 +64,9 @@ mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 plot_median(mel2)
 
 plot_median(mel2, par = FALSE)
+
+plot_median(mel2, fold = TRUE)
+
+plot_median(mel2, par = FALSE, fold = TRUE)
 
 ```

@@ -104,6 +104,12 @@ plot_median(mel2, par = TRUE)
 
 ![](tumr_files/figure-html/unnamed-chunk-5-1.png)
 
+``` r
+plot_median(mel2, par = TRUE, fold = TRUE)
+```
+
+![](tumr_files/figure-html/unnamed-chunk-5-2.png)
+
 The visualization produced by plot_median() addresses these issues
 through an explicit preprocessing step designed for longitudinal tumor
 data.

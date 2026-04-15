@@ -25,7 +25,7 @@
 - [`plot(`*`<rfeat>`*`)`](https://pbreheny.github.io/tumr/reference/plot.rfeat.md)
   : Plot based on rfeat analysis
 - [`plot_median()`](https://pbreheny.github.io/tumr/reference/plot_median.md)
-  : Plot of tumor growth over time using the median
+  : Plot tumor volume or fold change over time using median curves
 - [`print(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/print.lmm.md)
   : Prints relevant output from lmm
 - [`print(`*`<rfeat>`*`)`](https://pbreheny.github.io/tumr/reference/print.rfeat.md)

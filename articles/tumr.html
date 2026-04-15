@@ -159,6 +159,14 @@
 </figure>
 </div>
 </div>
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-5-2.png" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>The visualization produced by plot_median() addresses these issues through an explicit preprocessing step designed for longitudinal tumor data.</p>
 <p>Before any summary statistic is computed, the function:</p>
@@ -195,7 +203,7 @@
 </ol>
 <p>The example below uses comparison = “both” to perform ANOVA followed by Tukey post-hoc comparisons.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">rfeat_mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rfeat.html">rfeat</a></span><span class="op">(</span><span class="va">mel2</span>, comparison <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$anova
@@ -229,7 +237,7 @@ E-D -0.007166687 -0.04335816  0.029024785 0.9794890</code></pre>
 </h3>
 <p>The plot() method for rfeat objects displays both the individual subject slopes and the group-level means.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rfeat_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
@@ -251,7 +259,7 @@ E-D -0.007166687 -0.04335816  0.029024785 0.9794890</code></pre>
 </div>
 <p>This specification allows each subject to have their own growth trajectory while estimating overall treatment effects. The model formula can be customized if desired.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">lmm_mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
@@ -317,7 +325,7 @@ Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
 <li>Statistical tests comparing slope differences between groups</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`overall effect of time`
@@ -364,7 +372,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 <li>Estimated mean growth slopes for each group with confidence intervals</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"response"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Model has log1p-transformed response. Back-transforming predictions to
@@ -377,7 +385,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"slope"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
@@ -392,7 +400,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 <section class="level2"><h3 id="fit-a-bayesian-hierarchical-linear-model">Fit a Bayesian Hierarchical Linear Model<a class="anchor" aria-label="anchor" href="#fit-a-bayesian-hierarchical-linear-model"></a>
 </h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bhm.html">bhm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">melanoma2</span>, diagnostics <span class="op">=</span> <span class="cn">FALSE</span>, return_fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="summary-of-the-results">Summary of the results<a class="anchor" aria-label="anchor" href="#summary-of-the-results"></a>
@@ -406,7 +414,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </ul>
 <p>Posterior means and credible intervals are reported for all quantities.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="plots-of-the-results">Plots of the results<a class="anchor" aria-label="anchor" href="#plots-of-the-results"></a>
@@ -420,7 +428,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 <li>MCMC trace plots for model diagnostics</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"predict"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"slope"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"contrast"</span><span class="op">)</span></span>
@@ -519,7 +527,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: April 01, 2026</p>
+  <p>Last updated: April 15, 2026</p>
 </div>
 
     </footer>

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot-median.R
 \name{plot_median}
 \alias{plot_median}
-\title{Plot of tumor growth over time using the median}
+\title{Plot tumor volume or fold change over time using median curves}
 \usage{
 plot_median(
   tumr_obj = NULL,
@@ -11,36 +11,40 @@ plot_median(
   time = NULL,
   measure = NULL,
   id = NULL,
-  par = TRUE
+  par = TRUE,
+  fold = FALSE
 )
 }
 \arguments{
-\item{tumr_obj}{takes tumr_obj created by tumr()}
+\item{tumr_obj}{Optional tumr object created by tumr()}
 
-\item{data}{tumor growth data}
+\item{data}{Tumor growth data}
 
-\item{group}{Column specifying the treatment group for each measurement}
+\item{group}{Column specifying treatment group}
 
 \item{time}{Column of repeated time measurements}
 
-\item{measure}{Column of repeated measurements of tumor}
+\item{measure}{Column of repeated tumor measurements}
 
-\item{id}{Column of subject ID's}
+\item{id}{Column of subject IDs}
 
-\item{par}{Logical. If \code{TRUE}, uses the parametric method. If \code{FALSE},
-uses the nonparametric method based on Kaplan-Meier
-estimation. Default is \code{TRUE}.}
+\item{par}{Logical. If TRUE, use parametric median estimation.
+If FALSE, use nonparametric Kaplan-Meier estimation.}
+
+\item{fold}{Logical. If TRUE, plot fold change instead of raw volume.}
 }
 \value{
 A ggplot object
 }
 \description{
-Plot of tumor growth over time using the median
+Plot tumor volume or fold change over time using median curves
 }
 \examples{
 data(melanoma2)
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 plot_median(mel2)
 plot_median(mel2, par = FALSE)
+plot_median(mel2, fold = TRUE)
+plot_median(mel2, par = FALSE, fold = TRUE)
 
 }

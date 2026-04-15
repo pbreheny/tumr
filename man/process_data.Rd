@@ -12,7 +12,7 @@ process_data(time, measure)
 \item{measure}{vector of tumor growth measurements}
 }
 \value{
-Processed Data
+A list with cleaned measurements and event indicators
 }
 \description{
 Process data to be used in plot_median

@@ -87,6 +87,7 @@ Also, parametric methods can be used for visualization.
 
 ```{r}
 plot_median(mel2, par = TRUE)
+plot_median(mel2, par = TRUE, fold = TRUE)
 ```
 
 The visualization produced by plot_median() addresses these issues through an explicit preprocessing step designed for longitudinal tumor data.

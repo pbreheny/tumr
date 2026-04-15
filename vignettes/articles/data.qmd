@@ -11,14 +11,21 @@ format:
 library(tumr)
 ```
 
+## Introduction
+
+Each dataset is presented with four plots: the raw values and corresponding fold-change results from the parametric method, as well as the raw values and fold-change results from the nonparametric method.
+
+
 ## Another Melanoma Data Set, *melanoma1*
 
 ```{r}
 #| echo: false
 data(melanoma1)
 mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
-
 plot_median(mel1)
+plot_median(mel1, fold = TRUE)
+plot_median(mel1, par = FALSE)
+plot_median(mel1, par = FALSE, fold = TRUE)
 ```
 
 ## Breast Cancer Data Set, *breast*
@@ -27,8 +34,10 @@ plot_median(mel1)
 #| echo: false
 data(breast)
 breast_meta <- tumr(breast, ID, Week, Volume, Treatment)
-
 plot_median(breast_meta)
+plot_median(breast_meta, fold = TRUE)
+plot_median(breast_meta, par = FALSE)
+plot_median(breast_meta, par = FALSE, fold = TRUE)
 ```
 
 ## Prostate Cancer Data Set, *prostate*
@@ -37,7 +46,9 @@ plot_median(breast_meta)
 #| echo: false
 data(prostate)
 pros_meta <- tumr(prostate, ID, Age, BLI, Genotype)
-
 plot_median(pros_meta)
+plot_median(pros_meta, fold = TRUE)
+plot_median(pros_meta, par = FALSE)
+plot_median(pros_meta, par = FALSE, fold = TRUE)
 ```
 

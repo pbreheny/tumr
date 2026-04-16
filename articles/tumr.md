@@ -100,13 +100,10 @@ Also, parametric methods can be used for visualization.
 
 ``` r
 plot_median(mel2, par = TRUE)
+plot_median(mel2, par = TRUE, fold = TRUE)
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-5-1.png)
-
-``` r
-plot_median(mel2, par = TRUE, fold = TRUE)
-```
 
 ![](tumr_files/figure-html/unnamed-chunk-5-2.png)
 
@@ -392,3 +389,23 @@ plot(fit, "slope")
 plot(fit, "contrast")
 plot(fit, "trace")
 ```
+
+## Tumor Doubling Time Based on Fitted Tumor Growth Model
+
+``` r
+dtime(lmm_mel2)
+```
+
+    $method
+    [1] "Tumor Doubling Time Based on Linear Mixed Model"
+
+    $message
+    [1] "The model should demonstrate an exponential growth pattern."
+
+    $summary
+      Treatment  mean median  q2.5 q97.5
+    1         A  8.79   8.72  7.14 11.20
+    2         B 18.38  17.36 11.94 30.46
+    3         C 13.38  12.98  9.88 19.41
+    4         D 13.00  12.57  9.32 18.80
+    5         E 14.78  14.16 10.30 22.35

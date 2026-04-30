@@ -85,6 +85,7 @@ hierarchical linear model using
 the model is estimated on the log scale.
 
 ``` r
+
 data(melanoma2)
 fit <- bhm(melanoma2)
 ```
@@ -103,6 +104,7 @@ estimated quantities, including:
 - Pairwise treatment contrasts in slopes
 
 ``` r
+
 summary(fit)
 ```
 
@@ -162,24 +164,28 @@ different `type` options. The available plot types include:
 - “trace”: MCMC trace plots for model diagnostics
 
 ``` r
+
 plot(fit, type = "predict")
 ```
 
 ![](bhm_files/figure-html/unnamed-chunk-4-1.png)
 
 ``` r
+
 plot(fit, type = "slope")
 ```
 
 ![](bhm_files/figure-html/unnamed-chunk-4-2.png)
 
 ``` r
+
 plot(fit, type = "contrast")
 ```
 
 ![](bhm_files/figure-html/unnamed-chunk-4-3.png)
 
 ``` r
+
 plot(fit, type = "contrast") +
   ggplot2::scale_x_continuous(
     labels = function(z) scales::number(exp(z), 0.01)
@@ -189,6 +195,7 @@ plot(fit, type = "contrast") +
 ![](bhm_files/figure-html/unnamed-chunk-4-4.png)
 
 ``` r
+
 plot(fit, type = "trace")
 ```
 
@@ -196,9 +203,11 @@ plot(fit, type = "trace")
 
 ![](bhm_files/figure-html/unnamed-chunk-4-5.png)
 
+
     $trace_slope
 
 ![](bhm_files/figure-html/unnamed-chunk-4-6.png)
+
 
     $trace_slope_diff
 

@@ -16,6 +16,7 @@ Using the melanoma2 dataset, the following code produces a convergence
 warning:
 
 ``` r
+
 data(melanoma2)
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 lmm(mel2)
@@ -80,6 +81,7 @@ the average number of days per month, update the tumr object, and refit
 the model:
 
 ``` r
+
 melanoma2$months <- melanoma2$Day / (365/12)
 mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 lmm(mel2)
@@ -159,6 +161,7 @@ scale_y_continuous() with a log1p transformation from the scales
 package.
 
 ``` r
+
 lmm_mel2 <- lmm(mel2)
 plot(lmm_mel2, "response") + ggplot2::scale_y_continuous(trans = scales::log1p_trans())
 ```
@@ -188,6 +191,7 @@ In the example below, the default formula is replaced with a simpler
 model that uses a rescaled time variable and a random intercept only:
 
 ``` r
+
 lmm_mel2 <- lmm(
                  tumr_obj = mel2,
                  formula = "Volume ~ months + (1 | ID)"

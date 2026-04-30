@@ -9,6 +9,7 @@ the raw values and fold-change results from the nonparametric method.
 ## Another Melanoma Data Set, *melanoma1*
 
 ``` r
+
 plot_median(mel1, par = TRUE, fold = FALSE)
 plot_median(mel1, par = TRUE, fold = TRUE)
 ```
@@ -18,6 +19,7 @@ plot_median(mel1, par = TRUE, fold = TRUE)
 ![](data_files/figure-html/unnamed-chunk-3-2.png)
 
 ``` r
+
 plot_median(mel1, par = FALSE, fold = FALSE)
 plot_median(mel1, par = FALSE, fold = TRUE)
 ```
@@ -29,6 +31,7 @@ plot_median(mel1, par = FALSE, fold = TRUE)
 ## Breast Cancer Data Set, *breast*
 
 ``` r
+
 plot_median(breast_meta, par = TRUE, fold = FALSE)
 plot_median(breast_meta, par = TRUE, fold = TRUE)
 ```
@@ -38,6 +41,7 @@ plot_median(breast_meta, par = TRUE, fold = TRUE)
 ![](data_files/figure-html/unnamed-chunk-6-2.png)
 
 ``` r
+
 plot_median(breast_meta, par = FALSE, fold = FALSE)
 plot_median(breast_meta, par = FALSE, fold = TRUE)
 ```
@@ -49,6 +53,7 @@ plot_median(breast_meta, par = FALSE, fold = TRUE)
 ## Prostate Cancer Data Set, *prostate*
 
 ``` r
+
 plot_median(pros_meta, par = TRUE, fold = FALSE)
 plot_median(pros_meta, par = TRUE, fold = TRUE)
 ```
@@ -58,6 +63,7 @@ plot_median(pros_meta, par = TRUE, fold = TRUE)
 ![](data_files/figure-html/unnamed-chunk-9-2.png)
 
 ``` r
+
 plot_median(pros_meta, par = FALSE, fold = FALSE)
 plot_median(pros_meta, par = FALSE, fold = TRUE)
 ```

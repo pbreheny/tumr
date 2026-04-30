@@ -7,6 +7,7 @@ to reproduce the examples is provided below.
 ## Loading the Data
 
 ``` r
+
 library(tumr)
 data("melanoma2")
 ```
@@ -22,6 +23,7 @@ visualization.
 Code
 
 ``` r
+
 plot_mean <- function(data, group, time, measure, id, stat = median, remove_na = FALSE){
   data_summary <- data |>
     dplyr::group_by({{group}}, {{time}}) |>
@@ -68,6 +70,7 @@ variable).
 To create a tumr object, use the tumr() function:
 
 ``` r
+
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 ```
 
@@ -80,6 +83,7 @@ tumr-based approach that explicitly accounts for censoring and missing
 observations.
 
 ``` r
+
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
 plot_median(mel2, par = FALSE)
 ```
@@ -99,6 +103,7 @@ effect.
 Also, parametric methods can be used for visualization.
 
 ``` r
+
 plot_median(mel2, par = TRUE)
 plot_median(mel2, par = TRUE, fold = TRUE)
 ```
@@ -155,6 +160,7 @@ The example below uses comparison = “both” to perform ANOVA followed by
 Tukey post-hoc comparisons.
 
 ``` r
+
 (rfeat_mel2 <- rfeat(mel2, comparison = "both"))
 ```
 
@@ -190,6 +196,7 @@ The plot() method for rfeat objects displays both the individual subject
 slopes and the group-level means.
 
 ``` r
+
 plot(rfeat_mel2)
 ```
 
@@ -215,6 +222,7 @@ trajectory while estimating overall treatment effects. The model formula
 can be customized if desired.
 
 ``` r
+
 (lmm_mel2 <- lmm(mel2))
 ```
 
@@ -283,6 +291,7 @@ The summary() method for lmm objects uses the emmeans package to report:
 - Statistical tests comparing slope differences between groups
 
 ``` r
+
 summary(lmm_mel2)
 ```
 
@@ -331,6 +340,7 @@ visualizations:
     intervals
 
 ``` r
+
 plot(lmm_mel2, "response")
 ```
 
@@ -341,6 +351,7 @@ plot(lmm_mel2, "response")
 ![](tumr_files/figure-html/unnamed-chunk-10-1.png)
 
 ``` r
+
 plot(lmm_mel2, "slope")
 ```
 
@@ -355,6 +366,7 @@ described in an article.
 ### Fit a Bayesian Hierarchical Linear Model
 
 ``` r
+
 fit <- bhm(data = melanoma2, diagnostics = FALSE, return_fit = TRUE)
 ```
 
@@ -370,6 +382,7 @@ posterior summaries of:
 Posterior means and credible intervals are reported for all quantities.
 
 ``` r
+
 summary(fit)
 ```
 
@@ -384,6 +397,7 @@ visualizes posterior summaries, including:
 - MCMC trace plots for model diagnostics
 
 ``` r
+
 plot(fit, "predict")
 plot(fit, "slope")
 plot(fit, "contrast")
@@ -393,6 +407,7 @@ plot(fit, "trace")
 ## Tumor Doubling Time Based on Fitted Tumor Growth Model
 
 ``` r
+
 dtime(lmm_mel2)
 ```
 

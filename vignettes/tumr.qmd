@@ -183,6 +183,19 @@ plot(lmm_mel2, "response")
 plot(lmm_mel2, "slope")
 ```
 
+## Checking for exponential growth 
+
+Since lmm() model the data on log scale by default and a straight line corresponds 
+to exponential growth on log scale, we can check whether the exponential growth
+model fits well by plotting the residuals from Linear Mixed Model vs time.
+
+```{r}
+check_exp(lmm_mel2)
+```
+
+
+
+
 
 # Bayesian Hierarchical Linear Model
 

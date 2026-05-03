@@ -8,9 +8,15 @@
 #'
 #' @return A ggplot object.
 #'
+#' @examples
+#' data(melanoma1)
+#' mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+#' lmm1 <- lmm(mel1)
+#' check_exp(lmm1)
+#'
 #' @export
 
-diag_exp <- function(lmm_obj, type = c("time", "fitted", "qq")) {
+check_exp <- function(lmm_obj, type = c("time", "fitted", "qq")) {
   type <- match.arg(type)
   if (!inherits(lmm_obj, "lmm")) {
     stop("lmm_obj must be an object created by lmm().")
@@ -46,7 +52,7 @@ diag_exp <- function(lmm_obj, type = c("time", "fitted", "qq")) {
       ggplot2::labs(
         title = "Residuals vs Time",
         x = time_var,
-        y = "Residuals from log-linear LMM"
+        y = "Residuals from Linear Mixed Model"
       ) +
       ggplot2::theme_bw() +
       ggplot2::theme(legend.position = "none")
@@ -71,7 +77,7 @@ diag_exp <- function(lmm_obj, type = c("time", "fitted", "qq")) {
       ggplot2::labs(
         title = "Residuals vs Fitted Values",
         x = "Fitted values",
-        y = "Residuals from log-linear LMM"
+        y = "Residuals from Linear Mixed Model"
       ) +
       ggplot2::theme_bw() +
       ggplot2::theme(legend.position = "none")

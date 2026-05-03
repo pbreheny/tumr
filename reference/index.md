@@ -6,7 +6,7 @@
   hierarchical linear model and options with censoring
 - [`breast`](https://pbreheny.github.io/tumr/reference/breast.md) :
   Tumor growth data for a breast cancer model
-- [`diag_exp()`](https://pbreheny.github.io/tumr/reference/diag_exp.md)
+- [`check_exp()`](https://pbreheny.github.io/tumr/reference/check_exp.md)
   : Diagnostic plots for exponential growth assumption
 - [`dtime()`](https://pbreheny.github.io/tumr/reference/dtime.md) :
   Tumor Doubling Time Based on Fitted Tumor Growth Model

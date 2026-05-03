@@ -389,13 +389,29 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </div>
 </div>
 </div>
+</section><section class="level2"><h3 id="checking-for-exponential-growth">Checking for exponential growth<a class="anchor" aria-label="anchor" href="#checking-for-exponential-growth"></a>
+</h3>
+<p>Since lmm() model the data on log scale by default and a straight line corresponds to exponential growth on log scale, we can check whether the exponential growth model fits well by plotting the residuals from Linear Mixed Model vs time.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/check_exp.html">check_exp</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section></section><section class="section level2"><h2 id="bayesian-hierarchical-linear-model">Bayesian Hierarchical Linear Model<a class="anchor" aria-label="anchor" href="#bayesian-hierarchical-linear-model"></a>
 </h2>
 <p>In addition to the linear mixed model, the package also supports fitting a Bayesian hierarchical linear model. Detailed usage of this model is described in an article.</p>
 <section class="level2"><h3 id="fit-a-bayesian-hierarchical-linear-model">Fit a Bayesian Hierarchical Linear Model<a class="anchor" aria-label="anchor" href="#fit-a-bayesian-hierarchical-linear-model"></a>
 </h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bhm.html">bhm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">melanoma2</span>, diagnostics <span class="op">=</span> <span class="cn">FALSE</span>, return_fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="summary-of-the-results">Summary of the results<a class="anchor" aria-label="anchor" href="#summary-of-the-results"></a>
@@ -409,7 +425,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </ul>
 <p>Posterior means and credible intervals are reported for all quantities.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="plots-of-the-results">Plots of the results<a class="anchor" aria-label="anchor" href="#plots-of-the-results"></a>
@@ -423,7 +439,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 <li>MCMC trace plots for model diagnostics</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"predict"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"slope"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"contrast"</span><span class="op">)</span></span>
@@ -432,7 +448,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </section></section><section class="section level2"><h2 id="tumor-doubling-time-based-on-fitted-tumor-growth-model">Tumor Doubling Time Based on Fitted Tumor Growth Model<a class="anchor" aria-label="anchor" href="#tumor-doubling-time-based-on-fitted-tumor-growth-model"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dtime.html">dtime</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$method
@@ -543,7 +559,7 @@ $summary
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: April 30, 2026</p>
+  <p>Last updated: May 03, 2026</p>
 </div>
 
     </footer>

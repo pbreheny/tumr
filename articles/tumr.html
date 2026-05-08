@@ -392,15 +392,37 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </section><section class="level2"><h3 id="checking-for-exponential-growth">Checking for exponential growth<a class="anchor" aria-label="anchor" href="#checking-for-exponential-growth"></a>
 </h3>
 <p>Since lmm() model the data on log scale by default and a straight line corresponds to exponential growth on log scale, we can check whether the exponential growth model fits well by plotting the residuals from Linear Mixed Model vs time.</p>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
+values.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
+values.</code></pre>
+</div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="tumr_files/figure-html/unnamed-chunk-11-1.png" width="384"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="tumr_files/figure-html/unnamed-chunk-11-2.png" width="384"></p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/check_exp.html">check_exp</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure><p><img src="tumr_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -411,7 +433,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 <section class="level2"><h3 id="fit-a-bayesian-hierarchical-linear-model">Fit a Bayesian Hierarchical Linear Model<a class="anchor" aria-label="anchor" href="#fit-a-bayesian-hierarchical-linear-model"></a>
 </h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bhm.html">bhm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">melanoma2</span>, diagnostics <span class="op">=</span> <span class="cn">FALSE</span>, return_fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="summary-of-the-results">Summary of the results<a class="anchor" aria-label="anchor" href="#summary-of-the-results"></a>
@@ -425,7 +447,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </ul>
 <p>Posterior means and credible intervals are reported for all quantities.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="plots-of-the-results">Plots of the results<a class="anchor" aria-label="anchor" href="#plots-of-the-results"></a>
@@ -439,7 +461,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 <li>MCMC trace plots for model diagnostics</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"predict"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"slope"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"contrast"</span><span class="op">)</span></span>
@@ -448,7 +470,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </section></section><section class="section level2"><h2 id="tumor-doubling-time-based-on-fitted-tumor-growth-model">Tumor Doubling Time Based on Fitted Tumor Growth Model<a class="anchor" aria-label="anchor" href="#tumor-doubling-time-based-on-fitted-tumor-growth-model"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dtime.html">dtime</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$method
@@ -559,7 +581,7 @@ $summary
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: May 06, 2026</p>
+  <p>Last updated: May 08, 2026</p>
 </div>
 
     </footer>

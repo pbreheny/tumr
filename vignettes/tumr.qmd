@@ -193,8 +193,8 @@ model fits well by plotting the residuals from Linear Mixed Model vs time.
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-plot_median(mel2, par = TRUE) + scale_y_log10()
-plot_median(mel2, par = TRUE, fold = TRUE) + scale_y_log10()
+plot_median(mel2, par = TRUE) + ggplot2::scale_y_log10()
+plot_median(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
 

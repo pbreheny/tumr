@@ -190,6 +190,15 @@ to exponential growth on log scale, we can check whether the exponential growth
 model fits well by plotting the residuals from Linear Mixed Model vs time.
 
 ```{r}
+#| layout-ncol: 2
+#| fig-width: 4
+#| fig-height: 3.5
+plot_median(mel2, par = TRUE) + scale_y_log10()
+plot_median(mel2, par = TRUE, fold = TRUE) + scale_y_log10()
+```
+
+
+```{r}
 check_exp(lmm_mel2)
 ```
 

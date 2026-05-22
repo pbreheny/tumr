@@ -24,6 +24,8 @@
   : Creates plots for a bhm object
 - [`plot(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/plot.lmm.md)
   : Creates Plots of an lmm object
+- [`plot(`*`<quad>`*`)`](https://pbreheny.github.io/tumr/reference/plot.quad.md)
+  : Plot Quadratic Linear Mixed Model Treatment Contrasts
 - [`plot(`*`<rfeat>`*`)`](https://pbreheny.github.io/tumr/reference/plot.rfeat.md)
   : Plot based on rfeat analysis
 - [`plot_median()`](https://pbreheny.github.io/tumr/reference/plot_median.md)
@@ -36,6 +38,8 @@
   : Process data to be used in plot_median
 - [`prostate`](https://pbreheny.github.io/tumr/reference/prostate.md) :
   Tumor growth data for a prostate cancer model
+- [`quad()`](https://pbreheny.github.io/tumr/reference/quad.md) :
+  Quadratic Linear Mixed Model for Tumor Growth Data
 - [`rfeat()`](https://pbreheny.github.io/tumr/reference/rfeat.md) :
   Analysis based on response features
 - [`rfeat_pwr()`](https://pbreheny.github.io/tumr/reference/rfeat_pwr.md)

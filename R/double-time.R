@@ -34,7 +34,7 @@ dtime <- function(x) {
       dplyr::mutate(
         k = as.integer(sub("Slope\\[([0-9]+)\\]", "\\1", parameter)),
         treatment = x$trt_levels[k],
-        doubling_time = log(2) / slope
+        doubling_time = ifelse(slope > 0, log(2)/slope, NA_real_)
       )
     summary_tbl <- draws_long |>
       dplyr::group_by(treatment) |>
@@ -51,7 +51,6 @@ dtime <- function(x) {
       summary = summary_tbl
     ))
   }
-
   if (inherits(x, "lmm")) {
     fit <- x$model_sum
     time_var  <- x$relevant_info$Time
@@ -83,7 +82,7 @@ dtime <- function(x) {
       FUN = boot_fun_slope,
       nsim = 1000
     )
-    dtime_mat <- log(2) / boot_res$t
+    dtime_mat <- ifelse(boot_res$t > 0, log(2) / boot_res$t, NA_real_)
     summary_tbl <- as.data.frame(
       t(apply(dtime_mat, 2, function(z) {
         c(

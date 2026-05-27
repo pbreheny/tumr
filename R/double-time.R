@@ -34,15 +34,15 @@ dtime <- function(x) {
       dplyr::mutate(
         k = as.integer(sub("Slope\\[([0-9]+)\\]", "\\1", parameter)),
         treatment = x$trt_levels[k],
-        doubling_time = ifelse(slope > 0, log(2)/slope, NA_real_)
+        doubling_time = ifelse(slope > 0, log(2)/slope, Inf)
       )
     summary_tbl <- draws_long |>
       dplyr::group_by(treatment) |>
       dplyr::summarise(
-        mean = mean(doubling_time, na.rm = TRUE),
-        median = median(doubling_time, na.rm = TRUE),
-        q2.5 = unname(quantile(doubling_time, 0.025, na.rm = TRUE)),
-        q97.5 = unname(quantile(doubling_time, 0.975, na.rm = TRUE)),
+        mean = mean(doubling_time),
+        median = median(doubling_time),
+        q2.5 = unname(quantile(doubling_time, 0.025)),
+        q97.5 = unname(quantile(doubling_time, 0.975)),
         .groups = "drop"
       )
     return(list(
@@ -82,14 +82,14 @@ dtime <- function(x) {
       FUN = boot_fun_slope,
       nsim = 1000
     )
-    dtime_mat <- ifelse(boot_res$t > 0, log(2) / boot_res$t, NA_real_)
+    dtime_mat <- ifelse(boot_res$t > 0, log(2) / boot_res$t, Inf)
     summary_tbl <- as.data.frame(
       t(apply(dtime_mat, 2, function(z) {
         c(
-          mean   = mean(z, na.rm = TRUE),
-          median = median(z, na.rm = TRUE),
-          q2.5   = unname(quantile(z, 0.025, na.rm = TRUE)),
-          q97.5  = unname(quantile(z, 0.975, na.rm = TRUE))
+          mean   = mean(z),
+          median = median(z),
+          q2.5   = unname(quantile(z, 0.025)),
+          q97.5  = unname(quantile(z, 0.975))
         )
       }))
     )

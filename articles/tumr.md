@@ -433,6 +433,38 @@ plot(quad_obj)
 
 ![](tumr_files/figure-html/unnamed-chunk-14-1.png)
 
+## Generalized Addictive Mixed Model
+
+The package also includes
+[`gam()`](https://pbreheny.github.io/tumr/reference/gam.md), which fits
+a generalized additive mixed effects model to tumor growth data. This
+model is useful when tumor growth over time follows a complex nonlinear
+trajectory that cannot be captured by polynomial terms.
+
+By default, [`gam()`](https://pbreheny.github.io/tumr/reference/gam.md)
+fits the model:
+
+\log(1 + \text{measure}) \sim \text{group} + s(\text{time},\\ \text{by}
+= \text{group}) + (\text{time} \mid \text{id}) where s(\cdot) is a
+group-specific smooth term for time.
+
+### Model fit
+
+``` r
+
+mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+gam_fit <- gam(mel1)
+```
+
+### Plot
+
+``` r
+
+plot(gam_fit)
+```
+
+![](tumr_files/figure-html/unnamed-chunk-16-1.png)
+
 ## Bayesian Hierarchical Linear Model
 
 In addition to the linear mixed model, the package also supports fitting

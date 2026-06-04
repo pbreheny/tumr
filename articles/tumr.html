@@ -458,13 +458,39 @@ values.</code></pre>
 </div>
 </div>
 </div>
+</section></section><section class="section level2"><h2 id="generalized-addictive-mixed-model">Generalized Addictive Mixed Model<a class="anchor" aria-label="anchor" href="#generalized-addictive-mixed-model"></a>
+</h2>
+<p>The package also includes <code><a href="../reference/gam.html">gam()</a></code>, which fits a generalized additive mixed effects model to tumor growth data. This model is useful when tumor growth over time follows a complex nonlinear trajectory that cannot be captured by polynomial terms.</p>
+<p>By default, <code><a href="../reference/gam.html">gam()</a></code> fits the model:</p>
+<p><span class="math display">
+\log(1 + \text{measure}) \sim \text{group} + s(\text{time},\ \text{by} = \text{group}) + (\text{time} \mid \text{id})
+</span> where <span class="math inline">s(\cdot)</span> is a group-specific smooth term for time.</p>
+<section class="level2"><h3 id="model-fit-1">Model fit<a class="anchor" aria-label="anchor" href="#model-fit-1"></a>
+</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mel1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma1</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
+<span><span class="va">gam_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gam.html">gam</a></span><span class="op">(</span><span class="va">mel1</span><span class="op">)</span></span></code></pre></div>
+</div>
+</section><section class="level2"><h3 id="plot-1">Plot<a class="anchor" aria-label="anchor" href="#plot-1"></a>
+</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">gam_fit</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-16-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section></section><section class="section level2"><h2 id="bayesian-hierarchical-linear-model">Bayesian Hierarchical Linear Model<a class="anchor" aria-label="anchor" href="#bayesian-hierarchical-linear-model"></a>
 </h2>
 <p>In addition to the linear mixed model, the package also supports fitting a Bayesian hierarchical linear model. Detailed usage of this model is described in an article.</p>
 <section class="level2"><h3 id="fit-a-bayesian-hierarchical-linear-model">Fit a Bayesian Hierarchical Linear Model<a class="anchor" aria-label="anchor" href="#fit-a-bayesian-hierarchical-linear-model"></a>
 </h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bhm.html">bhm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">melanoma2</span>, diagnostics <span class="op">=</span> <span class="cn">FALSE</span>, return_fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="summary-of-the-results">Summary of the results<a class="anchor" aria-label="anchor" href="#summary-of-the-results"></a>
@@ -478,7 +504,7 @@ values.</code></pre>
 </ul>
 <p>Posterior means and credible intervals are reported for all quantities.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="plots-of-the-results">Plots of the results<a class="anchor" aria-label="anchor" href="#plots-of-the-results"></a>
@@ -492,7 +518,7 @@ values.</code></pre>
 <li>MCMC trace plots for model diagnostics</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"predict"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"slope"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"contrast"</span><span class="op">)</span></span>
@@ -501,7 +527,7 @@ values.</code></pre>
 </section></section><section class="section level2"><h2 id="tumor-doubling-time-based-on-fitted-tumor-growth-model">Tumor Doubling Time Based on Fitted Tumor Growth Model<a class="anchor" aria-label="anchor" href="#tumor-doubling-time-based-on-fitted-tumor-growth-model"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dtime.html">dtime</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$method
@@ -612,7 +638,7 @@ $summary
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: May 27, 2026</p>
+  <p>Last updated: June 04, 2026</p>
 </div>
 
     </footer>

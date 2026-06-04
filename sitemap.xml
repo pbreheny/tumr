@@ -11,6 +11,7 @@
 <url><loc>https://pbreheny.github.io/tumr/reference/breast.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/check_exp.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/dtime.html</loc></url>
+<url><loc>https://pbreheny.github.io/tumr/reference/gam.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/gendat.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/index.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/lmm.html</loc></url>
@@ -21,6 +22,7 @@
 <url><loc>https://pbreheny.github.io/tumr/reference/plot.lmm.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/plot.quad.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/plot.rfeat.html</loc></url>
+<url><loc>https://pbreheny.github.io/tumr/reference/plot.tumr_gam.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/plot_median.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/print.lmm.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/print.rfeat.html</loc></url>
@@ -32,6 +34,7 @@
 <url><loc>https://pbreheny.github.io/tumr/reference/rmanova.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/summary.bhm.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/summary.lmm.html</loc></url>
+<url><loc>https://pbreheny.github.io/tumr/reference/summary.tumr_gam.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/tumr-package.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/tumr.html</loc></url>
 <url><loc>https://pbreheny.github.io/tumr/reference/tumr_power.html</loc></url>

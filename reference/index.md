@@ -10,6 +10,8 @@
   : Diagnostic plots for exponential growth assumption
 - [`dtime()`](https://pbreheny.github.io/tumr/reference/dtime.md) :
   Tumor Doubling Time Based on Fitted Tumor Growth Model
+- [`gam()`](https://pbreheny.github.io/tumr/reference/gam.md) :
+  Generalized Additive Mixed Model for Tumor Growth Data
 - [`gendat()`](https://pbreheny.github.io/tumr/reference/gendat.md) :
   Generate tumor data: Time to reach endpoint
 - [`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md) : Linear
@@ -28,6 +30,8 @@
   : Plot Quadratic Linear Mixed Model Treatment Contrasts
 - [`plot(`*`<rfeat>`*`)`](https://pbreheny.github.io/tumr/reference/plot.rfeat.md)
   : Plot based on rfeat analysis
+- [`plot(`*`<tumr_gam>`*`)`](https://pbreheny.github.io/tumr/reference/plot.tumr_gam.md)
+  : Plot of GAM Fit
 - [`plot_median()`](https://pbreheny.github.io/tumr/reference/plot_median.md)
   : Plot tumor volume or fold change over time using median curves
 - [`print(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/print.lmm.md)
@@ -50,6 +54,8 @@
   : Creates a summary of a bhm object
 - [`summary(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/summary.lmm.md)
   : Creates a summary of an lmm object
+- [`summary(`*`<tumr_gam>`*`)`](https://pbreheny.github.io/tumr/reference/summary.tumr_gam.md)
+  : Summary of a GAM Fit for Tumor Growth Data
 - [`tumr-package`](https://pbreheny.github.io/tumr/reference/tumr-package.md)
   : tumr: Analysis and Power Calculations for Tumor Growth Rates
   Analysis and power calculations for tumor growth rates.

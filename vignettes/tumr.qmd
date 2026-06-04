@@ -230,6 +230,31 @@ quad_obj <- quad(mel1)
 plot(quad_obj)
 ```
 
+# Generalized Addictive Mixed Model
+
+The package also includes `gam()`, which fits a generalized additive mixed
+effects model to tumor growth data. This model is useful when tumor growth
+over time follows a complex nonlinear trajectory that cannot be captured by
+polynomial terms.
+
+By default, `gam()` fits the model:
+
+$$
+\log(1 + \text{measure}) \sim \text{group} + s(\text{time},\ \text{by} = \text{group}) + (\text{time} \mid \text{id})
+$$
+where $s(\cdot)$ is a group-specific smooth term for time.
+
+## Model fit
+```{r}
+mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+gam_fit <- gam(mel1)
+```
+
+## Plot
+
+```{r}
+plot(gam_fit)
+```
 
 # Bayesian Hierarchical Linear Model
 

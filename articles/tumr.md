@@ -352,10 +352,24 @@ plot(lmm_mel2, "response")
 
 ``` r
 
+plot(lmm_mel2, "response") + ggplot2::scale_y_log10()
+```
+
+    Model has log1p-transformed response. Back-transforming predictions to
+      original response scale. Standard errors are still on the transformed
+      scale.
+
+    Scale for y is already present.
+    Adding another scale for y, which will replace the existing scale.
+
+![](tumr_files/figure-html/unnamed-chunk-10-2.png)
+
+``` r
+
 plot(lmm_mel2, "slope")
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-10-2.png)
+![](tumr_files/figure-html/unnamed-chunk-10-3.png)
 
 ### Checking for exponential growth
 
@@ -420,8 +434,8 @@ model:
 
 ``` r
 
-mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
-quad_obj <- quad(mel1)
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+quad_obj <- quad(mel2)
 ```
 
 ### Plot
@@ -452,8 +466,8 @@ group-specific smooth term for time.
 
 ``` r
 
-mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
-gam_fit <- gam(mel1)
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+gam_fit <- gam(mel2)
 ```
 
 ### Plot

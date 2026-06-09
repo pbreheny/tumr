@@ -91,11 +91,11 @@ gam(mel1)
 #> $formula
 #> $formula$gam
 #> log(.measure + 1) ~ .group + s(.time, by = .group)
-#> <environment: 0x5595f29a7498>
+#> <environment: 0x557c22173e90>
 #> 
 #> $formula$random
 #> ~(.time | .id)
-#> <environment: 0x5595f29a7498>
+#> <environment: 0x557c22173e90>
 #> 
 #> 
 #> $fit
@@ -127,7 +127,7 @@ gam(mel1)
 #> 
 #> Formula:
 #> log(.measure + 1) ~ .group + s(.time, by = .group)
-#> <environment: 0x5595f29a7498>
+#> <environment: 0x557c22173e90>
 #> 
 #> Estimated degrees of freedom:
 #> 1.23 5.66 3.41 5.94  total = 20.24 

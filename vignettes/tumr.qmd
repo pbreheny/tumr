@@ -4,6 +4,9 @@ vignette: >
   %\VignetteIndexEntry{Quarto HTML Vignettes}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+
+execute:
+  fig-bg: transparent
 ---
 
 In this guide, we demonstrate the core functionality of the tumr package using the melanoma2 dataset included with the package. All code required to reproduce the examples is provided below.
@@ -180,6 +183,7 @@ Finally, tumr provides a plot() method for lmm objects that produces two visuali
 
 ```{r}
 plot(lmm_mel2, "response")
+plot(lmm_mel2, "response") + scale_y_log10()
 plot(lmm_mel2, "slope")
 ```
 
@@ -220,8 +224,8 @@ $$
 
 ## Model fit
 ```{r}
-mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
-quad_obj <- quad(mel1)
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+quad_obj <- quad(mel2)
 ```
 
 ## Plot
@@ -246,8 +250,8 @@ where $s(\cdot)$ is a group-specific smooth term for time.
 
 ## Model fit
 ```{r}
-mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
-gam_fit <- gam(mel1)
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+gam_fit <- gam(mel2)
 ```
 
 ## Plot

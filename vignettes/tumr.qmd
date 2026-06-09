@@ -183,7 +183,7 @@ Finally, tumr provides a plot() method for lmm objects that produces two visuali
 
 ```{r}
 plot(lmm_mel2, "response")
-plot(lmm_mel2, "response") + scale_y_log10()
+plot(lmm_mel2, "response") + ggplot2::scale_y_log10()
 plot(lmm_mel2, "slope")
 ```
 

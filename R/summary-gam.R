@@ -34,7 +34,9 @@ summary.tumr_gam <- function(object, adjust.method = "holm", ...) {
   )
   cat("=== Pairwise Group Comparisons ===\n")
   cat("P-value adjustment method:", adjust.method, "\n\n")
-  print(pairwise_tests, row.names = FALSE, digits = 4)
+  pairwise_print <- pairwise_tests
+  pairwise_print$p.value <- formatC(pairwise_print$p.value, format = "f", digits = 4)
+  print(pairwise_print, row.names = FALSE, quote = FALSE)
   invisible(list(
     gam_summary    = summary(object$fit),
     pairwise_tests = pairwise_tests,

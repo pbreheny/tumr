@@ -4,23 +4,27 @@
 \alias{summary.tumr_gam}
 \title{Summary of a GAM Fit for Tumor Growth Data}
 \usage{
-\method{summary}{tumr_gam}(object, ...)
+\method{summary}{tumr_gam}(object, adjust.method = "holm", ...)
 }
 \arguments{
-\item{object}{An object of class \code{"tumr_gam"} returned by \code{\link{gam}}.}
+\item{object}{An object of class \code{"tumr_gam"}.}
+
+\item{adjust.method}{P-value adjustment method passed to
+\code{emmeans::pairs()}. Default \code{"holm"}.}
 
 \item{...}{Currently ignored.}
 }
 \value{
-A list with components:
+An object of class \code{"summary.tumr_gam"} with components:
 \describe{
-\item{\code{parametric_coefficients}}{Group effect estimates with Holm- and
-Hommel-adjusted p-values.}
-\item{\code{smooth_terms}}{Smooth term significance table.}
-\item{\code{gam_summary}}{Full GAM summary from \code{mgcv}.}
-\item{\code{mer_summary}}{Mixed-effects summary from \code{lme4}.}
+\item{\code{gam_summary}}{Full \code{mgcv::summary.gam} output.}
+\item{\code{pairwise_tests}}{Data frame of pairwise Wald test results
+with adjusted p-values.}
+\item{\code{adjust.method}}{The adjustment method used.}
+\item{\code{relevant_info}}{Column name metadata.}
 }
 }
 \description{
-Summary of a GAM Fit for Tumor Growth Data
+Returns the full \code{mgcv} GAM summary and pairwise group comparisons
+via \code{emmeans::pairs()}.
 }

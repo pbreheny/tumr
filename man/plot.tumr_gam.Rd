@@ -2,12 +2,17 @@
 % Please edit documentation in R/plot-gam.R
 \name{plot.tumr_gam}
 \alias{plot.tumr_gam}
-\title{Plot of GAM Fit}
+\title{Plot GAM Fit for Tumor Growth Data}
 \usage{
-\method{plot}{tumr_gam}(x, ...)
+\method{plot}{tumr_gam}(x, type = c("fit", "contrast"), n_grid = NULL, ...)
 }
 \arguments{
-\item{x}{An object of class \code{"tumr_gam"} returned by \code{\link{gam}}.}
+\item{x}{An object of class \code{"tumr_gam"}.}
+
+\item{type}{Either \code{"fit"} (fitted curves per group) or
+\code{"contrast"} (pairwise differences over time).}
+
+\item{n_grid}{Number of time grid points. Defaults to \code{x$n_grid}.}
 
 \item{...}{Currently ignored.}
 }
@@ -15,6 +20,5 @@
 A \code{ggplot} object.
 }
 \description{
-Plots estimated pairwise treatment contrasts over time with 95\\% confidence
-intervals, faceted by group pair.
+Plot GAM Fit for Tumor Growth Data
 }

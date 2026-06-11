@@ -251,13 +251,18 @@ where $s(\cdot)$ is a group-specific smooth term for time.
 ## Model fit
 ```{r}
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
-gam_fit <- gam(mel2)
+fit <- gamFit(mel2)
+```
+
+## Result summary
+```{r}
+summary(fit)
 ```
 
 ## Plot
-
 ```{r}
-plot(gam_fit)
+plot(fit, "fit")
+plot(fit, "contrast")
 ```
 
 # Bayesian Hierarchical Linear Model

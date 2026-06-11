@@ -494,17 +494,32 @@ summary(fit)
 
 ``` r
 
-plot(fit, "fit")
+plot_median(mel2) 
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-17-1.png)
 
 ``` r
 
+plot(fit, "predict") + ggplot2::scale_y_log10()
+```
+
+    Warning in transformation$transform(x): NaNs produced
+
+    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
+    values.
+
+    Warning: Removed 2 rows containing missing values or values outside the scale range
+    (`geom_ribbon()`).
+
+![](tumr_files/figure-html/unnamed-chunk-17-2.png)
+
+``` r
+
 plot(fit, "contrast")
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-17-2.png)
+![](tumr_files/figure-html/unnamed-chunk-17-3.png)
 
 ## Bayesian Hierarchical Linear Model
 

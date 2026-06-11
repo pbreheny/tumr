@@ -6,7 +6,7 @@ Plot GAM Fit for Tumor Growth Data
 
 ``` r
 # S3 method for class 'tumr_gam'
-plot(x, type = c("fit", "contrast"), n_grid = NULL, ...)
+plot(x, type = c("predict", "contrast"), n_grid = NULL, ...)
 ```
 
 ## Arguments
@@ -17,7 +17,7 @@ plot(x, type = c("fit", "contrast"), n_grid = NULL, ...)
 
 - type:
 
-  Either `"fit"` (fitted curves per group) or `"contrast"` (pairwise
+  Either `"predict"` (fitted curves per group) or `"contrast"` (pairwise
   differences over time).
 
 - n_grid:

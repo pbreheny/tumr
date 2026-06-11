@@ -261,7 +261,8 @@ summary(fit)
 
 ## Plot
 ```{r}
-plot(fit, "fit")
+plot_median(mel2) 
+plot(fit, "predict") + ggplot2::scale_y_log10()
 plot(fit, "contrast")
 ```
 

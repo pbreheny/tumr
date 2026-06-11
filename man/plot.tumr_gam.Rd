@@ -4,12 +4,12 @@
 \alias{plot.tumr_gam}
 \title{Plot GAM Fit for Tumor Growth Data}
 \usage{
-\method{plot}{tumr_gam}(x, type = c("fit", "contrast"), n_grid = NULL, ...)
+\method{plot}{tumr_gam}(x, type = c("predict", "contrast"), n_grid = NULL, ...)
 }
 \arguments{
 \item{x}{An object of class \code{"tumr_gam"}.}
 
-\item{type}{Either \code{"fit"} (fitted curves per group) or
+\item{type}{Either \code{"predict"} (fitted curves per group) or
 \code{"contrast"} (pairwise differences over time).}
 
 \item{n_grid}{Number of time grid points. Defaults to \code{x$n_grid}.}

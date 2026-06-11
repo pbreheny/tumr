@@ -1,7 +1,7 @@
 #' Plot GAM Fit for Tumor Growth Data
 #'
 #' @param x An object of class \code{"tumr_gam"}.
-#' @param type Either \code{"fit"} (fitted curves per group) or
+#' @param type Either \code{"predict"} (fitted curves per group) or
 #'   \code{"contrast"} (pairwise differences over time).
 #' @param n_grid Number of time grid points. Defaults to \code{x$n_grid}.
 #' @param ... Currently ignored.
@@ -10,7 +10,7 @@
 #' @method plot tumr_gam
 #' @export
 #'
-plot.tumr_gam <- function(x, type = c("fit", "contrast"),
+plot.tumr_gam <- function(x, type = c("predict", "contrast"),
                           n_grid = NULL, ...) {
   type <- match.arg(type)
   data <- x$data
@@ -28,7 +28,7 @@ plot.tumr_gam <- function(x, type = c("fit", "contrast"),
     stringsAsFactors = FALSE
   )
   pred_grid[[".id"]] <- levels(data[[".id"]])[1]
-  if (type == "fit") {
+  if (type == "predict") {
     pred <- stats::predict(
       x$fit,
       newdata = pred_grid,
@@ -59,12 +59,8 @@ plot.tumr_gam <- function(x, type = c("fit", "contrast"),
     return(p)
   }
   if (type == "contrast") {
-    em <- emmeans::emmeans(
-      x$fit,
-      specs   = ~ .group | .time,
-      at      = list(.time = time_grid),
-      exclude = re_terms
-    )
+    em <- emmeans::emmeans(x$fit, specs   = ~ .group | .time,
+                           at = list(.time = time_grid), exclude = re_terms)
     con <- emmeans::contrast(em, method = "pairwise", adjust = "none")
     contrast_raw <- as.data.frame(con)
     contrast_df <- data.frame(
@@ -79,11 +75,15 @@ plot.tumr_gam <- function(x, type = c("fit", "contrast"),
       contrast_df,
       ggplot2::aes(x = Time, y = estimate)
     ) +
-      ggplot2::geom_ribbon(
-        ggplot2::aes(ymin = lower.CL, ymax = upper.CL),
-        alpha = 0.2
+      ggplot2::geom_point() +
+      ggplot2::geom_errorbar(
+        ggplot2::aes(
+          ymin = lower.CL,
+          ymax = upper.CL
+        ),
+        width = 0.2,
+        linewidth = 0.6
       ) +
-      ggplot2::geom_line(linewidth = 1) +
       ggplot2::geom_hline(
         yintercept = 0,
         linetype   = "dashed",
@@ -96,5 +96,5 @@ plot.tumr_gam <- function(x, type = c("fit", "contrast"),
       ) +
       ggplot2::theme_bw()
     return(p)
+    }
   }
-}

@@ -10,8 +10,8 @@
   : Diagnostic plots for exponential growth assumption
 - [`dtime()`](https://pbreheny.github.io/tumr/reference/dtime.md) :
   Tumor Doubling Time Based on Fitted Tumor Growth Model
-- [`gam()`](https://pbreheny.github.io/tumr/reference/gam.md) :
-  Generalized Additive Mixed Model for Tumor Growth Data
+- [`gamFit()`](https://pbreheny.github.io/tumr/reference/gamFit.md) :
+  Generalized Additive Model for Tumor Growth Data
 - [`gendat()`](https://pbreheny.github.io/tumr/reference/gendat.md) :
   Generate tumor data: Time to reach endpoint
 - [`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md) : Linear
@@ -31,7 +31,7 @@
 - [`plot(`*`<rfeat>`*`)`](https://pbreheny.github.io/tumr/reference/plot.rfeat.md)
   : Plot based on rfeat analysis
 - [`plot(`*`<tumr_gam>`*`)`](https://pbreheny.github.io/tumr/reference/plot.tumr_gam.md)
-  : Plot of GAM Fit
+  : Plot GAM Fit for Tumor Growth Data
 - [`plot_median()`](https://pbreheny.github.io/tumr/reference/plot_median.md)
   : Plot tumor volume or fold change over time using median curves
 - [`print(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/print.lmm.md)

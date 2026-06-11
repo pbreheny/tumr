@@ -449,14 +449,12 @@ plot(quad_obj)
 
 ## Generalized Addictive Mixed Model
 
-The package also includes
-[`gam()`](https://pbreheny.github.io/tumr/reference/gam.md), which fits
-a generalized additive mixed effects model to tumor growth data. This
-model is useful when tumor growth over time follows a complex nonlinear
-trajectory that cannot be captured by polynomial terms.
+The package also includes `gam()`, which fits a generalized additive
+mixed effects model to tumor growth data. This model is useful when
+tumor growth over time follows a complex nonlinear trajectory that
+cannot be captured by polynomial terms.
 
-By default, [`gam()`](https://pbreheny.github.io/tumr/reference/gam.md)
-fits the model:
+By default, `gam()` fits the model:
 
 \log(1 + \text{measure}) \sim \text{group} + s(\text{time},\\ \text{by}
 = \text{group}) + (\text{time} \mid \text{id}) where s(\cdot) is a
@@ -467,17 +465,46 @@ group-specific smooth term for time.
 ``` r
 
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
-gam_fit <- gam(mel2)
+fit <- gamFit(mel2)
 ```
+
+### Result summary
+
+``` r
+
+summary(fit)
+```
+
+    === Pairwise Group Comparisons ===
+    P-value adjustment method: holm
+
+     contrast estimate     SE p.value
+        A - B   0.5994 0.4189 0.91864
+        A - C   0.1516 0.4056 1.00000
+        A - D  -0.3359 0.4161 1.00000
+        A - E   0.8977 0.4326 0.30809
+        B - C  -0.4479 0.4127 1.00000
+        B - D  -0.9353 0.4230 0.24745
+        B - E   0.2983 0.4393 1.00000
+        C - D  -0.4875 0.4098 1.00000
+        C - E   0.7461 0.4266 0.56663
+        D - E   1.2336 0.4365 0.04915
 
 ### Plot
 
 ``` r
 
-plot(gam_fit)
+plot(fit, "fit")
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-16-1.png)
+![](tumr_files/figure-html/unnamed-chunk-17-1.png)
+
+``` r
+
+plot(fit, "contrast")
+```
+
+![](tumr_files/figure-html/unnamed-chunk-17-2.png)
 
 ## Bayesian Hierarchical Linear Model
 

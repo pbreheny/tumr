@@ -1,21 +1,28 @@
-# Plot of GAM Fit
+# Plot GAM Fit for Tumor Growth Data
 
-Plots estimated pairwise treatment contrasts over time with 95\\
-intervals, faceted by group pair.
+Plot GAM Fit for Tumor Growth Data
 
 ## Usage
 
 ``` r
 # S3 method for class 'tumr_gam'
-plot(x, ...)
+plot(x, type = c("fit", "contrast"), n_grid = NULL, ...)
 ```
 
 ## Arguments
 
 - x:
 
-  An object of class `"tumr_gam"` returned by
-  [`gam`](https://pbreheny.github.io/tumr/reference/gam.md).
+  An object of class `"tumr_gam"`.
+
+- type:
+
+  Either `"fit"` (fitted curves per group) or `"contrast"` (pairwise
+  differences over time).
+
+- n_grid:
+
+  Number of time grid points. Defaults to `x$n_grid`.
 
 - ...:
 

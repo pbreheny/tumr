@@ -475,9 +475,6 @@ fit <- gamFit(mel2)
 summary(fit)
 ```
 
-    === Pairwise Group Comparisons ===
-    P-value adjustment method: holm
-
      contrast   estimate        SE p.value
         A - B  0.5994256 0.4189060  0.9186
         A - C  0.1515592 0.4056295  1.0000
@@ -503,14 +500,6 @@ plot_median(mel2)
 
 plot(fit, "predict") + ggplot2::scale_y_log10()
 ```
-
-    Warning in transformation$transform(x): NaNs produced
-
-    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
-    values.
-
-    Warning: Removed 2 rows containing missing values or values outside the scale range
-    (`geom_ribbon()`).
 
 ![](tumr_files/figure-html/unnamed-chunk-17-2.png)
 

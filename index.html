@@ -89,6 +89,28 @@
 <li>bhm() includes a <strong>plot()</strong> function that shows the the mean slope for each treatment with their 90% credible intervals, Pairwise slope contrasts with their 90% credible intervals, and MCMC trace plots for model diagnostics.</li>
 </ul>
 </li>
+<li><p><strong>dtime()</strong> - Compute the Tumor Doubling Time based on fitted model. This function is available for both <strong>lmm()</strong> and <strong>bhm</strong> object.</p></li>
+<li>
+<p><strong>quad()</strong> - fits a Quadratic Linear Mixed Model.</p>
+<ul>
+<li>quad() includes a plot() function that shows pairwise treatment contrasts over time with their confidence intervals.</li>
+</ul>
+</li>
+<li>
+<p><strong>gamFit()</strong> - fits a Generalized Additive Model.</p>
+<ul>
+<li>gam() includes a <strong>summary()</strong> function that provides the GAM model summary including pairwise treatment comparisons based on estimated marginal means.</li>
+<li>gam() includes a <strong>plot()</strong> function that shows the fitted tumor growth curves for each treatment group with their 95% confidence intervals, as well as pairwise treatment contrasts over time with their 95% confidence intervals.</li>
+</ul>
+</li>
+<li>
+<p><strong>check_exp()</strong> - checks the exponential growth assumption for tumor growth models.</p>
+<ul>
+<li>check_exp() generates residual diagnostic plots from an <strong>lmm()</strong> object fitted to log-transformed tumor volume.</li>
+<li>check_exp() provides residuals versus time and residuals versus fitted values plots by treatment group to assess systematic model misspecification.</li>
+<li>check_exp() also provides a QQ plot of residuals to evaluate the normality assumption of the fitted linear mixed model.</li>
+</ul>
+</li>
 </ul>
 <div class="section level3">
 <h3 id="how-to-install-tumr">How to install tumr<a class="anchor" aria-label="anchor" href="#how-to-install-tumr"></a>
@@ -138,7 +160,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: June 11, 2026</p>
+  <p>Last updated: June 15, 2026</p>
 </div>
 
     </footer>

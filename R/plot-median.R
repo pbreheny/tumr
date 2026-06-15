@@ -4,6 +4,7 @@
 #' @param measure vector of tumor growth measurements
 #'
 #' @return A list with cleaned measurements and event indicators
+
 process_data <- function(time, measure) {
   if (all(is.na(measure))) {
     stop("Must have at least one non-missing value.")
@@ -69,6 +70,7 @@ process_data <- function(time, measure) {
 #' plot_median(mel2, par = FALSE, fold = TRUE)
 #'
 #' @export
+
 plot_median <- function(tumr_obj = NULL,
                         data = NULL,
                         group = NULL,

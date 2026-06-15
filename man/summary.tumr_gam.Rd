@@ -4,13 +4,10 @@
 \alias{summary.tumr_gam}
 \title{Summary of a GAM Fit for Tumor Growth Data}
 \usage{
-\method{summary}{tumr_gam}(object, adjust.method = "holm", ...)
+\method{summary}{tumr_gam}(object, ...)
 }
 \arguments{
 \item{object}{An object of class \code{"tumr_gam"}.}
-
-\item{adjust.method}{P-value adjustment method passed to
-\code{emmeans::pairs()}. Default \code{"holm"}.}
 
 \item{...}{Currently ignored.}
 }
@@ -20,7 +17,6 @@ An object of class \code{"summary.tumr_gam"} with components:
 \item{\code{gam_summary}}{Full \code{mgcv::summary.gam} output.}
 \item{\code{pairwise_tests}}{Data frame of pairwise Wald test results
 with adjusted p-values.}
-\item{\code{adjust.method}}{The adjustment method used.}
 \item{\code{relevant_info}}{Column name metadata.}
 }
 }

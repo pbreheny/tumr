@@ -38,6 +38,21 @@ and the mean slope for each treatment with their 95% confidence intervals.
   - bhm() includes a **plot()** function that shows the the mean slope for each treatment with their 90% credible intervals,
   Pairwise slope contrasts with their 90% credible intervals, and MCMC trace plots for model diagnostics.
 
++ **dtime()** - Compute the Tumor Doubling Time based on fitted model. This function is available for both
+**lmm()** and **bhm** object.
+
++ **quad()** - fits a Quadratic Linear Mixed Model.
+  - quad() includes a plot() function that shows pairwise treatment contrasts over time with their confidence intervals.
+
++ **gamFit()** - fits a Generalized Additive Model.
+  - gam() includes a **summary()** function that provides the GAM model summary including pairwise treatment comparisons based on estimated marginal means.
+  - gam() includes a **plot()** function that shows the fitted tumor growth curves for each treatment group with their 95% confidence intervals, as well as pairwise treatment contrasts over time with their 95% confidence intervals.
+
++ **check_exp()** - checks the exponential growth assumption for tumor growth models.
+  - check_exp() generates residual diagnostic plots from an **lmm()** object fitted to log-transformed tumor volume.
+  - check_exp() provides residuals versus time and residuals versus fitted values plots by treatment group to assess systematic model misspecification.
+  - check_exp() also provides a QQ plot of residuals to evaluate the normality assumption of the fitted linear mixed model.
+
 ### How to install tumr
 
 To install tumr, copy and paste the following code into the console

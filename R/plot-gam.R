@@ -36,9 +36,9 @@ plot.tumr_gam <- function(x, type = c("predict", "contrast"),
       se.fit  = TRUE,
       exclude = re_terms
     )
-    pred_grid$fit <- exp(pred$fit) - 1
-    pred_grid$lower.CL <- exp(pred$fit - 1.96 * pred$se.fit) - 1
-    pred_grid$upper.CL <- exp(pred$fit + 1.96 * pred$se.fit) - 1
+    pred_grid$fit <- exp(pred$fit)
+    pred_grid$lower.CL <- exp(pred$fit - 1.96 * pred$se.fit)
+    pred_grid$upper.CL <- exp(pred$fit + 1.96 * pred$se.fit)
     p <- ggplot2::ggplot(
       pred_grid,
       ggplot2::aes(x = .time, y = fit,

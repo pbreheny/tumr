@@ -53,7 +53,8 @@
 <span>  measure <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  par <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  fold <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  fold <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  lld <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -93,6 +94,12 @@ If FALSE, use nonparametric Kaplan-Meier estimation.</p></dd>
 <dt id="arg-fold">fold<a class="anchor" aria-label="anchor" href="#arg-fold"></a></dt>
 <dd><p>Logical. If TRUE, plot fold change instead of raw volume.</p></dd>
 
+
+<dt id="arg-lld">lld<a class="anchor" aria-label="anchor" href="#arg-lld"></a></dt>
+<dd><p>Optional lower limit of detection used to replace zero values
+when fold = TRUE. If NULL, the minimum nonzero value in the full dataset
+is used.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -123,7 +130,7 @@ If FALSE, use nonparametric Kaplan-Meier estimation.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: June 24, 2026</p>
+  <p>Last updated: June 25, 2026</p>
 </div>
 
     </footer></div>

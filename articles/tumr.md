@@ -391,9 +391,6 @@ plot_median(mel2, par = TRUE) + ggplot2::scale_y_log10()
 plot_median(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
-    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
-    values.
-
 ![](tumr_files/figure-html/unnamed-chunk-11-1.png)
 
 ![](tumr_files/figure-html/unnamed-chunk-11-2.png)

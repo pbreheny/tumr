@@ -14,6 +14,8 @@
   Generalized Additive Model for Tumor Growth Data
 - [`gendat()`](https://pbreheny.github.io/tumr/reference/gendat.md) :
   Generate tumor data: Time to reach endpoint
+- [`get_lld()`](https://pbreheny.github.io/tumr/reference/get_lld.md) :
+  Get lower limit of detection
 - [`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md) : Linear
   Mixed Model for Tumor Growth Data
 - [`melanoma1`](https://pbreheny.github.io/tumr/reference/melanoma1.md)

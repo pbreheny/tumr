@@ -13,7 +13,8 @@ plot_median(
   measure = NULL,
   id = NULL,
   par = TRUE,
-  fold = FALSE
+  fold = FALSE,
+  lld = NULL
 )
 ```
 
@@ -51,6 +52,12 @@ plot_median(
 - fold:
 
   Logical. If TRUE, plot fold change instead of raw volume.
+
+- lld:
+
+  Optional lower limit of detection used to replace zero values when
+  fold = TRUE. If NULL, the minimum nonzero value in the full dataset is
+  used.
 
 ## Value
 

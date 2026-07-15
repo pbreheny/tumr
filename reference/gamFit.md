@@ -709,7 +709,7 @@ gamFit(mel1)
 #> $formula
 #> log(.measure + 1) ~ .group + s(.time, by = .group) + s(.id, bs = "re") + 
 #>     s(.id, .time, bs = "re")
-#> <environment: 0x56388ca038e8>
+#> <environment: 0x555f08a44470>
 #> 
 #> $relevant_info
 #> $relevant_info$ID

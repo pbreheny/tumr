@@ -30,7 +30,14 @@ callr::r(
     if (!length(stan_files)) return(invisible(NULL))
 
     for (f in stan_files) {
-      cmdstanr::cmdstan_model(stan_file = f, compile = TRUE, quiet = TRUE)
+      # Eigen's OpenMP-based parallelization conflicts with Stan's TBB threading
+      # and fails to link if the installing user has -fopenmp in their CXXFLAGS.
+      cmdstanr::cmdstan_model(
+        stan_file = f,
+        compile = TRUE,
+        quiet = TRUE,
+        cpp_options = list(CXXFLAGS = "-DEIGEN_DONT_PARALLELIZE")
+      )
     }
     invisible(NULL)
   },

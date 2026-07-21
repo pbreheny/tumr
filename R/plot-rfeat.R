@@ -25,5 +25,5 @@ plot.rfeat <- function (x, ...) {
     ggplot2::labs(title = "Individual Slopes (Betas) by Group",
                   y = paste("Slope of", x$relevant_information["Measure"], "vs", x$relevant_information["Time"]),
                   x = x$relevant_information["Group"]) +
-    ggplot2::guides(color = "none")
+    ggplot2::guides(color = "none") + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_blank())
 }

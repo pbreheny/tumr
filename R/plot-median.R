@@ -434,7 +434,7 @@ plot_median <- function(tumr_obj = NULL,
       y = y_lab,
       title = plot_title,
       color = group
-    )
+    ) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_blank())
 }
 
 

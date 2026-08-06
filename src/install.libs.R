@@ -36,8 +36,11 @@ callr::r(
         stan_file = f,
         compile = TRUE,
         quiet = TRUE,
-        cpp_options = list(CXXFLAGS = "-DEIGEN_DONT_PARALLELIZE")
-      )
+        cpp_options = list(
+          "CXXFLAGS+= -DEIGEN_DONT_PARALLELIZE",
+          PRECOMPILED_HEADERS = FALSE
+        )
+        )
     }
     invisible(NULL)
   },

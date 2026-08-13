@@ -181,3 +181,9 @@ plot(fit, type = "contrast") +
 plot(fit, type = "trace")
 ```
 
+
+
+
+
+
+

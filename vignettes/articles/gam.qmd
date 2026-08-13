@@ -1,0 +1,45 @@
+---
+title: "Generalized Addictive Mixed Model"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+```{r}
+#| include: false
+library(tumr)
+```
+
+
+
+
+The package also includes `gam()`, which fits a generalized additive mixed
+effects model to tumor growth data. This model is useful when tumor growth
+over time follows a complex nonlinear trajectory that cannot be captured by
+polynomial terms.
+
+By default, `gam()` fits the model:
+
+$$
+\log(1 + \text{measure}) \sim \text{group} + s(\text{time},\ \text{by} = \text{group}) + (\text{time} \mid \text{id})
+$$
+where $s(\cdot)$ is a group-specific smooth term for time.
+
+## Model fit
+```{r}
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+fit <- gamFit(mel2)
+```
+
+## Result summary
+```{r}
+summary(fit)
+```
+
+## Plot
+```{r}
+plot_median(mel2) 
+plot(fit, "predict") + ggplot2::scale_y_log10()
+plot(fit, "contrast")
+```

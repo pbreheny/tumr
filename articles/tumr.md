@@ -404,155 +404,22 @@ check_exp(lmm_mel2)
 
 ![](tumr_files/figure-html/unnamed-chunk-12-1.png)
 
-## Quadratic Linear Mixed Model
+## Flexible modeling of nonlinear growth
 
-The package also includes
-[`quad()`](https://pbreheny.github.io/tumr/reference/quad.md), which
-fits a quadratic linear mixed effects model to tumor growth data. This
-model is useful when tumor growth over time may be nonlinear rather than
-strictly linear.
-
-Quadratic linear mixed models are well suited for longitudinal tumor
-growth data because they account for:
-
-- Fixed effects: population-level effects of interest, such as
-  treatment, time, and the quadratic effect of time
-- Random effects: subject-specific variability that induces correlation
-  among repeated measurements
-
-By default,
-[`quad()`](https://pbreheny.github.io/tumr/reference/quad.md) fits the
-model:
-
-\log(1 + \text{measure}) \sim (\text{time} + \text{time}^2) \*
-\text{group} + (\text{time} \mid \text{id})
-
-### Model fit
-
-``` r
-
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
-quad_obj <- quad(mel2)
-```
-
-### Plot
-
-``` r
-
-plot(quad_obj)
-```
-
-![](tumr_files/figure-html/unnamed-chunk-14-1.png)
-
-## Generalized Addictive Mixed Model
-
-The package also includes `gam()`, which fits a generalized additive
-mixed effects model to tumor growth data. This model is useful when
-tumor growth over time follows a complex nonlinear trajectory that
-cannot be captured by polynomial terms.
-
-By default, `gam()` fits the model:
-
-\log(1 + \text{measure}) \sim \text{group} + s(\text{time},\\ \text{by}
-= \text{group}) + (\text{time} \mid \text{id}) where s(\cdot) is a
-group-specific smooth term for time.
-
-### Model fit
-
-``` r
-
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
-fit <- gamFit(mel2)
-```
-
-### Result summary
-
-``` r
-
-summary(fit)
-```
-
-     contrast   estimate        SE p.value
-        A - B  0.5994256 0.4189060  0.9186
-        A - C  0.1515592 0.4056295  1.0000
-        A - D -0.3359103 0.4160643  1.0000
-        A - E  0.8976805 0.4325896  0.3081
-        B - C -0.4478664 0.4127334  1.0000
-        B - D -0.9353359 0.4229930  0.2474
-        B - E  0.2982549 0.4392577  1.0000
-        C - D -0.4874695 0.4098490  1.0000
-        C - E  0.7461213 0.4266151  0.5666
-        D - E  1.2335907 0.4365485  0.0491
-
-### Plot
-
-``` r
-
-plot_median(mel2) 
-```
-
-![](tumr_files/figure-html/unnamed-chunk-17-1.png)
-
-``` r
-
-plot(fit, "predict") + ggplot2::scale_y_log10()
-```
-
-![](tumr_files/figure-html/unnamed-chunk-17-2.png)
-
-``` r
-
-plot(fit, "contrast")
-```
-
-![](tumr_files/figure-html/unnamed-chunk-17-3.png)
+For datasets that exhibit non-linear growth, we also provide the
+[Exponential Quadratic
+Model](https://pbreheny.github.io/tumr/articles/articles/quadratic.md)
+and [Generalized Addictive Mixed
+Model](https://pbreheny.github.io/tumr/articles/articles/gam.md) as
+alternative modeling approaches. Examples of their applications can be
+found in the linked articles.
 
 ## Bayesian Hierarchical Linear Model
 
 In addition to the linear mixed model, the package also supports fitting
-a Bayesian hierarchical linear model. Detailed usage of this model is
-described in an article.
-
-### Fit a Bayesian Hierarchical Linear Model
-
-``` r
-
-fit <- bhm(data = melanoma2, diagnostics = FALSE, return_fit = TRUE)
-```
-
-### Summary of the results
-
-The [`summary()`](https://rdrr.io/r/base/summary.html) method provides
-posterior summaries of:
-
-- Treatment-specific intercepts with exponential transformation
-- Treatment-specific slopes with exponential transformation  
-- Pairwise treatment contrasts in slopes with exponential transformation
-
-Posterior means and credible intervals are reported for all quantities.
-
-``` r
-
-summary(fit)
-```
-
-### Plots of the results
-
-The [`plot()`](https://rdrr.io/r/graphics/plot.default.html) method
-visualizes posterior summaries, including:
-
-- Posterior predictive mean trajectories with 95% credible intervals
-- Treatment-specific slope estimates with 90% credible intervals  
-- Pairwise slope contrasts with 90% credible intervals
-- MCMC trace plots for model diagnostics
-
-``` r
-
-plot(fit, "predict")
-plot(fit, "slope")
-plot(fit, "contrast")
-plot(fit, "trace")
-```
+a [Bayesian hierarchical linear
+model](https://pbreheny.github.io/tumr/articles/articles/bhm.md).
+Detailed usage of this model is described in an article.
 
 ## Tumor Doubling Time Based on Fitted Tumor Growth Model
 

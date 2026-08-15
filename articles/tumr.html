@@ -84,13 +84,24 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pbreheny.github.io/tumr/">tumr</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"melanoma2"</span><span class="op">)</span></span></code></pre></div>
 </div>
-</section><section class="section level2"><h2 id="a-naive-mean-based-visualization">A Naive Mean-Based Visualization<a class="anchor" aria-label="anchor" href="#a-naive-mean-based-visualization"></a>
+</section><section class="section level2"><h2 id="creating-a-tumr-object">Creating a tumr Object<a class="anchor" aria-label="anchor" href="#creating-a-tumr-object"></a>
 </h2>
+<p>Most tumr functions operate on a tumr object, which stores both the data and its associated metadata (subject ID, time, outcome, and grouping variable).</p>
+<p>To create a tumr object, use the tumr() function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p>This object can now be passed directly into other tumr functions.</p>
+</section><section class="section level2"><h2 id="visualizing-tumor-growth-under-informative-dropout">Visualizing tumor growth under informative dropout<a class="anchor" aria-label="anchor" href="#visualizing-tumor-growth-under-informative-dropout"></a>
+</h2>
+<section class="level2"><h3 id="existing-naive-mean-based-visualization-is-bad">Existing Naive Mean-Based Visualization is bad<a class="anchor" aria-label="anchor" href="#existing-naive-mean-based-visualization-is-bad"></a>
+</h3>
 <p>Before introducing tumr functionality, we first construct a simple plotting function to illustrate a common pitfall in tumor growth visualization.</p>
 <section class="level4"><h5 id="code-for-plot_mean">Code for plot_mean()<a class="anchor" aria-label="anchor" href="#code-for-plot_mean"></a>
 </h5>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">group</span>, <span class="va">time</span>, <span class="va">measure</span>, <span class="va">id</span>, <span class="va">stat</span> <span class="op">=</span> <span class="va">median</span>, <span class="va">remove_na</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">data_summary</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">group</span><span class="op">}</span><span class="op">}</span>, <span class="op">{</span><span class="op">{</span><span class="va">time</span><span class="op">}</span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -125,17 +136,8 @@
 </details>
 </div>
 <p><strong>Note:</strong> plot_mean() is not part of the tumr package. It is defined here solely to provide a baseline visualization for comparison with tumr’s methods.</p>
-</section></section><section class="section level2"><h2 id="creating-a-tumr-object">Creating a tumr Object<a class="anchor" aria-label="anchor" href="#creating-a-tumr-object"></a>
-</h2>
-<p>Most tumr functions operate on a tumr object, which stores both the data and its associated metadata (subject ID, time, outcome, and grouping variable).</p>
-<p>To create a tumr object, use the tumr() function:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></code></pre></div>
-</div>
-<p>This object can now be passed directly into other tumr functions.</p>
-</section><section class="section level2"><h2 id="visualizing-tumor-growth">Visualizing Tumor Growth<a class="anchor" aria-label="anchor" href="#visualizing-tumor-growth"></a>
-</h2>
+</section></section><section class="level2"><h3 id="our-plots-are-good">Our plots are good<a class="anchor" aria-label="anchor" href="#our-plots-are-good"></a>
+</h3>
 <p>The figure below compares a naive longitudinal visualization with a tumr-based approach that explicitly accounts for censoring and missing observations.</p>
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_mean</span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">Treatment</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">ID</span>, stat <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
@@ -181,7 +183,7 @@
 <strong>Interpolates embedded missing values</strong> Missing observations that occur between recorded time points are interpolated to preserve trajectory continuity.</li>
 </ol>
 <p>After preprocessing, tumor volume summaries are computed at each time point within each treatment group using a Kaplan–Meier–based approach. This strategy ensures that summaries reflect both observed data and informative missingness, producing a visualization that more accurately represents tumor growth dynamics over time.</p>
-</section><section class="section level2"><h2 id="response-feature-analysis">Response feature analysis<a class="anchor" aria-label="anchor" href="#response-feature-analysis"></a>
+</section></section><section class="section level2"><h2 id="response-feature-analysis">Response feature analysis<a class="anchor" aria-label="anchor" href="#response-feature-analysis"></a>
 </h2>
 <p>One of the primary analysis tools in tumr is the rfeat() function, which implements response feature analysis. This two-stage approach simplifies complex longitudinal data by extracting a single interpretable summary measure per subject.</p>
 <p>Specifically, rfeat():</p>
@@ -562,7 +564,7 @@ $summary
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: August 13, 2026</p>
+  <p>Last updated: August 15, 2026</p>
 </div>
 
     </footer>

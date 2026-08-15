@@ -67,59 +67,64 @@
 
 <p>tumr is a collection of tools for analyzing tumor growth data.</p>
 <p>An example of how to use tumr can be seen in the <a href="https://pbreheny.github.io/tumr/articles/tumr.html">Get Started</a> page.</p>
-<p><strong>tumr</strong> includes:</p>
-<ul>
-<li><p><strong>tumr()</strong> - creates a tumr object that can be passed into <strong>plot_median()</strong>, <strong>rfeat()</strong>, and <strong>lmm()</strong>.</p></li>
-<li><p><strong>plot_median()</strong> - creates a spaghetti plot and plots the median tumor growth measurement for each treatment group.</p></li>
-<li>
-<p><strong>rfeat()</strong> - tests whether the beta coefficients (slope of tumor measure over time) of individuals in different treatment groups are different from each other using either t-test, ANOVA, Tukey, or both ANOVA and Tukey.</p>
-<ul>
-<li>rfeat() has a <strong>plot()</strong> function that shows the individual beta coefficients and mean slope by treatment group.</li>
-</ul>
-</li>
-<li>
-<p><strong>lmm()</strong> - fits a linear mixed model with the default formula of log1p(Volume) ~ Treatment * scale(Day) + (scale(Day) | ID) where the time variable is centered.</p>
-<ul>
-<li>lmm() includes a <strong>summary()</strong> function that provides the overall effect of time averaged over the levels of the treatment group, the slope of treatment over time for each treatment group, and the results of a contrast to test the slope differences between the treatment groups.</li>
-<li>lmm() includes a <strong>plot()</strong> function that shows the predicted values of the tumor growth measurements over time and the mean slope for each treatment with their 95% confidence intervals.</li>
-</ul>
-</li>
-<li>
-<p><strong>bhm()</strong> - fits a Bayesian Hierarchical Linear Model.</p>
-<ul>
-<li>bhm() includes a <strong>summary()</strong> function that provides the treatment-specific intercepts with exponential transformation , treatment-specific slopes with exponential transformation, and pairwise treatment contrasts in slopes with exponential transformation.</li>
-<li>bhm() includes a <strong>plot()</strong> function that shows the the mean slope for each treatment with their 90% credible intervals, Pairwise slope contrasts with their 90% credible intervals, and MCMC trace plots for model diagnostics.</li>
-</ul>
-</li>
-<li><p><strong>dtime()</strong> - Compute the Tumor Doubling Time based on fitted model. This function is available for both <strong>lmm()</strong> and <strong>bhm</strong> object.</p></li>
-<li>
-<p><strong>quad()</strong> - fits a Quadratic Linear Mixed Model.</p>
-<ul>
-<li>quad() includes a plot() function that shows pairwise treatment contrasts over time with their confidence intervals.</li>
-</ul>
-</li>
-<li>
-<p><strong>gamFit()</strong> - fits a Generalized Additive Model.</p>
-<ul>
-<li>gam() includes a <strong>summary()</strong> function that provides the GAM model summary including pairwise treatment comparisons based on estimated marginal means.</li>
-<li>gam() includes a <strong>plot()</strong> function that shows the fitted tumor growth curves for each treatment group with their 95% confidence intervals, as well as pairwise treatment contrasts over time with their 95% confidence intervals.</li>
-</ul>
-</li>
-<li>
-<p><strong>check_exp()</strong> - checks the exponential growth assumption for tumor growth models.</p>
-<ul>
-<li>check_exp() generates residual diagnostic plots from an <strong>lmm()</strong> object fitted to log-transformed tumor volume.</li>
-<li>check_exp() provides residuals versus time and residuals versus fitted values plots by treatment group to assess systematic model misspecification.</li>
-<li>check_exp() also provides a QQ plot of residuals to evaluate the normality assumption of the fitted linear mixed model.</li>
-</ul>
-</li>
-</ul>
-<div class="section level3">
-<h3 id="how-to-install-tumr">How to install tumr<a class="anchor" aria-label="anchor" href="#how-to-install-tumr"></a>
-</h3>
+<div class="section level2">
+<h2 id="how-to-install-tumr">How to install tumr<a class="anchor" aria-label="anchor" href="#how-to-install-tumr"></a>
+</h2>
 <p>To install tumr, copy and paste the following code into the console</p>
 <pre><code><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"pbreheny/tumr"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="minimal-example">Minimal Example<a class="anchor" aria-label="anchor" href="#minimal-example"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pbreheny.github.io/tumr/">tumr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"melanoma2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a tumr object</span></span>
+<span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualization</span></span>
+<span><span class="fu"><a href="reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Response feature analysis</span></span>
+<span><span class="va">rfeat_mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rfeat.html">rfeat</a></span><span class="op">(</span><span class="va">mel2</span>, comparison <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rfeat_mel2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fit linear-mixed model</span></span>
+<span><span class="va">lmm_mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"response"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"response"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"slope"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fit non-linear model - quadratic</span></span>
+<span><span class="va">quad_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/quad.html">quad</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">quad_obj</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fit non-linear model - Generalized Addictive Mixed Model</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gamFit.html">gamFit</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"predict"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"contrast"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fit Bayesian Hierarchical Linear Model</span></span>
+<span><span class="va">fit_bhm</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bhm.html">bhm</a></span><span class="op">(</span><span class="va">melanoma2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit_bhm</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit_bhm</span>, type <span class="op">=</span> <span class="st">"predict"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit_bhm</span>, type <span class="op">=</span> <span class="st">"slope"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit_bhm</span>, type <span class="op">=</span> <span class="st">"contrast"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit_bhm</span>, type <span class="op">=</span> <span class="st">"contrast"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span></span>
+<span>    labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/number.html" class="external-link">number</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span>, <span class="fl">0.01</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit_bhm</span>, type <span class="op">=</span> <span class="st">"trace"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute Tumor Doubling Time</span></span>
+<span><span class="fu"><a href="reference/dtime.html">dtime</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/dtime.html">dtime</a></span><span class="op">(</span><span class="va">fit_bhm</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -162,7 +167,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: August 13, 2026</p>
+  <p>Last updated: August 15, 2026</p>
 </div>
 
     </footer>

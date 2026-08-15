@@ -12,7 +12,24 @@ library(tumr)
 data("melanoma2")
 ```
 
-## A Naive Mean-Based Visualization
+## Creating a tumr Object
+
+Most tumr functions operate on a tumr object, which stores both the data
+and its associated metadata (subject ID, time, outcome, and grouping
+variable).
+
+To create a tumr object, use the tumr() function:
+
+``` r
+
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+```
+
+This object can now be passed directly into other tumr functions.
+
+## Visualizing tumor growth under informative dropout
+
+### Existing Naive Mean-Based Visualization is bad
 
 Before introducing tumr functionality, we first construct a simple
 plotting function to illustrate a common pitfall in tumor growth
@@ -61,22 +78,7 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
 here solely to provide a baseline visualization for comparison with
 tumr’s methods.
 
-## Creating a tumr Object
-
-Most tumr functions operate on a tumr object, which stores both the data
-and its associated metadata (subject ID, time, outcome, and grouping
-variable).
-
-To create a tumr object, use the tumr() function:
-
-``` r
-
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
-```
-
-This object can now be passed directly into other tumr functions.
-
-## Visualizing Tumor Growth
+### Our plots are good
 
 The figure below compares a naive longitudinal visualization with a
 tumr-based approach that explicitly accounts for censoring and missing

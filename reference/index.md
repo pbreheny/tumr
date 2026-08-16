@@ -29,7 +29,7 @@
 - [`plot(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/plot.lmm.md)
   : Creates Plots of an lmm object
 - [`plot(`*`<quad>`*`)`](https://pbreheny.github.io/tumr/reference/plot.quad.md)
-  : Plot Quadratic Linear Mixed Model Treatment Contrasts
+  : Plot Quadratic Linear Mixed Model Fit
 - [`plot(`*`<rfeat>`*`)`](https://pbreheny.github.io/tumr/reference/plot.rfeat.md)
   : Plot based on rfeat analysis
 - [`plot(`*`<tumr_gam>`*`)`](https://pbreheny.github.io/tumr/reference/plot.tumr_gam.md)
@@ -56,6 +56,8 @@
   : Creates a summary of a bhm object
 - [`summary(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/summary.lmm.md)
   : Creates a summary of an lmm object
+- [`summary(`*`<quad>`*`)`](https://pbreheny.github.io/tumr/reference/summary.quad.md)
+  : Summary of a Quadratic Mixed Model Fit
 - [`summary(`*`<tumr_gam>`*`)`](https://pbreheny.github.io/tumr/reference/summary.tumr_gam.md)
   : Summary of a GAM Fit for Tumor Growth Data
 - [`tumr-package`](https://pbreheny.github.io/tumr/reference/tumr-package.md)

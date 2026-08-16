@@ -36,4 +36,7 @@ quad_obj <- quad(mel2)
 plot(quad_obj)
 ```
 
+    Warning: the 'nobars' function has moved to the reformulas package. Please
+    update your imports, or ask an upstream package maintainer to do so.
+
 ![](quadratic_files/figure-html/unnamed-chunk-3-1.png)

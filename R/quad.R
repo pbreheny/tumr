@@ -40,10 +40,10 @@ quad <- function(tumr_obj = NULL,
                  ...) {
   if (!is.null(tumr_obj)) {
     data <- tumr_obj$data
-    id <- "ID"
-    time <- "Day"
-    measure <- "Volume"
-    group <- "Treatment"
+    id <- tumr_obj$id
+    time <- tumr_obj$time
+    measure <- tumr_obj$measure
+    group <- tumr_obj$group
   }
   data <- dplyr::rename(
     data,

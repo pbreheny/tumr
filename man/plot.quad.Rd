@@ -2,12 +2,19 @@
 % Please edit documentation in R/plot-quad.R
 \name{plot.quad}
 \alias{plot.quad}
-\title{Plot Quadratic Linear Mixed Model Treatment Contrasts}
+\title{Plot Quadratic Linear Mixed Model Fit}
 \usage{
-\method{plot}{quad}(x, ...)
+\method{plot}{quad}(x, type = c("predict", "contrast"), n_grid = 20, ...)
 }
 \arguments{
-\item{x}{An object of class \code{quad}.}
+\item{x}{An object of class \code{"quad"}.}
+
+\item{type}{Type of plot to produce. Either \code{"predict"} for fitted
+treatment-specific growth curves or \code{"contrast"} for pairwise
+treatment contrasts over time. Default is \code{"predict"}.}
+
+\item{n_grid}{Number of time points used to construct the fitted curves.
+Default is 20.}
 
 \item{...}{Additional arguments passed to plotting functions.}
 }
@@ -15,12 +22,17 @@
 A \code{ggplot} object.
 }
 \description{
-Plots pairwise treatment contrasts over time from a fitted \code{quad} object.
+Plots fitted treatment-specific quadratic growth curves or pairwise
+treatment contrasts over time from a fitted \code{quad} object.
 }
 \examples{
 data(melanoma1)
 mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 quad_obj <- quad(mel1)
-plot(quad_obj)
+
+# Fitted quadratic growth curves
+plot(quad_obj, type = "predict")
+# Pairwise treatment contrasts over time
+plot(quad_obj, type = "contrast")
 
 }

@@ -65,11 +65,12 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>tumr is a collection of tools for analyzing tumor growth data.</p>
+<p>tumr is a collection of tools for visualizing and analyzing tumor growth data.</p>
 <p>An example of how to use tumr can be seen in the <a href="https://pbreheny.github.io/tumr/articles/tumr.html">Get Started</a> page.</p>
 <div class="section level2">
 <h2 id="how-to-install-tumr">How to install tumr<a class="anchor" aria-label="anchor" href="#how-to-install-tumr"></a>
 </h2>
+<p>Using <code>tumr</code> package requires installing the R package <a href="https://mc-stan.org/cmdstanr/" class="external-link"><code>cmdstanr</code></a> (not available on CRAN) and the command-line interface to Stan: <a href="https://mc-stan.org/users/interfaces/cmdstan.html" class="external-link"><code>CmdStan</code></a>. You may follow the instructions in <a href="https://mc-stan.org/cmdstanr/articles/cmdstanr.html" class="external-link">Getting started with CmdStanR</a> to install both.</p>
 <p>To install tumr, copy and paste the following code into the console</p>
 <pre><code><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"pbreheny/tumr"</span><span class="op">)</span></span></code></pre>
@@ -144,9 +145,9 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Patrick Breheny <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-0650-1119" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
-<li>Sydney Plowman <br><small class="roles"> Author </small>   </li>
 <li>Tian Zhao <br><small class="roles"> Author </small> <a href="https://orcid.org/0009-0006-9527-286X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>Sydney Plowman <br><small class="roles"> Author </small>   </li>
+<li>Patrick Breheny <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-0650-1119" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 </ul>
 </div>
 
@@ -163,11 +164,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Patrick Breheny, Sydney Plowman, Tian Zhao.</p>
+  <p>Developed by Tian Zhao, Sydney Plowman, Patrick Breheny.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: August 16, 2026</p>
+  <p>Last updated: August 17, 2026</p>
 </div>
 
     </footer>

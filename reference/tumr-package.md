@@ -19,7 +19,7 @@ Useful links:
 
 Authors:
 
-- Sydney Plowman
-
 - Tian Zhao <tian-zhao@uiowa.edu>
   ([ORCID](https://orcid.org/0009-0006-9527-286X))
+
+- Sydney Plowman

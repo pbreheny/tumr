@@ -91,20 +91,50 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
-<span><span class="va">quad_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/quad.html">quad</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">fit_quad</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/quad.html">quad</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span></code></pre></div>
+</div>
+</section><section class="level2"><h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit_quad</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: Results may be misleading due to involvement in interactions</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> contrast   estimate        SE p.value
+    A - B  0.6701899 0.3297399  0.2908
+    A - C  0.1380657 0.3224132  0.6706
+    A - D -0.4241004 0.3299039  0.6152
+    A - E  1.0145466 0.3398053  0.0378
+    B - C -0.5321242 0.3285509  0.4705
+    B - D -1.0942902 0.3359048  0.0194
+    B - E  0.3443567 0.3456342  0.6500
+    C - D -0.5621661 0.3287155  0.4705
+    C - E  0.8764809 0.3386516  0.0929
+    D - E  1.4386470 0.3457908  0.0015</code></pre>
+</div>
 </div>
 </section><section class="level2"><h2 id="plot">Plot<a class="anchor" aria-label="anchor" href="#plot"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">quad_obj</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit_quad</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: the 'nobars' function has moved to the reformulas package. Please
 update your imports, or ask an upstream package maintainer to do so.</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure><p><img src="quadratic_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
+<figure><p><img src="quadratic_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit_quad</span>, <span class="st">"contrast"</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="quadratic_files/figure-html/unnamed-chunk-4-2.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -198,11 +228,11 @@ update your imports, or ask an upstream package maintainer to do so.</code></pre
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Patrick Breheny, Sydney Plowman, Tian Zhao.</p>
+  <p>Developed by Tian Zhao, Sydney Plowman, Patrick Breheny.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: August 16, 2026</p>
+  <p>Last updated: August 17, 2026</p>
 </div>
 
     </footer>

@@ -26,17 +26,45 @@ model:
 ``` r
 
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
-quad_obj <- quad(mel2)
+fit_quad <- quad(mel2)
 ```
+
+## Summary
+
+``` r
+
+summary(fit_quad)
+```
+
+    NOTE: Results may be misleading due to involvement in interactions
+
+     contrast   estimate        SE p.value
+        A - B  0.6701899 0.3297399  0.2908
+        A - C  0.1380657 0.3224132  0.6706
+        A - D -0.4241004 0.3299039  0.6152
+        A - E  1.0145466 0.3398053  0.0378
+        B - C -0.5321242 0.3285509  0.4705
+        B - D -1.0942902 0.3359048  0.0194
+        B - E  0.3443567 0.3456342  0.6500
+        C - D -0.5621661 0.3287155  0.4705
+        C - E  0.8764809 0.3386516  0.0929
+        D - E  1.4386470 0.3457908  0.0015
 
 ## Plot
 
 ``` r
 
-plot(quad_obj)
+plot(fit_quad) + ggplot2::scale_y_log10()
 ```
 
     Warning: the 'nobars' function has moved to the reformulas package. Please
     update your imports, or ask an upstream package maintainer to do so.
 
-![](quadratic_files/figure-html/unnamed-chunk-3-1.png)
+![](quadratic_files/figure-html/unnamed-chunk-4-1.png)
+
+``` r
+
+plot(fit_quad, "contrast")
+```
+
+![](quadratic_files/figure-html/unnamed-chunk-4-2.png)

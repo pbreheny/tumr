@@ -1,11 +1,20 @@
 # tumr
 
-tumr is a collection of tools for analyzing tumor growth data.
+tumr is a collection of tools for visualizing and analyzing tumor growth
+data.
 
 An example of how to use tumr can be seen in the [Get
 Started](https://pbreheny.github.io/tumr/articles/tumr.html) page.
 
 ## How to install tumr
+
+Using `tumr` package requires installing the R package
+[`cmdstanr`](https://mc-stan.org/cmdstanr/) (not available on CRAN) and
+the command-line interface to Stan:
+[`CmdStan`](https://mc-stan.org/users/interfaces/cmdstan.html). You may
+follow the instructions in [Getting started with
+CmdStanR](https://mc-stan.org/cmdstanr/articles/cmdstanr.html) to
+install both.
 
 To install tumr, copy and paste the following code into the console
 

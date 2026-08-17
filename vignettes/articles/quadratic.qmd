@@ -29,11 +29,19 @@ $$
 ## Model fit
 ```{r}
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
-quad_obj <- quad(mel2)
+fit_quad <- quad(mel2)
 ```
+
+## Summary
+
+```{r}
+summary(fit_quad)
+```
+
 
 ## Plot
 
 ```{r}
-plot(quad_obj)
+plot(fit_quad) + ggplot2::scale_y_log10()
+plot(fit_quad, "contrast")
 ```

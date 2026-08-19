@@ -11,6 +11,7 @@ quad(
   time = NULL,
   measure = NULL,
   group = NULL,
+  time_unit = "day",
   n_grid = 20,
   ...
 )
@@ -27,6 +28,10 @@ quad(
 \item{measure}{Column name for tumor measurements.}
 
 \item{group}{Column name specifying the treatment group.}
+
+\item{time_unit}{Unit of the original time variable. One of \code{"day"},
+\code{"week"}, \code{"month"}, or \code{"year"}. Default is \code{"day"}. Time is
+internally converted to months before model fitting.}
 
 \item{n_grid}{Number of time points used to evaluate treatment contrasts.
 Default is 20.}

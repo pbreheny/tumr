@@ -10,6 +10,9 @@
 #' @param time Column name for repeated time measurements.
 #' @param measure Column name for tumor measurements.
 #' @param group Column name specifying the treatment group.
+#' @param time_unit Unit of the original time variable. One of `"day"`,
+#'   `"week"`, `"month"`, or `"year"`. Default is `"day"`. Time is
+#'   internally converted to months before model fitting.
 #' @param n_grid Number of time points used to evaluate treatment contrasts.
 #'   Default is 20.
 #' @param ... Further arguments passed to [lme4::lmer()].
@@ -36,8 +39,10 @@ quad <- function(tumr_obj = NULL,
                  time = NULL,
                  measure = NULL,
                  group = NULL,
+                 time_unit = "day",
                  n_grid = 20,
                  ...) {
+  time_unit <- match.arg(time_unit, choices = c("day", "week", "month", "year"))
   if (!is.null(tumr_obj)) {
     data <- tumr_obj$data
     id <- tumr_obj$id
@@ -52,12 +57,17 @@ quad <- function(tumr_obj = NULL,
     Volume = dplyr::all_of(measure),
     Treatment = dplyr::all_of(group)
   )
-  data <- dplyr::mutate(
-    data,
-    Time_month = Time / 30
+  conversion_factor <- switch(
+    time_unit,
+    day   = 1 / 30.4375,
+    week  = 7 / 30.4375,
+    month = 1,
+    year  = 12
   )
+  data <- dplyr::mutate(data, Time_month = Time * conversion_factor)
   fit <- lme4::lmer(
-    log1p(Volume) ~ (Time_month + I(Time_month^2)) * Treatment +
+    log1p(Volume) ~
+      (Time_month + I(Time_month^2)) * Treatment +
       (Time_month | ID),
     data = data,
     ...
@@ -79,7 +89,8 @@ quad <- function(tumr_obj = NULL,
     fit = fit,
     emm = emm,
     contrast_obj = contrast_obj,
-    contrast_df = contrast_df
+    contrast_df = contrast_df,
+    time_unit = time_unit
   )
   class(result) <- "quad"
   return(result)

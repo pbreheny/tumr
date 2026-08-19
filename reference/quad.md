@@ -14,6 +14,7 @@ quad(
   time = NULL,
   measure = NULL,
   group = NULL,
+  time_unit = "day",
   n_grid = 20,
   ...
 )
@@ -45,6 +46,12 @@ quad(
 - group:
 
   Column name specifying the treatment group.
+
+- time_unit:
+
+  Unit of the original time variable. One of `"day"`, `"week"`,
+  `"month"`, or `"year"`. Default is `"day"`. Time is internally
+  converted to months before model fitting.
 
 - n_grid:
 

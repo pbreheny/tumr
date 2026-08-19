@@ -28,8 +28,8 @@ mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-plot_median(mel1, par = TRUE, fold = FALSE)
-plot_median(mel1, par = TRUE, fold = TRUE)
+plot(mel1, par = TRUE, fold = FALSE)
+plot(mel1, par = TRUE, fold = TRUE)
 ```
 
 
@@ -37,8 +37,8 @@ plot_median(mel1, par = TRUE, fold = TRUE)
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-plot_median(mel1, par = FALSE, fold = FALSE)
-plot_median(mel1, par = FALSE, fold = TRUE)
+plot(mel1, par = FALSE, fold = FALSE)
+plot(mel1, par = FALSE, fold = TRUE)
 ```
 
 
@@ -55,8 +55,8 @@ breast_meta <- tumr(breast, ID, Week, Volume, Treatment)
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-plot_median(breast_meta, par = TRUE, fold = FALSE)
-plot_median(breast_meta, par = TRUE, fold = TRUE)
+plot(breast_meta, par = TRUE, fold = FALSE)
+plot(breast_meta, par = TRUE, fold = TRUE)
 ```
 
 
@@ -64,8 +64,8 @@ plot_median(breast_meta, par = TRUE, fold = TRUE)
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-plot_median(breast_meta, par = FALSE, fold = FALSE)
-plot_median(breast_meta, par = FALSE, fold = TRUE)
+plot(breast_meta, par = FALSE, fold = FALSE)
+plot(breast_meta, par = FALSE, fold = TRUE)
 ```
 
 
@@ -83,8 +83,8 @@ pros_meta <- tumr(prostate, ID, Age, BLI, Genotype)
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-plot_median(pros_meta, par = TRUE, fold = FALSE)
-plot_median(pros_meta, par = TRUE, fold = TRUE)
+plot(pros_meta, par = TRUE, fold = FALSE)
+plot(pros_meta, par = TRUE, fold = TRUE)
 ```
 
 
@@ -92,6 +92,6 @@ plot_median(pros_meta, par = TRUE, fold = TRUE)
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-plot_median(pros_meta, par = FALSE, fold = FALSE)
-plot_median(pros_meta, par = FALSE, fold = TRUE)
+plot(pros_meta, par = FALSE, fold = FALSE)
+plot(pros_meta, par = FALSE, fold = TRUE)
 ```

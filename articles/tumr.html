@@ -141,7 +141,7 @@
 <p>The figure below compares a naive longitudinal visualization with a tumr-based approach that explicitly accounts for censoring and missing observations.</p>
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_mean</span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">Treatment</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">ID</span>, stat <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -155,8 +155,8 @@
 <p>The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect.</p>
 <p>Also, parametric methods can be used for visualization.</p>
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -414,13 +414,13 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </h3>
 <p>Since lmm() model the data on log scale by default and a straight line corresponds to exponential growth on log scale, we can check whether the exponential growth model fits well by plotting the residuals from Linear Mixed Model vs time.</p>
 <div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
 values.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -444,14 +444,11 @@ values.</code></pre>
 </div>
 </div>
 </div>
-</section></section><section class="section level2"><h2 id="flexible-modeling-of-nonlinear-growth">Flexible modeling of nonlinear growth<a class="anchor" aria-label="anchor" href="#flexible-modeling-of-nonlinear-growth"></a>
-</h2>
-<p>For datasets that exhibit non-linear growth, we also provide the <a href="articles/quadratic.html">Exponential Quadratic Model</a> and <a href="articles/gam.html">Generalized Addictive Mixed Model</a> as alternative modeling approaches. Examples of their applications can be found in the linked articles.</p>
-</section><section class="section level2"><h2 id="bayesian-hierarchical-linear-model">Bayesian Hierarchical Linear Model<a class="anchor" aria-label="anchor" href="#bayesian-hierarchical-linear-model"></a>
-</h2>
-<p>In addition to the linear mixed model, the package also supports fitting a <a href="articles/bhm.html">Bayesian hierarchical linear model</a>. Detailed usage of this model is described in an article.</p>
-</section><section class="section level2"><h2 id="tumor-doubling-time-based-on-fitted-tumor-growth-model">Tumor Doubling Time Based on Fitted Tumor Growth Model<a class="anchor" aria-label="anchor" href="#tumor-doubling-time-based-on-fitted-tumor-growth-model"></a>
-</h2>
+</section><section class="level2"><h3 id="tumor-doubling-time-based-on-fitted-tumor-growth-model">Tumor Doubling Time Based on Fitted Tumor Growth Model<a class="anchor" aria-label="anchor" href="#tumor-doubling-time-based-on-fitted-tumor-growth-model"></a>
+</h3>
+<p>For tumors following approximately exponential growth, the doubling time is</p>
+<p><span class="math inline">T_d=\frac{\log(2)}{\beta}</span>,</p>
+<p>where (&gt;0) is the estimated growth rate. For an lmm object, dtime() computes the treatment-specific slope from the fixed time effect and treatment-by-time interactions. Uncertainty is assessed using 1,000 parametric bootstrap samples, and the resulting doubling times are summarized by their mean, median, and 95% interval. Non-positive slopes are assigned an infinite doubling time.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dtime.html">dtime</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
@@ -471,6 +468,13 @@ $summary
 5         E 14.78  14.16 10.30 22.35</code></pre>
 </div>
 </div>
+<p>dtime() can also be applied to a bhm object, using posterior draws of the treatment-specific slopes. Details about how to use dtime() for bhm project can be found in <a href="articles/bhm.html">Bayesian hierarchical linear model</a>.</p>
+</section></section><section class="section level2"><h2 id="flexible-modeling-of-nonlinear-growth">Flexible modeling of nonlinear growth<a class="anchor" aria-label="anchor" href="#flexible-modeling-of-nonlinear-growth"></a>
+</h2>
+<p>For datasets that exhibit non-linear growth, we also provide the <a href="articles/quadratic.html">Exponential Quadratic Model</a> and <a href="articles/gam.html">Generalized Addictive Mixed Model</a> as alternative modeling approaches. Examples of their applications can be found in the linked articles.</p>
+</section><section class="section level2"><h2 id="bayesian-hierarchical-linear-model">Bayesian Hierarchical Linear Model<a class="anchor" aria-label="anchor" href="#bayesian-hierarchical-linear-model"></a>
+</h2>
+<p>In addition to the linear mixed model, the package also supports fitting a <a href="articles/bhm.html">Bayesian hierarchical linear model</a>. Detailed usage of this model is described in an article.</p>
 </section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);

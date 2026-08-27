@@ -92,33 +92,37 @@
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
 <span><span class="va">fit_quad</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/quad.html">quad</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Some predictor variables are on very different scales: consider rescaling.
+You may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.</code></pre>
+</div>
 </div>
 </section><section class="level2"><h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit_quad</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>NOTE: Results may be misleading due to involvement in interactions</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast   estimate        SE p.value
-    A - B  0.6701899 0.3297400  0.2908
-    A - C  0.1380658 0.3224133  0.6706
-    A - D -0.4241003 0.3299041  0.6152
-    A - E  1.0145467 0.3398054  0.0378
-    B - C -0.5321241 0.3285510  0.4705
-    B - D -1.0942902 0.3359049  0.0194
-    B - E  0.3443568 0.3456344  0.6500
-    C - D -0.5621661 0.3287156  0.4705
-    C - E  0.8764809 0.3386517  0.0929
-    D - E  1.4386470 0.3457909  0.0015</code></pre>
+    A - B  0.6701901 0.3297438  0.2909
+    A - C  0.1380662 0.3224170  0.6706
+    A - D -0.4241015 0.3299077  0.6152
+    A - E  1.0145473 0.3398094  0.0378
+    B - C -0.5321239 0.3285548  0.4705
+    B - D -1.0942917 0.3359087  0.0194
+    B - E  0.3443572 0.3456385  0.6500
+    C - D -0.5621677 0.3287193  0.4705
+    C - E  0.8764811 0.3386557  0.0929
+    D - E  1.4386489 0.3457948  0.0015</code></pre>
 </div>
 </div>
 </section><section class="level2"><h2 id="plot">Plot<a class="anchor" aria-label="anchor" href="#plot"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit_quad</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: the 'nobars' function has moved to the reformulas package. Please
@@ -130,7 +134,7 @@ update your imports, or ask an upstream package maintainer to do so.</code></pre
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit_quad</span>, <span class="st">"contrast"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
@@ -232,7 +236,7 @@ update your imports, or ask an upstream package maintainer to do so.</code></pre
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: August 19, 2026</p>
+  <p>Last updated: August 27, 2026</p>
 </div>
 
     </footer>

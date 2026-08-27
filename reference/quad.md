@@ -14,7 +14,6 @@ quad(
   time = NULL,
   measure = NULL,
   group = NULL,
-  time_unit = "day",
   n_grid = 20,
   ...
 )
@@ -47,12 +46,6 @@ quad(
 
   Column name specifying the treatment group.
 
-- time_unit:
-
-  Unit of the original time variable. One of `"day"`, `"week"`,
-  `"month"`, or `"year"`. Default is `"day"`. Time is internally
-  converted to months before model fitting.
-
 - n_grid:
 
   Number of time points used to evaluate treatment contrasts. Default is
@@ -69,7 +62,7 @@ An object of class `quad`, which is a list containing:
 
 - data:
 
-  The processed tumor growth data with time converted to months.
+  The processed tumor growth data.
 
 - fit:
 
@@ -93,4 +86,8 @@ An object of class `quad`, which is a list containing:
 data(melanoma1)
 mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 quad_obj <- quad(mel1)
+#> Warning: Some predictor variables are on very different scales: consider rescaling. 
+#> You may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.
+#> Warning: Model failed to converge with max|grad| = 0.0175242 (tol = 0.002, component 1)
+#>   See ?lme4::convergence and ?lme4::troubleshooting.
 ```

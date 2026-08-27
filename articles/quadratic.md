@@ -29,6 +29,9 @@ mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 fit_quad <- quad(mel2)
 ```
 
+    Warning: Some predictor variables are on very different scales: consider rescaling.
+    You may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.
+
 ## Summary
 
 ``` r
@@ -39,16 +42,16 @@ summary(fit_quad)
     NOTE: Results may be misleading due to involvement in interactions
 
      contrast   estimate        SE p.value
-        A - B  0.6701899 0.3297400  0.2908
-        A - C  0.1380658 0.3224133  0.6706
-        A - D -0.4241003 0.3299041  0.6152
-        A - E  1.0145467 0.3398054  0.0378
-        B - C -0.5321241 0.3285510  0.4705
-        B - D -1.0942902 0.3359049  0.0194
-        B - E  0.3443568 0.3456344  0.6500
-        C - D -0.5621661 0.3287156  0.4705
-        C - E  0.8764809 0.3386517  0.0929
-        D - E  1.4386470 0.3457909  0.0015
+        A - B  0.6701901 0.3297438  0.2909
+        A - C  0.1380662 0.3224170  0.6706
+        A - D -0.4241015 0.3299077  0.6152
+        A - E  1.0145473 0.3398094  0.0378
+        B - C -0.5321239 0.3285548  0.4705
+        B - D -1.0942917 0.3359087  0.0194
+        B - E  0.3443572 0.3456385  0.6500
+        C - D -0.5621677 0.3287193  0.4705
+        C - E  0.8764811 0.3386557  0.0929
+        D - E  1.4386489 0.3457948  0.0015
 
 ## Plot
 

@@ -41,6 +41,10 @@ A `ggplot` object.
 data(melanoma1)
 mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 quad_obj <- quad(mel1)
+#> Warning: Some predictor variables are on very different scales: consider rescaling. 
+#> You may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.
+#> Warning: Model failed to converge with max|grad| = 0.0175242 (tol = 0.002, component 1)
+#>   See ?lme4::convergence and ?lme4::troubleshooting.
 
 # Fitted quadratic growth curves
 plot(quad_obj, type = "predict")

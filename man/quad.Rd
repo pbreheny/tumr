@@ -11,7 +11,6 @@ quad(
   time = NULL,
   measure = NULL,
   group = NULL,
-  time_unit = "day",
   n_grid = 20,
   ...
 )
@@ -29,10 +28,6 @@ quad(
 
 \item{group}{Column name specifying the treatment group.}
 
-\item{time_unit}{Unit of the original time variable. One of \code{"day"},
-\code{"week"}, \code{"month"}, or \code{"year"}. Default is \code{"day"}. Time is
-internally converted to months before model fitting.}
-
 \item{n_grid}{Number of time points used to evaluate treatment contrasts.
 Default is 20.}
 
@@ -41,7 +36,7 @@ Default is 20.}
 \value{
 An object of class \code{quad}, which is a list containing:
 \describe{
-\item{data}{The processed tumor growth data with time converted to months.}
+\item{data}{The processed tumor growth data.}
 \item{fit}{The fitted quadratic linear mixed model.}
 \item{emm}{Estimated marginal means by treatment at each time point.}
 \item{contrast_obj}{Pairwise treatment contrasts.}

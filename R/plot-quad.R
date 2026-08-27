@@ -34,14 +34,14 @@ plot.quad <- function(x,
   type <- match.arg(type)
   if (type == "predict") {
     time_grid <- seq(
-      min(x$data$Time_month, na.rm = TRUE),
-      max(x$data$Time_month, na.rm = TRUE),
+      min(x$data$Time, na.rm = TRUE),
+      max(x$data$Time, na.rm = TRUE),
       length.out = n_grid
     )
     model_data <- stats::model.frame(x$fit)
     treatment_levels <- levels(factor(model_data$Treatment))
     pred_grid <- expand.grid(
-      Time_month = time_grid,
+      Time = time_grid,
       Treatment = treatment_levels,
       stringsAsFactors = FALSE
     )
@@ -71,7 +71,7 @@ plot.quad <- function(x,
     p <- ggplot2::ggplot(
       pred_grid,
       ggplot2::aes(
-        x = Time_month,
+        x = Time,
         y = fit,
         color = Treatment,
         fill = Treatment
@@ -89,7 +89,7 @@ plot.quad <- function(x,
         linewidth = 1
       ) +
       ggplot2::labs(
-        x = "Time (months)",
+        x = "Time",
         y = "Tumor measurement",
         color = "Treatment",
         fill = "Treatment"
@@ -99,12 +99,12 @@ plot.quad <- function(x,
     return(p)
   }
   if (type == "contrast") {
-    contrast_times <- sort(unique(x$contrast_df$Time_month))
+    contrast_times <- sort(unique(x$contrast_df$Time))
     errorbar_width <- 0.1
     p <- ggplot2::ggplot(
       x$contrast_df,
       ggplot2::aes(
-        x = Time_month,
+        x = Time,
         y = estimate
       )
     ) +
@@ -126,7 +126,7 @@ plot.quad <- function(x,
         ~ contrast
       ) +
       ggplot2::labs(
-        x = "Time (months)",
+        x = "Time",
         y = "Treatment contrast (log scale)"
       ) +
       ggplot2::theme_bw()

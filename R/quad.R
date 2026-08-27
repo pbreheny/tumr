@@ -10,16 +10,13 @@
 #' @param time Column name for repeated time measurements.
 #' @param measure Column name for tumor measurements.
 #' @param group Column name specifying the treatment group.
-#' @param time_unit Unit of the original time variable. One of `"day"`,
-#'   `"week"`, `"month"`, or `"year"`. Default is `"day"`. Time is
-#'   internally converted to months before model fitting.
 #' @param n_grid Number of time points used to evaluate treatment contrasts.
 #'   Default is 20.
 #' @param ... Further arguments passed to [lme4::lmer()].
 #'
 #' @return An object of class `quad`, which is a list containing:
 #' \describe{
-#'   \item{data}{The processed tumor growth data with time converted to months.}
+#'   \item{data}{The processed tumor growth data.}
 #'   \item{fit}{The fitted quadratic linear mixed model.}
 #'   \item{emm}{Estimated marginal means by treatment at each time point.}
 #'   \item{contrast_obj}{Pairwise treatment contrasts.}
@@ -39,10 +36,8 @@ quad <- function(tumr_obj = NULL,
                  time = NULL,
                  measure = NULL,
                  group = NULL,
-                 time_unit = "day",
                  n_grid = 20,
                  ...) {
-  time_unit <- match.arg(time_unit, choices = c("day", "week", "month", "year"))
   if (!is.null(tumr_obj)) {
     data <- tumr_obj$data
     id <- tumr_obj$id
@@ -57,40 +52,29 @@ quad <- function(tumr_obj = NULL,
     Volume = dplyr::all_of(measure),
     Treatment = dplyr::all_of(group)
   )
-  conversion_factor <- switch(
-    time_unit,
-    day   = 1 / 30.4375,
-    week  = 7 / 30.4375,
-    month = 1,
-    year  = 12
-  )
-  data <- dplyr::mutate(data, Time_month = Time * conversion_factor)
   fit <- lme4::lmer(
-    log1p(Volume) ~
-      (Time_month + I(Time_month^2)) * Treatment +
-      (Time_month | ID),
+    log1p(Volume) ~ (Time + I(Time^2)) * Treatment + (Time | ID),
     data = data,
     ...
   )
   time_grid <- seq(
-    min(data$Time_month, na.rm = TRUE),
-    max(data$Time_month, na.rm = TRUE),
+    min(data$Time, na.rm = TRUE),
+    max(data$Time, na.rm = TRUE),
     length.out = n_grid
   )
   emm <- emmeans::emmeans(
     fit,
-    ~ Treatment | Time_month,
-    at = list(Time_month = time_grid)
+    ~ Treatment | Time,
+    at = list(Time = time_grid)
   )
   contrast_obj <- emmeans::contrast(emm, "pairwise")
   contrast_df <- as.data.frame(stats::confint(contrast_obj))
   result <- list(
-    data = data,
-    fit = fit,
-    emm = emm,
+    data         = data,
+    fit          = fit,
+    emm          = emm,
     contrast_obj = contrast_obj,
-    contrast_df = contrast_df,
-    time_unit = time_unit
+    contrast_df  = contrast_df
   )
   class(result) <- "quad"
   return(result)

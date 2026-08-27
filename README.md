@@ -38,10 +38,10 @@ data("melanoma2")
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 
 # Visualization
-plot_median(mel2, par = FALSE)
-plot_median(mel2, par = FALSE)
-plot_median(mel2, par = TRUE)
-plot_median(mel2, par = TRUE, fold = TRUE)
+plot(mel2, par = FALSE)
+plot(mel2, par = FALSE)
+plot(mel2, par = TRUE)
+plot(mel2, par = TRUE, fold = TRUE)
 
 # Response feature analysis
 rfeat_mel2 <- rfeat(mel2, comparison = "both")
@@ -56,7 +56,8 @@ plot(lmm_mel2, "slope")
 
 # Fit non-linear model - quadratic
 quad_obj <- quad(mel2)
-plot(quad_obj)
+plot(quad_obj, "predict") + ggplot2::scale_y_log10()
+plot(quad_obj, "contrast")
 
 # Fit non-linear model - Generalized Addictive Mixed Model
 fit <- gamFit(mel2)

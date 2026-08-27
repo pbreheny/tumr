@@ -1,5 +1,5 @@
 Package: tumr
-Title: Analysis and Power Calculations for Tumor Growth Rates
+Title: A collection of tools for visualizing and analyzing tumor growth data
 Version: 0.7.0
 Authors@R: c(
   person("Tian", "Zhao", role='aut', email="tian-zhao@uiowa.edu", comment=c(ORCID="0009-0006-9527-286X")),

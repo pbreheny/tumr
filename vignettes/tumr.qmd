@@ -26,11 +26,11 @@ Most tumr functions operate on a tumr object, which stores both the data and its
 To create a tumr object, use the tumr() function:
 
 ```{r}
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+melanoma2$months <- melanoma2$Day / (365/12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 ```
 
-This object can now be passed directly into other tumr functions.
-
+This object can now be passed directly to other `tumr` functions. Note that the function used to create a `tumr` object includes a built-in mechanism to check the scale of the time variable. This is because poor scaling of the time variable is a common cause of convergence issues when fitting models with `lmm()`. A simple and effective solution is to rescale time to a larger unit (for example, from days to months). Users can refer to this [article](articles/troubleshooting.html) for more details.
 
 
 # Visualizing tumor growth under informative dropout

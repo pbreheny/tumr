@@ -1,13 +1,13 @@
-# Quadratic Linear Mixed Model
+# Exponential quadratic Model
 
 The package also includes
 [`quad()`](https://pbreheny.github.io/tumr/reference/quad.md), which
-fits a quadratic linear mixed effects model to tumor growth data. This
-model is useful when tumor growth over time may be nonlinear rather than
-strictly linear.
+fits a Exponential quadratic linear mixed effects model to tumor growth
+data. This model is useful when tumor growth over time may be nonlinear
+rather than strictly linear.
 
-Quadratic linear mixed models are well suited for longitudinal tumor
-growth data because they account for:
+Exponential quadratic linear mixed models are well suited for
+longitudinal tumor growth data because they account for:
 
 - Fixed effects: population-level effects of interest, such as
   treatment, time, and the quadratic effect of time
@@ -26,6 +26,16 @@ model:
 ``` r
 
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+```
+
+    Warning:
+    ----------------------------------------------------------------------
+    The range of the time variable is greater than 50, which may cause convergence issues when fitting lmm().
+    Consider rescaling time to a larger unit (for example, from days to weeks or months).
+    ----------------------------------------------------------------------
+
+``` r
+
 fit_quad <- quad(mel2)
 ```
 

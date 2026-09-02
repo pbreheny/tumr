@@ -7,7 +7,7 @@
 - [tumr data sets](https://pbreheny.github.io/tumr/articles/data.md):
 - [Generalized Addictive Mixed
   Model](https://pbreheny.github.io/tumr/articles/gam.md):
-- [Quadratic Linear Mixed
+- [Exponential quadratic
   Model](https://pbreheny.github.io/tumr/articles/quadratic.md):
 - [Troubleshooting](https://pbreheny.github.io/tumr/articles/troubleshooting.md):
 - [Getting started with the tumr

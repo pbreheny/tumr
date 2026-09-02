@@ -42,7 +42,7 @@
 <li><a class="dropdown-item" href="../articles/bhm.html">Bayesian Hierarchical Linear Model</a></li>
     <li><a class="dropdown-item" href="../articles/data.html">tumr data sets</a></li>
     <li><a class="dropdown-item" href="../articles/gam.html">Generalized Addictive Mixed Model</a></li>
-    <li><a class="dropdown-item" href="../articles/quadratic.html">Quadratic Linear Mixed Model</a></li>
+    <li><a class="dropdown-item" href="../articles/quadratic.html">Exponential quadratic Model</a></li>
     <li><a class="dropdown-item" href="../articles/troubleshooting.html">Troubleshooting</a></li>
   </ul>
 </li>
@@ -85,13 +85,21 @@
 </h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
-<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gamFit.html">gamFit</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning:
+----------------------------------------------------------------------
+The range of the time variable is greater than 50, which may cause convergence issues when fitting lmm().
+Consider rescaling time to a larger unit (for example, from days to weeks or months).
+----------------------------------------------------------------------</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gamFit.html">gamFit</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="result-summary">Result summary<a class="anchor" aria-label="anchor" href="#result-summary"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast   estimate        SE p.value
@@ -110,7 +118,7 @@
 </section><section class="level2"><h2 id="plot">Plot<a class="anchor" aria-label="anchor" href="#plot"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span> </span></code></pre></div>
 <div class="cell-output-display">
 <div>
@@ -118,7 +126,7 @@
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"predict"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
@@ -126,7 +134,7 @@
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"contrast"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
@@ -228,7 +236,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: August 27, 2026</p>
+  <p>Last updated: September 02, 2026</p>
 </div>
 
     </footer>

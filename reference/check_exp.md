@@ -29,6 +29,11 @@ A ggplot object.
 ``` r
 data(melanoma1)
 mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+#> Warning: 
+#> ----------------------------------------------------------------------
+#> The range of the time variable is greater than 50, which may cause convergence issues when fitting lmm().
+#> Consider rescaling time to a larger unit (for example, from days to weeks or months).
+#> ----------------------------------------------------------------------
 lmm1 <- lmm(mel1)
 #> Warning: Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
 #>   See ?lme4::convergence and ?lme4::troubleshooting.

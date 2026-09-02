@@ -16,6 +16,16 @@ group-specific smooth term for time.
 ``` r
 
 mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+```
+
+    Warning:
+    ----------------------------------------------------------------------
+    The range of the time variable is greater than 50, which may cause convergence issues when fitting lmm().
+    Consider rescaling time to a larger unit (for example, from days to weeks or months).
+    ----------------------------------------------------------------------
+
+``` r
+
 fit <- gamFit(mel2)
 ```
 

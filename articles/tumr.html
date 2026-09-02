@@ -42,7 +42,7 @@
 <li><a class="dropdown-item" href="../articles/bhm.html">Bayesian Hierarchical Linear Model</a></li>
     <li><a class="dropdown-item" href="../articles/data.html">tumr data sets</a></li>
     <li><a class="dropdown-item" href="../articles/gam.html">Generalized Addictive Mixed Model</a></li>
-    <li><a class="dropdown-item" href="../articles/quadratic.html">Quadratic Linear Mixed Model</a></li>
+    <li><a class="dropdown-item" href="../articles/quadratic.html">Exponential quadratic Model</a></li>
     <li><a class="dropdown-item" href="../articles/troubleshooting.html">Troubleshooting</a></li>
   </ul>
 </li>
@@ -91,6 +91,13 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning:
+----------------------------------------------------------------------
+The range of the time variable is greater than 50, which may cause convergence issues when fitting lmm().
+Consider rescaling time to a larger unit (for example, from days to weeks or months).
+----------------------------------------------------------------------</code></pre>
+</div>
 </div>
 <p>This object can now be passed directly into other tumr functions.</p>
 </section><section class="section level2"><h2 id="visualizing-tumor-growth-under-informative-dropout">Visualizing tumor growth under informative dropout<a class="anchor" aria-label="anchor" href="#visualizing-tumor-growth-under-informative-dropout"></a>
@@ -101,7 +108,7 @@
 <section class="level4"><h5 id="code-for-plot_mean">Code for plot_mean()<a class="anchor" aria-label="anchor" href="#code-for-plot_mean"></a>
 </h5>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">group</span>, <span class="va">time</span>, <span class="va">measure</span>, <span class="va">id</span>, <span class="va">stat</span> <span class="op">=</span> <span class="va">median</span>, <span class="va">remove_na</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">data_summary</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">group</span><span class="op">}</span><span class="op">}</span>, <span class="op">{</span><span class="op">{</span><span class="va">time</span><span class="op">}</span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -139,7 +146,7 @@
 </section></section><section class="level2"><h3 id="our-plots-are-good">Our plots are good<a class="anchor" aria-label="anchor" href="#our-plots-are-good"></a>
 </h3>
 <p>The figure below compares a naive longitudinal visualization with a tumr-based approach that explicitly accounts for censoring and missing observations.</p>
-<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_mean</span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">Treatment</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">ID</span>, stat <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
@@ -154,7 +161,7 @@
 </div>
 <p>The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect.</p>
 <p>Also, parametric methods can be used for visualization.</p>
-<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
@@ -202,7 +209,7 @@
 </ol>
 <p>The example below uses comparison = “both” to perform ANOVA followed by Tukey post-hoc comparisons.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">rfeat_mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rfeat.html">rfeat</a></span><span class="op">(</span><span class="va">mel2</span>, comparison <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$anova
@@ -236,7 +243,7 @@ E-D -0.007166687 -0.04335816  0.029024785 0.9794890</code></pre>
 </h3>
 <p>The plot() method for rfeat objects displays both the individual subject slopes and the group-level means.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rfeat_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
@@ -258,7 +265,7 @@ E-D -0.007166687 -0.04335816  0.029024785 0.9794890</code></pre>
 </div>
 <p>This specification allows each subject to have their own growth trajectory while estimating overall treatment effects. The model formula can be customized if desired.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">lmm_mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
@@ -324,7 +331,7 @@ Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
 <li>Statistical tests comparing slope differences between groups</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`overall effect of time`
@@ -371,7 +378,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 <li>Estimated mean growth slopes for each group with confidence intervals</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"response"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Model has log1p-transformed response. Back-transforming predictions to
@@ -384,7 +391,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"response"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Model has log1p-transformed response. Back-transforming predictions to
@@ -401,7 +408,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"slope"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
@@ -413,13 +420,13 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </section><section class="level2"><h3 id="checking-for-exponential-growth">Checking for exponential growth<a class="anchor" aria-label="anchor" href="#checking-for-exponential-growth"></a>
 </h3>
 <p>Since lmm() model the data on log scale by default and a straight line corresponds to exponential growth on log scale, we can check whether the exponential growth model fits well by plotting the residuals from Linear Mixed Model vs time.</p>
-<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
 values.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
@@ -432,7 +439,7 @@ values.</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/check_exp.html">check_exp</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
@@ -450,7 +457,7 @@ values.</code></pre>
 <p><span class="math inline">T_d=\frac{\log(2)}{\beta}</span>,</p>
 <p>where (&gt;0) is the estimated growth rate. For an lmm object, dtime() computes the treatment-specific slope from the fixed time effect and treatment-by-time interactions. Uncertainty is assessed using 1,000 parametric bootstrap samples, and the resulting doubling times are summarized by their mean, median, and 95% interval. Non-positive slopes are assigned an infinite doubling time.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dtime.html">dtime</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$method
@@ -568,7 +575,7 @@ $summary
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: August 27, 2026</p>
+  <p>Last updated: September 02, 2026</p>
 </div>
 
     </footer>

@@ -1,5 +1,5 @@
 ---
-title: "Quadratic Linear Mixed Model"
+title: "Exponential quadratic Model"
 format: 
   html:
     toc: true
@@ -13,9 +13,9 @@ library(tumr)
 
 
 
-The package also includes `quad()`, which fits a quadratic linear mixed effects model to tumor growth data. This model is useful when tumor growth over time may be nonlinear rather than strictly linear.
+The package also includes `quad()`, which fits a Exponential quadratic linear mixed effects model to tumor growth data. This model is useful when tumor growth over time may be nonlinear rather than strictly linear.
 
-Quadratic linear mixed models are well suited for longitudinal tumor growth data because they account for:
+Exponential quadratic linear mixed models are well suited for longitudinal tumor growth data because they account for:
 
 - Fixed effects: population-level effects of interest, such as treatment, time, and the quadratic effect of time
 - Random effects: subject-specific variability that induces correlation among repeated measurements

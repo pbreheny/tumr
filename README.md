@@ -5,6 +5,8 @@
 [![R-CMD-check](https://github.com/pbreheny/tumr/workflows/R-CMD-check/badge.svg)](https://github.com/pbreheny/tumr/actions)
 <!-- badges: end -->
 
+## tumr <img src="man/Figures/logo.png" align="right" width="150"/>
+
 tumr is a collection of tools for visualizing and analyzing tumor growth data. 
 
 An example of how to use tumr can be seen in the [Get Started](https://pbreheny.github.io/tumr/articles/tumr.html) page.

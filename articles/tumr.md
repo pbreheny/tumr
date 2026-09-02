@@ -347,7 +347,7 @@ visualizations:
 
 ``` r
 
-plot(lmm_mel2, "response")
+plot(lmm_mel2, "response") + ggplot2::coord_cartesian(ylim = c(0, 250000))
 ```
 
     Model has log1p-transformed response. Back-transforming predictions to

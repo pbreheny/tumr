@@ -31,7 +31,8 @@ library(tumr)
 data("melanoma2")
 
 # Create a tumr object
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+melanoma2$months <- melanoma2$Day / (365/12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 
 # Visualization
 plot(mel2, par = FALSE)

@@ -19,6 +19,42 @@ figures:
   fig.retina: 2
   bg: "#fff"
 
+reference:
+  - title: "Data Preparation and Example Datasets"
+    contents:
+      - tumr
+      - process_data
+      - get_lld
+      - breast
+      - melanoma1
+      - melanoma2
+      - prostate
+
+  - title: "Tumor Growth Models, Summaries, and Power"
+    contents:
+      - lmm
+      - quad
+      - gamFit
+      - bhm
+      - mixed
+      - rmanova
+      - dtime
+      - rfeat
+      - rfeat_pwr
+      - tumr_power
+      - gendat
+
+  - title: "Visualization and Diagnostics"
+    contents:
+      - plot_median
+      - check_exp
+
+  - title: "S3 Methods"
+    contents:
+      - starts_with("plot.")
+      - starts_with("print.")
+      - starts_with("summary.")
+
 navbar:
   structure:
     left: [intro, articles, reference, news]
@@ -34,4 +70,6 @@ footer:
     right: last_updated
   components:
     last_updated: !expr paste("Last updated:", format(Sys.time(), "%B %d, %Y"))
+
+
 

@@ -2,6 +2,7 @@
 #' Analysis and power calculations for tumor growth rates.
 #' @import stats
 #' @importFrom rlang .data `%||%`
+#' @keywords internal
 "_PACKAGE"
 
 

@@ -1,4 +1,4 @@
-#' Plot Quadratic Linear Mixed Model Fit
+#' Plot the result of Exponential quadratic model
 #'
 #' Plots fitted treatment-specific quadratic growth curves or pairwise
 #' treatment contrasts over time from a fitted \code{quad} object.

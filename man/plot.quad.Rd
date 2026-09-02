@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot-quad.R
 \name{plot.quad}
 \alias{plot.quad}
-\title{Plot Quadratic Linear Mixed Model Fit}
+\title{Plot the result of Exponential quadratic model}
 \usage{
 \method{plot}{quad}(x, type = c("predict", "contrast"), n_grid = 20, ...)
 }

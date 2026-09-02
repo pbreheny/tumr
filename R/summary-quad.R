@@ -1,4 +1,4 @@
-#' Summary of a Quadratic Mixed Model Fit
+#' Summary of Exponential quadratic model
 #'
 #' Returns the full linear mixed-model summary and pairwise treatment
 #' comparisons based on estimated marginal means.

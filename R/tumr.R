@@ -26,12 +26,11 @@ tumr <- function(data, id, time, measure, group){
       diff(range(time_values, na.rm = TRUE)) > 50) {
     warning(
       paste0(
-        "\n----------------------------------------------------------------------\n",
-        "The range of the time variable is greater than 50, which may ",
-        "cause convergence issues when fitting lmm().\n",
-        "Consider rescaling time to a larger unit ",
-        "(for example, from days to weeks or months).\n",
-        "----------------------------------------------------------------------"
+        "\n--------------------------------------------------------------------\n",
+        "The time range is greater than 50, which may cause convergence\n",
+        "issues when fitting lmm(). Consider rescaling the time variable\n",
+        "to a larger unit (e.g., from days to weeks or months).\n",
+        "--------------------------------------------------------------------"
       ),
       call. = FALSE
     )

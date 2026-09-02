@@ -2,7 +2,7 @@
 % Please edit documentation in R/quad.R
 \name{quad}
 \alias{quad}
-\title{Quadratic Linear Mixed Model for Tumor Growth Data}
+\title{Exponential quadratic Model for Tumor Growth Data}
 \usage{
 quad(
   tumr_obj = NULL,
@@ -37,14 +37,14 @@ Default is 20.}
 An object of class \code{quad}, which is a list containing:
 \describe{
 \item{data}{The processed tumor growth data.}
-\item{fit}{The fitted quadratic linear mixed model.}
+\item{fit}{The fitted Exponential quadratic model.}
 \item{emm}{Estimated marginal means by treatment at each time point.}
 \item{contrast_obj}{Pairwise treatment contrasts.}
 \item{contrast_df}{A data frame containing contrast estimates and confidence intervals.}
 }
 }
 \description{
-Fits a quadratic linear mixed model for tumor growth data and computes
+Fits an Exponential quadratic model for tumor growth data and computes
 pairwise treatment contrasts over a grid of time points using estimated
 marginal means.
 }

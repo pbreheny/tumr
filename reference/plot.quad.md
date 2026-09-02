@@ -1,4 +1,4 @@
-# Plot Quadratic Linear Mixed Model Fit
+# Plot the result of Exponential quadratic model
 
 Plots fitted treatment-specific quadratic growth curves or pairwise
 treatment contrasts over time from a fitted `quad` object.
@@ -41,10 +41,11 @@ A `ggplot` object.
 data(melanoma1)
 mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 #> Warning: 
-#> ----------------------------------------------------------------------
-#> The range of the time variable is greater than 50, which may cause convergence issues when fitting lmm().
-#> Consider rescaling time to a larger unit (for example, from days to weeks or months).
-#> ----------------------------------------------------------------------
+#> --------------------------------------------------------------------
+#> The time range is greater than 50, which may cause convergence
+#> issues when fitting lmm(). Consider rescaling the time variable
+#> to a larger unit (e.g., from days to weeks or months).
+#> --------------------------------------------------------------------
 quad_obj <- quad(mel1)
 #> Warning: Some predictor variables are on very different scales: consider rescaling. 
 #> You may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.

@@ -9,10 +9,11 @@ the raw values and fold-change results from the nonparametric method.
 ## Another Melanoma Data Set, *melanoma1*
 
     Warning:
-    ----------------------------------------------------------------------
-    The range of the time variable is greater than 50, which may cause convergence issues when fitting lmm().
-    Consider rescaling time to a larger unit (for example, from days to weeks or months).
-    ----------------------------------------------------------------------
+    --------------------------------------------------------------------
+    The time range is greater than 50, which may cause convergence
+    issues when fitting lmm(). Consider rescaling the time variable
+    to a larger unit (e.g., from days to weeks or months).
+    --------------------------------------------------------------------
 
 ``` r
 

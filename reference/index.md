@@ -29,7 +29,7 @@
 - [`plot(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/plot.lmm.md)
   : Creates Plots of an lmm object
 - [`plot(`*`<quad>`*`)`](https://pbreheny.github.io/tumr/reference/plot.quad.md)
-  : Plot Quadratic Linear Mixed Model Fit
+  : Plot the result of Exponential quadratic model
 - [`plot(`*`<rfeat>`*`)`](https://pbreheny.github.io/tumr/reference/plot.rfeat.md)
   : Plot based on rfeat analysis
 - [`plot(`*`<tumr_gam>`*`)`](https://pbreheny.github.io/tumr/reference/plot.tumr_gam.md)
@@ -45,7 +45,7 @@
 - [`prostate`](https://pbreheny.github.io/tumr/reference/prostate.md) :
   Tumor growth data for a prostate cancer model
 - [`quad()`](https://pbreheny.github.io/tumr/reference/quad.md) :
-  Quadratic Linear Mixed Model for Tumor Growth Data
+  Exponential quadratic Model for Tumor Growth Data
 - [`rfeat()`](https://pbreheny.github.io/tumr/reference/rfeat.md) :
   Analysis based on response features
 - [`rfeat_pwr()`](https://pbreheny.github.io/tumr/reference/rfeat_pwr.md)
@@ -57,7 +57,7 @@
 - [`summary(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/summary.lmm.md)
   : Creates a summary of an lmm object
 - [`summary(`*`<quad>`*`)`](https://pbreheny.github.io/tumr/reference/summary.quad.md)
-  : Summary of a Quadratic Mixed Model Fit
+  : Summary of Exponential quadratic model
 - [`summary(`*`<tumr_gam>`*`)`](https://pbreheny.github.io/tumr/reference/summary.tumr_gam.md)
   : Summary of a GAM Fit for Tumor Growth Data
 - [`tumr-package`](https://pbreheny.github.io/tumr/reference/tumr-package.md)

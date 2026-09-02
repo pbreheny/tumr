@@ -1,6 +1,6 @@
-# Quadratic Linear Mixed Model for Tumor Growth Data
+# Exponential quadratic Model for Tumor Growth Data
 
-Fits a quadratic linear mixed model for tumor growth data and computes
+Fits an Exponential quadratic model for tumor growth data and computes
 pairwise treatment contrasts over a grid of time points using estimated
 marginal means.
 
@@ -66,7 +66,7 @@ An object of class `quad`, which is a list containing:
 
 - fit:
 
-  The fitted quadratic linear mixed model.
+  The fitted Exponential quadratic model.
 
 - emm:
 
@@ -86,10 +86,11 @@ An object of class `quad`, which is a list containing:
 data(melanoma1)
 mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 #> Warning: 
-#> ----------------------------------------------------------------------
-#> The range of the time variable is greater than 50, which may cause convergence issues when fitting lmm().
-#> Consider rescaling time to a larger unit (for example, from days to weeks or months).
-#> ----------------------------------------------------------------------
+#> --------------------------------------------------------------------
+#> The time range is greater than 50, which may cause convergence
+#> issues when fitting lmm(). Consider rescaling the time variable
+#> to a larger unit (e.g., from days to weeks or months).
+#> --------------------------------------------------------------------
 quad_obj <- quad(mel1)
 #> Warning: Some predictor variables are on very different scales: consider rescaling. 
 #> You may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.

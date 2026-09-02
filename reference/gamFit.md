@@ -89,10 +89,11 @@ An object of class `"tumr_gam"` with components:
 data(melanoma1)
 mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
 #> Warning: 
-#> ----------------------------------------------------------------------
-#> The range of the time variable is greater than 50, which may cause convergence issues when fitting lmm().
-#> Consider rescaling time to a larger unit (for example, from days to weeks or months).
-#> ----------------------------------------------------------------------
+#> --------------------------------------------------------------------
+#> The time range is greater than 50, which may cause convergence
+#> issues when fitting lmm(). Consider rescaling the time variable
+#> to a larger unit (e.g., from days to weeks or months).
+#> --------------------------------------------------------------------
 gamFit(mel1)
 #> $fit
 #> 
@@ -714,7 +715,7 @@ gamFit(mel1)
 #> $formula
 #> log(.measure + 1) ~ .group + s(.time, by = .group) + s(.id, bs = "re") + 
 #>     s(.id, .time, bs = "re")
-#> <environment: 0x5653e192a4a0>
+#> <environment: 0x55bc89ab0578>
 #> 
 #> $relevant_info
 #> $relevant_info$ID

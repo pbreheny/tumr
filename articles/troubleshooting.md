@@ -22,10 +22,11 @@ mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
 ```
 
     Warning:
-    ----------------------------------------------------------------------
-    The range of the time variable is greater than 50, which may cause convergence issues when fitting lmm().
-    Consider rescaling time to a larger unit (for example, from days to weeks or months).
-    ----------------------------------------------------------------------
+    --------------------------------------------------------------------
+    The time range is greater than 50, which may cause convergence
+    issues when fitting lmm(). Consider rescaling the time variable
+    to a larger unit (e.g., from days to weeks or months).
+    --------------------------------------------------------------------
 
 ``` r
 

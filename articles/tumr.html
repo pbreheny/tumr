@@ -93,10 +93,11 @@
 <code class="sourceCode R"><span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning:
-----------------------------------------------------------------------
-The range of the time variable is greater than 50, which may cause convergence issues when fitting lmm().
-Consider rescaling time to a larger unit (for example, from days to weeks or months).
-----------------------------------------------------------------------</code></pre>
+--------------------------------------------------------------------
+The time range is greater than 50, which may cause convergence
+issues when fitting lmm(). Consider rescaling the time variable
+to a larger unit (e.g., from days to weeks or months).
+--------------------------------------------------------------------</code></pre>
 </div>
 </div>
 <p>This object can now be passed directly into other tumr functions.</p>

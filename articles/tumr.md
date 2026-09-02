@@ -22,17 +22,20 @@ To create a tumr object, use the tumr() function:
 
 ``` r
 
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+melanoma2$months <- melanoma2$Day / (365/12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 ```
 
-    Warning:
-    --------------------------------------------------------------------
-    The time range is greater than 50, which may cause convergence
-    issues when fitting lmm(). Consider rescaling the time variable
-    to a larger unit (e.g., from days to weeks or months).
-    --------------------------------------------------------------------
-
-This object can now be passed directly into other tumr functions.
+This object can now be passed directly to other `tumr` functions. Note
+that the function used to create a `tumr` object includes a built-in
+mechanism to check the scale of the time variable. This is because poor
+scaling of the time variable is a common cause of convergence issues
+when fitting models with
+[`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md). A simple
+and effective solution is to rescale time to a larger unit (for example,
+from days to months). Users can refer to this
+[article](https://pbreheny.github.io/tumr/articles/articles/troubleshooting.md)
+for more details.
 
 ## Visualizing tumor growth under informative dropout
 
@@ -174,9 +177,9 @@ Tukey post-hoc comparisons.
 ```
 
     $anova
-                Df   Sum Sq   Mean Sq F value Pr(>F)
-    Group        4 0.008424 0.0021061   2.938 0.0314 *
-    Residuals   42 0.030106 0.0007168
+                Df Sum Sq Mean Sq F value Pr(>F)
+    Group        4  7.794  1.9485   2.938 0.0314 *
+    Residuals   42 27.853  0.6632
     ---
     Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -187,17 +190,17 @@ Tukey post-hoc comparisons.
     Fit: aov(formula = Beta ~ Group, data = betas)
 
     $Group
-                diff         lwr          upr     p adj
-    B-A -0.039562710 -0.07461937 -0.004506050 0.0200139
-    C-A -0.027355317 -0.06147696  0.006766330 0.1701000
-    D-A -0.023685320 -0.05780697  0.010436327 0.2941216
-    E-A -0.030852007 -0.06704348  0.005339465 0.1274422
-    C-B  0.012207393 -0.02284927  0.047264052 0.8572838
-    D-B  0.015877390 -0.01917927  0.050934049 0.6982531
-    E-B  0.008710703 -0.02836362  0.045785023 0.9618601
-    D-C  0.003669997 -0.03045165  0.037791644 0.9980027
-    E-C -0.003496690 -0.03968816  0.032694782 0.9986875
-    E-D -0.007166687 -0.04335816  0.029024785 0.9794890
+              diff        lwr        upr     p adj
+    B-A -1.2033657 -2.2696725 -0.1370590 0.0200139
+    C-A -0.8320576 -1.8699243  0.2058092 0.1701000
+    D-A -0.7204285 -1.7582952  0.3174383 0.2941216
+    E-A -0.9384152 -2.0392391  0.1624087 0.1274422
+    C-B  0.3713082 -0.6949985  1.4376149 0.8572838
+    D-B  0.4829373 -0.5833695  1.5492440 0.6982531
+    E-B  0.2649505 -0.8627267  1.3926278 0.9618601
+    D-C  0.1116291 -0.9262377  1.1494958 0.9980027
+    E-C -0.1063576 -1.2071816  0.9944663 0.9986875
+    E-D -0.2179867 -1.3188107  0.8828372 0.9794890
 
 ### Plotting Response Feature Results
 
@@ -235,56 +238,50 @@ can be customized if desired.
 (lmm_mel2 <- lmm(mel2))
 ```
 
-    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
-      See ?lme4::convergence and ?lme4::troubleshooting.
-
     Linear mixed model fit by REML. t-tests use Satterthwaite's method [
     lmerModLmerTest]
-    Formula: log1p(Volume) ~ Treatment * Day + (Day | ID)
+    Formula: log1p(Volume) ~ Treatment * months + (months | ID)
        Data: data
 
-    REML criterion at convergence: 1216.5
+    REML criterion at convergence: 1182.4
 
     Scaled residuals:
         Min      1Q  Median      3Q     Max
     -6.8683 -0.3590  0.0569  0.4891  4.0759
 
     Random effects:
-     Groups   Name        Variance  Std.Dev. Corr
-     ID       (Intercept) 0.3909753 0.62528
-              Day         0.0006511 0.02552  -0.51
-     Residual             0.3220706 0.56751
+     Groups   Name        Variance Std.Dev. Corr
+     ID       (Intercept) 0.3911   0.6254
+              months      0.6025   0.7762   -0.51
+     Residual             0.3221   0.5675
     Number of obs: 568, groups:  ID, 47
 
     Fixed effects:
-                   Estimate Std. Error       df t value Pr(>|t|)
-    (Intercept)     3.66092    0.22688 46.83127  16.136  < 2e-16 ***
-    TreatmentB      0.53834    0.32255 42.89746   1.669  0.10240
-    TreatmentC      0.78053    0.31957 46.08359   2.442  0.01848 *
-    TreatmentD      1.33290    0.32410 48.71755   4.113  0.00015 ***
-    TreatmentE     -0.14693    0.33197 42.42209  -0.443  0.66031
-    Day             0.07971    0.00897 47.89633   8.886 1.06e-11 ***
-    TreatmentB:Day -0.03972    0.01269 43.36203  -3.130  0.00312 **
-    TreatmentC:Day -0.02673    0.01255 46.24553  -2.129  0.03859 *
-    TreatmentD:Day -0.02497    0.01321 54.20921  -1.890  0.06410 .
-    TreatmentE:Day -0.03060    0.01300 42.19464  -2.355  0.02325 *
+                      Estimate Std. Error      df t value Pr(>|t|)
+    (Intercept)         3.6609     0.2269 46.8170  16.134  < 2e-16 ***
+    TreatmentB          0.5383     0.3226 42.8852   1.669  0.10244
+    TreatmentC          0.7805     0.3196 46.0697   2.442  0.01849 *
+    TreatmentD          1.3329     0.3241 48.7024   4.112  0.00015 ***
+    TreatmentE         -0.1469     0.3320 42.4100  -0.443  0.66031
+    months              2.4245     0.2729 47.8797   8.885 1.07e-11 ***
+    TreatmentB:months  -1.2083     0.3860 43.3477  -3.130  0.00312 **
+    TreatmentC:months  -0.8130     0.3818 46.2297  -2.129  0.03861 *
+    TreatmentD:months  -0.7594     0.4018 54.1899  -1.890  0.06412 .
+    TreatmentE:months  -0.9309     0.3953 42.1808  -2.355  0.02327 *
     ---
     Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
     Correlation of Fixed Effects:
-                (Intr) TrtmnB TrtmnC TrtmnD TrtmnE Day    TrtB:D TrtC:D TrtD:D
+                (Intr) TrtmnB TrtmnC TrtmnD TrtmnE months TrtmB: TrtmC: TrtmD:
     TreatmentB  -0.703
     TreatmentC  -0.710  0.499
     TreatmentD  -0.700  0.492  0.497
     TreatmentE  -0.683  0.481  0.485  0.478
-    Day         -0.577  0.406  0.410  0.404  0.394
-    TretmntB:Dy  0.408 -0.560 -0.290 -0.286 -0.279 -0.707
-    TretmntC:Dy  0.412 -0.290 -0.573 -0.289 -0.282 -0.715  0.505
-    TretmntD:Dy  0.392 -0.276 -0.278 -0.585 -0.268 -0.679  0.480  0.485
-    TretmntE:Dy  0.398 -0.280 -0.283 -0.279 -0.556 -0.690  0.488  0.493  0.469
-    optimizer (nloptwrap) convergence code: 0 (OK)
-    Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
-      See ?lme4::convergence and ?lme4::troubleshooting.
+    months      -0.577  0.406  0.410  0.404  0.395
+    TrtmntB:mnt  0.408 -0.560 -0.290 -0.286 -0.279 -0.707
+    TrtmntC:mnt  0.413 -0.290 -0.573 -0.289 -0.282 -0.715  0.505
+    TrtmntD:mnt  0.392 -0.276 -0.278 -0.586 -0.268 -0.679  0.480  0.485
+    TrtmntE:mnt  0.398 -0.280 -0.283 -0.279 -0.556 -0.690  0.488  0.493  0.469
 
 **Note:** You may see a convergence warning when fitting this model. If
 this occurs, see the
@@ -305,36 +302,36 @@ summary(lmm_mel2)
 ```
 
     $`overall effect of time`
-     1       Day.trend      SE   df lower.CL upper.CL
-     overall    0.0553 0.00411 41.3    0.047   0.0636
+     1       months.trend    SE   df lower.CL upper.CL
+     overall         1.68 0.125 41.3     1.43     1.93
 
     Results are averaged over the levels of: Treatment
     Degrees-of-freedom method: kenward-roger
     Confidence level used: 0.95
 
     $`slope of treatment over time`
-     Treatment Day.trend      SE   df lower.CL upper.CL
-     A            0.0797 0.00898 43.6   0.0616   0.0978
-     B            0.0400 0.00898 35.8   0.0218   0.0582
-     C            0.0530 0.00879 40.6   0.0352   0.0707
-     D            0.0547 0.00972 55.4   0.0353   0.0742
-     E            0.0491 0.00941 34.4   0.0300   0.0682
+     Treatment months.trend    SE   df lower.CL upper.CL
+     A                 2.42 0.273 43.6    1.874     2.98
+     B                 1.22 0.273 35.8    0.662     1.77
+     C                 1.61 0.267 40.6    1.072     2.15
+     D                 1.67 0.296 55.4    1.073     2.26
+     E                 1.49 0.286 34.4    0.912     2.07
 
     Degrees-of-freedom method: kenward-roger
     Confidence level used: 0.95
 
     $`test slope differences`
-     contrast estimate     SE   df t.ratio p.value
-     A - B     0.03972 0.0127 39.4   3.128  0.0258
-     A - C     0.02673 0.0126 42.1   2.128  0.2277
-     A - D     0.02497 0.0132 49.4   1.887  0.3378
-     A - E     0.03060 0.0130 38.4   2.354  0.1505
-     B - C    -0.01300 0.0126 38.0  -1.034  0.8378
-     B - D    -0.01476 0.0132 44.8  -1.115  0.7977
-     B - E    -0.00912 0.0130 35.0  -0.701  0.9548
-     C - D    -0.00176 0.0131 47.9  -0.134  0.9999
-     C - E     0.00388 0.0129 37.0   0.301  0.9981
-     D - E     0.00564 0.0135 43.4   0.417  0.9934
+     contrast estimate    SE   df t.ratio p.value
+     A - B      1.2083 0.386 39.4   3.128  0.0259
+     A - C      0.8130 0.382 42.1   2.128  0.2278
+     A - D      0.7594 0.402 49.4   1.887  0.3378
+     A - E      0.9309 0.396 38.4   2.353  0.1505
+     B - C     -0.3953 0.382 38.0  -1.034  0.8378
+     B - D     -0.4489 0.403 44.8  -1.115  0.7978
+     B - E     -0.2774 0.396 35.0  -0.701  0.9549
+     C - D     -0.0536 0.399 47.9  -0.134  0.9999
+     C - E      0.1179 0.392 37.0   0.301  0.9981
+     D - E      0.1715 0.411 43.4   0.417  0.9935
 
     Degrees-of-freedom method: kenward-roger
     P value adjustment: tukey method for comparing a family of 5 estimates 
@@ -439,12 +436,12 @@ dtime(lmm_mel2)
     [1] "The model should demonstrate an exponential growth pattern."
 
     $summary
-      Treatment  mean median  q2.5 q97.5
-    1         A  8.79   8.72  7.14 11.20
-    2         B 18.38  17.36 11.94 30.46
-    3         C 13.38  12.98  9.88 19.41
-    4         D 13.00  12.57  9.32 18.80
-    5         E 14.78  14.16 10.30 22.35
+      Treatment mean median q2.5 q97.5
+    1         A 0.29   0.29 0.23  0.37
+    2         B 0.60   0.57 0.39  1.00
+    3         C 0.44   0.43 0.32  0.64
+    4         D 0.43   0.41 0.31  0.62
+    5         E 0.49   0.47 0.34  0.73
 
 dtime() can also be applied to a bhm object, using posterior draws of
 the treatment-specific slopes. Details about how to use dtime() for bhm

@@ -1,0 +1,49 @@
+# Creates Plots of an lmm object
+
+Creates Plots of an lmm object
+
+## Usage
+
+``` r
+# S3 method for class 'lmm'
+plot(x, type = c("response", "slope"), ...)
+```
+
+## Arguments
+
+- x:
+
+  lmm object
+
+- type:
+
+  Character string specifying which plot to produce. One of `"response"`
+  or `"slope"`.
+
+- ...:
+
+  further arguments passed to or from other methods
+
+## Value
+
+A list of ggplot objects.
+
+## Examples
+
+``` r
+mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+#> Warning: 
+#> --------------------------------------------------------------------
+#> The time range is greater than 50, which may cause convergence
+#> issues when fitting lmm(). Consider rescaling the time variable
+#> to a larger unit (e.g., from days to weeks or months).
+#> --------------------------------------------------------------------
+mel1_lmm <- lmm(mel1)
+#> Warning: Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
+plot(mel1_lmm, "response")
+#> Model has log1p-transformed response. Back-transforming predictions to
+#>   original response scale. Standard errors are still on the transformed
+#>   scale.
+
+plot(mel1_lmm, "slope")
+```

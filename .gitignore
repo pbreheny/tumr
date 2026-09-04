@@ -3,8 +3,8 @@
 *.Rhistory
 .RData
 .Ruserdata
-#docs
+docs
 vignettes/.quarto
 vignettes/*.html
 vignettes/articles/*.html
-vignettes/*_files/
+*_files

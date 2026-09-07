@@ -25,23 +25,10 @@ model:
 
 ``` r
 
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
-```
-
-    Warning:
-    --------------------------------------------------------------------
-    The time range is greater than 50, which may cause convergence
-    issues when fitting lmm(). Consider rescaling the time variable
-    to a larger unit (e.g., from days to weeks or months).
-    --------------------------------------------------------------------
-
-``` r
-
+melanoma2$months <- melanoma2$Day / (365/12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 fit_quad <- quad(mel2)
 ```
-
-    Warning: Some predictor variables are on very different scales: consider rescaling.
-    You may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.
 
 ## Summary
 
@@ -53,16 +40,16 @@ summary(fit_quad)
     NOTE: Results may be misleading due to involvement in interactions
 
      contrast   estimate        SE p.value
-        A - B  0.6701901 0.3297438  0.2909
-        A - C  0.1380662 0.3224170  0.6706
-        A - D -0.4241015 0.3299077  0.6152
-        A - E  1.0145473 0.3398094  0.0378
-        B - C -0.5321239 0.3285548  0.4705
-        B - D -1.0942917 0.3359087  0.0194
-        B - E  0.3443572 0.3456385  0.6500
-        C - D -0.5621677 0.3287193  0.4705
-        C - E  0.8764811 0.3386557  0.0929
-        D - E  1.4386489 0.3457948  0.0015
+        A - B  0.6701898 0.3297388  0.2908
+        A - C  0.1380658 0.3224121  0.6706
+        A - D -0.4240997 0.3299029  0.6152
+        A - E  1.0145469 0.3398041  0.0378
+        B - C -0.5321240 0.3285497  0.4705
+        B - D -1.0942894 0.3359037  0.0194
+        B - E  0.3443571 0.3456330  0.6500
+        C - D -0.5621654 0.3287145  0.4705
+        C - E  0.8764811 0.3386504  0.0929
+        D - E  1.4386465 0.3457897  0.0015
 
 ## Plot
 

@@ -1,4 +1,4 @@
-# Generalized Addictive Mixed Model
+# Generalized Addictive Model (GAM)
 
 The package also includes `gam()`, which fits a generalized additive
 mixed effects model to tumor growth data. This model is useful when
@@ -15,18 +15,8 @@ group-specific smooth term for time.
 
 ``` r
 
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
-```
-
-    Warning:
-    --------------------------------------------------------------------
-    The time range is greater than 50, which may cause convergence
-    issues when fitting lmm(). Consider rescaling the time variable
-    to a larger unit (e.g., from days to weeks or months).
-    --------------------------------------------------------------------
-
-``` r
-
+melanoma2$months <- melanoma2$Day / (365/12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 fit <- gamFit(mel2)
 ```
 

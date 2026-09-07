@@ -91,7 +91,7 @@ tumr’s methods.
 ### Our plots are good
 
 The figure below compares a naive longitudinal visualization with a
-tumr-based approach that explicitly accounts for censoring and missing
+median-based approach that explicitly accounts for censoring and missing
 observations.
 
 ``` r
@@ -110,9 +110,12 @@ common in tumor growth studies, where subjects frequently leave the
 study due to censoring or dropout. As a result, the apparent decline in
 tumor volume over time is an artifact of estimating summaries from a
 progressively smaller subset of subjects rather than a true biological
-effect.
+effect. In contrast, the median-based nonparametric approach shown in
+the right panel effectively addresses the issues observed in the left
+panel.
 
-Also, parametric methods can be used for visualization.
+Also, parametric methods can also be used to visualize the data on the
+original scale and as fold changes.
 
 ``` r
 
@@ -123,10 +126,6 @@ plot(mel2, par = TRUE, fold = TRUE)
 ![](tumr_files/figure-html/unnamed-chunk-5-1.png)
 
 ![](tumr_files/figure-html/unnamed-chunk-5-2.png)
-
-The visualization produced by plot_median() addresses these issues
-through an explicit preprocessing step designed for longitudinal tumor
-data.
 
 Before any summary statistic is computed, the function:
 
@@ -214,7 +213,7 @@ plot(rfeat_mel2)
 
 ![](tumr_files/figure-html/unnamed-chunk-7-1.png)
 
-## Linear mixed model
+## Linear mixed-effects modeling
 
 The tumr package also includes lmm(), which fits a linear mixed effects
 model to tumor growth data. Linear mixed models are well suited for
@@ -451,16 +450,16 @@ model](https://pbreheny.github.io/tumr/articles/articles/bhm.md).
 ## Flexible modeling of nonlinear growth
 
 For datasets that exhibit non-linear growth, we also provide the
-[Exponential Quadratic
-Model](https://pbreheny.github.io/tumr/articles/articles/quadratic.md)
-and [Generalized Addictive Mixed
-Model](https://pbreheny.github.io/tumr/articles/articles/gam.md) as
+[Exponential quadratic
+model](https://pbreheny.github.io/tumr/articles/articles/quadratic.md)
+and [Generalized Addictive Model
+(GAM)](https://pbreheny.github.io/tumr/articles/articles/gam.md) as
 alternative modeling approaches. Examples of their applications can be
 found in the linked articles.
 
 ## Bayesian Hierarchical Linear Model
 
-In addition to the linear mixed model, the package also supports fitting
-a [Bayesian hierarchical linear
-model](https://pbreheny.github.io/tumr/articles/articles/bhm.md).
-Detailed usage of this model is described in an article.
+In addition to the linear mixed-effects modeling, our package also
+supports fitting a Bayesian hierarchical linear model. Detailed usage of
+this model is described in an
+[article](https://pbreheny.github.io/tumr/articles/articles/bhm.md).

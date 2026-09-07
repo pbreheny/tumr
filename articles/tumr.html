@@ -46,7 +46,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/bhm.html">Bayesian Hierarchical Linear Model</a></li>
     <li><a class="dropdown-item" href="../articles/data.html">tumr data sets</a></li>
-    <li><a class="dropdown-item" href="../articles/gam.html">Generalized Addictive Mixed Model</a></li>
+    <li><a class="dropdown-item" href="../articles/gam.html">Generalized Addictive Model (GAM)</a></li>
     <li><a class="dropdown-item" href="../articles/quadratic.html">Exponential quadratic Model</a></li>
     <li><a class="dropdown-item" href="../articles/troubleshooting.html">Troubleshooting</a></li>
   </ul>
@@ -144,7 +144,7 @@
 <p><strong>Note:</strong> plot_mean() is not part of the tumr package. It is defined here solely to provide a baseline visualization for comparison with tumr’s methods.</p>
 </section></section><section class="level2"><h3 id="our-plots-are-good">Our plots are good<a class="anchor" aria-label="anchor" href="#our-plots-are-good"></a>
 </h3>
-<p>The figure below compares a naive longitudinal visualization with a tumr-based approach that explicitly accounts for censoring and missing observations.</p>
+<p>The figure below compares a naive longitudinal visualization with a median-based approach that explicitly accounts for censoring and missing observations.</p>
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_mean</span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">Treatment</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">ID</span>, stat <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -158,8 +158,8 @@
 </div>
 </div>
 </div>
-<p>The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect.</p>
-<p>Also, parametric methods can be used for visualization.</p>
+<p>The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect. In contrast, the median-based nonparametric approach shown in the right panel effectively addresses the issues observed in the left panel.</p>
+<p>Also, parametric methods can also be used to visualize the data on the original scale and as fold changes.</p>
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -173,7 +173,6 @@
 </div>
 </div>
 </div>
-<p>The visualization produced by plot_median() addresses these issues through an explicit preprocessing step designed for longitudinal tumor data.</p>
 <p>Before any summary statistic is computed, the function:</p>
 <ol type="1">
 <li>
@@ -251,7 +250,7 @@ E-D -0.2179867 -1.3188107  0.8828372 0.9794890</code></pre>
 </div>
 </div>
 </div>
-</section></section><section class="section level2"><h2 id="linear-mixed-model">Linear mixed model<a class="anchor" aria-label="anchor" href="#linear-mixed-model"></a>
+</section></section><section class="section level2"><h2 id="linear-mixed-effects-modeling">Linear mixed-effects modeling<a class="anchor" aria-label="anchor" href="#linear-mixed-effects-modeling"></a>
 </h2>
 <p>The tumr package also includes lmm(), which fits a linear mixed effects model to tumor growth data. Linear mixed models are well suited for longitudinal data because they account for:</p>
 <ul>
@@ -470,10 +469,10 @@ $summary
 <p>dtime() can also be applied to a bhm object, using posterior draws of the treatment-specific slopes. Details about how to use dtime() for bhm project can be found in <a href="articles/bhm.html">Bayesian hierarchical linear model</a>.</p>
 </section></section><section class="section level2"><h2 id="flexible-modeling-of-nonlinear-growth">Flexible modeling of nonlinear growth<a class="anchor" aria-label="anchor" href="#flexible-modeling-of-nonlinear-growth"></a>
 </h2>
-<p>For datasets that exhibit non-linear growth, we also provide the <a href="articles/quadratic.html">Exponential Quadratic Model</a> and <a href="articles/gam.html">Generalized Addictive Mixed Model</a> as alternative modeling approaches. Examples of their applications can be found in the linked articles.</p>
+<p>For datasets that exhibit non-linear growth, we also provide the <a href="articles/quadratic.html">Exponential quadratic model</a> and <a href="articles/gam.html">Generalized Addictive Model (GAM)</a> as alternative modeling approaches. Examples of their applications can be found in the linked articles.</p>
 </section><section class="section level2"><h2 id="bayesian-hierarchical-linear-model">Bayesian Hierarchical Linear Model<a class="anchor" aria-label="anchor" href="#bayesian-hierarchical-linear-model"></a>
 </h2>
-<p>In addition to the linear mixed model, the package also supports fitting a <a href="articles/bhm.html">Bayesian hierarchical linear model</a>. Detailed usage of this model is described in an article.</p>
+<p>In addition to the linear mixed-effects modeling, our package also supports fitting a Bayesian hierarchical linear model. Detailed usage of this model is described in an <a href="articles/bhm.html">article</a>.</p>
 </section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
@@ -567,7 +566,7 @@ $summary
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: September 04, 2026</p>
+  <p>Last updated: September 07, 2026</p>
 </div>
 
     </footer>

@@ -1,6 +1,6 @@
 # tumr
 
-## tumr ![](man/Figures/logo.png)
+## tumr ![](reference/figures/logo.png)
 
 tumr is a collection of tools for visualizing and analyzing tumor growth
 data.

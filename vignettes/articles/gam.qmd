@@ -1,5 +1,5 @@
 ---
-title: "Generalized Addictive Mixed Model"
+title: "Generalized Addictive Model (GAM)"
 format: 
   html:
     toc: true
@@ -28,7 +28,8 @@ where $s(\cdot)$ is a group-specific smooth term for time.
 
 ## Model fit
 ```{r}
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+melanoma2$months <- melanoma2$Day / (365/12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 fit <- gamFit(mel2)
 ```
 

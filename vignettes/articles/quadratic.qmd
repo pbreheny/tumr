@@ -28,7 +28,8 @@ $$
 
 ## Model fit
 ```{r}
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+melanoma2$months <- melanoma2$Day / (365/12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 fit_quad <- quad(mel2)
 ```
 

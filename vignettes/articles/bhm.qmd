@@ -145,8 +145,9 @@ We begin by loading the example dataset and fitting the Bayesian hierarchical li
 
 ```{r}
 #| output: false
-data(melanoma2)
-fit <- bhm(melanoma2)
+data("melanoma2")
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+fit <- bhm(mel2)
 ```
 
 ## Summary of the results

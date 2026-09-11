@@ -34,7 +34,7 @@ reference:
     contents:
       - lmm
       - quad
-      - gamFit
+      - tumr_gam
       - bhm
       - dtime
       - rfeat

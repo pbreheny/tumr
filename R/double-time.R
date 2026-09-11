@@ -11,10 +11,10 @@
 #' @examples
 #' data(melanoma2)
 #' mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
-#' fit1 <- bhm(melanoma2)
-#' dtime(fit1)
-#' fit2 <- lmm(mel2)
-#' dtime(fit2)
+#' fit_bhm <- bhm(mel2)
+#' dtime(fit_bhm)
+#' fit_lmm <- lmm(mel2)
+#' dtime(fit_lmm)
 #'
 #' @export
 

@@ -2,33 +2,59 @@
 % Please edit documentation in R/bhm.R
 \name{bhm}
 \alias{bhm}
-\title{Bayesian hierarchical linear model and options with censoring}
+\title{Bayesian Hierarchical Linear Model for Tumor Growth Data}
 \usage{
-bhm(data, cens = NULL, diagnostics = FALSE, return_fit = TRUE, ...)
+bhm(
+  tumr_obj = NULL,
+  data = NULL,
+  id = NULL,
+  time = NULL,
+  measure = NULL,
+  group = NULL,
+  cens = NULL,
+  diagnostics = FALSE,
+  return_fit = TRUE,
+  ...
+)
 }
 \arguments{
-\item{data}{data.frame with columns ID, Day, Volume, Treatment}
+\item{tumr_obj}{A \code{tumr} object created by \code{\link{tumr}}.}
+
+\item{data}{A data frame of tumor growth measurements.}
+
+\item{id}{Column name of subject IDs.}
+
+\item{time}{Column name of repeated time measurements.}
+
+\item{measure}{Column name of repeated tumor measurements.}
+
+\item{group}{Column name of treatment group assignments.}
 
 \item{cens}{Optional numeric scalar. If provided, observations with
-\code{log1p(Volume) <= cens} are treated as left-censored at \code{cens}.
-Set \code{cens = NULL} (default) to fit the non-censored model.}
+\code{log1p(measure) <= cens} are treated as left-censored at
+\code{cens}. Set \code{cens = NULL} (default) to fit the
+non-censored model.}
 
-\item{diagnostics}{logical; whether to return diagnostic summary}
+\item{diagnostics}{Logical; whether to return diagnostic summaries.}
 
-\item{return_fit}{logical; whether to return the CmdStan fit object}
+\item{return_fit}{Logical; whether to return the CmdStan fit object.}
 
-\item{...}{further arguments}
+\item{...}{Further arguments passed to the CmdStan sampling method.}
 }
 \value{
-A list of posterior summaries (and optionally diagnostics / fit)
+An object of class \code{"bhm"} containing posterior summaries
+and optionally diagnostics and the CmdStan fit.
 }
 \description{
-Bayesian hierarchical linear model and options with censoring
+Bayesian Hierarchical Linear Model for Tumor Growth Data
 }
 \examples{
 \dontrun{
 data(melanoma2)
-fit <- bhm(melanoma2)
-fit_cens <- bhm(melanoma2, cens = log1p(10))
+melanoma2$months <- melanoma2$Day / (365/12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
+fit <- bhm(mel2)
+fit_cens <- bhm(mel2, cens = log1p(10))
 }
+
 }

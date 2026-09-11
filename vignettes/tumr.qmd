@@ -97,7 +97,7 @@ The figure below compares a naive longitudinal visualization with a median-based
 #| fig-width: 4
 #| fig-height: 3.5
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
-plot(mel2, par = FALSE)
+plot_median(mel2, par = FALSE)
 ```
 
 The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect. In contrast, the median-based nonparametric approach shown in the right panel effectively addresses the issues observed in the left panel.
@@ -108,8 +108,8 @@ Also, parametric methods can also be used to visualize the data on the original 
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-plot(mel2, par = TRUE)
-plot(mel2, par = TRUE, fold = TRUE)
+plot_median(mel2, par = TRUE)
+plot_median(mel2, par = TRUE, fold = TRUE)
 ```
 
 
@@ -211,31 +211,14 @@ model fits well by plotting the residuals from Linear Mixed Model vs time.
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-plot(mel2, par = TRUE) + ggplot2::scale_y_log10()
-plot(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
+plot_median(mel2, par = TRUE) + ggplot2::scale_y_log10()
+plot_median(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
 
 ```{r}
 check_exp(lmm_mel2)
 ```
-
-
-## Tumor Doubling Time Based on Fitted Tumor Growth Model
-
-For tumors following approximately exponential growth, the doubling time is
-
-$T_d=\frac{\log(2)}{\beta}$,
-
-where (\beta>0) is the estimated growth rate. For an lmm object, dtime() computes the treatment-specific slope from the fixed time effect and treatment-by-time interactions. Uncertainty is assessed using 1,000 parametric bootstrap samples, and the resulting doubling times are summarized by their mean, median, and 95% interval. Non-positive slopes are assigned an infinite doubling time.
-
-
-```{r}
-dtime(lmm_mel2)
-```
-
-dtime() can also be applied to a bhm object, using posterior draws of the treatment-specific slopes. Details about how to use dtime() for bhm project can
-be found in [Bayesian hierarchical linear model](articles/bhm.html).
 
 
 # Flexible modeling of nonlinear growth
@@ -249,7 +232,11 @@ as alternative modeling approaches. Examples of their applications can be found 
 In addition to the linear mixed-effects modeling, our package also supports fitting a Bayesian hierarchical linear model. Detailed usage of this model is described in an [article](articles/bhm.html).
 
 
+# Tumor Doubling Time Based on Fitted Tumor Growth Model
 
+```{r}
+dtime(lmm_mel2)
+```
 
 
 

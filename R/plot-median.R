@@ -438,7 +438,5 @@ plot_median <- function(tumr_obj = NULL,
 }
 
 
-#' @export
-plot.tumr <- function(x, ...) {
-  plot_median(tumr_obj = x, ...)
-}
+
+

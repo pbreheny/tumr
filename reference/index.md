@@ -23,10 +23,10 @@
   Mixed Model for Tumor Growth Data
 - [`quad()`](https://pbreheny.github.io/tumr/reference/quad.md) :
   Exponential quadratic Model for Tumor Growth Data
-- [`gamFit()`](https://pbreheny.github.io/tumr/reference/gamFit.md) :
-  Generalized Additive Model for Tumor Growth Data
+- [`tumr_gam()`](https://pbreheny.github.io/tumr/reference/tumr_gam.md)
+  : Generalized Additive Model for Tumor Growth Data
 - [`bhm()`](https://pbreheny.github.io/tumr/reference/bhm.md) : Bayesian
-  hierarchical linear model and options with censoring
+  Hierarchical Linear Model for Tumor Growth Data
 - [`dtime()`](https://pbreheny.github.io/tumr/reference/dtime.md) :
   Tumor Doubling Time Based on Fitted Tumor Growth Model
 - [`rfeat()`](https://pbreheny.github.io/tumr/reference/rfeat.md) :

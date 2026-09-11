@@ -182,8 +182,9 @@ R \sim \mathrm{LKJ}(2).
 <p>We begin by loading the example dataset and fitting the Bayesian hierarchical linear model using <code><a href="../reference/bhm.html">bhm()</a></code>. By default, the model is estimated on the log scale.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">melanoma2</span><span class="op">)</span></span>
-<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bhm.html">bhm</a></span><span class="op">(</span><span class="va">melanoma2</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"melanoma2"</span><span class="op">)</span></span>
+<span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">Day</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bhm.html">bhm</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="summary-of-the-results">Summary of the results<a class="anchor" aria-label="anchor" href="#summary-of-the-results"></a>
 </h3>

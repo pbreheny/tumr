@@ -104,7 +104,7 @@ observations.
 ``` r
 
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
-plot(mel2, par = FALSE)
+plot_median(mel2, par = FALSE)
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-5-1.png)
@@ -126,8 +126,8 @@ original scale and as fold changes.
 
 ``` r
 
-plot(mel2, par = TRUE)
-plot(mel2, par = TRUE, fold = TRUE)
+plot_median(mel2, par = TRUE)
+plot_median(mel2, par = TRUE, fold = TRUE)
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-6-1.png)
@@ -392,7 +392,7 @@ Mixed Model vs time.
 
 ``` r
 
-plot(mel2, par = TRUE) + ggplot2::scale_y_log10()
+plot_median(mel2, par = TRUE) + ggplot2::scale_y_log10()
 ```
 
     Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
@@ -400,7 +400,7 @@ plot(mel2, par = TRUE) + ggplot2::scale_y_log10()
 
 ``` r
 
-plot(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
+plot_median(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-12-1.png)
@@ -416,19 +416,24 @@ check_exp(lmm_mel2)
 
 ![](tumr_files/figure-html/unnamed-chunk-13-1.png)
 
-### Tumor Doubling Time Based on Fitted Tumor Growth Model
+## Flexible modeling of nonlinear growth
 
-For tumors following approximately exponential growth, the doubling time
-is
+For datasets that exhibit non-linear growth, we also provide the
+[Exponential quadratic
+model](https://pbreheny.github.io/tumr/articles/articles/quadratic.md)
+and [Generalized Addictive Model
+(GAM)](https://pbreheny.github.io/tumr/articles/articles/gam.md) as
+alternative modeling approaches. Examples of their applications can be
+found in the linked articles.
 
-T_d=\frac{\log(2)}{\beta},
+## Bayesian Hierarchical Linear Model
 
-where (\>0) is the estimated growth rate. For an lmm object, dtime()
-computes the treatment-specific slope from the fixed time effect and
-treatment-by-time interactions. Uncertainty is assessed using 1,000
-parametric bootstrap samples, and the resulting doubling times are
-summarized by their mean, median, and 95% interval. Non-positive slopes
-are assigned an infinite doubling time.
+In addition to the linear mixed-effects modeling, our package also
+supports fitting a Bayesian hierarchical linear model. Detailed usage of
+this model is described in an
+[article](https://pbreheny.github.io/tumr/articles/articles/bhm.md).
+
+## Tumor Doubling Time Based on Fitted Tumor Growth Model
 
 ``` r
 
@@ -448,25 +453,3 @@ dtime(lmm_mel2)
     3         C 0.44   0.43 0.32  0.64
     4         D 0.43   0.41 0.31  0.62
     5         E 0.49   0.47 0.34  0.73
-
-dtime() can also be applied to a bhm object, using posterior draws of
-the treatment-specific slopes. Details about how to use dtime() for bhm
-project can be found in [Bayesian hierarchical linear
-model](https://pbreheny.github.io/tumr/articles/articles/bhm.md).
-
-## Flexible modeling of nonlinear growth
-
-For datasets that exhibit non-linear growth, we also provide the
-[Exponential quadratic
-model](https://pbreheny.github.io/tumr/articles/articles/quadratic.md)
-and [Generalized Addictive Model
-(GAM)](https://pbreheny.github.io/tumr/articles/articles/gam.md) as
-alternative modeling approaches. Examples of their applications can be
-found in the linked articles.
-
-## Bayesian Hierarchical Linear Model
-
-In addition to the linear mixed-effects modeling, our package also
-supports fitting a Bayesian hierarchical linear model. Detailed usage of
-this model is described in an
-[article](https://pbreheny.github.io/tumr/articles/articles/bhm.md).

@@ -1,47 +1,51 @@
-# Bayesian hierarchical linear model and options with censoring
+# Bayesian Hierarchical Linear Model for Tumor Growth Data
 
-Bayesian hierarchical linear model and options with censoring
+Bayesian Hierarchical Linear Model for Tumor Growth Data
 
 ## Usage
 
 ``` r
-bhm(data, cens = NULL, diagnostics = FALSE, return_fit = TRUE, ...)
+bhm(tumr_obj, cens = NULL, diagnostics = FALSE, return_fit = TRUE, ...)
 ```
 
 ## Arguments
 
-- data:
+- tumr_obj:
 
-  data.frame with columns ID, Day, Volume, Treatment
+  A `tumr` object created by
+  [`tumr`](https://pbreheny.github.io/tumr/reference/tumr.md).
 
 - cens:
 
   Optional numeric scalar. If provided, observations with
-  `log1p(Volume) <= cens` are treated as left-censored at `cens`. Set
+  `log1p(measure) <= cens` are treated as left-censored at `cens`. Set
   `cens = NULL` (default) to fit the non-censored model.
 
 - diagnostics:
 
-  logical; whether to return diagnostic summary
+  Logical; whether to return diagnostic summaries.
 
 - return_fit:
 
-  logical; whether to return the CmdStan fit object
+  Logical; whether to return the CmdStan fit object.
 
 - ...:
 
-  further arguments
+  Further arguments passed to the CmdStan sampling method.
 
 ## Value
 
-A list of posterior summaries (and optionally diagnostics / fit)
+An object of class `"bhm"` containing posterior summaries and optionally
+diagnostics and the CmdStan fit.
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
 data(melanoma2)
-fit <- bhm(melanoma2)
-fit_cens <- bhm(melanoma2, cens = log1p(10))
+melanoma2$months <- melanoma2$Day / (365/12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
+fit <- bhm(mel2)
+fit_cens <- bhm(mel2, cens = log1p(10))
 } # }
 ```

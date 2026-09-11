@@ -96,8 +96,9 @@ the model is estimated on the log scale.
 
 ``` r
 
-data(melanoma2)
-fit <- bhm(melanoma2)
+data("melanoma2")
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+fit <- bhm(mel2)
 ```
 
 ### Summary of the results

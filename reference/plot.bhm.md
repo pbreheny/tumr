@@ -39,7 +39,9 @@ elements `trace_intercept`, `trace_slope`, and `trace_slope_diff`.
 ``` r
 if (FALSE) { # \dontrun{
 data("melanoma1")
-fit <- bhm(melanoma1)
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
+fit <- bhm(mel1)
 plot(fit, type = "predict")
 plot(fit, type = "slope")
 plot(fit, type = "contrast")

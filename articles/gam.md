@@ -17,7 +17,7 @@ group-specific smooth term for time.
 
 melanoma2$months <- melanoma2$Day / (365/12)
 mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
-fit <- gamFit(mel2)
+fit <- tumr_gam(mel2)
 ```
 
 ## Result summary

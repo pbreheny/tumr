@@ -20,7 +20,9 @@ Creates a summary of a bhm object
 \examples{
 \dontrun{
 data(melanoma2)
-fit <- bhm(melanoma2)
+melanoma2$months <- melanoma2$Day / (365/12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
+fit <- bhm(mel2)
 summary(fit)
 }
 }

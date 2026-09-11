@@ -1,11 +1,6 @@
 #' Bayesian Hierarchical Linear Model for Tumor Growth Data
 #'
 #' @param tumr_obj A \code{tumr} object created by \code{\link{tumr}}.
-#' @param data A data frame of tumor growth measurements.
-#' @param id Column name of subject IDs.
-#' @param time Column name of repeated time measurements.
-#' @param measure Column name of repeated tumor measurements.
-#' @param group Column name of treatment group assignments.
 #' @param cens Optional numeric scalar. If provided, observations with
 #'   \code{log1p(measure) <= cens} are treated as left-censored at
 #'   \code{cens}. Set \code{cens = NULL} (default) to fit the
@@ -28,12 +23,7 @@
 #'
 #' @export
 
-bhm <- function(tumr_obj = NULL,
-                data = NULL,
-                id = NULL,
-                time = NULL,
-                measure = NULL,
-                group = NULL,
+bhm <- function(tumr_obj,
                 cens = NULL,
                 diagnostics = FALSE,
                 return_fit = TRUE,
@@ -55,14 +45,21 @@ bhm <- function(tumr_obj = NULL,
       call. = FALSE
     )
   }
-  # Extract information from tumr object
-  if (!is.null(tumr_obj)) {
-    if (is.null(id)) id <- tumr_obj$id
-    if (is.null(time)) time <- tumr_obj$time
-    if (is.null(measure)) measure <- tumr_obj$measure
-    if (is.null(group)) group <- tumr_obj$group
-    if (is.null(data)) data <- tumr_obj$data
+
+  if (!inherits(tumr_obj, "tumr")) {
+    stop(
+      "tumr_obj must be a tumr object created by tumr().",
+      call. = FALSE
+    )
   }
+
+  # Extract information from tumr object
+  id <- tumr_obj$id
+  time <- tumr_obj$time
+  measure <- tumr_obj$measure
+  group <- tumr_obj$group
+  data <- tumr_obj$data
+
   # Check required information
   if (is.null(data) ||
       is.null(id) ||
@@ -70,29 +67,34 @@ bhm <- function(tumr_obj = NULL,
       is.null(measure) ||
       is.null(group)) {
     stop(
-      "Please provide a tumr object, or specify data, id, time, measure, and group.",
+      "The tumr object does not contain the required data information.",
       call. = FALSE
     )
   }
+
   # Standardize variable names internally
   data[[".id"]] <- base::as.factor(data[[id]])
   data[[".time"]] <- data[[time]]
   data[[".measure"]] <- data[[measure]]
   data[[".group"]] <- base::as.factor(data[[group]])
+
   # Order observations by subject and time
   data <- data[
     order(data[[".id"]], data[[".time"]]),
     ,
     drop = FALSE
   ]
+
   # Subject IDs
   id_levels <- levels(data[[".id"]])
   id_index <- as.integer(data[[".id"]])
   N_subj <- length(id_levels)
   N <- nrow(data)
+
   # Outcome and time
   y <- log1p(data[[".measure"]])
   t <- data[[".time"]]
+
   # Handle censoring
   if (!is.null(cens)) {
     is_cens <- as.integer(y <= cens)
@@ -102,6 +104,7 @@ bhm <- function(tumr_obj = NULL,
     is_cens <- NULL
     y_stan <- y
   }
+
   # Make sure each subject belongs to exactly one treatment group
   trt_check <- tapply(
     data[[".group"]],
@@ -114,12 +117,14 @@ bhm <- function(tumr_obj = NULL,
       call. = FALSE
     )
   }
+
   # Subject-level treatment assignment
   id_first <- !duplicated(id_index)
   trt_by_id <- droplevels(data[[".group"]][id_first])
   trt_levels <- levels(trt_by_id)
   trt_subj <- as.integer(trt_by_id)
   K <- length(trt_levels)
+
   # Stan data
   stan_data <- list(
     N = N,
@@ -130,20 +135,24 @@ bhm <- function(tumr_obj = NULL,
     y = as.vector(y_stan),
     t = as.vector(t)
   )
+
   if (!is.null(cens)) {
     stan_data$C <- as.numeric(cens)
     stan_data$is_cens <- as.integer(is_cens)
   }
+
   # Choose Stan model
   stan_name <- if (is.null(cens)) {
     "bhm"
   } else {
     "bhm_cens"
   }
+
   model <- instantiate::stan_package_model(
     name = stan_name,
     package = "tumr"
   )
+
   # Fit model
   fit <- model$sample(
     data = stan_data,
@@ -154,8 +163,10 @@ bhm <- function(tumr_obj = NULL,
     seed = 2025,
     ...
   )
+
   # Posterior summaries
   sum_tbl <- fit$summary()
+
   parse_1index <- function(x, prefix) {
     as.integer(
       sub(
@@ -165,6 +176,7 @@ bhm <- function(tumr_obj = NULL,
       )
     )
   }
+
   parse_2index <- function(x, prefix) {
     m <- regexec(
       paste0(
@@ -183,11 +195,13 @@ bhm <- function(tumr_obj = NULL,
       as.integer(r[3])
     )
   }
+
   # Treatment-specific slopes
   slope_each <- dplyr::filter(
     sum_tbl,
     grepl("^Slope\\[", .data$variable)
   )
+
   if (nrow(slope_each) > 0) {
     k <- parse_1index(
       slope_each$variable,
@@ -213,8 +227,10 @@ bhm <- function(tumr_obj = NULL,
       .data$treatment
     )
   }
+
   # Treatment-specific intercepts
   int_each <- dplyr::filter(sum_tbl, grepl("^Int\\[", .data$variable))
+
   if (nrow(int_each) > 0) {
     k <- parse_1index(
       int_each$variable,
@@ -240,11 +256,13 @@ bhm <- function(tumr_obj = NULL,
       .data$treatment
     )
   }
+
   # Pairwise slope differences
   slope_diff <- dplyr::filter(
     sum_tbl,
     grepl("^SlopeDiff\\[", .data$variable)
   )
+
   if (nrow(slope_diff) > 0) {
     ij <- t(
       vapply(
@@ -287,6 +305,7 @@ bhm <- function(tumr_obj = NULL,
       .data$contrast
     )
   }
+
   # Output
   out <- list(
     slope_each = slope_each,
@@ -303,12 +322,15 @@ bhm <- function(tumr_obj = NULL,
       Group = group
     )
   )
+
   if (isTRUE(diagnostics)) {
     out$diagnostics <- fit$diagnostic_summary()
   }
+
   if (isTRUE(return_fit)) {
     out$fit <- fit
   }
+
   class(out) <- "bhm"
   out
 }

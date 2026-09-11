@@ -4,31 +4,10 @@
 \alias{bhm}
 \title{Bayesian Hierarchical Linear Model for Tumor Growth Data}
 \usage{
-bhm(
-  tumr_obj = NULL,
-  data = NULL,
-  id = NULL,
-  time = NULL,
-  measure = NULL,
-  group = NULL,
-  cens = NULL,
-  diagnostics = FALSE,
-  return_fit = TRUE,
-  ...
-)
+bhm(tumr_obj, cens = NULL, diagnostics = FALSE, return_fit = TRUE, ...)
 }
 \arguments{
 \item{tumr_obj}{A \code{tumr} object created by \code{\link{tumr}}.}
-
-\item{data}{A data frame of tumor growth measurements.}
-
-\item{id}{Column name of subject IDs.}
-
-\item{time}{Column name of repeated time measurements.}
-
-\item{measure}{Column name of repeated tumor measurements.}
-
-\item{group}{Column name of treatment group assignments.}
 
 \item{cens}{Optional numeric scalar. If provided, observations with
 \code{log1p(measure) <= cens} are treated as left-censored at

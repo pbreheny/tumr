@@ -26,16 +26,23 @@ melanoma2$months <- melanoma2$Day / (365/12)
 mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 ```
 
-This object can now be passed directly to other `tumr` functions. Note
-that the function used to create a `tumr` object includes a built-in
-mechanism to check the scale of the time variable. This is because poor
-scaling of the time variable is a common cause of convergence issues
-when fitting models with
-[`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md). A simple
-and effective solution is to rescale time to a larger unit (for example,
-from days to months). Users can refer to this
-[article](https://pbreheny.github.io/tumr/articles/articles/troubleshooting.md)
-for more details.
+Column names can also be supplied as character strings:
+
+``` r
+
+mel2 <- tumr(melanoma2, "ID", "months", "Volume", "Treatment")
+```
+
+- This object can now be passed directly to other `tumr` functions.
+- Note that the function used to create a `tumr` object includes a
+  built-in mechanism to check the scale of the time variable. This is
+  because poor scaling of the time variable is a common cause of
+  convergence issues when fitting models with
+  [`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md). A simple
+  and effective solution is to rescale time to a larger unit (for
+  example, from days to months). Users can refer to this
+  [article](https://pbreheny.github.io/tumr/articles/articles/troubleshooting.md)
+  for more details.
 
 ## Visualizing tumor growth under informative dropout
 
@@ -100,9 +107,9 @@ plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
 plot(mel2, par = FALSE)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-4-1.png)
+![](tumr_files/figure-html/unnamed-chunk-5-1.png)
 
-![](tumr_files/figure-html/unnamed-chunk-4-2.png)
+![](tumr_files/figure-html/unnamed-chunk-5-2.png)
 
 The plot on the left uses a straightforward summary of observed data at
 each time point. This approach ignores the structure of missingness
@@ -123,9 +130,9 @@ plot(mel2, par = TRUE)
 plot(mel2, par = TRUE, fold = TRUE)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-5-1.png)
+![](tumr_files/figure-html/unnamed-chunk-6-1.png)
 
-![](tumr_files/figure-html/unnamed-chunk-5-2.png)
+![](tumr_files/figure-html/unnamed-chunk-6-2.png)
 
 Before any summary statistic is computed, the function:
 
@@ -211,7 +218,7 @@ slopes and the group-level means.
 plot(rfeat_mel2)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-7-1.png)
+![](tumr_files/figure-html/unnamed-chunk-8-1.png)
 
 ## Linear mixed-effects modeling
 
@@ -353,7 +360,7 @@ plot(lmm_mel2, "response") + ggplot2::coord_cartesian(ylim = c(0, 250000))
       original response scale. Standard errors are still on the transformed
       scale.
 
-![](tumr_files/figure-html/unnamed-chunk-10-1.png)
+![](tumr_files/figure-html/unnamed-chunk-11-1.png)
 
 ``` r
 
@@ -367,14 +374,14 @@ plot(lmm_mel2, "response") + ggplot2::scale_y_log10()
     Scale for y is already present.
     Adding another scale for y, which will replace the existing scale.
 
-![](tumr_files/figure-html/unnamed-chunk-10-2.png)
+![](tumr_files/figure-html/unnamed-chunk-11-2.png)
 
 ``` r
 
 plot(lmm_mel2, "slope")
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-10-3.png)
+![](tumr_files/figure-html/unnamed-chunk-11-3.png)
 
 ### Checking for exponential growth
 
@@ -396,9 +403,9 @@ plot(mel2, par = TRUE) + ggplot2::scale_y_log10()
 plot(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-11-1.png)
+![](tumr_files/figure-html/unnamed-chunk-12-1.png)
 
-![](tumr_files/figure-html/unnamed-chunk-11-2.png)
+![](tumr_files/figure-html/unnamed-chunk-12-2.png)
 
 ``` r
 
@@ -407,7 +414,7 @@ check_exp(lmm_mel2)
 
     `geom_smooth()` using formula = 'y ~ x'
 
-![](tumr_files/figure-html/unnamed-chunk-12-1.png)
+![](tumr_files/figure-html/unnamed-chunk-13-1.png)
 
 ### Tumor Doubling Time Based on Fitted Tumor Growth Model
 

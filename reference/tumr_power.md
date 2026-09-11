@@ -1,8 +1,7 @@
 # Power calculation for tumor growth
 
-For speed, uses a response feature analysis
-[`rfeat()`](https://pbreheny.github.io/tumr/reference/rfeat.md); this
-will likely underestimate power somewhat.
+Estimates power using simulated tumor growth data and a response-feature
+analysis.
 
 ## Usage
 
@@ -14,32 +13,29 @@ tumr_power(n, effect_size, N = 1000, ...)
 
 - n:
 
-  Sample size per group (integer or vector)
+  Sample size per group.
 
 - effect_size:
 
-  As in
-  [`gendat()`](https://pbreheny.github.io/tumr/reference/gendat.md)
-  (numeric or vector)
+  Treatment effect size.
 
 - N:
 
-  Number of simulations (default: 1000)
+  Number of simulations. Default is 1000.
 
 - ...:
 
-  Other arguments to
-  [`gendat()`](https://pbreheny.github.io/tumr/reference/gendat.md)
+  Additional arguments for data generation.
 
 ## Value
 
-An array of p-values
+A data frame containing simulation settings and p-values.
 
 ## Examples
 
 ``` r
-res <- tumr_power(8, 2, 10)
+res <- tumr_power(8, 2, N = 10)
 #>   |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |==============                                                        |  20%  |                                                                              |=====================                                                 |  30%  |                                                                              |============================                                          |  40%  |                                                                              |===================================                                   |  50%  |                                                                              |==========================================                            |  60%  |                                                                              |=================================================                     |  70%  |                                                                              |========================================================              |  80%  |                                                                              |===============================================================       |  90%  |                                                                              |======================================================================| 100%
 mean(res$p < 0.05)
-#> [1] 1
+#> [1] 0.9
 ```

@@ -25,7 +25,8 @@ A p-value
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
 dat <- gendat(5, 2, 6)
 rfeat_pwr(dat)
-#> [1] 0.01045954
+} # }
 ```

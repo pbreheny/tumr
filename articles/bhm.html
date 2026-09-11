@@ -81,7 +81,10 @@
 
 
 
-    <section class="section level2"><h2 id="model-setting-and-notation">Model setting and notation<a class="anchor" aria-label="anchor" href="#model-setting-and-notation"></a>
+    <section class="section level2"><h2 id="environment-preparation">Environment preparation<a class="anchor" aria-label="anchor" href="#environment-preparation"></a>
+</h2>
+<p>Using Bayesian methods requires installing the R package <a href="https://mc-stan.org/cmdstanr/" class="external-link"><code>cmdstanr</code></a> (not available on CRAN) and the command-line interface to Stan: <a href="https://mc-stan.org/users/interfaces/cmdstan.html" class="external-link"><code>CmdStan</code></a>. Users may follow the instructions in <a href="https://mc-stan.org/cmdstanr/articles/cmdstanr.html" class="external-link">Getting started with CmdStanR</a> to install both.</p>
+</section><section class="section level2"><h2 id="model-setting-and-notation">Model setting and notation<a class="anchor" aria-label="anchor" href="#model-setting-and-notation"></a>
 </h2>
 <p>Let <span class="math inline">g = 1,\ldots,K</span> index treatment groups and <span class="math inline">i = 1,\ldots,N_{\text{subj}}</span> index subjects.<br>
 Subject <span class="math inline">i</span> belongs to treatment group <span class="math inline">g_i \in \{1,\ldots,K\}</span>.<br>

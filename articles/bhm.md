@@ -1,5 +1,15 @@
 # Bayesian Hierarchical Linear Model
 
+## Environment preparation
+
+Using Bayesian methods requires installing the R package
+[`cmdstanr`](https://mc-stan.org/cmdstanr/) (not available on CRAN) and
+the command-line interface to Stan:
+[`CmdStan`](https://mc-stan.org/users/interfaces/cmdstan.html). Users
+may follow the instructions in [Getting started with
+CmdStanR](https://mc-stan.org/cmdstanr/articles/cmdstanr.html) to
+install both.
+
 ## Model setting and notation
 
 Let g = 1,\ldots,K index treatment groups and i =

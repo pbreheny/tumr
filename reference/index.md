@@ -27,10 +27,6 @@
   Generalized Additive Model for Tumor Growth Data
 - [`bhm()`](https://pbreheny.github.io/tumr/reference/bhm.md) : Bayesian
   hierarchical linear model and options with censoring
-- [`mixed()`](https://pbreheny.github.io/tumr/reference/mixed.md) :
-  Analysis based on mixed model
-- [`rmanova()`](https://pbreheny.github.io/tumr/reference/rmanova.md) :
-  Analysis based on repeated measures ANOVA
 - [`dtime()`](https://pbreheny.github.io/tumr/reference/dtime.md) :
   Tumor Doubling Time Based on Fitted Tumor Growth Model
 - [`rfeat()`](https://pbreheny.github.io/tumr/reference/rfeat.md) :

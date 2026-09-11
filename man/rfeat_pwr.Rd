@@ -20,4 +20,5 @@ Analysis based on response features
 \examples{
 dat <- gendat(5, 2, 6)
 rfeat_pwr(dat)
+
 }

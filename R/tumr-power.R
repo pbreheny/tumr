@@ -1,18 +1,19 @@
 #' Power calculation for tumor growth
 #'
-#' For speed, uses a response feature analysis `rfeat()`; this will likely underestimate
-#' power somewhat.
+#' Estimates power using simulated tumor growth data and a response-feature
+#' analysis.
 #'
-#' @param n            Sample size per group (integer or vector)
-#' @param effect_size  As in `gendat()` (numeric or vector)
-#' @param N            Number of simulations (default: 1000)
-#' @param ...          Other arguments to `gendat()`
+#' @param n Sample size per group.
+#' @param effect_size Treatment effect size.
+#' @param N Number of simulations. Default is 1000.
+#' @param ... Additional arguments for data generation.
 #'
-#' @return An array of p-values
+#' @return A data frame containing simulation settings and p-values.
 #'
 #' @examples
-#' res <- tumr_power(8, 2, 10)
+#' res <- tumr_power(8, 2, N = 10)
 #' mean(res$p < 0.05)
+#'
 #' @export
 
 tumr_power <- function(n, effect_size, N=1000, ...) {
@@ -37,7 +38,7 @@ tumr_power <- function(n, effect_size, N=1000, ...) {
 #' @examples
 #' dat <- gendat(5, 2, 6)
 #' rfeat_pwr(dat)
-#' @export
+#'
 
 rfeat_pwr <- function(Data, linear=TRUE) {
   y <- as.numeric(apply(Data$Y, c(1,3), function(x) coef(lm(x~Data$time))[2]))

@@ -19,6 +19,9 @@ tumr <- function(data, id, time, measure, group){
   time <- as.character(substitute(time))
   measure <- as.character(substitute(measure))
   group <- as.character(substitute(group))
+  if (!all(c(id, time, measure, group) %in% names(data))) {
+    stop("Specified columns not found in data.", call. = FALSE)
+  }
   # check time scale
   time_values <- data[[time]]
   if (is.numeric(time_values) &&

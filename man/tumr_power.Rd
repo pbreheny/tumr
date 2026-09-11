@@ -7,22 +7,23 @@
 tumr_power(n, effect_size, N = 1000, ...)
 }
 \arguments{
-\item{n}{Sample size per group (integer or vector)}
+\item{n}{Sample size per group.}
 
-\item{effect_size}{As in \code{gendat()} (numeric or vector)}
+\item{effect_size}{Treatment effect size.}
 
-\item{N}{Number of simulations (default: 1000)}
+\item{N}{Number of simulations. Default is 1000.}
 
-\item{...}{Other arguments to \code{gendat()}}
+\item{...}{Additional arguments for data generation.}
 }
 \value{
-An array of p-values
+A data frame containing simulation settings and p-values.
 }
 \description{
-For speed, uses a response feature analysis \code{rfeat()}; this will likely underestimate
-power somewhat.
+Estimates power using simulated tumor growth data and a response-feature
+analysis.
 }
 \examples{
-res <- tumr_power(8, 2, 10)
+res <- tumr_power(8, 2, N = 10)
 mean(res$p < 0.05)
+
 }

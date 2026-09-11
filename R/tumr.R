@@ -15,10 +15,10 @@
 #' @export
 
 tumr <- function(data, id, time, measure, group){
-  id <- deparse(substitute(id))
-  time <- deparse(substitute(time))
-  measure <- deparse(substitute(measure))
-  group <- deparse(substitute(group))
+  id <- as.character(substitute(id))
+  time <- as.character(substitute(time))
+  measure <- as.character(substitute(measure))
+  group <- as.character(substitute(group))
   # check time scale
   time_values <- data[[time]]
   if (is.numeric(time_values) &&

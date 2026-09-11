@@ -8,7 +8,7 @@ Analysis and power calculations for tumor growth rates.}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-This package contains functions for tumor growth rate experiments: plotting and analyzing existing data, simulating new data, and power/sample size calculations.
+This package contains functions for visualizing and analyzing tumor growth data.
 }
 \seealso{
 Useful links:

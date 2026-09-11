@@ -24,11 +24,10 @@
 #' @examples
 #' data(melanoma1)
 #' mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
-#' gamFit(mel1)
+#' tumr_gam(mel1)
 #'
 #' @export
-
-gamFit <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL,
+tumr_gam <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL,
                 time = NULL, measure = NULL, group = NULL, n_grid = 20, ...) {
   if (!is.null(tumr_obj)) {
     if (is.null(id)) id <- tumr_obj$id

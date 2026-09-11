@@ -36,8 +36,6 @@ reference:
       - quad
       - gamFit
       - bhm
-      - mixed
-      - rmanova
       - dtime
       - rfeat
       - rfeat_pwr

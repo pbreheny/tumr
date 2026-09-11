@@ -35,9 +35,12 @@ tumr_power <- function(n, effect_size, N=1000, ...) {
 #'
 #' @return A p-value
 #'
+#'
 #' @examples
+#' \dontrun{
 #' dat <- gendat(5, 2, 6)
 #' rfeat_pwr(dat)
+#' }
 #'
 
 rfeat_pwr <- function(Data, linear=TRUE) {

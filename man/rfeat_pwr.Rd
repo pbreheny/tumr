@@ -18,7 +18,9 @@ A p-value
 Analysis based on response features
 }
 \examples{
+\dontrun{
 dat <- gendat(5, 2, 6)
 rfeat_pwr(dat)
+}
 
 }

@@ -55,6 +55,8 @@
   : Plot the result of Exponential quadratic model
 - [`plot(`*`<rfeat>`*`)`](https://pbreheny.github.io/tumr/reference/plot.rfeat.md)
   : Plot based on rfeat analysis
+- [`plot(`*`<tumr>`*`)`](https://pbreheny.github.io/tumr/reference/plot.tumr.md)
+  : Plot a tumr object
 - [`plot(`*`<tumr_gam>`*`)`](https://pbreheny.github.io/tumr/reference/plot.tumr_gam.md)
   : Plot GAM Fit for Tumor Growth Data
 - [`plot_median()`](https://pbreheny.github.io/tumr/reference/plot_median.md)

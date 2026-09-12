@@ -438,5 +438,15 @@ plot_median <- function(tumr_obj = NULL,
 }
 
 
-
+#' Plot a tumr object
+#'
+#' @param x A tumr object created by \code{tumr()}.
+#' @param ... Additional arguments passed to \code{plot_median()}.
+#'
+#' @return A ggplot object.
+#'
+#' @export
+plot.tumr <- function(x, ...) {
+  plot_median(tumr_obj = x, ...)
+}
 

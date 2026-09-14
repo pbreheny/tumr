@@ -21,6 +21,7 @@ A list with three components:
 Tumor Doubling Time Based on Fitted Tumor Growth Model
 }
 \examples{
+\dontrun{
 data(melanoma2)
 melanoma2$months <- melanoma2$Day / (365/12)
 mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
@@ -28,5 +29,6 @@ fit_bhm <- bhm(mel2)
 dtime(fit_bhm)
 fit_lmm <- lmm(mel2)
 dtime(fit_lmm)
+}
 
 }

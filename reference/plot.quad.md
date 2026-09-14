@@ -54,7 +54,6 @@ quad_obj <- quad(mel1)
 
 # Fitted quadratic growth curves
 plot(quad_obj, type = "predict")
-#> Warning: the ‘nobars’ function has moved to the reformulas package. Please update your imports, or ask an upstream package maintainer to do so.
 
 # Pairwise treatment contrasts over time
 plot(quad_obj, type = "contrast")

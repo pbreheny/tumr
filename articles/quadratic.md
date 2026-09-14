@@ -71,8 +71,8 @@ plot(mel1) + ggplot2::scale_y_log10()
 plot(fit_quad) + ggplot2::scale_y_log10()
 ```
 
-    Warning: the 'nobars' function has moved to the reformulas package. Please
-    update your imports, or ask an upstream package maintainer to do so.
+    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
+    values.
 
 ![](quadratic_files/figure-html/unnamed-chunk-4-3.png)
 

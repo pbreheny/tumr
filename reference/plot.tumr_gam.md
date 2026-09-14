@@ -31,3 +31,16 @@ plot(x, type = c("predict", "contrast"), n_grid = NULL, ...)
 ## Value
 
 A `ggplot` object.
+
+## Examples
+
+``` r
+data(melanoma1)
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
+fit_gam <- tumr_gam(mel1)
+plot(fit_gam, "predict")
+
+plot(fit_gam, "contrast")
+
+```

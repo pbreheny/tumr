@@ -60,60 +60,49 @@ summary of linear mixed model fit
 
 ``` r
 data(melanoma1)
-mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
-#> Warning: 
-#> --------------------------------------------------------------------
-#> The time range is greater than 50, which may cause convergence
-#> issues when fitting lmm(). Consider rescaling the time variable
-#> to a larger unit (e.g., from days to weeks or months).
-#> --------------------------------------------------------------------
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 lmm(mel1)
-#> Warning: Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
-#>   See ?lme4::convergence and ?lme4::troubleshooting.
 #> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 #> lmerModLmerTest]
-#> Formula: log1p(Volume) ~ Treatment * Day + (Day | ID)
+#> Formula: log1p(Volume) ~ Treatment * months + (months | ID)
 #>    Data: data
 #> 
-#> REML criterion at convergence: 2057.9
+#> REML criterion at convergence: 2030.5
 #> 
 #> Scaled residuals: 
 #>     Min      1Q  Median      3Q     Max 
-#> -2.7388 -0.4455  0.0897  0.5194  3.2523 
+#> -2.7387 -0.4428  0.0883  0.5192  3.2744 
 #> 
 #> Random effects:
-#>  Groups   Name        Variance  Std.Dev. Corr  
-#>  ID       (Intercept) 0.1006944 0.31732        
-#>           Day         0.0005492 0.02344  -0.29 
-#>  Residual             1.4496878 1.20403        
+#>  Groups   Name        Variance Std.Dev. Corr  
+#>  ID       (Intercept) 0.08055  0.2838         
+#>           months      0.50534  0.7109   -0.29 
+#>  Residual             1.45355  1.2056         
 #> Number of obs: 600, groups:  ID, 35
 #> 
 #> Fixed effects:
-#>                 Estimate Std. Error        df t value Pr(>|t|)    
-#> (Intercept)     3.803278   0.241055 63.696770  15.778  < 2e-16 ***
-#> TreatmentB     -2.077289   0.311809 44.850653  -6.662 3.29e-08 ***
-#> TreatmentC     -0.151380   0.336695 58.812300  -0.450  0.65465    
-#> TreatmentD     -1.482092   0.315893 42.320462  -4.692 2.84e-05 ***
-#> Day             0.064163   0.010131 58.005388   6.333 3.82e-08 ***
-#> TreatmentB:Day -0.042430   0.013049 41.175964  -3.252  0.00229 ** 
-#> TreatmentC:Day -0.003019   0.014348 55.455508  -0.210  0.83412    
-#> TreatmentD:Day -0.081544   0.013289 39.417584  -6.136 3.21e-07 ***
+#>                   Estimate Std. Error       df t value Pr(>|t|)    
+#> (Intercept)        3.80282    0.23661 67.27186  16.072  < 2e-16 ***
+#> TreatmentB        -2.07984    0.30482 46.59177  -6.823 1.58e-08 ***
+#> TreatmentC        -0.14938    0.33020 61.66003  -0.452  0.65258    
+#> TreatmentD        -1.48185    0.30858 43.88008  -4.802 1.86e-05 ***
+#> months             1.95236    0.30779 59.26371   6.343 3.41e-08 ***
+#> TreatmentB:months -1.28862    0.39623 41.99207  -3.252  0.00226 ** 
+#> TreatmentC:months -0.09432    0.43574 56.60232  -0.216  0.82941    
+#> TreatmentD:months -2.48089    0.40349 40.19463  -6.149 2.87e-07 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> Correlation of Fixed Effects:
-#>             (Intr) TrtmnB TrtmnC TrtmnD Day    TrtB:D TrtC:D
-#> TreatmentB  -0.773                                          
-#> TreatmentC  -0.716  0.553                                   
-#> TreatmentD  -0.763  0.590  0.546                            
-#> Day         -0.567  0.438  0.406  0.432                     
-#> TretmntB:Dy  0.440 -0.489 -0.315 -0.336 -0.776              
-#> TretmntC:Dy  0.400 -0.309 -0.559 -0.305 -0.706  0.548       
-#> TretmntD:Dy  0.432 -0.334 -0.309 -0.475 -0.762  0.592  0.538
-#> optimizer (nloptwrap) convergence code: 0 (OK)
-#> Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
-#>   See ?lme4::convergence and ?lme4::troubleshooting.
-#> 
+#>             (Intr) TrtmnB TrtmnC TrtmnD months TrtmB: TrtmC:
+#> TreatmentB  -0.776                                          
+#> TreatmentC  -0.717  0.556                                   
+#> TreatmentD  -0.767  0.595  0.549                            
+#> months      -0.566  0.439  0.405  0.434                     
+#> TrtmntB:mnt  0.439 -0.486 -0.315 -0.337 -0.777              
+#> TrtmntC:mnt  0.400 -0.310 -0.557 -0.306 -0.706  0.549       
+#> TrtmntD:mnt  0.431 -0.335 -0.309 -0.472 -0.763  0.593  0.539
 
 lmm(
 tumr_obj = mel1,

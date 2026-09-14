@@ -31,16 +31,9 @@ A list of ggplot objects.
 ## Examples
 
 ``` r
-mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
-#> Warning: 
-#> --------------------------------------------------------------------
-#> The time range is greater than 50, which may cause convergence
-#> issues when fitting lmm(). Consider rescaling the time variable
-#> to a larger unit (e.g., from days to weeks or months).
-#> --------------------------------------------------------------------
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 mel1_lmm <- lmm(mel1)
-#> Warning: Model failed to converge with max|grad| = 0.3043 (tol = 0.002, component 1)
-#>   See ?lme4::convergence and ?lme4::troubleshooting.
 plot(mel1_lmm, "response")
 #> Model has log1p-transformed response. Back-transforming predictions to
 #>   original response scale. Standard errors are still on the transformed

@@ -75,7 +75,13 @@ comparisons based on estimated marginal means.</p>
 Holm-adjusted p-values.</p></dd>
 
 
-</dl></div>
+</dl><p>#' @examples
+data(melanoma1)
+melanoma1$months &lt;- melanoma1$Day / (365/12)
+mel1 &lt;- tumr(melanoma1, ID, months, Volume, Treatment)
+fit_gam &lt;- tumr_gam(mel1)
+summary(fit_gam)</p>
+    </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

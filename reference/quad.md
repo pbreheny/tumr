@@ -84,16 +84,7 @@ An object of class `quad`, which is a list containing:
 
 ``` r
 data(melanoma1)
-mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
-#> Warning: 
-#> --------------------------------------------------------------------
-#> The time range is greater than 50, which may cause convergence
-#> issues when fitting lmm(). Consider rescaling the time variable
-#> to a larger unit (e.g., from days to weeks or months).
-#> --------------------------------------------------------------------
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 quad_obj <- quad(mel1)
-#> Warning: Some predictor variables are on very different scales: consider rescaling. 
-#> You may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.
-#> Warning: Model failed to converge with max|grad| = 0.0175242 (tol = 0.002, component 1)
-#>   See ?lme4::convergence and ?lme4::troubleshooting.
 ```

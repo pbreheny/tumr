@@ -29,26 +29,35 @@ bhm <- function(tumr_obj,
                 return_fit = TRUE,
                 ...) {
 
-  if (!requireNamespace("instantiate", quietly = TRUE)) {
+  if (!inherits(tumr_obj, "tumr")) {
     stop(
-      "Package 'instantiate' is required for bhm(). Please install it from CRAN.",
-      call. = FALSE
-    )
-  }
-  if (!instantiate::stan_cmdstan_exists()) {
-    stop(
-      "CmdStan is not available.\n",
-      "Please install cmdstanr and CmdStan first:\n",
-      "install.packages('cmdstanr', repos = c(",
-      "'https://mc-stan.org/r-packages/', getOption('repos')))\n",
-      "cmdstanr::install_cmdstan()",
+      "tumr_obj must be a tumr object created by tumr().",
       call. = FALSE
     )
   }
 
-  if (!inherits(tumr_obj, "tumr")) {
+  # Check CmdStanR
+  if (!requireNamespace("cmdstanr", quietly = TRUE)) {
     stop(
-      "tumr_obj must be a tumr object created by tumr().",
+      "Package 'cmdstanr' is required to use bhm().\n",
+      "Please install cmdstanr first.",
+      call. = FALSE
+    )
+  }
+
+  cmdstan_available <- tryCatch(
+    {
+      cmdstanr::cmdstan_version()
+      TRUE
+    },
+    error = function(e) FALSE
+  )
+
+  if (!cmdstan_available) {
+    stop(
+      "CmdStan is not installed or cannot be found.\n",
+      "Please install it with:\n",
+      "cmdstanr::install_cmdstan()",
       call. = FALSE
     )
   }
@@ -111,6 +120,7 @@ bhm <- function(tumr_obj,
     id_index,
     function(x) length(unique(x))
   )
+
   if (any(trt_check != 1)) {
     stop(
       "Each subject must have exactly one treatment.",
@@ -148,9 +158,70 @@ bhm <- function(tumr_obj,
     "bhm_cens"
   }
 
-  model <- instantiate::stan_package_model(
-    name = stan_name,
+  # Locate Stan source file installed with tumr
+  stan_source <- system.file(
+    "stan",
+    paste0(stan_name, ".stan"),
     package = "tumr"
+  )
+
+  if (!nzchar(stan_source)) {
+    stop(
+      "Stan model file '",
+      stan_name,
+      ".stan' could not be found.",
+      call. = FALSE
+    )
+  }
+
+  # Create a user-writable cache directory for compiled Stan models
+  cache_dir <- file.path(
+    tools::R_user_dir("tumr", which = "cache"),
+    "stan"
+  )
+
+  dir.create(
+    cache_dir,
+    recursive = TRUE,
+    showWarnings = FALSE
+  )
+
+  stan_file <- file.path(
+    cache_dir,
+    paste0(stan_name, ".stan")
+  )
+
+  # Copy Stan source to cache if it is new or has changed
+  copy_stan <- !file.exists(stan_file)
+
+  if (!copy_stan) {
+    copy_stan <-
+      unname(tools::md5sum(stan_source)) !=
+      unname(tools::md5sum(stan_file))
+  }
+
+  if (copy_stan) {
+    copied <- file.copy(
+      stan_source,
+      stan_file,
+      overwrite = TRUE
+    )
+
+    if (!copied) {
+      stop(
+        "Failed to copy Stan model to the user cache directory.",
+        call. = FALSE
+      )
+    }
+  }
+
+  # Compile Stan model at runtime
+  model <- cmdstanr::cmdstan_model(
+    stan_file = stan_file,
+    cpp_options = list(
+      "CXXFLAGS+= -DEIGEN_DONT_PARALLELIZE",
+      PRECOMPILED_HEADERS = FALSE
+    )
   )
 
   # Fit model
@@ -186,10 +257,13 @@ bhm <- function(tumr_obj,
       ),
       x
     )
+
     r <- regmatches(x, m)[[1]]
+
     if (length(r) != 3) {
       return(c(NA_integer_, NA_integer_))
     }
+
     c(
       as.integer(r[2]),
       as.integer(r[3])
@@ -207,11 +281,13 @@ bhm <- function(tumr_obj,
       slope_each$variable,
       "Slope"
     )
+
     slope_each <- dplyr::mutate(
       slope_each,
       k = k,
       treatment = trt_levels[k]
     )
+
     slope_each <- dplyr::select(
       slope_each,
       .data$treatment,
@@ -222,6 +298,7 @@ bhm <- function(tumr_obj,
       .data$ess_bulk,
       .data$ess_tail
     )
+
     slope_each <- dplyr::arrange(
       slope_each,
       .data$treatment
@@ -229,18 +306,23 @@ bhm <- function(tumr_obj,
   }
 
   # Treatment-specific intercepts
-  int_each <- dplyr::filter(sum_tbl, grepl("^Int\\[", .data$variable))
+  int_each <- dplyr::filter(
+    sum_tbl,
+    grepl("^Int\\[", .data$variable)
+  )
 
   if (nrow(int_each) > 0) {
     k <- parse_1index(
       int_each$variable,
       "Int"
     )
+
     int_each <- dplyr::mutate(
       int_each,
       k = k,
       treatment = trt_levels[k]
     )
+
     int_each <- dplyr::select(
       int_each,
       .data$treatment,
@@ -251,6 +333,7 @@ bhm <- function(tumr_obj,
       .data$ess_bulk,
       .data$ess_tail
     )
+
     int_each <- dplyr::arrange(
       int_each,
       .data$treatment
@@ -272,14 +355,17 @@ bhm <- function(tumr_obj,
         prefix = "SlopeDiff"
       )
     )
+
     slope_diff$i <- ij[, 1]
     slope_diff$j <- ij[, 2]
+
     slope_diff <- dplyr::filter(
       slope_diff,
       !is.na(.data$i),
       !is.na(.data$j),
       .data$i < .data$j
     )
+
     slope_diff <- dplyr::mutate(
       slope_diff,
       trt_i = trt_levels[.data$i],
@@ -290,6 +376,7 @@ bhm <- function(tumr_obj,
         .data$trt_j
       )
     )
+
     slope_diff <- dplyr::select(
       slope_diff,
       .data$contrast,
@@ -300,6 +387,7 @@ bhm <- function(tumr_obj,
       .data$ess_bulk,
       .data$ess_tail
     )
+
     slope_diff <- dplyr::arrange(
       slope_diff,
       .data$contrast
@@ -332,5 +420,6 @@ bhm <- function(tumr_obj,
   }
 
   class(out) <- "bhm"
+
   out
 }

@@ -3,19 +3,31 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+  release:
+    types: [published]
+  workflow_dispatch:
 
-name: R-CMD-check
+name: pkgdown
 
 jobs:
-  R-CMD-check:
+  pkgdown:
     runs-on: ubuntu-latest
+
+    concurrency:
+      group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      R_KEEP_PKG_SOURCE: yes
+
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v7
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: quarto-dev/quarto-actions/setup@v2
 
       - uses: r-lib/actions/setup-r@v2
         with:
@@ -24,17 +36,31 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
-            any::rcmdcheck
+            any::pkgdown
             any::pbkrtest
             stan-dev/cmdstanr
-          needs: check
+            local::.
+          needs: website
 
-      - name: Install CmdStan for Bayesian checks
+      - name: Install CmdStan
         run: |
           cmdstanr::check_cmdstan_toolchain(fix = TRUE)
-          cmdstanr::install_cmdstan(cores = 2)
+          cmdstanr::install_cmdstan(cores = parallel::detectCores())
         shell: Rscript {0}
 
-      - uses: r-lib/actions/check-r-package@v2
+      - name: Build site
+        run: |
+          options(yaml.eval.expr = TRUE)
+          pkgdown::build_site_github_pages(
+            new_process = FALSE,
+            install = FALSE
+          )
+        shell: Rscript {0}
+
+      - name: Deploy to GitHub pages 🚀
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4.9.0
         with:
-          args: '"--no-manual"'
+          clean: false
+          branch: gh-pages
+          folder: docs

@@ -9,6 +9,7 @@
 #'   \item \code{summary}: a data frame summarizing tumor doubling time by treatment group, including mean, median, and 95\% intervals.
 #' }
 #' @examples
+#' \dontrun{
 #' data(melanoma2)
 #' melanoma2$months <- melanoma2$Day / (365/12)
 #' mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
@@ -16,6 +17,7 @@
 #' dtime(fit_bhm)
 #' fit_lmm <- lmm(mel2)
 #' dtime(fit_lmm)
+#' }
 #'
 #' @export
 

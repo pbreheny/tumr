@@ -710,7 +710,7 @@ tumr_gam(mel1)
 #> $formula
 #> log(.measure + 1) ~ .group + s(.time, by = .group) + s(.id, bs = "re") + 
 #>     s(.id, .time, bs = "re")
-#> <environment: 0x55a70aca3850>
+#> <environment: 0x55d863d0d350>
 #> 
 #> $relevant_info
 #> $relevant_info$ID

@@ -51,7 +51,7 @@ plot.quad <- function(x,
     )
     fixed_formula <- stats::delete.response(
       stats::terms(
-        lme4::nobars(stats::formula(x$fit))
+        reformulas::nobars(stats::formula(x$fit))
       )
     )
     X <- stats::model.matrix(
@@ -67,7 +67,7 @@ plot.quad <- function(x,
     pred_grid$link_upper <- pred_grid$link_fit + 1.96 * pred_grid$link_se
     pred_grid$fit <- expm1(pred_grid$link_fit)
     pred_grid$lower.CL <- expm1(pred_grid$link_lower)
-    pred_grid$lower.CL <- pmax(pred_grid$lower.CL, 1e-9)
+    pred_grid$lower.CL <- pmax(pred_grid$lower.CL, 0)
     pred_grid$upper.CL <- expm1(pred_grid$link_upper)
     p <- ggplot2::ggplot(
       pred_grid,

@@ -20,7 +20,8 @@ Imports:
   tibble,
   tidyr,
   instantiate,
-  purrr
+  purrr,
+  reformulas
 Suggests:
   lme4,
   lmerTest,

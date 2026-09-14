@@ -10,7 +10,8 @@
 #' }
 #' @examples
 #' data(melanoma2)
-#' mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+#' melanoma2$months <- melanoma2$Day / (365/12)
+#' mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 #' fit_bhm <- bhm(mel2)
 #' dtime(fit_bhm)
 #' fit_lmm <- lmm(mel2)

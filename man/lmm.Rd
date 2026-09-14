@@ -40,7 +40,8 @@ Linear Mixed Model for Tumor Growth Data
 }
 \examples{
 data(melanoma1)
-mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 lmm(mel1)
 
 lmm(

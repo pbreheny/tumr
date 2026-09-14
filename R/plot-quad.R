@@ -15,12 +15,10 @@
 #'
 #' @examples
 #' data(melanoma1)
-#' mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+#' melanoma1$months <- melanoma1$Day / (365/12)
+#' mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 #' quad_obj <- quad(mel1)
-#'
-#' # Fitted quadratic growth curves
 #' plot(quad_obj, type = "predict")
-#' # Pairwise treatment contrasts over time
 #' plot(quad_obj, type = "contrast")
 #'
 #' @method plot quad

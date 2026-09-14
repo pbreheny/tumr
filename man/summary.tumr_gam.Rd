@@ -24,3 +24,11 @@ with adjusted p-values.}
 Returns the full \code{mgcv} GAM summary and pairwise group comparisons
 via \code{emmeans::pairs()}.
 }
+\examples{
+data(melanoma1)
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
+fit <- tumr_gam(mel1)
+summary(fit)
+
+}

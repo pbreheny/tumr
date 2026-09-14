@@ -22,3 +22,12 @@ A \code{ggplot} object.
 \description{
 Plot GAM Fit for Tumor Growth Data
 }
+\examples{
+data(melanoma1)
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
+fit_gam <- tumr_gam(mel1)
+plot(fit_gam, "predict")
+plot(fit_gam, "contrast")
+
+}

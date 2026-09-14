@@ -46,7 +46,8 @@ Plot tumor volume or fold change over time using median curves
 }
 \examples{
 data(melanoma2)
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+melanoma2$months <- melanoma2$Day / (365/12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 plot_median(mel2)
 plot_median(mel2, par = FALSE)
 plot_median(mel2, fold = TRUE)

@@ -23,10 +23,12 @@
 #'
 #' @examples
 #' data(melanoma1)
-#' mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+#' melanoma1$months <- melanoma1$Day / (365/12)
+#' mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 #' tumr_gam(mel1)
 #'
 #' @export
+
 tumr_gam <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL,
                 time = NULL, measure = NULL, group = NULL, n_grid = 20, ...) {
   if (!is.null(tumr_obj)) {

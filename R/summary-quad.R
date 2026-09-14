@@ -13,6 +13,13 @@
 #'     Holm-adjusted p-values.}
 #' }
 #'
+#'#' @examples
+#' data(melanoma1)
+#' melanoma1$months <- melanoma1$Day / (365/12)
+#' mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
+#' fit_gam <- tumr_gam(mel1)
+#' summary(fit_gam)
+#'
 #' @method summary quad
 #' @export
 

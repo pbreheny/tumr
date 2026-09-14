@@ -6,7 +6,8 @@
 #' @return a summary of the lmm object
 #'
 #' @examples
-#' mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+#' melanoma1$months <- melanoma1$Day / (365/12)
+#' mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 #' mel1_lmm <- lmm(mel1)
 #' summary(mel1_lmm)
 #'

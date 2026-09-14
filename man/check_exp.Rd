@@ -22,7 +22,8 @@ Diagnostic plots for exponential growth assumption
 }
 \examples{
 data(melanoma1)
-mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 lmm1 <- lmm(mel1)
 check_exp(lmm1)
 

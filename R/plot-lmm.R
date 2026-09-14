@@ -7,7 +7,8 @@
 #' @return A list of ggplot objects.
 #'
 #' @examples
-#' mel1 <- tumr(melanoma1, ID, Day, Volume, Treatment)
+#' melanoma1$months <- melanoma1$Day / (365/12)
+#' mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 #' mel1_lmm <- lmm(mel1)
 #' plot(mel1_lmm, "response")
 #' plot(mel1_lmm, "slope")

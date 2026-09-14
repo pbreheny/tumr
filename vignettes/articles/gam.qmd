@@ -28,9 +28,9 @@ where $s(\cdot)$ is a group-specific smooth term for time.
 
 ## Model fit
 ```{r}
-melanoma2$months <- melanoma2$Day / (365/12)
-mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
-fit <- tumr_gam(mel2)
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
+fit <- tumr_gam(mel1)
 ```
 
 ## Result summary
@@ -40,7 +40,8 @@ summary(fit)
 
 ## Plot
 ```{r}
-plot_median(mel2) 
+plot(mel1) 
+plot(mel1) + ggplot2::scale_y_log10()
 plot(fit, "predict") + ggplot2::scale_y_log10()
 plot(fit, "contrast")
 ```

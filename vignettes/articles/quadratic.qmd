@@ -28,9 +28,9 @@ $$
 
 ## Model fit
 ```{r}
-melanoma2$months <- melanoma2$Day / (365/12)
-mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
-fit_quad <- quad(mel2)
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
+fit_quad <- quad(mel1)
 ```
 
 ## Summary
@@ -43,6 +43,8 @@ summary(fit_quad)
 ## Plot
 
 ```{r}
+plot(mel1) 
+plot(mel1) + ggplot2::scale_y_log10()
 plot(fit_quad) + ggplot2::scale_y_log10()
 plot(fit_quad, "contrast")
 ```

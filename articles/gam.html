@@ -90,9 +90,9 @@
 </h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">melanoma2</span><span class="op">$</span><span class="va">months</span> <span class="op">&lt;-</span> <span class="va">melanoma2</span><span class="op">$</span><span class="va">Day</span> <span class="op">/</span> <span class="op">(</span><span class="fl">365</span><span class="op">/</span><span class="fl">12</span><span class="op">)</span></span>
-<span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">months</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
-<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr_gam.html">tumr_gam</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">melanoma1</span><span class="op">$</span><span class="va">months</span> <span class="op">&lt;-</span> <span class="va">melanoma1</span><span class="op">$</span><span class="va">Day</span> <span class="op">/</span> <span class="op">(</span><span class="fl">365</span><span class="op">/</span><span class="fl">12</span><span class="op">)</span></span>
+<span><span class="va">mel1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma1</span>, <span class="va">ID</span>, <span class="va">months</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr_gam.html">tumr_gam</a></span><span class="op">(</span><span class="va">mel1</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="result-summary">Result summary<a class="anchor" aria-label="anchor" href="#result-summary"></a>
 </h2>
@@ -101,23 +101,19 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast   estimate        SE p.value
-    A - B  0.5994256 0.4189060  0.9186
-    A - C  0.1515592 0.4056295  1.0000
-    A - D -0.3359103 0.4160643  1.0000
-    A - E  0.8976805 0.4325896  0.3081
-    B - C -0.4478664 0.4127334  1.0000
-    B - D -0.9353359 0.4229930  0.2474
-    B - E  0.2982549 0.4392577  1.0000
-    C - D -0.4874695 0.4098490  1.0000
-    C - E  0.7461213 0.4266151  0.5666
-    D - E  1.2335907 0.4365485  0.0491</code></pre>
+    A - B  5.5995408 0.7056964  0.0000
+    A - C  0.0477361 0.7181460  0.9470
+    A - D  7.3182799 0.7286342  0.0000
+    B - C -5.5518047 0.7152382  0.0000
+    B - D  1.7187391 0.7257685  0.0365
+    C - D  7.2705438 0.7378795  0.0000</code></pre>
 </div>
 </div>
 </section><section class="level2"><h2 id="plot">Plot<a class="anchor" aria-label="anchor" href="#plot"></a>
 </h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span> </span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1</span><span class="op">)</span> </span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure><p><img src="gam_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
@@ -125,18 +121,30 @@
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"predict"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite values.
+log-10 transformation introduced infinite values.</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure><p><img src="gam_files/figure-html/unnamed-chunk-4-2.png" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"contrast"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"predict"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure><p><img src="gam_files/figure-html/unnamed-chunk-4-3.png" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"contrast"</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="gam_files/figure-html/unnamed-chunk-4-4.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -234,7 +242,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: September 13, 2026</p>
+  <p>Last updated: September 14, 2026</p>
 </div>
 
     </footer>

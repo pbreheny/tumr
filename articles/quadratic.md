@@ -25,9 +25,9 @@ model:
 
 ``` r
 
-melanoma2$months <- melanoma2$Day / (365/12)
-mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
-fit_quad <- quad(mel2)
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
+fit_quad <- quad(mel1)
 ```
 
 ## Summary
@@ -40,18 +40,31 @@ summary(fit_quad)
     NOTE: Results may be misleading due to involvement in interactions
 
      contrast   estimate        SE p.value
-        A - B  0.6701898 0.3297388  0.2908
-        A - C  0.1380658 0.3224121  0.6706
-        A - D -0.4240997 0.3299029  0.6152
-        A - E  1.0145469 0.3398041  0.0378
-        B - C -0.5321240 0.3285497  0.4705
-        B - D -1.0942894 0.3359037  0.0194
-        B - E  0.3443571 0.3456330  0.6500
-        C - D -0.5621654 0.3287145  0.4705
-        C - E  0.8764811 0.3386504  0.0929
-        D - E  1.4386465 0.3457897  0.0015
+        A - B  5.3935205 0.6351557  0.0000
+        A - C  0.2965194 0.6502189  0.6512
+        A - D  6.6734450 0.6535717  0.0000
+        B - C -5.0970011 0.6358521  0.0000
+        B - D  1.2799246 0.6392802  0.1094
+        C - D  6.3769256 0.6542485  0.0000
 
 ## Plot
+
+``` r
+
+plot(mel1) 
+```
+
+![](quadratic_files/figure-html/unnamed-chunk-4-1.png)
+
+``` r
+
+plot(mel1) + ggplot2::scale_y_log10()
+```
+
+    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite values.
+    log-10 transformation introduced infinite values.
+
+![](quadratic_files/figure-html/unnamed-chunk-4-2.png)
 
 ``` r
 
@@ -61,11 +74,11 @@ plot(fit_quad) + ggplot2::scale_y_log10()
     Warning: the 'nobars' function has moved to the reformulas package. Please
     update your imports, or ask an upstream package maintainer to do so.
 
-![](quadratic_files/figure-html/unnamed-chunk-4-1.png)
+![](quadratic_files/figure-html/unnamed-chunk-4-3.png)
 
 ``` r
 
 plot(fit_quad, "contrast")
 ```
 
-![](quadratic_files/figure-html/unnamed-chunk-4-2.png)
+![](quadratic_files/figure-html/unnamed-chunk-4-4.png)

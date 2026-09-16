@@ -5,8 +5,6 @@ vignette: >
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 
-execute:
-  fig-bg: transparent
 ---
 
 In this guide, we demonstrate the core functionality of the tumr package using the melanoma2 dataset included with the package. All code required to reproduce the examples is provided below.

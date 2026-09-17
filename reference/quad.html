@@ -52,16 +52,7 @@ marginal means.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">quad</span><span class="op">(</span></span>
-<span>  tumr_obj <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  time <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  measure <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  n_grid <span class="op">=</span> <span class="fl">20</span>,</span>
-<span>  <span class="va">...</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">quad</span><span class="op">(</span>tumr_obj <span class="op">=</span> <span class="cn">NULL</span>, n_grid <span class="op">=</span> <span class="fl">20</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -70,26 +61,6 @@ marginal means.</p>
 
 <dl><dt id="arg-tumr-obj">tumr_obj<a class="anchor" aria-label="anchor" href="#arg-tumr-obj"></a></dt>
 <dd><p>A <code>tumr</code> object created by <code><a href="tumr.html">tumr()</a></code>.</p></dd>
-
-
-<dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>Tumor growth data. Only used if <code>tumr_obj</code> is not supplied.</p></dd>
-
-
-<dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
-<dd><p>Column name for subject IDs.</p></dd>
-
-
-<dt id="arg-time">time<a class="anchor" aria-label="anchor" href="#arg-time"></a></dt>
-<dd><p>Column name for repeated time measurements.</p></dd>
-
-
-<dt id="arg-measure">measure<a class="anchor" aria-label="anchor" href="#arg-measure"></a></dt>
-<dd><p>Column name for tumor measurements.</p></dd>
-
-
-<dt id="arg-group">group<a class="anchor" aria-label="anchor" href="#arg-group"></a></dt>
-<dd><p>Column name specifying the treatment group.</p></dd>
 
 
 <dt id="arg-n-grid">n_grid<a class="anchor" aria-label="anchor" href="#arg-n-grid"></a></dt>
@@ -103,23 +74,9 @@ Default is 20.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>quad</code>, which is a list containing:</p><dl><dt>data</dt>
-<dd><p>The processed tumor growth data.</p></dd>
-
-<dt>fit</dt>
-<dd><p>The fitted Exponential quadratic model.</p></dd>
-
-<dt>emm</dt>
-<dd><p>Estimated marginal means by treatment at each time point.</p></dd>
-
-<dt>contrast_obj</dt>
-<dd><p>Pairwise treatment contrasts.</p></dd>
-
-<dt>contrast_df</dt>
-<dd><p>A data frame containing contrast estimates and confidence intervals.</p></dd>
-
-
-</dl></div>
+    <p>An object of class <code>quad</code> containing the fitted model,
+estimated marginal means, and pairwise treatment contrasts.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

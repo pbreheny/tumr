@@ -7,16 +7,7 @@ marginal means.
 ## Usage
 
 ``` r
-quad(
-  tumr_obj = NULL,
-  data = NULL,
-  id = NULL,
-  time = NULL,
-  measure = NULL,
-  group = NULL,
-  n_grid = 20,
-  ...
-)
+quad(tumr_obj = NULL, n_grid = 20, ...)
 ```
 
 ## Arguments
@@ -25,26 +16,6 @@ quad(
 
   A `tumr` object created by
   [`tumr()`](https://pbreheny.github.io/tumr/reference/tumr.md).
-
-- data:
-
-  Tumor growth data. Only used if `tumr_obj` is not supplied.
-
-- id:
-
-  Column name for subject IDs.
-
-- time:
-
-  Column name for repeated time measurements.
-
-- measure:
-
-  Column name for tumor measurements.
-
-- group:
-
-  Column name specifying the treatment group.
 
 - n_grid:
 
@@ -58,27 +29,8 @@ quad(
 
 ## Value
 
-An object of class `quad`, which is a list containing:
-
-- data:
-
-  The processed tumor growth data.
-
-- fit:
-
-  The fitted Exponential quadratic model.
-
-- emm:
-
-  Estimated marginal means by treatment at each time point.
-
-- contrast_obj:
-
-  Pairwise treatment contrasts.
-
-- contrast_df:
-
-  A data frame containing contrast estimates and confidence intervals.
+An object of class `quad` containing the fitted model, estimated
+marginal means, and pairwise treatment contrasts.
 
 ## Examples
 

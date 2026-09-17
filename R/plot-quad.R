@@ -28,7 +28,6 @@ plot.quad <- function(x,
                       type = c("predict", "contrast"),
                       n_grid = 20,
                       ...) {
-
   type <- match.arg(type)
   if (type == "predict") {
     time_grid <- seq(
@@ -52,10 +51,7 @@ plot.quad <- function(x,
         reformulas::nobars(stats::formula(x$fit))
       )
     )
-    X <- stats::model.matrix(
-      fixed_formula,
-      data = pred_grid
-    )
+    X <- stats::model.matrix(fixed_formula, data = pred_grid)
     beta <- lme4::fixef(x$fit)
     X <- X[, names(beta), drop = FALSE]
     V <- as.matrix(stats::vcov(x$fit))
@@ -63,22 +59,19 @@ plot.quad <- function(x,
     pred_grid$link_se <- sqrt(rowSums((X %*% V) * X))
     pred_grid$link_lower <- pred_grid$link_fit - 1.96 * pred_grid$link_se
     pred_grid$link_upper <- pred_grid$link_fit + 1.96 * pred_grid$link_se
-    pred_grid$fit <- expm1(pred_grid$link_fit)
-    pred_grid$lower.CL <- expm1(pred_grid$link_lower)
-    pred_grid$upper.CL <- expm1(pred_grid$link_upper)
     p <- ggplot2::ggplot(
       pred_grid,
       ggplot2::aes(
         x = Time,
-        y = fit,
+        y = link_fit,
         color = Treatment,
         fill = Treatment
       )
     ) +
       ggplot2::geom_ribbon(
         ggplot2::aes(
-          ymin = lower.CL,
-          ymax = upper.CL
+          ymin = link_lower,
+          ymax = link_upper
         ),
         alpha = 0.2,
         color = NA
@@ -88,12 +81,11 @@ plot.quad <- function(x,
       ) +
       ggplot2::labs(
         x = "Time",
-        y = "Tumor measurement",
+        y = "Log tumor measurement",
         color = "Treatment",
         fill = "Treatment"
       ) +
       ggplot2::theme_bw()
-
     return(p)
   }
   if (type == "contrast") {

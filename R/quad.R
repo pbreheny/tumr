@@ -5,23 +5,12 @@
 #' marginal means.
 #'
 #' @param tumr_obj A `tumr` object created by [tumr()].
-#' @param data Tumor growth data. Only used if `tumr_obj` is not supplied.
-#' @param id Column name for subject IDs.
-#' @param time Column name for repeated time measurements.
-#' @param measure Column name for tumor measurements.
-#' @param group Column name specifying the treatment group.
 #' @param n_grid Number of time points used to evaluate treatment contrasts.
 #'   Default is 20.
 #' @param ... Further arguments passed to [lme4::lmer()].
 #'
-#' @return An object of class `quad`, which is a list containing:
-#' \describe{
-#'   \item{data}{The processed tumor growth data.}
-#'   \item{fit}{The fitted Exponential quadratic model.}
-#'   \item{emm}{Estimated marginal means by treatment at each time point.}
-#'   \item{contrast_obj}{Pairwise treatment contrasts.}
-#'   \item{contrast_df}{A data frame containing contrast estimates and confidence intervals.}
-#' }
+#' @return An object of class `quad` containing the fitted model,
+#' estimated marginal means, and pairwise treatment contrasts.
 #'
 #' @examples
 #' data(melanoma1)
@@ -32,20 +21,13 @@
 #' @export
 
 quad <- function(tumr_obj = NULL,
-                 data = NULL,
-                 id = NULL,
-                 time = NULL,
-                 measure = NULL,
-                 group = NULL,
                  n_grid = 20,
                  ...) {
-  if (!is.null(tumr_obj)) {
-    data <- tumr_obj$data
-    id <- tumr_obj$id
-    time <- tumr_obj$time
-    measure <- tumr_obj$measure
-    group <- tumr_obj$group
-  }
+  data <- tumr_obj$data
+  id <- tumr_obj$id
+  time <- tumr_obj$time
+  measure <- tumr_obj$measure
+  group <- tumr_obj$group
   data <- dplyr::rename(
     data,
     ID = dplyr::all_of(id),
@@ -53,9 +35,11 @@ quad <- function(tumr_obj = NULL,
     Volume = dplyr::all_of(measure),
     Treatment = dplyr::all_of(group)
   )
-  data$Volume[data$Volume == 0 | is.na(data$Volume)] <- get_limit(tumr_obj)
+  limit <- get_limit(tumr_obj)
+  idx <- !is.na(data$Volume) & data$Volume == 0
+  data$Volume[idx] <- limit
   fit <- lme4::lmer(
-    log1p(Volume) ~ (Time + I(Time^2)) * Treatment + (Time | ID),
+    log(Volume) ~ (Time + I(Time^2)) * Treatment + (Time | ID),
     data = data,
     ...
   )

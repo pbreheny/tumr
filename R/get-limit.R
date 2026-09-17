@@ -16,9 +16,6 @@
 #' @export
 
 get_limit <- function(x) {
-  min_nonzero <- min(
-    x$data$Volume[x$data$Volume != 0 & !is.na(x$data$Volume)]
-  )
-  limit <- min_nonzero / 2
-  return(limit)
+  min_nonzero <- min(x$data$Volume[x$data$Volume > 0], na.rm = TRUE)
+  return(min_nonzero / 2)
 }

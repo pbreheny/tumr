@@ -2,7 +2,7 @@ url: https://pbreheny.github.io/tumr/
 
 template:
   bootstrap: 5
-  light-switch: true
+  bootswatch: pulse
   math-rendering: katex
   includes:
     in_header: |
@@ -25,6 +25,7 @@ reference:
       - tumr
       - process_data
       - get_lld
+      - get_limit
       - breast
       - melanoma1
       - melanoma2

@@ -65,7 +65,6 @@ plot.quad <- function(x,
     pred_grid$link_upper <- pred_grid$link_fit + 1.96 * pred_grid$link_se
     pred_grid$fit <- expm1(pred_grid$link_fit)
     pred_grid$lower.CL <- expm1(pred_grid$link_lower)
-    pred_grid$lower.CL <- pmax(pred_grid$lower.CL, 0)
     pred_grid$upper.CL <- expm1(pred_grid$link_upper)
     p <- ggplot2::ggplot(
       pred_grid,
@@ -107,19 +106,20 @@ plot.quad <- function(x,
         y = estimate
       )
     ) +
-      ggplot2::geom_point() +
+      ggplot2::geom_point(color = "steelblue") +
       ggplot2::geom_errorbar(
         ggplot2::aes(
           ymin = lower.CL,
           ymax = upper.CL
         ),
         width = errorbar_width,
-        linewidth = 0.6
+        linewidth = 0.6,
+        color = "steelblue"
       ) +
       ggplot2::geom_hline(
         yintercept = 0,
         linetype = "dashed",
-        color = "grey40"
+        color = "red"
       ) +
       ggplot2::facet_wrap(
         ~ contrast

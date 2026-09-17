@@ -53,6 +53,7 @@ quad <- function(tumr_obj = NULL,
     Volume = dplyr::all_of(measure),
     Treatment = dplyr::all_of(group)
   )
+  data$Volume[data$Volume == 0 | is.na(data$Volume)] <- get_limit(tumr_obj)
   fit <- lme4::lmer(
     log1p(Volume) ~ (Time + I(Time^2)) * Treatment + (Time | ID),
     data = data,

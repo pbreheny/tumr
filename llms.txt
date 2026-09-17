@@ -68,6 +68,8 @@ dtime(lmm_obj)
   : Process data to be used in plot_median
 - [`get_lld()`](https://pbreheny.github.io/tumr/reference/get_lld.md) :
   Get lower limit of detection
+- [`get_limit()`](https://pbreheny.github.io/tumr/reference/get_limit.md)
+  : Calculate the Lower Detection Limit
 - [`breast`](https://pbreheny.github.io/tumr/reference/breast.md) :
   Tumor growth data for a breast cancer model
 - [`melanoma1`](https://pbreheny.github.io/tumr/reference/melanoma1.md)

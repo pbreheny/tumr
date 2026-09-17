@@ -40,12 +40,12 @@ summary(fit_quad)
     NOTE: Results may be misleading due to involvement in interactions
 
      contrast   estimate        SE p.value
-        A - B  5.3935205 0.6351557  0.0000
-        A - C  0.2965194 0.6502189  0.6512
-        A - D  6.6734450 0.6535717  0.0000
-        B - C -5.0970011 0.6358521  0.0000
-        B - D  1.2799246 0.6392802  0.1094
-        C - D  6.3769256 0.6542485  0.0000
+        A - B  4.6471836 0.5270131  0.0000
+        A - C  0.2866918 0.5362210  0.5964
+        A - D  5.6587780 0.5425495  0.0000
+        B - C -4.3604918 0.5274852  0.0000
+        B - D  1.0115944 0.5339173  0.1360
+        C - D  5.3720862 0.5430081  0.0000
 
 ## Plot
 
@@ -70,9 +70,6 @@ plot(mel1) + ggplot2::scale_y_log10()
 
 plot(fit_quad) + ggplot2::scale_y_log10()
 ```
-
-    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
-    values.
 
 ![](quadratic_files/figure-html/unnamed-chunk-4-3.png)
 

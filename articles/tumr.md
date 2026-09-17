@@ -85,7 +85,7 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
                        linewidth = 1.2) +
     ggplot2::labs(
             y = "Volume",
-            title = "Volume over Time"
+            title = "Without Accounting for Censoring"
           ) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_blank())
 
 }
@@ -104,7 +104,7 @@ observations.
 ``` r
 
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
-plot_median(mel2, par = FALSE)
+plot(mel2, par = FALSE)
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-5-1.png)
@@ -433,23 +433,9 @@ supports fitting a Bayesian hierarchical linear model. Detailed usage of
 this model is described in an
 [article](https://pbreheny.github.io/tumr/articles/articles/bhm.md).
 
-## Tumor Doubling Time Based on Fitted Tumor Growth Model
+## Tumor Doubling Time Based on `lmm()`
 
 ``` r
 
 dtime(lmm_mel2)
 ```
-
-    $method
-    [1] "Tumor Doubling Time Based on Linear Mixed Model"
-
-    $message
-    [1] "The model should demonstrate an exponential growth pattern."
-
-    $summary
-      Treatment mean median q2.5 q97.5
-    1         A 0.29   0.29 0.23  0.37
-    2         B 0.60   0.57 0.39  1.00
-    3         C 0.44   0.43 0.32  0.64
-    4         D 0.43   0.41 0.31  0.62
-    5         E 0.49   0.47 0.34  0.73

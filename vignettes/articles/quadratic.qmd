@@ -23,7 +23,7 @@ Exponential quadratic linear mixed models are well suited for longitudinal tumor
 By default, `quad()` fits the model:
 
 $$
-\log(1 + \text{measure}) \sim (\text{time} + \text{time}^2) * \text{group} + (\text{time} \mid \text{id})
+\log(\text{measure}) \sim (\text{time} + \text{time}^2) * \text{group} + (\text{time} \mid \text{id})
 $$
 
 ## Model fit

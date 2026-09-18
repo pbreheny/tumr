@@ -88,26 +88,26 @@ plot_mean <- function(data, group, time, measure, id, stat = median, remove_na =
 
 ## Our plots are good
 
-The figure below compares a naive longitudinal visualization with a median-based approach that explicitly accounts for censoring and missing observations.
+The figure below compares a naive visualization without accounting for censoring with a parametric approach that accounts for censoring and missing observations.
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
-plot(mel2, par = FALSE)
+plot(mel2, par = TRUE)
 ```
 
-The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect. In contrast, the median-based nonparametric approach shown in the right panel effectively addresses the issues observed in the left panel.
+The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect. In contrast, the parametric approach shown in the right panel effectively addresses the issues observed in the left panel.
 
-Also, parametric methods can also be used to visualize the data on the original scale and as fold changes.
+Also, in the figure below, we present both the parametric method on the original volume and the fold change (log scale).
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-plot_median(mel2, par = TRUE)
-plot_median(mel2, par = TRUE, fold = TRUE)
+plot(mel2, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
+plot(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
 
@@ -168,12 +168,12 @@ By default, lmm() fits the model:
 This specification allows each subject to have their own growth trajectory while estimating overall treatment effects. The model formula can be customized if desired.
 
 ```{r}
-(lmm_mel2 <- lmm(mel2))
+lmm_mel2 <- lmm(mel2)
 ```
 
 **Note:** You may see a convergence warning when fitting this model. If this occurs, see the [Troubleshooting](articles/troubleshooting.html) article for guidance.
 
-## Summarizing Linear Mixed Model Results
+## Summarizing Linear mixed-effects modeling results
 
 The summary() method for lmm objects uses the emmeans package to report:
 
@@ -186,7 +186,7 @@ summary(lmm_mel2)
 ```
 
 
-## Plotting Linear Mixed Model Results
+## Plotting Linear mixed-effects modeling results
 
 Finally, tumr provides a plot() method for lmm objects that produces two visualizations:
 
@@ -205,14 +205,6 @@ Since lmm() model the data on log scale by default and a straight line correspon
 to exponential growth on log scale, we can check whether the exponential growth
 model fits well by plotting the residuals from Linear Mixed Model vs time.
 
-```{r}
-#| layout-ncol: 2
-#| fig-width: 4
-#| fig-height: 3.5
-plot_median(mel2, par = TRUE) + ggplot2::scale_y_log10()
-plot_median(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
-```
-
 
 ```{r}
 check_exp(lmm_mel2)
@@ -222,19 +214,16 @@ check_exp(lmm_mel2)
 # Flexible modeling of nonlinear growth
 
 For datasets that exhibit non-linear growth, we also provide the [Exponential quadratic model](articles/quadratic.html) and [Generalized Addictive Model (GAM)](articles/gam.html)
-as alternative modeling approaches. Examples of their applications can be found in the linked articles.
+as alternative modeling approaches. Examples of their applications can be found in the linked articles. 
 
 
-# Bayesian Hierarchical Linear Model
+# Tumor Doubling Time Based on lmm()
 
-In addition to the linear mixed-effects modeling, our package also supports fitting a Bayesian hierarchical linear model. Detailed usage of this model is described in an [article](articles/bhm.html).
-
-
-# Tumor Doubling Time Based on `lmm()`
-
-```{r, eval=FALSE}
+```{r}
 dtime(lmm_mel2)
 ```
 
 
+# Bayesian hierarchical linear model
 
+In addition to the linear mixed-effects modeling, our package also supports fitting a Bayesian hierarchical linear model. Detailed usage of this model is described in an [article](articles/bhm.html).

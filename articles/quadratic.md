@@ -18,7 +18,7 @@ By default,
 [`quad()`](https://pbreheny.github.io/tumr/reference/quad.md) fits the
 model:
 
-\log(1 + \text{measure}) \sim (\text{time} + \text{time}^2) \*
+\log(\text{measure}) \sim (\text{time} + \text{time}^2) \*
 \text{group} + (\text{time} \mid \text{id})
 
 ## Model fit

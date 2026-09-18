@@ -97,14 +97,14 @@ tumr’s methods.
 
 ### Our plots are good
 
-The figure below compares a naive longitudinal visualization with a
-median-based approach that explicitly accounts for censoring and missing
-observations.
+The figure below compares a naive visualization without accounting for
+censoring with a parametric approach that accounts for censoring and
+missing observations.
 
 ``` r
 
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
-plot(mel2, par = FALSE)
+plot(mel2, par = TRUE)
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-5-1.png)
@@ -117,17 +117,23 @@ common in tumor growth studies, where subjects frequently leave the
 study due to censoring or dropout. As a result, the apparent decline in
 tumor volume over time is an artifact of estimating summaries from a
 progressively smaller subset of subjects rather than a true biological
-effect. In contrast, the median-based nonparametric approach shown in
-the right panel effectively addresses the issues observed in the left
-panel.
+effect. In contrast, the parametric approach shown in the right panel
+effectively addresses the issues observed in the left panel.
 
-Also, parametric methods can also be used to visualize the data on the
-original scale and as fold changes.
+Also, in the figure below, we present both the parametric method on the
+original volume and the fold change (log scale).
 
 ``` r
 
-plot_median(mel2, par = TRUE)
-plot_median(mel2, par = TRUE, fold = TRUE)
+plot(mel2, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
+```
+
+    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
+    values.
+
+``` r
+
+plot(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-6-1.png)
@@ -241,60 +247,15 @@ can be customized if desired.
 
 ``` r
 
-(lmm_mel2 <- lmm(mel2))
+lmm_mel2 <- lmm(mel2)
 ```
-
-    Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-    lmerModLmerTest]
-    Formula: log1p(Volume) ~ Treatment * months + (months | ID)
-       Data: data
-
-    REML criterion at convergence: 1182.4
-
-    Scaled residuals:
-        Min      1Q  Median      3Q     Max
-    -6.8683 -0.3590  0.0569  0.4891  4.0759
-
-    Random effects:
-     Groups   Name        Variance Std.Dev. Corr
-     ID       (Intercept) 0.3911   0.6254
-              months      0.6025   0.7762   -0.51
-     Residual             0.3221   0.5675
-    Number of obs: 568, groups:  ID, 47
-
-    Fixed effects:
-                      Estimate Std. Error      df t value Pr(>|t|)
-    (Intercept)         3.6609     0.2269 46.8170  16.134  < 2e-16 ***
-    TreatmentB          0.5383     0.3226 42.8852   1.669  0.10244
-    TreatmentC          0.7805     0.3196 46.0697   2.442  0.01849 *
-    TreatmentD          1.3329     0.3241 48.7024   4.112  0.00015 ***
-    TreatmentE         -0.1469     0.3320 42.4100  -0.443  0.66031
-    months              2.4245     0.2729 47.8797   8.885 1.07e-11 ***
-    TreatmentB:months  -1.2083     0.3860 43.3477  -3.130  0.00312 **
-    TreatmentC:months  -0.8130     0.3818 46.2297  -2.129  0.03861 *
-    TreatmentD:months  -0.7594     0.4018 54.1899  -1.890  0.06412 .
-    TreatmentE:months  -0.9309     0.3953 42.1808  -2.355  0.02327 *
-    ---
-    Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-    Correlation of Fixed Effects:
-                (Intr) TrtmnB TrtmnC TrtmnD TrtmnE months TrtmB: TrtmC: TrtmD:
-    TreatmentB  -0.703
-    TreatmentC  -0.710  0.499
-    TreatmentD  -0.700  0.492  0.497
-    TreatmentE  -0.683  0.481  0.485  0.478
-    months      -0.577  0.406  0.410  0.404  0.395
-    TrtmntB:mnt  0.408 -0.560 -0.290 -0.286 -0.279 -0.707
-    TrtmntC:mnt  0.413 -0.290 -0.573 -0.289 -0.282 -0.715  0.505
-    TrtmntD:mnt  0.392 -0.276 -0.278 -0.586 -0.268 -0.679  0.480  0.485
-    TrtmntE:mnt  0.398 -0.280 -0.283 -0.279 -0.556 -0.690  0.488  0.493  0.469
 
 **Note:** You may see a convergence warning when fitting this model. If
 this occurs, see the
 [Troubleshooting](https://pbreheny.github.io/tumr/articles/articles/troubleshooting.md)
 article for guidance.
 
-### Summarizing Linear Mixed Model Results
+### Summarizing Linear mixed-effects modeling results
 
 The summary() method for lmm objects uses the emmeans package to report:
 
@@ -342,7 +303,7 @@ summary(lmm_mel2)
     Degrees-of-freedom method: kenward-roger
     P value adjustment: tukey method for comparing a family of 5 estimates 
 
-### Plotting Linear Mixed Model Results
+### Plotting Linear mixed-effects modeling results
 
 Finally, tumr provides a plot() method for lmm objects that produces two
 visualizations:
@@ -392,29 +353,12 @@ Mixed Model vs time.
 
 ``` r
 
-plot_median(mel2, par = TRUE) + ggplot2::scale_y_log10()
-```
-
-    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
-    values.
-
-``` r
-
-plot_median(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
-```
-
-![](tumr_files/figure-html/unnamed-chunk-12-1.png)
-
-![](tumr_files/figure-html/unnamed-chunk-12-2.png)
-
-``` r
-
 check_exp(lmm_mel2)
 ```
 
     `geom_smooth()` using formula = 'y ~ x'
 
-![](tumr_files/figure-html/unnamed-chunk-13-1.png)
+![](tumr_files/figure-html/unnamed-chunk-12-1.png)
 
 ## Flexible modeling of nonlinear growth
 
@@ -426,16 +370,30 @@ and [Generalized Addictive Model
 alternative modeling approaches. Examples of their applications can be
 found in the linked articles.
 
-## Bayesian Hierarchical Linear Model
-
-In addition to the linear mixed-effects modeling, our package also
-supports fitting a Bayesian hierarchical linear model. Detailed usage of
-this model is described in an
-[article](https://pbreheny.github.io/tumr/articles/articles/bhm.md).
-
-## Tumor Doubling Time Based on `lmm()`
+## Tumor Doubling Time Based on lmm()
 
 ``` r
 
 dtime(lmm_mel2)
 ```
+
+    $method
+    [1] "Tumor Doubling Time Based on Linear Mixed Model"
+
+    $message
+    [1] "The model should demonstrate an exponential growth pattern."
+
+    $summary
+      Treatment mean median q2.5 q97.5
+    1         A 0.29   0.29 0.23  0.37
+    2         B 0.60   0.57 0.39  1.00
+    3         C 0.44   0.43 0.32  0.64
+    4         D 0.43   0.41 0.31  0.62
+    5         E 0.49   0.47 0.34  0.73
+
+## Bayesian hierarchical linear model
+
+In addition to the linear mixed-effects modeling, our package also
+supports fitting a Bayesian hierarchical linear model. Detailed usage of
+this model is described in an
+[article](https://pbreheny.github.io/tumr/articles/articles/bhm.md).

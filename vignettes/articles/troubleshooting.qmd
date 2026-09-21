@@ -63,7 +63,7 @@ If you prefer to view the predicted volume values on the log scale, you can appl
 
 ```{r}
 lmm_mel2 <- lmm(mel2)
-plot(lmm_mel2, "response") + ggplot2::scale_y_continuous(trans = scales::log1p_trans())
+plot(lmm_mel2, "response")
 ```
 
 This approach preserves the model fit while allowing you to visualize predictions and uncertainty on the transformed scale.
@@ -73,7 +73,7 @@ This approach preserves the model fit while allowing you to visualize prediction
 The lmm() function allows you to override the default model formula, providing flexibility when fitting alternative model specifications.
 
 By default, lmm() fits a model of the form
-`log1p(measure) ~ group * time + (time | id)`
+`log(measure) ~ group * time + (time | id)`
 (for example, `Volume ~ months + (1 | ID)`).
 
 In the example below, the default formula is replaced with a simpler model that uses a rescaled time variable and a random intercept only:

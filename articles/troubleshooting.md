@@ -174,14 +174,11 @@ package.
 ``` r
 
 lmm_mel2 <- lmm(mel2)
-plot(lmm_mel2, "response") + ggplot2::scale_y_continuous(trans = scales::log1p_trans())
+plot(lmm_mel2, "response")
 ```
 
     Model has log transformed response. Predictions are on transformed
       scale.
-
-    Scale for y is already present.
-    Adding another scale for y, which will replace the existing scale.
 
 ![](troubleshooting_files/figure-html/unnamed-chunk-4-1.png)
 
@@ -194,7 +191,7 @@ The lmm() function allows you to override the default model formula,
 providing flexibility when fitting alternative model specifications.
 
 By default, lmm() fits a model of the form
-`log1p(measure) ~ group * time + (time | id)` (for example,
+`log(measure) ~ group * time + (time | id)` (for example,
 `Volume ~ months + (1 | ID)`).
 
 In the example below, the default formula is replaced with a simpler

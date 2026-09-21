@@ -239,7 +239,7 @@ longitudinal data because they account for:
 
 By default, lmm() fits the model:
 
-`log1p(measure) ~ group * time + (time | id)`
+`log(measure) ~ group * time + (time | id)`
 
 This specification allows each subject to have their own growth
 trajectory while estimating overall treatment effects. The model formula

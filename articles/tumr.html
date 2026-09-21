@@ -271,7 +271,7 @@ E-D -0.2179867 -1.3188107  0.8828372 0.9794890</code></pre>
 </ul>
 <p>By default, lmm() fits the model:</p>
 <div class="text-center">
-<p><code>log1p(measure) ~ group * time + (time | id)</code></p>
+<p><code>log(measure) ~ group * time + (time | id)</code></p>
 </div>
 <p>This specification allows each subject to have their own growth trajectory while estimating overall treatment effects. The model formula can be customized if desired.</p>
 <div class="cell">

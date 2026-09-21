@@ -4,34 +4,10 @@
 \alias{tumr_gam}
 \title{Generalized Additive Model for Tumor Growth Data}
 \usage{
-tumr_gam(
-  tumr_obj = NULL,
-  formula = NULL,
-  data = NULL,
-  id = NULL,
-  time = NULL,
-  measure = NULL,
-  group = NULL,
-  n_grid = 20,
-  ...
-)
+tumr_gam(tumr_obj = NULL, n_grid = 20, ...)
 }
 \arguments{
 \item{tumr_obj}{A \code{tumr} object created by \code{\link{tumr}}.}
-
-\item{formula}{GAM formula. Defaults to
-\code{log(measure + 1) ~ group + s(time, by = group) +
-  s(id, bs = "re") + s(id, time, bs = "re")}.}
-
-\item{data}{A data frame of tumor growth measurements.}
-
-\item{id}{Column name of subject IDs.}
-
-\item{time}{Column name of repeated time measurements.}
-
-\item{measure}{Column name of repeated tumor measurements.}
-
-\item{group}{Column name of treatment group assignments.}
 
 \item{n_grid}{Number of time grid points for prediction. Default \code{20}.}
 

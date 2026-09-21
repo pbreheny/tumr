@@ -20,8 +20,12 @@ plot.lmm <- function(x, type = c("response", "slope"), ...){
   if (type == "response") {
     pred <- ggeffects::ggpredict(model,
                                  terms = c(x$relevant_info$Time,
-                                           x$relevant_info$Group))
-    return(plot(pred))
+                                           x$relevant_info$Group),
+                                 back_transform = FALSE)
+  p <- plot(pred) + ggplot2::labs(
+      x = x$relevant_info$Time,
+      y = "Tumor measurement (log scale)")
+    return(p)
   }
 
   if (type == "slope"){

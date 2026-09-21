@@ -24,56 +24,47 @@ plot.tumr_gam <- function(x, type = c("predict", "contrast"),
   type <- match.arg(type)
   data <- x$data
   if (is.null(n_grid)) n_grid <- x$n_grid
-  re_terms <- c("s(.id)", "s(.id,.time)")
+  re_terms <- c("s(ID)", "s(ID, Time)")
   time_grid <- seq(
-    min(data[[".time"]], na.rm = TRUE),
-    max(data[[".time"]], na.rm = TRUE),
+    min(data[["Time"]], na.rm = TRUE),
+    max(data[["Time"]], na.rm = TRUE),
     length.out = n_grid
   )
-  group_levels <- levels(data[[".group"]])
+  group_levels <- levels(data[["Treatment"]])
   pred_grid <- expand.grid(
-    .time  = time_grid,
-    .group = factor(group_levels, levels = group_levels),
+    Time  = time_grid,
+    Treatment = factor(group_levels, levels = group_levels),
     stringsAsFactors = FALSE
   )
-  pred_grid[[".id"]] <- levels(data[[".id"]])[1]
+  pred_grid[["ID"]] <- levels(data[["ID"]])[1]
   if (type == "predict") {
-    pred <- stats::predict(
+    pred <- ggeffects::predict_response(
       x$fit,
-      newdata = pred_grid,
-      type    = "link",
-      se.fit  = TRUE,
-      exclude = re_terms
+      terms = c("Time [all]", "Treatment"),
+      exclude = c(
+        "s(ID)",
+        "s(ID,Time)"
+      ),
+      newdata.guaranteed = TRUE,
+      back_transform = FALSE
     )
-    pred_grid$fit <- exp(pred$fit)
-    pred_grid$lower.CL <- exp(pred$fit - 1.96 * pred$se.fit)
-    pred_grid$upper.CL <- exp(pred$fit + 1.96 * pred$se.fit)
-    p <- ggplot2::ggplot(
-      pred_grid,
-      ggplot2::aes(x = .time, y = fit,
-                   color = .group, fill = .group)
-    ) +
-      ggplot2::geom_ribbon(
-        ggplot2::aes(ymin = lower.CL, ymax = upper.CL),
-        alpha = 0.2, color = NA
-      ) +
-      ggplot2::geom_line(linewidth = 1) +
+    p <- plot(pred) +
       ggplot2::labs(
-        x     = x$relevant_info$Time,
-        y     = x$relevant_info$Measure,
-        color = x$relevant_info$Group,
-        fill  = x$relevant_info$Group
+        x = "Time",
+        y = "Tumor measurement (log scale)",
+        color = "Treatment",
+        fill = "Treatment"
       ) +
       ggplot2::theme_bw()
     return(p)
   }
   if (type == "contrast") {
-    em <- emmeans::emmeans(x$fit, specs   = ~ .group | .time,
-                           at = list(.time = time_grid), exclude = re_terms)
+    em <- emmeans::emmeans(x$fit, specs   = ~ Treatment | Time,
+                           at = list(Time = time_grid), exclude = re_terms)
     con <- emmeans::contrast(em, method = "pairwise", adjust = "none")
     contrast_raw <- as.data.frame(con)
     contrast_df <- data.frame(
-      Time     = contrast_raw[[".time"]],
+      Time     = contrast_raw[["Time"]],
       contrast = as.character(contrast_raw$contrast),
       estimate = contrast_raw$estimate,
       SE       = contrast_raw$SE,
@@ -96,7 +87,7 @@ plot.tumr_gam <- function(x, type = c("predict", "contrast"),
       ggplot2::geom_hline(
         yintercept = 0,
         linetype   = "dashed",
-        color      = "grey40"
+        color      = "red"
       ) +
       ggplot2::facet_wrap(~ contrast) +
       ggplot2::labs(

@@ -190,12 +190,11 @@ summary(lmm_mel2)
 
 Finally, tumr provides a plot() method for lmm objects that produces two visualizations:
 
-1. Predicted tumor growth trajectories over time
+1. Predicted tumor growth trajectories over time (log scale)
 2. Estimated mean growth slopes for each group with confidence intervals
 
 ```{r}
-plot(lmm_mel2, "response") + ggplot2::coord_cartesian(ylim = c(0, 250000))
-plot(lmm_mel2, "response") + ggplot2::scale_y_log10()
+plot(lmm_mel2, "response") 
 plot(lmm_mel2, "slope")
 ```
 

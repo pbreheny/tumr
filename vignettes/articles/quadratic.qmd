@@ -1,5 +1,5 @@
 ---
-title: "Exponential quadratic Model"
+title: "Nonlinear - Exponential quadratic Model"
 format: 
   html:
     toc: true
@@ -45,6 +45,6 @@ summary(fit_quad)
 ```{r}
 plot(mel1) 
 plot(mel1) + ggplot2::scale_y_log10()
-plot(fit_quad, "predict") 
+plot(fit_quad, "predict")
 plot(fit_quad, "contrast")
 ```

@@ -35,56 +35,17 @@ plot.quad <- function(x,
       max(x$data$Time, na.rm = TRUE),
       length.out = n_grid
     )
-    model_data <- stats::model.frame(x$fit)
-    treatment_levels <- levels(factor(model_data$Treatment))
-    pred_grid <- expand.grid(
-      Time = time_grid,
-      Treatment = treatment_levels,
-      stringsAsFactors = FALSE
-    )
-    pred_grid$Treatment <- factor(
-      pred_grid$Treatment,
-      levels = treatment_levels
-    )
-    fixed_formula <- stats::delete.response(
-      stats::terms(
-        reformulas::nobars(stats::formula(x$fit))
-      )
-    )
-    X <- stats::model.matrix(fixed_formula, data = pred_grid)
-    beta <- lme4::fixef(x$fit)
-    X <- X[, names(beta), drop = FALSE]
-    V <- as.matrix(stats::vcov(x$fit))
-    pred_grid$link_fit <- drop(X %*% beta)
-    pred_grid$link_se <- sqrt(rowSums((X %*% V) * X))
-    pred_grid$link_lower <- pred_grid$link_fit - 1.96 * pred_grid$link_se
-    pred_grid$link_upper <- pred_grid$link_fit + 1.96 * pred_grid$link_se
-    p <- ggplot2::ggplot(
-      pred_grid,
-      ggplot2::aes(
-        x = Time,
-        y = link_fit,
-        color = Treatment,
-        fill = Treatment
-      )
+    pred <- ggeffects::predict_response(
+      x$fit,
+      terms = c("Time [all]", "Treatment"),
+      type = "fixed",
+      back_transform = FALSE)
+    p <- plot(pred) + ggplot2::labs(
+      x = "Time",
+      y = "Tumor measurement (log scale)",
+      color = "Treatment",
+      fill = "Treatment"
     ) +
-      ggplot2::geom_ribbon(
-        ggplot2::aes(
-          ymin = link_lower,
-          ymax = link_upper
-        ),
-        alpha = 0.2,
-        color = NA
-      ) +
-      ggplot2::geom_line(
-        linewidth = 1
-      ) +
-      ggplot2::labs(
-        x = "Time",
-        y = "Log tumor measurement",
-        color = "Treatment",
-        fill = "Treatment"
-      ) +
       ggplot2::theme_bw()
     return(p)
   }
@@ -98,7 +59,7 @@ plot.quad <- function(x,
         y = estimate
       )
     ) +
-      ggplot2::geom_point(color = "steelblue") +
+      ggplot2::geom_point(color = "black") +
       ggplot2::geom_errorbar(
         ggplot2::aes(
           ymin = lower.CL,
@@ -106,7 +67,7 @@ plot.quad <- function(x,
         ),
         width = errorbar_width,
         linewidth = 0.6,
-        color = "steelblue"
+        color = "black"
       ) +
       ggplot2::geom_hline(
         yintercept = 0,

@@ -42,9 +42,19 @@ lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = 
     if (is.null(group)) group <- tumr_obj$group
     if (is.null(data)) data <- tumr_obj$data
   }
-
+  # Replace zero values with the lower limit
+  if (!is.null(tumr_obj)) {
+    limit <- get_limit(tumr_obj)
+  } else {
+    limit <- min(
+      data[[measure]][data[[measure]] > 0],
+      na.rm = TRUE
+    ) / 2
+  }
+  idx <- !is.na(data[[measure]]) & data[[measure]] == 0
+  data[[measure]][idx] <- limit
   if (is.null(formula)) {
-    formula_string <- paste0("log1p(", measure, ") ~ ", group, " * ", time, " + (", time, " | ", id, ")")
+    formula_string <- paste0("log(", measure, ") ~ ", group, " * ", time, " + (", time, " | ", id, ")")
     formula <- as.formula(formula_string)
   }
 

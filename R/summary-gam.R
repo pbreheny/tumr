@@ -24,10 +24,8 @@
 #' @export
 
 summary.tumr_gam <- function(object, ...) {
-  # name of random effect
-  re_terms <- c("s(.id)", "s(.id,.time)")
-  # exclude random effect
-  em <- emmeans::emmeans(object$fit, specs = ~ .group, exclude = re_terms)
+  re_terms <- c("s(ID)", "s(ID,Time)")
+  em <- emmeans::emmeans(object$fit, specs = ~ Treatment, exclude = re_terms)
   con <- emmeans::contrast(em, method = "pairwise", adjust = "holm")
   pairwise_raw <- as.data.frame(con)
   pairwise_tests <- data.frame(

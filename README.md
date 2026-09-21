@@ -46,17 +46,16 @@ plot(rfeat_mel2)
 lmm_obj <- lmm(mel2)
 summary(lmm_obj)
 plot(lmm_obj, "response")
-plot(lmm_obj, "response") + ggplot2::scale_y_log10()
 plot(lmm_obj, "slope")
 
 # Nonlinear model - Exponential quadratic model
 quad_obj <- quad(mel2)
-plot(quad_obj, "predict") + ggplot2::scale_y_log10()
+plot(quad_obj, "predict")
 plot(quad_obj, "contrast")
 
 # Nonlinear model - Generalized Addictive Model
 gam_obj <- tumr_gam(mel2)
-plot(gam_obj, "predict") + ggplot2::scale_y_log10()
+plot(gam_obj, "predict")
 plot(gam_obj, "contrast")
 
 # Compute Tumor Doubling Time based on Linear mixed-effects modeling

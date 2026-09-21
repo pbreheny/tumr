@@ -35,8 +35,7 @@ melanoma1$months <- melanoma1$Day / (365/12)
 mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 mel1_lmm <- lmm(mel1)
 plot(mel1_lmm, "response")
-#> Model has log1p-transformed response. Back-transforming predictions to
-#>   original response scale. Standard errors are still on the transformed
+#> Model has log transformed response. Predictions are on transformed
 #>   scale.
 
 plot(mel1_lmm, "slope")

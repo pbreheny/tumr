@@ -1,4 +1,4 @@
-# Generalized Addictive Model (GAM)
+# Nonlinear - Generalized Addictive Model (GAM)
 
 The package also includes `gam()`, which fits a generalized additive
 mixed effects model to tumor growth data. This model is useful when
@@ -7,8 +7,8 @@ cannot be captured by polynomial terms.
 
 By default, `gam()` fits the model:
 
-\log(1 + \text{measure}) \sim \text{group} + s(\text{time},\\ \text{by}
-= \text{group}) + (\text{time} \mid \text{id}) where s(\cdot) is a
+\log(\text{measure}) \sim \text{group} + s(\text{time},\\ \text{by} =
+\text{group}) + (\text{time} \mid \text{id}) where s(\cdot) is a
 group-specific smooth term for time.
 
 ## Model fit
@@ -27,13 +27,13 @@ fit <- tumr_gam(mel1)
 summary(fit)
 ```
 
-     contrast   estimate        SE p.value
-        A - B  5.5995408 0.7056964  0.0000
-        A - C  0.0477361 0.7181460  0.9470
-        A - D  7.3182799 0.7286342  0.0000
-        B - C -5.5518047 0.7152382  0.0000
-        B - D  1.7187391 0.7257685  0.0365
-        C - D  7.2705438 0.7378795  0.0000
+     contrast    estimate        SE p.value
+        A - B  4.94021481 0.6216152  0.0000
+        A - C  0.01675351 0.6329712  0.9789
+        A - D  6.29711932 0.6400391  0.0000
+        B - C -4.92346130 0.6302455  0.0000
+        B - D  1.35690452 0.6373436  0.0674
+        C - D  6.28036581 0.6484241  0.0000
 
 ## Plot
 
@@ -56,8 +56,11 @@ plot(mel1) + ggplot2::scale_y_log10()
 
 ``` r
 
-plot(fit, "predict") + ggplot2::scale_y_log10()
+plot(fit, "predict")
 ```
+
+    Model has log transformed response. Predictions are on transformed
+      scale.
 
 ![](gam_files/figure-html/unnamed-chunk-4-3.png)
 

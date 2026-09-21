@@ -1,4 +1,4 @@
-# Exponential quadratic Model
+# Nonlinear - Exponential quadratic Model
 
 The package also includes
 [`quad()`](https://pbreheny.github.io/tumr/reference/quad.md), which
@@ -68,8 +68,11 @@ plot(mel1) + ggplot2::scale_y_log10()
 
 ``` r
 
-plot(fit_quad, "predict") 
+plot(fit_quad, "predict")
 ```
+
+    Model has log transformed response. Predictions are on transformed
+      scale.
 
 ![](quadratic_files/figure-html/unnamed-chunk-4-3.png)
 

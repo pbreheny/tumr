@@ -22,8 +22,8 @@ via emmeans::pairs()."><meta property="og:image" content="https://pbreheny.githu
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/bhm.html">Bayesian Hierarchical Linear Model</a></li>
     <li><a class="dropdown-item" href="../articles/data.html">tumr data sets</a></li>
-    <li><a class="dropdown-item" href="../articles/gam.html">Generalized Addictive Model (GAM)</a></li>
-    <li><a class="dropdown-item" href="../articles/quadratic.html">Exponential quadratic Model</a></li>
+    <li><a class="dropdown-item" href="../articles/gam.html">Nonlinear - Generalized Addictive Model (GAM)</a></li>
+    <li><a class="dropdown-item" href="../articles/quadratic.html">Nonlinear - Exponential quadratic Model</a></li>
     <li><a class="dropdown-item" href="../articles/troubleshooting.html">Troubleshooting</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -87,13 +87,13 @@ with adjusted p-values.</p></dd>
 <span class="r-in"><span><span class="va">mel1</span> <span class="op">&lt;-</span> <span class="fu"><a href="tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma1</span>, <span class="va">ID</span>, <span class="va">months</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="tumr_gam.html">tumr_gam</a></span><span class="op">(</span><span class="va">mel1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  contrast   estimate        SE p.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     A - B  5.5995408 0.7056964  0.0000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     A - C  0.0477361 0.7181460  0.9470</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     A - D  7.3182799 0.7286342  0.0000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     B - C -5.5518047 0.7152382  0.0000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     B - D  1.7187391 0.7257685  0.0365</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     C - D  7.2705438 0.7378795  0.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  contrast    estimate        SE p.value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     A - B  4.94021481 0.6216152  0.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     A - C  0.01675351 0.6329712  0.9789</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     A - D  6.29711932 0.6400391  0.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     B - C -4.92346130 0.6302455  0.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     B - D  1.35690452 0.6373436  0.0674</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     C - D  6.28036581 0.6484241  0.0000</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -106,7 +106,7 @@ with adjusted p-values.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: September 18, 2026</p>
+  <p>Last updated: September 21, 2026</p>
 </div>
 
     </footer></div>

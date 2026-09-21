@@ -5,9 +5,9 @@
 - [Bayesian Hierarchical Linear
   Model](https://pbreheny.github.io/tumr/articles/bhm.md):
 - [tumr data sets](https://pbreheny.github.io/tumr/articles/data.md):
-- [Generalized Addictive Model
+- [Nonlinear - Generalized Addictive Model
   (GAM)](https://pbreheny.github.io/tumr/articles/gam.md):
-- [Exponential quadratic
+- [Nonlinear - Exponential quadratic
   Model](https://pbreheny.github.io/tumr/articles/quadratic.md):
 - [Troubleshooting](https://pbreheny.github.io/tumr/articles/troubleshooting.md):
 - [Getting started with the tumr

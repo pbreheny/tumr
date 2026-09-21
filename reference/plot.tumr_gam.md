@@ -40,6 +40,8 @@ melanoma1$months <- melanoma1$Day / (365/12)
 mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 fit_gam <- tumr_gam(mel1)
 plot(fit_gam, "predict")
+#> Model has log transformed response. Predictions are on transformed
+#>   scale.
 
 plot(fit_gam, "contrast")
 

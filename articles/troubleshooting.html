@@ -47,8 +47,8 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/bhm.html">Bayesian Hierarchical Linear Model</a></li>
     <li><a class="dropdown-item" href="../articles/data.html">tumr data sets</a></li>
-    <li><a class="dropdown-item" href="../articles/gam.html">Generalized Addictive Model (GAM)</a></li>
-    <li><a class="dropdown-item" href="../articles/quadratic.html">Exponential quadratic Model</a></li>
+    <li><a class="dropdown-item" href="../articles/gam.html">Nonlinear - Generalized Addictive Model (GAM)</a></li>
+    <li><a class="dropdown-item" href="../articles/quadratic.html">Nonlinear - Exponential quadratic Model</a></li>
     <li><a class="dropdown-item" href="../articles/troubleshooting.html">Troubleshooting</a></li>
   </ul>
 </li>
@@ -106,40 +106,40 @@ to a larger unit (e.g., from days to weeks or months).
 <div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
+<pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00344115 (tol = 0.002, component 1)
   See ?lme4::convergence and ?lme4::troubleshooting.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
-Formula: log1p(Volume) ~ Treatment * Day + (Day | ID)
+Formula: log(Volume) ~ Treatment * Day + (Day | ID)
    Data: data
 
-REML criterion at convergence: 1216.5
+REML criterion at convergence: 1128.3
 
 Scaled residuals:
     Min      1Q  Median      3Q     Max
--6.8683 -0.3590  0.0569  0.4891  4.0759
+-5.5492 -0.3928  0.0561  0.5222  3.9679
 
 Random effects:
  Groups   Name        Variance  Std.Dev. Corr
- ID       (Intercept) 0.3909753 0.62528
-          Day         0.0006511 0.02552  -0.51
- Residual             0.3220706 0.56751
+ ID       (Intercept) 0.3419799 0.58479
+          Day         0.0006442 0.02538  -0.49
+ Residual             0.2708830 0.52046
 Number of obs: 568, groups:  ID, 47
 
 Fixed effects:
-               Estimate Std. Error       df t value Pr(&gt;|t|)
-(Intercept)     3.66092    0.22688 46.83127  16.136  &lt; 2e-16 ***
-TreatmentB      0.53834    0.32255 42.89746   1.669  0.10240
-TreatmentC      0.78053    0.31957 46.08359   2.442  0.01848 *
-TreatmentD      1.33290    0.32410 48.71755   4.113  0.00015 ***
-TreatmentE     -0.14693    0.33197 42.42209  -0.443  0.66031
-Day             0.07971    0.00897 47.89633   8.886 1.06e-11 ***
-TreatmentB:Day -0.03972    0.01269 43.36203  -3.130  0.00312 **
-TreatmentC:Day -0.02673    0.01255 46.24553  -2.129  0.03859 *
-TreatmentD:Day -0.02497    0.01321 54.20921  -1.890  0.06410 .
-TreatmentE:Day -0.03060    0.01300 42.19464  -2.355  0.02325 *
+                Estimate Std. Error        df t value Pr(&gt;|t|)
+(Intercept)     3.759346   0.211256 46.949189  17.795  &lt; 2e-16 ***
+TreatmentB      0.434492   0.300530 43.122979   1.446 0.155476
+TreatmentC      0.667379   0.297585 46.216638   2.243 0.029757 *
+TreatmentD      1.222233   0.301738 48.811194   4.051 0.000182 ***
+TreatmentE     -0.253850   0.309317 42.649535  -0.821 0.416392
+Day             0.077142   0.008801 47.288568   8.765 1.79e-11 ***
+TreatmentB:Day -0.036832   0.012490 43.314950  -2.949 0.005122 **
+TreatmentC:Day -0.023726   0.012329 45.807834  -1.924 0.060535 .
+TreatmentD:Day -0.021757   0.012912 52.974114  -1.685 0.097872 .
+TreatmentE:Day -0.027851   0.012803 42.261692  -2.175 0.035250 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -148,14 +148,14 @@ Correlation of Fixed Effects:
 TreatmentB  -0.703
 TreatmentC  -0.710  0.499
 TreatmentD  -0.700  0.492  0.497
-TreatmentE  -0.683  0.481  0.485  0.478
-Day         -0.577  0.406  0.410  0.404  0.394
-TretmntB:Dy  0.408 -0.560 -0.290 -0.286 -0.279 -0.707
-TretmntC:Dy  0.412 -0.290 -0.573 -0.289 -0.282 -0.715  0.505
-TretmntD:Dy  0.392 -0.276 -0.278 -0.585 -0.268 -0.679  0.480  0.485
-TretmntE:Dy  0.398 -0.280 -0.283 -0.279 -0.556 -0.690  0.488  0.493  0.469
+TreatmentE  -0.683  0.480  0.485  0.478
+Day         -0.556  0.391  0.395  0.390  0.380
+TretmntB:Dy  0.392 -0.539 -0.278 -0.275 -0.268 -0.705
+TretmntC:Dy  0.397 -0.279 -0.552 -0.278 -0.271 -0.714  0.503
+TretmntD:Dy  0.379 -0.267 -0.269 -0.566 -0.259 -0.682  0.480  0.487
+TretmntE:Dy  0.383 -0.269 -0.272 -0.268 -0.536 -0.687  0.484  0.491  0.469
 optimizer (nloptwrap) convergence code: 0 (OK)
-Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
+Model failed to converge with max|grad| = 0.00344115 (tol = 0.002, component 1)
   See ?lme4::convergence and ?lme4::troubleshooting.</code></pre>
 </div>
 </div>
@@ -170,34 +170,34 @@ Model failed to converge with max|grad| = 0.00566844 (tol = 0.002, component 1)
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
-Formula: log1p(Volume) ~ Treatment * months + (months | ID)
+Formula: log(Volume) ~ Treatment * months + (months | ID)
    Data: data
 
-REML criterion at convergence: 1182.4
+REML criterion at convergence: 1094.2
 
 Scaled residuals:
     Min      1Q  Median      3Q     Max
--6.8683 -0.3590  0.0569  0.4891  4.0759
+-5.5492 -0.3928  0.0561  0.5222  3.9679
 
 Random effects:
  Groups   Name        Variance Std.Dev. Corr
- ID       (Intercept) 0.3911   0.6254
-          months      0.6025   0.7762   -0.51
- Residual             0.3221   0.5675
+ ID       (Intercept) 0.3420   0.5848
+          months      0.5959   0.7720   -0.49
+ Residual             0.2709   0.5205
 Number of obs: 568, groups:  ID, 47
 
 Fixed effects:
                   Estimate Std. Error      df t value Pr(&gt;|t|)
-(Intercept)         3.6609     0.2269 46.8170  16.134  &lt; 2e-16 ***
-TreatmentB          0.5383     0.3226 42.8852   1.669  0.10244
-TreatmentC          0.7805     0.3196 46.0697   2.442  0.01849 *
-TreatmentD          1.3329     0.3241 48.7024   4.112  0.00015 ***
-TreatmentE         -0.1469     0.3320 42.4100  -0.443  0.66031
-months              2.4245     0.2729 47.8797   8.885 1.07e-11 ***
-TreatmentB:months  -1.2083     0.3860 43.3477  -3.130  0.00312 **
-TreatmentC:months  -0.8130     0.3818 46.2297  -2.129  0.03861 *
-TreatmentD:months  -0.7594     0.4018 54.1899  -1.890  0.06412 .
-TreatmentE:months  -0.9309     0.3953 42.1808  -2.355  0.02327 *
+(Intercept)         3.7593     0.2113 46.9473  17.795  &lt; 2e-16 ***
+TreatmentB          0.4345     0.3005 43.1214   1.446 0.155481
+TreatmentC          0.6674     0.2976 46.2148   2.243 0.029760 *
+TreatmentD          1.2222     0.3017 48.8092   4.051 0.000182 ***
+TreatmentE         -0.2539     0.3093 42.6480  -0.821 0.416399
+months              2.3464     0.2677 47.2957   8.766 1.78e-11 ***
+TreatmentB:months  -1.1203     0.3799 43.3211  -2.949 0.005119 **
+TreatmentC:months  -0.7217     0.3750 45.8146  -1.924 0.060522 .
+TreatmentD:months  -0.6618     0.3927 52.9825  -1.685 0.097854 .
+TreatmentE:months  -0.8471     0.3894 42.2676  -2.175 0.035241 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -206,12 +206,12 @@ Correlation of Fixed Effects:
 TreatmentB  -0.703
 TreatmentC  -0.710  0.499
 TreatmentD  -0.700  0.492  0.497
-TreatmentE  -0.683  0.481  0.485  0.478
-months      -0.577  0.406  0.410  0.404  0.395
-TrtmntB:mnt  0.408 -0.560 -0.290 -0.286 -0.279 -0.707
-TrtmntC:mnt  0.413 -0.290 -0.573 -0.289 -0.282 -0.715  0.505
-TrtmntD:mnt  0.392 -0.276 -0.278 -0.586 -0.268 -0.679  0.480  0.485
-TrtmntE:mnt  0.398 -0.280 -0.283 -0.279 -0.556 -0.690  0.488  0.493  0.469</code></pre>
+TreatmentE  -0.683  0.480  0.485  0.478
+months      -0.556  0.391  0.395  0.390  0.380
+TrtmntB:mnt  0.392 -0.539 -0.278 -0.275 -0.268 -0.705
+TrtmntC:mnt  0.397 -0.279 -0.552 -0.278 -0.271 -0.714  0.503
+TrtmntD:mnt  0.379 -0.267 -0.269 -0.566 -0.259 -0.682  0.480  0.487
+TrtmntE:mnt  0.383 -0.269 -0.272 -0.268 -0.536 -0.687  0.484  0.491  0.469</code></pre>
 </div>
 </div>
 <p>After rescaling the time variable, the model fits without producing the convergence warning.</p>
@@ -231,8 +231,7 @@ TrtmntE:mnt  0.398 -0.280 -0.283 -0.279 -0.556 -0.690  0.488  0.493  0.469</code
 <code class="sourceCode R"><span><span class="va">lmm_mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"response"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>trans <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/transform_log.html" class="external-link">log1p_trans</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Model has log1p-transformed response. Back-transforming predictions to
-  original response scale. Standard errors are still on the transformed
+<pre><code>Model has log transformed response. Predictions are on transformed
   scale.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
@@ -355,7 +354,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: September 18, 2026</p>
+  <p>Last updated: September 21, 2026</p>
 </div>
 
     </footer>

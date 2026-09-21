@@ -20,8 +20,8 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/bhm.html">Bayesian Hierarchical Linear Model</a></li>
     <li><a class="dropdown-item" href="../articles/data.html">tumr data sets</a></li>
-    <li><a class="dropdown-item" href="../articles/gam.html">Generalized Addictive Model (GAM)</a></li>
-    <li><a class="dropdown-item" href="../articles/quadratic.html">Exponential quadratic Model</a></li>
+    <li><a class="dropdown-item" href="../articles/gam.html">Nonlinear - Generalized Addictive Model (GAM)</a></li>
+    <li><a class="dropdown-item" href="../articles/quadratic.html">Nonlinear - Exponential quadratic Model</a></li>
     <li><a class="dropdown-item" href="../articles/troubleshooting.html">Troubleshooting</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -78,8 +78,7 @@
 <span class="r-in"><span><span class="va">mel1</span> <span class="op">&lt;-</span> <span class="fu"><a href="tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma1</span>, <span class="va">ID</span>, <span class="va">months</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mel1_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1_lmm</span>, <span class="st">"response"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Model has log1p-transformed response. Back-transforming predictions to</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   original response scale. Standard errors are still on the transformed</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Model has log transformed response. Predictions are on transformed</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   scale.</span>
 <span class="r-plt img"><img src="plot.lmm-1.png" alt="" width="480" height="480"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1_lmm</span>, <span class="st">"slope"</span><span class="op">)</span></span></span>
@@ -95,7 +94,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: September 18, 2026</p>
+  <p>Last updated: September 21, 2026</p>
 </div>
 
     </footer></div>

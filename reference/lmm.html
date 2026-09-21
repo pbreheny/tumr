@@ -20,8 +20,8 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/bhm.html">Bayesian Hierarchical Linear Model</a></li>
     <li><a class="dropdown-item" href="../articles/data.html">tumr data sets</a></li>
-    <li><a class="dropdown-item" href="../articles/gam.html">Generalized Addictive Model (GAM)</a></li>
-    <li><a class="dropdown-item" href="../articles/quadratic.html">Exponential quadratic Model</a></li>
+    <li><a class="dropdown-item" href="../articles/gam.html">Nonlinear - Generalized Addictive Model (GAM)</a></li>
+    <li><a class="dropdown-item" href="../articles/quadratic.html">Nonlinear - Exponential quadratic Model</a></li>
     <li><a class="dropdown-item" href="../articles/troubleshooting.html">Troubleshooting</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -107,44 +107,44 @@
 <span class="r-in"><span><span class="fu">lmm</span><span class="op">(</span><span class="va">mel1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear mixed model fit by REML. t-tests use Satterthwaite's method [</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lmerModLmerTest]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Formula: log1p(Volume) ~ Treatment * months + (months | ID)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Formula: log(Volume) ~ Treatment * months + (months | ID)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Data: data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML criterion at convergence: 2030.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML criterion at convergence: 1735.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scaled residuals: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Min      1Q  Median      3Q     Max </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -2.7387 -0.4428  0.0883  0.5192  3.2744 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -2.8282 -0.4655  0.0901  0.4618  3.3950 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Random effects:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Groups   Name        Variance Std.Dev. Corr  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ID       (Intercept) 0.08055  0.2838         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           months      0.50534  0.7109   -0.29 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Residual             1.45355  1.2056         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ID       (Intercept) 0.05454  0.2335         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           months      0.42714  0.6536   -0.40 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Residual             0.86958  0.9325         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of obs: 600, groups:  ID, 35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fixed effects:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   Estimate Std. Error       df t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)        3.80282    0.23661 67.27186  16.072  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentB        -2.07984    0.30482 46.59177  -6.823 1.58e-08 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentC        -0.14938    0.33020 61.66003  -0.452  0.65258    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentD        -1.48185    0.30858 43.88008  -4.802 1.86e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> months             1.95236    0.30779 59.26371   6.343 3.41e-08 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentB:months -1.28862    0.39623 41.99207  -3.252  0.00226 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentC:months -0.09432    0.43574 56.60232  -0.216  0.82941    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentD:months -2.48089    0.40349 40.19463  -6.149 2.87e-07 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)        3.78107    0.18511 66.48816  20.426  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentB        -1.72877    0.23894 46.44218  -7.235 3.84e-09 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentC        -0.17974    0.25881 61.41063  -0.694 0.490015    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentD        -1.24607    0.24195 43.76651  -5.150 5.93e-06 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> months             1.97101    0.26606 50.71557   7.408 1.28e-09 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentB:months -1.29407    0.34919 38.35989  -3.706 0.000663 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentC:months -0.05209    0.37730 49.74176  -0.138 0.890742    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentD:months -2.30365    0.35654 37.03435  -6.461 1.49e-07 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Correlation of Fixed Effects:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             (Intr) TrtmnB TrtmnC TrtmnD months TrtmB: TrtmC:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentB  -0.776                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentC  -0.717  0.556                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentD  -0.767  0.595  0.549                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> months      -0.566  0.439  0.405  0.434                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntB:mnt  0.439 -0.486 -0.315 -0.337 -0.777              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntC:mnt  0.400 -0.310 -0.557 -0.306 -0.706  0.549       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntD:mnt  0.431 -0.335 -0.309 -0.472 -0.763  0.593  0.539</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentB  -0.775                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentC  -0.715  0.554                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentD  -0.765  0.593  0.547                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> months      -0.564  0.437  0.403  0.431                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntB:mnt  0.430 -0.494 -0.307 -0.329 -0.762              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntC:mnt  0.398 -0.308 -0.559 -0.304 -0.705  0.537       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntD:mnt  0.421 -0.326 -0.301 -0.483 -0.746  0.569  0.526</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">lmm</span><span class="op">(</span></span></span>
 <span class="r-in"><span>tumr_obj <span class="op">=</span> <span class="va">mel1</span>,</span></span>
@@ -155,22 +155,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Formula: Volume ~ Day + (1 | ID)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Data: data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML criterion at convergence: 8821.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML criterion at convergence: 8820.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scaled residuals: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Min      1Q  Median      3Q     Max </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.5481 -0.5180 -0.1911  0.2727  7.0346 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -1.5482 -0.5178 -0.1942  0.2721  7.0378 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Random effects:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Groups   Name        Variance Std.Dev.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ID       (Intercept)  90118   300.2   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Residual             125177   353.8   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ID       (Intercept)  89726   299.5   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Residual             125054   353.6   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of obs: 600, groups:  ID, 35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fixed effects:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             Estimate Std. Error      df t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  127.342     56.728  42.665   2.245     0.03 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Day            3.665      0.435 584.726   8.427 2.77e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             Estimate Std. Error       df t value Pr(&gt;|t|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) 127.6468    56.6234  42.6903   2.254   0.0294 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Day           3.6730     0.4347 584.7749   8.449 2.34e-16 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -189,36 +189,36 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see help('isSingular')</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear mixed model fit by REML. t-tests use Satterthwaite's method [</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lmerModLmerTest]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Formula: log1p(Volume) ~ Treatment * Week + (Week | ID)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Formula: log(Volume) ~ Treatment * Week + (Week | ID)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Data: data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML criterion at convergence: 1425.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML criterion at convergence: 975.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scaled residuals: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Min       1Q   Median       3Q      Max </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -2.55646 -0.38793  0.01298  0.56080  2.09235 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -2.80082 -0.22808  0.01603  0.60054  2.48668 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Random effects:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Groups   Name        Variance Std.Dev. Corr  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ID       (Intercept) 2.4895   1.5778         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Week        0.3673   0.6061   -1.00 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Residual             3.8081   1.9514         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ID       (Intercept) 0.8621   0.9285         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Week        0.1147   0.3387   -1.00 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Residual             0.8947   0.9459         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of obs: 319, groups:  ID, 28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fixed effects:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   Estimate Std. Error      df t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)        -2.6356     0.5345 28.9902  -4.931 3.07e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentVEH        0.5622     0.7588 29.3956   0.741    0.465    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Week                0.8822     0.1686 25.4077   5.233 1.95e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentVEH:Week  -0.1595     0.2391 25.6613  -0.667    0.511    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   Estimate Std. Error       df t value Pr(&gt;|t|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)        3.31900    0.29484 27.40340  11.257 8.74e-12 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentVEH       0.30984    0.41826 27.71445   0.741    0.465    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Week               0.44786    0.09333 25.43696   4.799 6.03e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentVEH:Week -0.07829    0.13227 25.63812  -0.592    0.559    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Correlation of Fixed Effects:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             (Intr) TrtVEH Week  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmntVEH -0.704              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Week        -0.908  0.640       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntVEH:W  0.640 -0.909 -0.705</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmntVEH -0.705              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Week        -0.932  0.657       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntVEH:W  0.658 -0.932 -0.706</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> optimizer (nloptwrap) convergence code: 0 (OK)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see help('isSingular')</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -234,7 +234,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: September 18, 2026</p>
+  <p>Last updated: September 21, 2026</p>
 </div>
 
     </footer></div>

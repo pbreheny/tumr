@@ -65,44 +65,44 @@ mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 lmm(mel1)
 #> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 #> lmerModLmerTest]
-#> Formula: log1p(Volume) ~ Treatment * months + (months | ID)
+#> Formula: log(Volume) ~ Treatment * months + (months | ID)
 #>    Data: data
 #> 
-#> REML criterion at convergence: 2030.5
+#> REML criterion at convergence: 1735.1
 #> 
 #> Scaled residuals: 
 #>     Min      1Q  Median      3Q     Max 
-#> -2.7387 -0.4428  0.0883  0.5192  3.2744 
+#> -2.8282 -0.4655  0.0901  0.4618  3.3950 
 #> 
 #> Random effects:
 #>  Groups   Name        Variance Std.Dev. Corr  
-#>  ID       (Intercept) 0.08055  0.2838         
-#>           months      0.50534  0.7109   -0.29 
-#>  Residual             1.45355  1.2056         
+#>  ID       (Intercept) 0.05454  0.2335         
+#>           months      0.42714  0.6536   -0.40 
+#>  Residual             0.86958  0.9325         
 #> Number of obs: 600, groups:  ID, 35
 #> 
 #> Fixed effects:
 #>                   Estimate Std. Error       df t value Pr(>|t|)    
-#> (Intercept)        3.80282    0.23661 67.27186  16.072  < 2e-16 ***
-#> TreatmentB        -2.07984    0.30482 46.59177  -6.823 1.58e-08 ***
-#> TreatmentC        -0.14938    0.33020 61.66003  -0.452  0.65258    
-#> TreatmentD        -1.48185    0.30858 43.88008  -4.802 1.86e-05 ***
-#> months             1.95236    0.30779 59.26371   6.343 3.41e-08 ***
-#> TreatmentB:months -1.28862    0.39623 41.99207  -3.252  0.00226 ** 
-#> TreatmentC:months -0.09432    0.43574 56.60232  -0.216  0.82941    
-#> TreatmentD:months -2.48089    0.40349 40.19463  -6.149 2.87e-07 ***
+#> (Intercept)        3.78107    0.18511 66.48816  20.426  < 2e-16 ***
+#> TreatmentB        -1.72877    0.23894 46.44218  -7.235 3.84e-09 ***
+#> TreatmentC        -0.17974    0.25881 61.41063  -0.694 0.490015    
+#> TreatmentD        -1.24607    0.24195 43.76651  -5.150 5.93e-06 ***
+#> months             1.97101    0.26606 50.71557   7.408 1.28e-09 ***
+#> TreatmentB:months -1.29407    0.34919 38.35989  -3.706 0.000663 ***
+#> TreatmentC:months -0.05209    0.37730 49.74176  -0.138 0.890742    
+#> TreatmentD:months -2.30365    0.35654 37.03435  -6.461 1.49e-07 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> Correlation of Fixed Effects:
 #>             (Intr) TrtmnB TrtmnC TrtmnD months TrtmB: TrtmC:
-#> TreatmentB  -0.776                                          
-#> TreatmentC  -0.717  0.556                                   
-#> TreatmentD  -0.767  0.595  0.549                            
-#> months      -0.566  0.439  0.405  0.434                     
-#> TrtmntB:mnt  0.439 -0.486 -0.315 -0.337 -0.777              
-#> TrtmntC:mnt  0.400 -0.310 -0.557 -0.306 -0.706  0.549       
-#> TrtmntD:mnt  0.431 -0.335 -0.309 -0.472 -0.763  0.593  0.539
+#> TreatmentB  -0.775                                          
+#> TreatmentC  -0.715  0.554                                   
+#> TreatmentD  -0.765  0.593  0.547                            
+#> months      -0.564  0.437  0.403  0.431                     
+#> TrtmntB:mnt  0.430 -0.494 -0.307 -0.329 -0.762              
+#> TrtmntC:mnt  0.398 -0.308 -0.559 -0.304 -0.705  0.537       
+#> TrtmntD:mnt  0.421 -0.326 -0.301 -0.483 -0.746  0.569  0.526
 
 lmm(
 tumr_obj = mel1,
@@ -113,22 +113,22 @@ formula = "Volume ~ Day + (1 | ID)"
 #> Formula: Volume ~ Day + (1 | ID)
 #>    Data: data
 #> 
-#> REML criterion at convergence: 8821.3
+#> REML criterion at convergence: 8820.6
 #> 
 #> Scaled residuals: 
 #>     Min      1Q  Median      3Q     Max 
-#> -1.5481 -0.5180 -0.1911  0.2727  7.0346 
+#> -1.5482 -0.5178 -0.1942  0.2721  7.0378 
 #> 
 #> Random effects:
 #>  Groups   Name        Variance Std.Dev.
-#>  ID       (Intercept)  90118   300.2   
-#>  Residual             125177   353.8   
+#>  ID       (Intercept)  89726   299.5   
+#>  Residual             125054   353.6   
 #> Number of obs: 600, groups:  ID, 35
 #> 
 #> Fixed effects:
-#>             Estimate Std. Error      df t value Pr(>|t|)    
-#> (Intercept)  127.342     56.728  42.665   2.245     0.03 *  
-#> Day            3.665      0.435 584.726   8.427 2.77e-16 ***
+#>             Estimate Std. Error       df t value Pr(>|t|)    
+#> (Intercept) 127.6468    56.6234  42.6903   2.254   0.0294 *  
+#> Day           3.6730     0.4347 584.7749   8.449 2.34e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
@@ -147,36 +147,36 @@ measure = "Volume"
 #> boundary (singular) fit: see help('isSingular')
 #> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 #> lmerModLmerTest]
-#> Formula: log1p(Volume) ~ Treatment * Week + (Week | ID)
+#> Formula: log(Volume) ~ Treatment * Week + (Week | ID)
 #>    Data: data
 #> 
-#> REML criterion at convergence: 1425.4
+#> REML criterion at convergence: 975.2
 #> 
 #> Scaled residuals: 
 #>      Min       1Q   Median       3Q      Max 
-#> -2.55646 -0.38793  0.01298  0.56080  2.09235 
+#> -2.80082 -0.22808  0.01603  0.60054  2.48668 
 #> 
 #> Random effects:
 #>  Groups   Name        Variance Std.Dev. Corr  
-#>  ID       (Intercept) 2.4895   1.5778         
-#>           Week        0.3673   0.6061   -1.00 
-#>  Residual             3.8081   1.9514         
+#>  ID       (Intercept) 0.8621   0.9285         
+#>           Week        0.1147   0.3387   -1.00 
+#>  Residual             0.8947   0.9459         
 #> Number of obs: 319, groups:  ID, 28
 #> 
 #> Fixed effects:
-#>                   Estimate Std. Error      df t value Pr(>|t|)    
-#> (Intercept)        -2.6356     0.5345 28.9902  -4.931 3.07e-05 ***
-#> TreatmentVEH        0.5622     0.7588 29.3956   0.741    0.465    
-#> Week                0.8822     0.1686 25.4077   5.233 1.95e-05 ***
-#> TreatmentVEH:Week  -0.1595     0.2391 25.6613  -0.667    0.511    
+#>                   Estimate Std. Error       df t value Pr(>|t|)    
+#> (Intercept)        3.31900    0.29484 27.40340  11.257 8.74e-12 ***
+#> TreatmentVEH       0.30984    0.41826 27.71445   0.741    0.465    
+#> Week               0.44786    0.09333 25.43696   4.799 6.03e-05 ***
+#> TreatmentVEH:Week -0.07829    0.13227 25.63812  -0.592    0.559    
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> Correlation of Fixed Effects:
 #>             (Intr) TrtVEH Week  
-#> TreatmntVEH -0.704              
-#> Week        -0.908  0.640       
-#> TrtmntVEH:W  0.640 -0.909 -0.705
+#> TreatmntVEH -0.705              
+#> Week        -0.932  0.657       
+#> TrtmntVEH:W  0.658 -0.932 -0.706
 #> optimizer (nloptwrap) convergence code: 0 (OK)
 #> boundary (singular) fit: see help('isSingular')
 #> 

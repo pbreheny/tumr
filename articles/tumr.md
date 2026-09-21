@@ -270,7 +270,7 @@ summary(lmm_mel2)
 
     $`overall effect of time`
      1       months.trend    SE   df lower.CL upper.CL
-     overall         1.68 0.125 41.3     1.43     1.93
+     overall         1.68 0.123 41.3     1.43     1.92
 
     Results are averaged over the levels of: Treatment
     Degrees-of-freedom method: kenward-roger
@@ -278,27 +278,27 @@ summary(lmm_mel2)
 
     $`slope of treatment over time`
      Treatment months.trend    SE   df lower.CL upper.CL
-     A                 2.42 0.273 43.6    1.874     2.98
-     B                 1.22 0.273 35.8    0.662     1.77
-     C                 1.61 0.267 40.6    1.072     2.15
-     D                 1.67 0.296 55.4    1.073     2.26
-     E                 1.49 0.286 34.4    0.912     2.07
+     A                 2.35 0.268 43.3    1.806     2.89
+     B                 1.23 0.270 36.5    0.679     1.77
+     C                 1.62 0.263 40.6    1.094     2.16
+     D                 1.68 0.288 54.0    1.107     2.26
+     E                 1.50 0.283 35.1    0.925     2.07
 
     Degrees-of-freedom method: kenward-roger
     Confidence level used: 0.95
 
     $`test slope differences`
      contrast estimate    SE   df t.ratio p.value
-     A - B      1.2083 0.386 39.4   3.128  0.0259
-     A - C      0.8130 0.382 42.1   2.128  0.2278
-     A - D      0.7594 0.402 49.4   1.887  0.3378
-     A - E      0.9309 0.396 38.4   2.353  0.1505
-     B - C     -0.3953 0.382 38.0  -1.034  0.8378
-     B - D     -0.4489 0.403 44.8  -1.115  0.7978
-     B - E     -0.2774 0.396 35.0  -0.701  0.9549
-     C - D     -0.0536 0.399 47.9  -0.134  0.9999
-     C - E      0.1179 0.392 37.0   0.301  0.9981
-     D - E      0.1715 0.411 43.4   0.417  0.9935
+     A - B      1.1203 0.380 39.6   2.947  0.0403
+     A - C      0.7217 0.375 42.0   1.923  0.3212
+     A - D      0.6618 0.393 48.6   1.683  0.4539
+     A - E      0.8471 0.390 38.7   2.174  0.2109
+     B - C     -0.3987 0.376 38.4  -1.059  0.8261
+     B - D     -0.4585 0.395 44.5  -1.162  0.7724
+     B - E     -0.2732 0.391 35.7  -0.699  0.9554
+     C - D     -0.0599 0.390 47.2  -0.154  0.9999
+     C - E      0.1255 0.386 37.5   0.325  0.9975
+     D - E      0.1854 0.404 43.2   0.459  0.9905
 
     Degrees-of-freedom method: kenward-roger
     P value adjustment: tukey method for comparing a family of 5 estimates 
@@ -308,41 +308,26 @@ summary(lmm_mel2)
 Finally, tumr provides a plot() method for lmm objects that produces two
 visualizations:
 
-1.  Predicted tumor growth trajectories over time
+1.  Predicted tumor growth trajectories over time (log scale)
 2.  Estimated mean growth slopes for each group with confidence
     intervals
 
 ``` r
 
-plot(lmm_mel2, "response") + ggplot2::coord_cartesian(ylim = c(0, 250000))
+plot(lmm_mel2, "response") 
 ```
 
-    Model has log1p-transformed response. Back-transforming predictions to
-      original response scale. Standard errors are still on the transformed
+    Model has log transformed response. Predictions are on transformed
       scale.
 
 ![](tumr_files/figure-html/unnamed-chunk-11-1.png)
 
 ``` r
 
-plot(lmm_mel2, "response") + ggplot2::scale_y_log10()
-```
-
-    Model has log1p-transformed response. Back-transforming predictions to
-      original response scale. Standard errors are still on the transformed
-      scale.
-
-    Scale for y is already present.
-    Adding another scale for y, which will replace the existing scale.
-
-![](tumr_files/figure-html/unnamed-chunk-11-2.png)
-
-``` r
-
 plot(lmm_mel2, "slope")
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-11-3.png)
+![](tumr_files/figure-html/unnamed-chunk-11-2.png)
 
 ### Checking for exponential growth
 
@@ -385,11 +370,11 @@ dtime(lmm_mel2)
 
     $summary
       Treatment mean median q2.5 q97.5
-    1         A 0.29   0.29 0.23  0.37
-    2         B 0.60   0.57 0.39  1.00
-    3         C 0.44   0.43 0.32  0.64
-    4         D 0.43   0.41 0.31  0.62
-    5         E 0.49   0.47 0.34  0.73
+    1         A 0.30   0.30 0.24  0.38
+    2         B 0.60   0.57 0.39  0.97
+    3         C 0.44   0.42 0.32  0.63
+    4         D 0.42   0.41 0.31  0.60
+    5         E 0.48   0.46 0.34  0.73
 
 ## Bayesian hierarchical linear model
 

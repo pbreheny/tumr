@@ -34,7 +34,6 @@
 #' @export
 
 lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = NULL, measure = NULL, group = NULL, ...){
-
   if (!is.null(tumr_obj)) {
     if (is.null(id)) id <- tumr_obj$id
     if (is.null(time)) time <- tumr_obj$time
@@ -57,29 +56,26 @@ lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = 
     formula_string <- paste0("log(", measure, ") ~ ", group, " * ", time, " + (", time, " | ", id, ")")
     formula <- as.formula(formula_string)
   }
-
   if (!is.null(formula)) {
     formula <- as.formula(formula)
   }
-
   relevant_info <- list(
     ID = id,
     Time = time,
     Measure = measure,
     Group = group
   )
-
-  model <- lme4::lmer(formula = formula, data = data, ...)
+  model <- lme4::lmer(formula = formula,
+                      data = data,
+                      control = lme4::lmerControl(optimizer ='optimx', optCtrl=list(method='')),
+                      ...)
   model_p <- lmerTest::as_lmerModLmerTest(model)
-
   result <- list(
     relevant_info = relevant_info,
-    model_sum = model,
-    model = summary(model_p)
+    model_sum     = model,
+    model         = summary(model_p)
   )
-
   class(result) <- "lmm"
-
   return(result)
 }
 

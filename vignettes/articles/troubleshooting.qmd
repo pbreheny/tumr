@@ -28,8 +28,8 @@ Using the melanoma2 dataset, the following code produces a convergence warning:
 
 ```{r}
 data(melanoma2)
-mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
-lmm(mel2)
+mel2_day <- tumr(melanoma2, ID, Day, Volume, Treatment)
+lmm_day <- lmm(mel2_day)
 ```
 
 #### Solution: Rescale the Time Variable
@@ -38,8 +38,8 @@ In this case, converting time from days to months resolves the convergence issue
 
 ```{r}
 melanoma2$months <- melanoma2$Day / (365/12)
-mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
-lmm(mel2)
+mel2_month <- tumr(melanoma2, ID, months, Volume, Treatment)
+lmm_month <- lmm(mel2_month)
 ```
 
 After rescaling the time variable, the model fits without producing the convergence warning.
@@ -90,3 +90,9 @@ While the model fits successfully, calling summary() on this object will fail.
 This occurs because the summary() method is designed around the default lmm() model structure and currently assumes that formula. As a result, alternative formulas may not be fully supported by summary().
 
 When using a custom formula, keep in mind that some downstream methods—such as summary()—may not behave as expected.
+
+```{r}
+summary(lmm_day)
+summary(lmm_month)
+```
+

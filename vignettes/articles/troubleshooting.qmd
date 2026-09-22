@@ -62,7 +62,7 @@ This message appears because lmm() fits the model using a log1p-transformed resp
 If you prefer to view the predicted volume values on the log scale, you can apply a log transformation directly to the plot’s y-axis. Since the summary plot is a ggplot2 object, this can be done using scale_y_continuous() with a log1p transformation from the scales package.
 
 ```{r}
-lmm_mel2 <- lmm(mel2)
+lmm_mel2 <- lmm(mel2_month)
 plot(lmm_mel2, "response")
 ```
 
@@ -80,7 +80,7 @@ In the example below, the default formula is replaced with a simpler model that 
 
 ```{r}
 lmm_mel2 <- lmm(
-                 tumr_obj = mel2,
+                 tumr_obj = mel2_month,
                  formula = "Volume ~ months + (1 | ID)"
                )
 ```

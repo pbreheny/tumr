@@ -105,55 +105,68 @@
 <span class="r-in"><span><span class="va">melanoma1</span><span class="op">$</span><span class="va">months</span> <span class="op">&lt;-</span> <span class="va">melanoma1</span><span class="op">$</span><span class="va">Day</span> <span class="op">/</span> <span class="op">(</span><span class="fl">365</span><span class="op">/</span><span class="fl">12</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mel1</span> <span class="op">&lt;-</span> <span class="fu"><a href="tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma1</span>, <span class="va">ID</span>, <span class="va">months</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">lmm</span><span class="op">(</span><span class="va">mel1</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>optimx: No match to available methods</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Default method when bounds specified is L-BFGS-B to match optim()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see help('isSingular')</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Model failed to converge with 1 negative eigenvalue: -2.8e+00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear mixed model fit by REML. t-tests use Satterthwaite's method [</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lmerModLmerTest]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Formula: log(Volume) ~ Treatment * months + (months | ID)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Data: data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control: lme4::lmerControl(optimizer = "optimx", optCtrl = list(method = ""))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML criterion at convergence: 1735.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML criterion at convergence: 1737.3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scaled residuals: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Min      1Q  Median      3Q     Max </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -2.8282 -0.4655  0.0901  0.4618  3.3950 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -2.8201 -0.4436  0.0834  0.4467  3.4895 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Random effects:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Groups   Name        Variance Std.Dev. Corr  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ID       (Intercept) 0.05454  0.2335         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           months      0.42714  0.6536   -0.40 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Residual             0.86958  0.9325         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Groups   Name        Variance Std.Dev. Corr </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ID       (Intercept) 0.0000   0.0000        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           months      0.3851   0.6205    NaN </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Residual             0.8840   0.9402        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of obs: 600, groups:  ID, 35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fixed effects:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   Estimate Std. Error       df t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)        3.78107    0.18511 66.48816  20.426  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentB        -1.72877    0.23894 46.44218  -7.235 3.84e-09 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentC        -0.17974    0.25881 61.41063  -0.694 0.490015    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentD        -1.24607    0.24195 43.76651  -5.150 5.93e-06 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> months             1.97101    0.26606 50.71557   7.408 1.28e-09 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentB:months -1.29407    0.34919 38.35989  -3.706 0.000663 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentC:months -0.05209    0.37730 49.74176  -0.138 0.890742    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentD:months -2.30365    0.35654 37.03435  -6.461 1.49e-07 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    Estimate Std. Error        df t value Pr(&gt;|t|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)         3.77929    0.16914 568.46837  22.344  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentB         -1.72949    0.21339 567.18718  -8.105 3.26e-15 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentC         -0.15203    0.23489 570.09344  -0.647  0.51774    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentD         -1.24470    0.21525 566.59523  -5.783 1.22e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> months              1.97403    0.25749  57.01186   7.666 2.46e-10 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentB:months  -1.29441    0.33576  42.06556  -3.855  0.00039 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentC:months  -0.08807    0.36403  55.11280  -0.242  0.80974    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentD:months  -2.30643    0.34266  40.53234  -6.731 4.18e-08 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Correlation of Fixed Effects:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             (Intr) TrtmnB TrtmnC TrtmnD months TrtmB: TrtmC:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentB  -0.775                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentC  -0.715  0.554                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentD  -0.765  0.593  0.547                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> months      -0.564  0.437  0.403  0.431                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntB:mnt  0.430 -0.494 -0.307 -0.329 -0.762              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntC:mnt  0.398 -0.308 -0.559 -0.304 -0.705  0.537       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntD:mnt  0.421 -0.326 -0.301 -0.483 -0.746  0.569  0.526</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentB  -0.793                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentC  -0.720  0.571                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentD  -0.786  0.623  0.566                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> months      -0.486  0.385  0.350  0.382                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntB:mnt  0.372 -0.388 -0.268 -0.293 -0.767              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntC:mnt  0.344 -0.272 -0.476 -0.270 -0.707  0.542       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntD:mnt  0.365 -0.289 -0.263 -0.372 -0.751  0.576  0.532</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> optimizer (optimx) convergence code: 0 (OK)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see help('isSingular')</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> optimx: No match to available methods</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Default method when bounds specified is L-BFGS-B to match optim()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">lmm</span><span class="op">(</span></span></span>
 <span class="r-in"><span>tumr_obj <span class="op">=</span> <span class="va">mel1</span>,</span></span>
 <span class="r-in"><span>formula <span class="op">=</span> <span class="st">"Volume ~ Day + (1 | ID)"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>optimx: No match to available methods</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Default method when bounds specified is L-BFGS-B to match optim()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear mixed model fit by REML. t-tests use Satterthwaite's method [</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lmerModLmerTest]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Formula: Volume ~ Day + (1 | ID)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Data: data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control: lme4::lmerControl(optimizer = "optimx", optCtrl = list(method = ""))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> REML criterion at convergence: 8820.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -163,13 +176,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Random effects:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Groups   Name        Variance Std.Dev.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ID       (Intercept)  89726   299.5   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ID       (Intercept)  89727   299.5   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Residual             125054   353.6   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of obs: 600, groups:  ID, 35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fixed effects:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Estimate Std. Error       df t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) 127.6468    56.6234  42.6903   2.254   0.0294 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) 127.6467    56.6236  42.6897   2.254   0.0294 *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Day           3.6730     0.4347 584.7749   8.449 2.34e-16 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -177,6 +190,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Correlation of Fixed Effects:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     (Intr)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Day -0.351</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> optimizer (optimx) convergence code: 0 (OK)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> optimx: No match to available methods</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Default method when bounds specified is L-BFGS-B to match optim()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">breast</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">lmm</span><span class="op">(</span></span></span>
@@ -186,31 +203,34 @@
 <span class="r-in"><span>time <span class="op">=</span> <span class="st">"Week"</span>,</span></span>
 <span class="r-in"><span>measure <span class="op">=</span> <span class="st">"Volume"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>optimx: No match to available methods</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Default method when bounds specified is L-BFGS-B to match optim()</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see help('isSingular')</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear mixed model fit by REML. t-tests use Satterthwaite's method [</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lmerModLmerTest]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Formula: log(Volume) ~ Treatment * Week + (Week | ID)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Data: data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control: lme4::lmerControl(optimizer = "optimx", optCtrl = list(method = ""))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> REML criterion at convergence: 975.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scaled residuals: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Min       1Q   Median       3Q      Max </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -2.80082 -0.22808  0.01603  0.60054  2.48668 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -2.80082 -0.22807  0.01603  0.60055  2.48668 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Random effects:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Groups   Name        Variance Std.Dev. Corr  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ID       (Intercept) 0.8621   0.9285         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Week        0.1147   0.3387   -1.00 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ID       (Intercept) 0.8622   0.9285         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Week        0.1148   0.3387   -1.00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Residual             0.8947   0.9459         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of obs: 319, groups:  ID, 28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fixed effects:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   Estimate Std. Error       df t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)        3.31900    0.29484 27.40340  11.257 8.74e-12 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentVEH       0.30984    0.41826 27.71445   0.741    0.465    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Week               0.44786    0.09333 25.43696   4.799 6.03e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentVEH:Week -0.07829    0.13227 25.63812  -0.592    0.559    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)        3.31900    0.29485 27.40244  11.257 8.74e-12 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentVEH       0.30984    0.41827 27.71346   0.741    0.465    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Week               0.44786    0.09333 25.43622   4.798 6.03e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TreatmentVEH:Week -0.07829    0.13227 25.63737  -0.592    0.559    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -219,8 +239,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> TreatmntVEH -0.705              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Week        -0.932  0.657       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TrtmntVEH:W  0.658 -0.932 -0.706</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> optimizer (nloptwrap) convergence code: 0 (OK)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> optimizer (optimx) convergence code: 0 (OK)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see help('isSingular')</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> optimx: No match to available methods</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Default method when bounds specified is L-BFGS-B to match optim()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -234,7 +256,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: September 21, 2026</p>
+  <p>Last updated: September 22, 2026</p>
 </div>
 
     </footer></div>

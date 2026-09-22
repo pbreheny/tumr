@@ -31,6 +31,11 @@ data(melanoma1)
 melanoma1$months <- melanoma1$Day / (365/12)
 mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 lmm1 <- lmm(mel1)
+#> Loading required namespace: optimx
+#> Warning: optimx: No match to available methods
+#> Warning: Default method when bounds specified is L-BFGS-B to match optim()
+#> boundary (singular) fit: see help('isSingular')
+#> Warning: Model failed to converge with 1 negative eigenvalue: -2.8e+00
 check_exp(lmm1)
 #> `geom_smooth()` using formula = 'y ~ x'
 

@@ -34,6 +34,10 @@ A list of ggplot objects.
 melanoma1$months <- melanoma1$Day / (365/12)
 mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 mel1_lmm <- lmm(mel1)
+#> Warning: optimx: No match to available methods
+#> Warning: Default method when bounds specified is L-BFGS-B to match optim()
+#> boundary (singular) fit: see help('isSingular')
+#> Warning: Model failed to converge with 1 negative eigenvalue: -2.8e+00
 plot(mel1_lmm, "response")
 #> Model has log transformed response. Predictions are on transformed
 #>   scale.

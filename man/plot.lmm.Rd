@@ -4,13 +4,13 @@
 \alias{plot.lmm}
 \title{Creates Plots of an lmm object}
 \usage{
-\method{plot}{lmm}(x, type = c("response", "slope"), ...)
+\method{plot}{lmm}(x, type = c("predict", "predict_fold", "contrast"), ...)
 }
 \arguments{
 \item{x}{lmm object}
 
 \item{type}{Character string specifying which plot to produce. One of
-\code{"response"} or \code{"slope"}.}
+\code{"predict"}, \code{"predict_fold"} and \code{"contrast"}.}
 
 \item{...}{further arguments passed to or from other methods}
 }
@@ -24,6 +24,8 @@ Creates Plots of an lmm object
 melanoma1$months <- melanoma1$Day / (365/12)
 mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 mel1_lmm <- lmm(mel1)
-plot(mel1_lmm, "response")
-plot(mel1_lmm, "slope")
+plot(mel1_lmm, "predict")
+plot(mel1_lmm, "predict_fold")
+plot(mel1_lmm, "contrast")
+
 }

@@ -1,0 +1,102 @@
+---
+title: "AR(1)"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+
+```{r}
+#| include: false
+library(tumr)
+library(nlme)
+```
+
+## AR(1); Day
+```{r}
+mel2 <- tumr(melanoma2, ID, Day, Volume, Treatment)
+limit <- get_limit(mel2)
+idx <- !is.na(melanoma2$Volume) & melanoma2$Volume == 0
+melanoma2$Volume[idx] <- limit
+
+# Sort by mouse and time
+melanoma2 <- melanoma2[order(melanoma2$ID, melanoma2$Day),]
+
+# Fit GLS with AR(1) residual correlation
+fit_ar1 <- nlme::gls(
+  log(Volume) ~ Treatment * Day,
+  data = melanoma2,
+  correlation = nlme::corAR1(
+    form = ~ Day | ID
+  ),
+  method = "REML"
+)
+
+summary(fit_ar1)
+```
+
+
+## AR(1); Month
+```{r}
+dat <- melanoma2
+dat$month <- dat$Day / (365 / 12)
+mel2_month <- tumr(dat, ID, month, Volume, Treatment)
+limit <- get_limit(mel2_month)
+idx <- !is.na(dat$Volume) & dat$Volume == 0
+dat$Volume[idx] <- limit
+dat <- dat[order(dat$ID, dat$Day),]
+
+fit_ar1_month <- nlme::gls(
+  log(Volume) ~ Treatment * month,
+  data = dat,
+  correlation = nlme::corAR1(
+    form = ~ Day | ID
+  ),
+  method = "REML"
+)
+summary(fit_ar1_month)
+```
+
+## AR(1) + Mixed effects; Month
+
+
+```{r}
+dat <- melanoma2
+
+# Convert Day to month for the mean model
+dat$month <- dat$Day / (365 / 12)
+
+# Handle zero volumes in the same way as tumr
+mel2_month <- tumr(
+  dat,
+  ID,
+  month,
+  Volume,
+  Treatment
+)
+
+limit <- get_limit(mel2_month)
+
+idx <- !is.na(dat$Volume) & dat$Volume == 0
+dat$Volume[idx] <- limit
+
+# Sort by mouse and actual day
+dat <- dat[
+  order(dat$ID, dat$Day),
+]
+
+# Mixed model + AR(1)
+fit_mixed_ar1 <- nlme::lme(
+  fixed = log(Volume) ~ Treatment * month,
+  random = ~ 1 | ID,
+  correlation = nlme::corAR1(
+    form = ~ Day | ID
+  ),
+  data = dat,
+  method = "REML"
+)
+
+summary(fit_mixed_ar1)
+```
+

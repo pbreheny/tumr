@@ -10,6 +10,5 @@
   (GAM)](https://pbreheny.github.io/tumr/articles/gam.md):
 - [Nonlinear - Exponential quadratic
   Model](https://pbreheny.github.io/tumr/articles/quadratic.md):
-- [Troubleshooting](https://pbreheny.github.io/tumr/articles/troubleshooting.md):
 - [Getting started with the tumr
   package](https://pbreheny.github.io/tumr/articles/tumr.md):

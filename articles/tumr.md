@@ -316,7 +316,7 @@ visualizations:
 
 ``` r
 
-plot(lmm_mel2, "response") 
+plot(lmm_mel2, "predict")
 ```
 
     Model has log transformed response. Predictions are on transformed
@@ -326,10 +326,20 @@ plot(lmm_mel2, "response")
 
 ``` r
 
-plot(lmm_mel2, "slope")
+plot(lmm_mel2, "predict_fold") + ggplot2::coord_cartesian(ylim = c(1,2500)) + ggplot2::scale_y_log10()
 ```
 
+    Model has log transformed response. Predictions are on transformed
+      scale.
+
 ![](tumr_files/figure-html/unnamed-chunk-11-2.png)
+
+``` r
+
+plot(lmm_mel2, "contrast")
+```
+
+![](tumr_files/figure-html/unnamed-chunk-11-3.png)
 
 ### Checking for exponential growth
 

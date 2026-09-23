@@ -2,6 +2,7 @@
 
 ### All vignettes
 
+- [AR(1)](https://pbreheny.github.io/tumr/articles/AR(1).md):
 - [Bayesian Hierarchical Linear
   Model](https://pbreheny.github.io/tumr/articles/bhm.md):
 - [tumr data sets](https://pbreheny.github.io/tumr/articles/data.md):

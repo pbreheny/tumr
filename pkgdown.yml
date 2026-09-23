@@ -2,13 +2,14 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
+  articles/AR(1): AR(1).html
   articles/bhm: bhm.html
   articles/data: data.html
   articles/gam: gam.html
   articles/quadratic: quadratic.html
   articles/troubleshooting: troubleshooting.html
   tumr: tumr.html
-last_built: 2026-09-23T00:58Z
+last_built: 2026-09-23T05:10Z
 urls:
   reference: https://pbreheny.github.io/tumr/reference
   article: https://pbreheny.github.io/tumr/articles

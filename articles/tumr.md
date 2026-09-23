@@ -252,12 +252,6 @@ lmm_mel2 <- lmm(mel2)
 
     Loading required namespace: optimx
 
-    Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-    optimx: No match to available methods
-
-    Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-    Default method when bounds specified is L-BFGS-B to match optim()
-
 **Note:** You may see a convergence warning when fitting this model. If
 this occurs, see the
 [Troubleshooting](https://pbreheny.github.io/tumr/articles/articles/troubleshooting.md)

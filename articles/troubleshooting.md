@@ -35,15 +35,6 @@ lmm_day <- lmm(mel2_day)
 
     Loading required namespace: optimx
 
-    Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-    optimx: No match to available methods
-
-    Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-    Default method when bounds specified is L-BFGS-B to match optim()
-
-    Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00449934 (tol = 0.002, component 1)
-      See ?lme4::convergence and ?lme4::troubleshooting.
-
 #### Solution: Rescale the Time Variable
 
 In this case, converting time from days to months resolves the
@@ -57,12 +48,6 @@ melanoma2$months <- melanoma2$Day / (365/12)
 mel2_month <- tumr(melanoma2, ID, months, Volume, Treatment)
 lmm_month <- lmm(mel2_month)
 ```
-
-    Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-    optimx: No match to available methods
-
-    Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-    Default method when bounds specified is L-BFGS-B to match optim()
 
 After rescaling the time variable, the model fits without producing the
 convergence warning.
@@ -95,16 +80,6 @@ package.
 ``` r
 
 lmm_mel2 <- lmm(mel2_month)
-```
-
-    Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-    optimx: No match to available methods
-
-    Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-    Default method when bounds specified is L-BFGS-B to match optim()
-
-``` r
-
 plot(lmm_mel2, "response")
 ```
 
@@ -136,12 +111,6 @@ lmm_mel2 <- lmm(
                )
 ```
 
-    Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-    optimx: No match to available methods
-
-    Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-    Default method when bounds specified is L-BFGS-B to match optim()
-
 While the model fits successfully, calling summary() on this object will
 fail.
 
@@ -159,7 +128,7 @@ summary(lmm_day)
 
     $`overall effect of time`
      1       Day.trend      SE   df lower.CL upper.CL
-     overall    0.0551 0.00404 41.3    0.047   0.0633
+     overall    0.0551 0.00403 41.3    0.047   0.0633
 
     Results are averaged over the levels of: Treatment
     Degrees-of-freedom method: kenward-roger
@@ -178,13 +147,13 @@ summary(lmm_day)
 
     $`test slope differences`
      contrast estimate     SE   df t.ratio p.value
-     A - B     0.03683 0.0125 39.6   2.947  0.0404
-     A - C     0.02373 0.0123 42.0   1.923  0.3214
-     A - D     0.02176 0.0129 48.6   1.682  0.4541
-     A - E     0.02785 0.0128 38.7   2.174  0.2111
-     B - C    -0.01311 0.0124 38.4  -1.059  0.8262
-     B - D    -0.01508 0.0130 44.5  -1.162  0.7725
-     B - E    -0.00898 0.0129 35.7  -0.699  0.9554
+     A - B     0.03683 0.0125 39.6   2.947  0.0403
+     A - C     0.02373 0.0123 42.0   1.923  0.3212
+     A - D     0.02176 0.0129 48.6   1.683  0.4539
+     A - E     0.02785 0.0128 38.7   2.174  0.2109
+     B - C    -0.01311 0.0124 38.4  -1.059  0.8261
+     B - D    -0.01508 0.0130 44.5  -1.162  0.7724
+     B - E    -0.00898 0.0128 35.7  -0.699  0.9554
      C - D    -0.00197 0.0128 47.2  -0.154  0.9999
      C - E     0.00413 0.0127 37.5   0.325  0.9975
      D - E     0.00609 0.0133 43.2   0.459  0.9905

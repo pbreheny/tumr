@@ -72,14 +72,10 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">melanoma1</span><span class="op">$</span><span class="va">months</span> <span class="op">&lt;-</span> <span class="va">melanoma1</span><span class="op">$</span><span class="va">Day</span> <span class="op">/</span> <span class="op">(</span><span class="fl">365</span><span class="op">/</span><span class="fl">12</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mel1</span> <span class="op">&lt;-</span> <span class="fu"><a href="tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma1</span>, <span class="va">ID</span>, <span class="va">months</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mel1_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel1</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>optimx: No match to available methods</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Default method when bounds specified is L-BFGS-B to match optim()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see help('isSingular')</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Model failed to converge with 1 negative eigenvalue: -2.8e+00</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mel1_lmm</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`overall effect of time`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1       months.trend   SE   df lower.CL upper.CL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  overall         1.05 0.12 33.7    0.807      1.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1       months.trend    SE   df lower.CL upper.CL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  overall         1.06 0.125 32.9    0.804     1.31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results are averaged over the levels of: Treatment </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Degrees-of-freedom method: kenward-roger </span>
@@ -87,22 +83,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`slope of treatment over time`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Treatment months.trend    SE   df lower.CL upper.CL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  A                1.974 0.258 47.6    1.456    2.492</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  B                0.680 0.216 24.1    0.235    1.125</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  C                1.886 0.259 43.9    1.364    2.408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  D               -0.332 0.226 23.2   -0.800    0.135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  A                1.971 0.266 44.9    1.434    2.508</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  B                0.677 0.226 24.1    0.210    1.144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  C                1.919 0.269 42.9    1.377    2.461</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  D               -0.333 0.237 23.2   -0.823    0.158</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Degrees-of-freedom method: kenward-roger </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Confidence level used: 0.95 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`test slope differences`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  contrast estimate    SE   df t.ratio p.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  A - B      1.2944 0.336 35.0   3.851  0.0026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  A - C      0.0881 0.366 45.7   0.241  0.9950</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  A - D      2.3064 0.343 33.8   6.726 &lt;0.0001</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  B - C     -1.2063 0.337 33.6  -3.578  0.0057</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  B - D      1.0120 0.312 23.6   3.239  0.0174</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  C - D      2.2184 0.344 32.5   6.451 &lt;0.0001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  A - B      1.2941 0.349 33.8   3.703  0.0040</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  A - C      0.0521 0.378 43.9   0.138  0.9991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  A - D      2.3037 0.357 32.6   6.457 &lt;0.0001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  B - C     -1.2420 0.351 33.1  -3.534  0.0064</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  B - D      1.0096 0.328 23.6   3.079  0.0250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  C - D      2.2516 0.359 32.0   6.278 &lt;0.0001</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Degrees-of-freedom method: kenward-roger </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> P value adjustment: tukey method for comparing a family of 4 estimates </span>
@@ -119,7 +115,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: September 22, 2026</p>
+  <p>Last updated: September 23, 2026</p>
 </div>
 
     </footer></div>

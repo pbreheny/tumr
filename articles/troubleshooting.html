@@ -108,35 +108,15 @@ to a larger unit (e.g., from days to weeks or months).
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required namespace: optimx</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-optimx: No match to available methods</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-Default method when bounds specified is L-BFGS-B to match optim()</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00449934 (tol = 0.002, component 1)
-  See ?lme4::convergence and ?lme4::troubleshooting.</code></pre>
-</div>
 </div>
 </section><section class="level4"><h4 id="solution-rescale-the-time-variable">Solution: Rescale the Time Variable<a class="anchor" aria-label="anchor" href="#solution-rescale-the-time-variable"></a>
 </h4>
 <p>In this case, converting time from days to months resolves the convergence issue. Below, we create a new time variable by dividing by the average number of days per month, update the tumr object, and refit the model:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">melanoma2</span><span class="op">$</span><span class="va">months</span> <span class="op">&lt;-</span> <span class="va">melanoma2</span><span class="op">$</span><span class="va">Day</span> <span class="op">/</span> <span class="op">(</span><span class="fl">365</span><span class="op">/</span><span class="fl">12</span><span class="op">)</span></span>
 <span><span class="va">mel2_month</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">months</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
 <span><span class="va">lmm_month</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel2_month</span><span class="op">)</span></span></code></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-optimx: No match to available methods</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-Default method when bounds specified is L-BFGS-B to match optim()</code></pre>
-</div>
 </div>
 <p>After rescaling the time variable, the model fits without producing the convergence warning.</p>
 </section><section class="level4"><h4 id="why-this-works">Why This Works<a class="anchor" aria-label="anchor" href="#why-this-works"></a>
@@ -151,18 +131,9 @@ Default method when bounds specified is L-BFGS-B to match optim()</code></pre>
 <p>This message appears because lmm() fits the model using a log1p-transformed response by default, and the plot() method automatically back-transforms predicted values to the original response scale.</p>
 <p>If you prefer to view the predicted volume values on the log scale, you can apply a log transformation directly to the plot’s y-axis. Since the summary plot is a ggplot2 object, this can be done using scale_y_continuous() with a log1p transformation from the scales package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lmm_mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel2_month</span><span class="op">)</span></span></code></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-optimx: No match to available methods</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-Default method when bounds specified is L-BFGS-B to match optim()</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"response"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lmm_mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel2_month</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"response"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Model has log transformed response. Predictions are on transformed
   scale.</code></pre>
@@ -181,30 +152,22 @@ Default method when bounds specified is L-BFGS-B to match optim()</code></pre>
 <p>By default, lmm() fits a model of the form <code>log(measure) ~ group * time + (time | id)</code> (for example, <code>Volume ~ months + (1 | ID)</code>).</p>
 <p>In the example below, the default formula is replaced with a simpler model that uses a rescaled time variable and a random intercept only:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lmm_mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lmm.html">lmm</a></span><span class="op">(</span></span>
 <span>                 tumr_obj <span class="op">=</span> <span class="va">mel2_month</span>,</span>
 <span>                 formula <span class="op">=</span> <span class="st">"Volume ~ months + (1 | ID)"</span></span>
 <span>               <span class="op">)</span></span></code></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-optimx: No match to available methods</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in optimx.setup(par, fn1, gr1, he1, lower, upper, method, itnmax, :
-Default method when bounds specified is L-BFGS-B to match optim()</code></pre>
-</div>
 </div>
 <p>While the model fits successfully, calling summary() on this object will fail.</p>
 <p>This occurs because the summary() method is designed around the default lmm() model structure and currently assumes that formula. As a result, alternative formulas may not be fully supported by summary().</p>
 <p>When using a custom formula, keep in mind that some downstream methods—such as summary()—may not behave as expected.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lmm_day</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`overall effect of time`
  1       Day.trend      SE   df lower.CL upper.CL
- overall    0.0551 0.00404 41.3    0.047   0.0633
+ overall    0.0551 0.00403 41.3    0.047   0.0633
 
 Results are averaged over the levels of: Treatment
 Degrees-of-freedom method: kenward-roger
@@ -223,13 +186,13 @@ Confidence level used: 0.95
 
 $`test slope differences`
  contrast estimate     SE   df t.ratio p.value
- A - B     0.03683 0.0125 39.6   2.947  0.0404
- A - C     0.02373 0.0123 42.0   1.923  0.3214
- A - D     0.02176 0.0129 48.6   1.682  0.4541
- A - E     0.02785 0.0128 38.7   2.174  0.2111
- B - C    -0.01311 0.0124 38.4  -1.059  0.8262
- B - D    -0.01508 0.0130 44.5  -1.162  0.7725
- B - E    -0.00898 0.0129 35.7  -0.699  0.9554
+ A - B     0.03683 0.0125 39.6   2.947  0.0403
+ A - C     0.02373 0.0123 42.0   1.923  0.3212
+ A - D     0.02176 0.0129 48.6   1.683  0.4539
+ A - E     0.02785 0.0128 38.7   2.174  0.2109
+ B - C    -0.01311 0.0124 38.4  -1.059  0.8261
+ B - D    -0.01508 0.0130 44.5  -1.162  0.7724
+ B - E    -0.00898 0.0128 35.7  -0.699  0.9554
  C - D    -0.00197 0.0128 47.2  -0.154  0.9999
  C - E     0.00413 0.0127 37.5   0.325  0.9975
  D - E     0.00609 0.0133 43.2   0.459  0.9905
@@ -237,7 +200,7 @@ $`test slope differences`
 Degrees-of-freedom method: kenward-roger
 P value adjustment: tukey method for comparing a family of 5 estimates </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lmm_month</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`overall effect of time`
@@ -369,7 +332,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: September 22, 2026</p>
+  <p>Last updated: September 23, 2026</p>
 </div>
 
     </footer>

@@ -6,7 +6,7 @@ Creates Plots of an lmm object
 
 ``` r
 # S3 method for class 'lmm'
-plot(x, type = c("response", "slope"), ...)
+plot(x, type = c("predict", "predict_fold", "contrast"), ...)
 ```
 
 ## Arguments
@@ -17,8 +17,8 @@ plot(x, type = c("response", "slope"), ...)
 
 - type:
 
-  Character string specifying which plot to produce. One of `"response"`
-  or `"slope"`.
+  Character string specifying which plot to produce. One of `"predict"`,
+  `"predict_fold"` and `"contrast"`.
 
 - ...:
 
@@ -34,8 +34,14 @@ A list of ggplot objects.
 melanoma1$months <- melanoma1$Day / (365/12)
 mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 mel1_lmm <- lmm(mel1)
-plot(mel1_lmm, "response")
-#> Error in match.arg(type): 'arg' should be one of “predict”, “predict_fold”, “contrast”
-plot(mel1_lmm, "slope")
-#> Error in match.arg(type): 'arg' should be one of “predict”, “predict_fold”, “contrast”
+plot(mel1_lmm, "predict")
+#> Model has log transformed response. Predictions are on transformed
+#>   scale.
+
+plot(mel1_lmm, "predict_fold")
+#> Model has log transformed response. Predictions are on transformed
+#>   scale.
+
+plot(mel1_lmm, "contrast")
+
 ```

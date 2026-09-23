@@ -105,7 +105,7 @@
 </div>
 <ul>
 <li>This object can now be passed directly to other <code>tumr</code> functions.</li>
-<li>Note that the function used to create a <code>tumr</code> object includes a built-in mechanism to check the scale of the time variable. This is because poor scaling of the time variable is a common cause of convergence issues when fitting models with <code><a href="../reference/lmm.html">lmm()</a></code>. A simple and effective solution is to rescale time to a larger unit (for example, from days to months). Users can refer to this <a href="articles/troubleshooting.html">article</a> for more details.</li>
+<li>Note that the function used to create a <code>tumr</code> object includes a built-in mechanism to check the scale of the time variable.</li>
 </ul></section><section class="section level2"><h2 id="visualizing-tumor-growth-under-informative-dropout">Visualizing tumor growth under informative dropout<a class="anchor" aria-label="anchor" href="#visualizing-tumor-growth-under-informative-dropout"></a>
 </h2>
 <section class="level2"><h3 id="existing-naive-mean-based-visualization-is-bad">Existing Naive Mean-Based Visualization is bad<a class="anchor" aria-label="anchor" href="#existing-naive-mean-based-visualization-is-bad"></a>
@@ -281,7 +281,6 @@ E-D -0.2179867 -1.3188107  0.8828372 0.9794890</code></pre>
 <pre><code>Loading required namespace: optimx</code></pre>
 </div>
 </div>
-<p><strong>Note:</strong> You may see a convergence warning when fitting this model. If this occurs, see the <a href="articles/troubleshooting.html">Troubleshooting</a> article for guidance.</p>
 <section class="level2"><h3 id="summarizing-linear-mixed-effects-modeling-results">Summarizing Linear mixed-effects modeling results<a class="anchor" aria-label="anchor" href="#summarizing-linear-mixed-effects-modeling-results"></a>
 </h3>
 <p>The summary() method for lmm objects uses the emmeans package to report:</p>
@@ -351,7 +350,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"predict_fold"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2500</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"predict_fold"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Model has log transformed response. Predictions are on transformed
   scale.</code></pre>

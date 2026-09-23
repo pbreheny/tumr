@@ -675,7 +675,7 @@ tumr_gam(mel1)
 #> $formula
 #> log(Volume) ~ Treatment + s(Time, by = Treatment) + s(ID, bs = "re") + 
 #>     s(ID, Time, bs = "re")
-#> <environment: 0x56193ffc98b8>
+#> <environment: 0x555b5f788820>
 #> 
 #> $relevant_info
 #> $relevant_info$ID

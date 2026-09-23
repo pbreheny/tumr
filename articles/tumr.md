@@ -35,14 +35,7 @@ mel2 <- tumr(melanoma2, "ID", "months", "Volume", "Treatment")
 
 - This object can now be passed directly to other `tumr` functions.
 - Note that the function used to create a `tumr` object includes a
-  built-in mechanism to check the scale of the time variable. This is
-  because poor scaling of the time variable is a common cause of
-  convergence issues when fitting models with
-  [`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md). A simple
-  and effective solution is to rescale time to a larger unit (for
-  example, from days to months). Users can refer to this
-  [article](https://pbreheny.github.io/tumr/articles/articles/troubleshooting.md)
-  for more details.
+  built-in mechanism to check the scale of the time variable.
 
 ## Visualizing tumor growth under informative dropout
 
@@ -252,11 +245,6 @@ lmm_mel2 <- lmm(mel2)
 
     Loading required namespace: optimx
 
-**Note:** You may see a convergence warning when fitting this model. If
-this occurs, see the
-[Troubleshooting](https://pbreheny.github.io/tumr/articles/articles/troubleshooting.md)
-article for guidance.
-
 ### Summarizing Linear mixed-effects modeling results
 
 The summary() method for lmm objects uses the emmeans package to report:
@@ -326,7 +314,7 @@ plot(lmm_mel2, "predict")
 
 ``` r
 
-plot(lmm_mel2, "predict_fold") + ggplot2::coord_cartesian(ylim = c(1,2500)) + ggplot2::scale_y_log10()
+plot(lmm_mel2, "predict_fold") + ggplot2::scale_y_log10()
 ```
 
     Model has log transformed response. Predictions are on transformed

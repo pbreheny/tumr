@@ -47,7 +47,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'lmm'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"response"</span>, <span class="st">"slope"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"predict"</span>, <span class="st">"predict_fold"</span>, <span class="st">"contrast"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -60,7 +60,7 @@
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
 <dd><p>Character string specifying which plot to produce. One of
-<code>"response"</code> or <code>"slope"</code>.</p></dd>
+<code>"predict"</code>, <code>"predict_fold"</code> and <code>"contrast"</code>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -77,10 +77,17 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">melanoma1</span><span class="op">$</span><span class="va">months</span> <span class="op">&lt;-</span> <span class="va">melanoma1</span><span class="op">$</span><span class="va">Day</span> <span class="op">/</span> <span class="op">(</span><span class="fl">365</span><span class="op">/</span><span class="fl">12</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mel1</span> <span class="op">&lt;-</span> <span class="fu"><a href="tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma1</span>, <span class="va">ID</span>, <span class="va">months</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mel1_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="lmm.html">lmm</a></span><span class="op">(</span><span class="va">mel1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1_lmm</span>, <span class="st">"response"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in match.arg(type):</span> 'arg' should be one of “predict”, “predict_fold”, “contrast”</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1_lmm</span>, <span class="st">"slope"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in match.arg(type):</span> 'arg' should be one of “predict”, “predict_fold”, “contrast”</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1_lmm</span>, <span class="st">"predict"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Model has log transformed response. Predictions are on transformed</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   scale.</span>
+<span class="r-plt img"><img src="plot.lmm-1.png" alt="" width="480" height="480"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1_lmm</span>, <span class="st">"predict_fold"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Model has log transformed response. Predictions are on transformed</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   scale.</span>
+<span class="r-plt img"><img src="plot.lmm-2.png" alt="" width="480" height="480"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1_lmm</span>, <span class="st">"contrast"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.lmm-3.png" alt="" width="480" height="480"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -83,13 +83,18 @@
 
     <section class="level2"><h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>Each dataset is presented with four plots: the raw values and corresponding fold-change results from the parametric method, as well as the raw values and fold-change results from the nonparametric method.</p>
-</section><section class="level2"><h2 id="another-melanoma-data-set-melanoma1">Another Melanoma Data Set, <em>melanoma1</em>
+<p>Each dataset is presented with four plots:</p>
+<ul>
+<li>Parametric method (original scale)</li>
+<li>Parametric method (original scale; fold change)</li>
+<li>Parametric method (log scale)</li>
+<li>Parametric method (log scale; fold change)</li>
+</ul></section><section class="level2"><h2 id="another-melanoma-data-set-melanoma1">Another Melanoma Data Set, <em>melanoma1</em>
 <a class="anchor" aria-label="anchor" href="#another-melanoma-data-set-melanoma1"></a>
 </h2>
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel1</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel1</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -101,8 +106,13 @@
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel1</span>, par <span class="op">=</span> <span class="cn">FALSE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">mel1</span>, par <span class="op">=</span> <span class="cn">FALSE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite values.
+log-10 transformation introduced infinite values.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel1</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -116,9 +126,9 @@
 </section><section class="level2"><h2 id="breast-cancer-data-set-breast">Breast Cancer Data Set, <em>breast</em>
 <a class="anchor" aria-label="anchor" href="#breast-cancer-data-set-breast"></a>
 </h2>
-<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">breast_meta</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">breast_meta</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">breast_meta</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">breast_meta</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -129,9 +139,14 @@
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">breast_meta</span>, par <span class="op">=</span> <span class="cn">FALSE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">breast_meta</span>, par <span class="op">=</span> <span class="cn">FALSE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">breast_meta</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite values.
+log-10 transformation introduced infinite values.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">breast_meta</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -145,9 +160,9 @@
 </section><section class="level2"><h2 id="prostate-cancer-data-set-prostate">Prostate Cancer Data Set, <em>prostate</em>
 <a class="anchor" aria-label="anchor" href="#prostate-cancer-data-set-prostate"></a>
 </h2>
-<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">pros_meta</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">pros_meta</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pros_meta</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pros_meta</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -158,9 +173,9 @@
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">pros_meta</span>, par <span class="op">=</span> <span class="cn">FALSE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">pros_meta</span>, par <span class="op">=</span> <span class="cn">FALSE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">pros_meta</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_median.html">plot_median</a></span><span class="op">(</span><span class="va">pros_meta</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">

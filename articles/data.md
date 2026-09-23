@@ -2,16 +2,19 @@
 
 ## Introduction
 
-Each dataset is presented with four plots: the raw values and
-corresponding fold-change results from the parametric method, as well as
-the raw values and fold-change results from the nonparametric method.
+Each dataset is presented with four plots:
+
+- Parametric method (original scale)
+- Parametric method (original scale; fold change)
+- Parametric method (log scale)
+- Parametric method (log scale; fold change)
 
 ## Another Melanoma Data Set, *melanoma1*
 
 ``` r
 
-plot_median(mel1, par = TRUE, fold = FALSE)
-plot_median(mel1, par = TRUE, fold = TRUE)
+plot(mel1, par = TRUE, fold = FALSE)
+plot(mel1, par = TRUE, fold = TRUE)
 ```
 
 ![](data_files/figure-html/unnamed-chunk-3-1.png)
@@ -20,8 +23,15 @@ plot_median(mel1, par = TRUE, fold = TRUE)
 
 ``` r
 
-plot_median(mel1, par = FALSE, fold = FALSE)
-plot_median(mel1, par = FALSE, fold = TRUE)
+plot(mel1, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
+```
+
+    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite values.
+    log-10 transformation introduced infinite values.
+
+``` r
+
+plot(mel1, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
 ![](data_files/figure-html/unnamed-chunk-4-1.png)
@@ -32,8 +42,8 @@ plot_median(mel1, par = FALSE, fold = TRUE)
 
 ``` r
 
-plot_median(breast_meta, par = TRUE, fold = FALSE)
-plot_median(breast_meta, par = TRUE, fold = TRUE)
+plot(breast_meta, par = TRUE, fold = FALSE)
+plot(breast_meta, par = TRUE, fold = TRUE)
 ```
 
 ![](data_files/figure-html/unnamed-chunk-6-1.png)
@@ -42,8 +52,15 @@ plot_median(breast_meta, par = TRUE, fold = TRUE)
 
 ``` r
 
-plot_median(breast_meta, par = FALSE, fold = FALSE)
-plot_median(breast_meta, par = FALSE, fold = TRUE)
+plot(breast_meta, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
+```
+
+    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite values.
+    log-10 transformation introduced infinite values.
+
+``` r
+
+plot(breast_meta, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
 ![](data_files/figure-html/unnamed-chunk-7-1.png)
@@ -54,8 +71,8 @@ plot_median(breast_meta, par = FALSE, fold = TRUE)
 
 ``` r
 
-plot_median(pros_meta, par = TRUE, fold = FALSE)
-plot_median(pros_meta, par = TRUE, fold = TRUE)
+plot(pros_meta, par = TRUE, fold = FALSE)
+plot(pros_meta, par = TRUE, fold = TRUE)
 ```
 
 ![](data_files/figure-html/unnamed-chunk-9-1.png)
@@ -64,8 +81,8 @@ plot_median(pros_meta, par = TRUE, fold = TRUE)
 
 ``` r
 
-plot_median(pros_meta, par = FALSE, fold = FALSE)
-plot_median(pros_meta, par = FALSE, fold = TRUE)
+plot_median(pros_meta, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
+plot_median(pros_meta, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
 ![](data_files/figure-html/unnamed-chunk-10-1.png)

@@ -67,7 +67,7 @@ lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = 
   )
   model <- lme4::lmer(formula = formula,
                       data = data,
-                      control = lme4::lmerControl(optimizer ='optimx', optCtrl=list(method='')),
+                      control = lme4::lmerControl(optimizer ='optimx', optCtrl=list(method='nlminb')),
                       ...)
   model_p <- lmerTest::as_lmerModLmerTest(model)
   result <- list(

@@ -194,8 +194,9 @@ Finally, tumr provides a plot() method for lmm objects that produces two visuali
 2. Estimated mean growth slopes for each group with confidence intervals
 
 ```{r}
-plot(lmm_mel2, "response") 
-plot(lmm_mel2, "slope")
+plot(lmm_mel2, "predict")
+plot(lmm_mel2, "predict_fold") + ggplot2::coord_cartesian(ylim = c(1,2500)) + ggplot2::scale_y_log10()
+plot(lmm_mel2, "contrast")
 ```
 
 ## Checking for exponential growth 

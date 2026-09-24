@@ -28,9 +28,19 @@ plot.lmm <- function(x,
                                  back_transform = FALSE
                                  )
     if (type == "predict") {
-      p <- plot(pred) + ggplot2::labs(
-        x = x$relevant_info$Time,
-        y = "Tumor measurement (log scale)")
+      pred_df <- as.data.frame(pred)
+      p <- ggplot2::ggplot(pred_df, ggplot2::aes(x = x, y = predicted, color = group, fill = group)) +
+        ggplot2::geom_ribbon(ggplot2::aes(ymin = conf.low, ymax = conf.high), alpha = 0.15, color = NA) +
+        ggplot2::geom_line(linewidth = 1) +
+        ggplot2::labs(
+          title = "Predicted values of Volume (log scale)",
+          x = x$relevant_info$Time,
+          y = "Tumor measurement",
+          color = x$relevant_info$Group,
+          fill = x$relevant_info$Group
+        ) +
+        ggplot2::theme_bw() +
+        ggplot2::theme(panel.border = ggplot2::element_blank())
       return(p)
     }
     if (type == "predict_fold") {
@@ -45,30 +55,17 @@ plot.lmm <- function(x,
           conf.high_fold = exp(conf.high - baseline)
         ) |>
         dplyr::ungroup()
-      p <- ggplot2::ggplot(
-        pred_df,
-        ggplot2::aes(
-          x = x,
-          y = predicted_fold,
-          color = group,
-          fill = group
-        )
-      ) +
-        ggplot2::geom_ribbon(
-          ggplot2::aes(
-            ymin = conf.low_fold,
-            ymax = conf.high_fold
-          ),
-          alpha = 0.15,
-          color = NA
-        ) +
+      p <- ggplot2::ggplot(pred_df, ggplot2::aes(x = x, y = predicted_fold, color = group, fill = group)) +
+        ggplot2::geom_ribbon(ggplot2::aes(ymin = conf.low_fold, ymax = conf.high_fold), alpha = 0.15, color = NA) +
         ggplot2::geom_line(linewidth = 1) +
         ggplot2::labs(
+          title = "Predicted values of Volume (log scale)",
           x = x$relevant_info$Time,
-          y = "Fold change from baseline",
+          y = "Tumor measurement (fold change)",
           color = x$relevant_info$Group,
-          fill = x$relevant_info$Group
-        ) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_blank())
+          fill = x$relevant_info$Group) +
+        ggplot2::theme_bw() +
+        ggplot2::theme(panel.border = ggplot2::element_blank())
       return(p)
     }
   }

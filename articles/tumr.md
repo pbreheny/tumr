@@ -310,8 +310,6 @@ plot(lmm_mel2, "predict")
     Model has log transformed response. Predictions are on transformed
       scale.
 
-![](tumr_files/figure-html/unnamed-chunk-11-1.png)
-
 ``` r
 
 plot(lmm_mel2, "predict_fold") + ggplot2::scale_y_log10()
@@ -320,6 +318,8 @@ plot(lmm_mel2, "predict_fold") + ggplot2::scale_y_log10()
     Model has log transformed response. Predictions are on transformed
       scale.
 
+![](tumr_files/figure-html/unnamed-chunk-11-1.png)
+
 ![](tumr_files/figure-html/unnamed-chunk-11-2.png)
 
 ``` r
@@ -327,35 +327,9 @@ plot(lmm_mel2, "predict_fold") + ggplot2::scale_y_log10()
 plot(lmm_mel2, "contrast")
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-11-3.png)
-
-### Checking for exponential growth
-
-Since lmm() model the data on log scale by default and a straight line
-corresponds to exponential growth on log scale, we can check whether the
-exponential growth model fits well by plotting the residuals from Linear
-Mixed Model vs time.
-
-``` r
-
-check_exp(lmm_mel2)
-```
-
-    `geom_smooth()` using formula = 'y ~ x'
-
 ![](tumr_files/figure-html/unnamed-chunk-12-1.png)
 
-## Flexible modeling of nonlinear growth
-
-For datasets that exhibit non-linear growth, we also provide the
-[Exponential quadratic
-model](https://pbreheny.github.io/tumr/articles/articles/quadratic.md)
-and [Generalized Addictive Model
-(GAM)](https://pbreheny.github.io/tumr/articles/articles/gam.md) as
-alternative modeling approaches. Examples of their applications can be
-found in the linked articles.
-
-## Tumor Doubling Time Based on lmm()
+### Tumor Doubling Time Based on lmm()
 
 ``` r
 
@@ -375,6 +349,32 @@ dtime(lmm_mel2)
     3         C 0.44   0.42 0.32  0.63
     4         D 0.42   0.41 0.31  0.60
     5         E 0.48   0.46 0.34  0.73
+
+### Checking for exponential growth
+
+Since lmm() model the data on log scale by default and a straight line
+corresponds to exponential growth on log scale, we can check whether the
+exponential growth model fits well by plotting the residuals from Linear
+Mixed Model vs time.
+
+``` r
+
+check_exp(lmm_mel2)
+```
+
+    `geom_smooth()` using formula = 'y ~ x'
+
+![](tumr_files/figure-html/unnamed-chunk-14-1.png)
+
+## Flexible modeling of nonlinear growth
+
+For datasets that exhibit non-linear growth, we also provide the
+[Exponential quadratic
+model](https://pbreheny.github.io/tumr/articles/articles/quadratic.md)
+and [Generalized Addictive Model
+(GAM)](https://pbreheny.github.io/tumr/articles/articles/gam.md) as
+alternative modeling approaches. Examples of their applications can be
+found in the linked articles.
 
 ## Bayesian hierarchical linear model
 

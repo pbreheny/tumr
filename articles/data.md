@@ -81,8 +81,8 @@ plot(pros_meta, par = TRUE, fold = TRUE)
 
 ``` r
 
-plot_median(pros_meta, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
-plot_median(pros_meta, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
+plot(pros_meta, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
+plot(pros_meta, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
 ![](data_files/figure-html/unnamed-chunk-10-1.png)

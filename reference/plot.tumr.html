@@ -18,8 +18,7 @@
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/tumr.html">Get started</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/AR(1).html">AR(1)</a></li>
-    <li><a class="dropdown-item" href="../articles/bhm.html">Bayesian Hierarchical Linear Model</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/bhm.html">Bayesian Hierarchical Linear Model</a></li>
     <li><a class="dropdown-item" href="../articles/data.html">tumr data sets</a></li>
     <li><a class="dropdown-item" href="../articles/gam.html">Nonlinear - Generalized Addictive Model (GAM)</a></li>
     <li><a class="dropdown-item" href="../articles/quadratic.html">Nonlinear - Exponential quadratic Model</a></li>
@@ -67,6 +66,22 @@
     <p>A ggplot object.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">melanoma2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">melanoma2</span><span class="op">$</span><span class="va">months</span> <span class="op">&lt;-</span> <span class="va">melanoma2</span><span class="op">$</span><span class="va">Day</span> <span class="op">/</span> <span class="op">(</span><span class="fl">365</span><span class="op">/</span><span class="fl">12</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">months</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.tumr-1.png" alt="" width="480" height="480"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.tumr-2.png" alt="" width="480" height="480"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.tumr-3.png" alt="" width="480" height="480"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">FALSE</span>, fold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.tumr-4.png" alt="" width="480" height="480"></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
@@ -76,7 +91,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: September 23, 2026</p>
+  <p>Last updated: September 24, 2026</p>
 </div>
 
     </footer></div>

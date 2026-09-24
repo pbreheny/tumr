@@ -62,19 +62,3 @@ plot_median(
 ## Value
 
 A ggplot object
-
-## Examples
-
-``` r
-data(melanoma2)
-melanoma2$months <- melanoma2$Day / (365/12)
-mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
-plot_median(mel2)
-
-plot_median(mel2, par = FALSE)
-
-plot_median(mel2, fold = TRUE)
-
-plot_median(mel2, par = FALSE, fold = TRUE)
-
-```

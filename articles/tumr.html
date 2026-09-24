@@ -45,8 +45,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/AR(1).html">AR(1)</a></li>
-    <li><a class="dropdown-item" href="../articles/bhm.html">Bayesian Hierarchical Linear Model</a></li>
+<li><a class="dropdown-item" href="../articles/bhm.html">Bayesian Hierarchical Linear Model</a></li>
     <li><a class="dropdown-item" href="../articles/data.html">tumr data sets</a></li>
     <li><a class="dropdown-item" href="../articles/gam.html">Nonlinear - Generalized Addictive Model (GAM)</a></li>
     <li><a class="dropdown-item" href="../articles/quadratic.html">Nonlinear - Exponential quadratic Model</a></li>
@@ -336,18 +335,11 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 <li>Predicted tumor growth trajectories over time (log scale)</li>
 <li>Estimated mean growth slopes for each group with confidence intervals</li>
 </ol>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"predict"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Model has log transformed response. Predictions are on transformed
   scale.</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure><p><img src="tumr_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
-</figure>
-</div>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"predict_fold"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -355,30 +347,19 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 <pre><code>Model has log transformed response. Predictions are on transformed
   scale.</code></pre>
 </div>
-<div class="cell-output-display">
-<div>
-<figure><p><img src="tumr_files/figure-html/unnamed-chunk-11-2.png" width="672"></p>
-</figure>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="tumr_files/figure-html/unnamed-chunk-11-1.png" width="384"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="tumr_files/figure-html/unnamed-chunk-11-2.png" width="384"></p>
 </div>
 </div>
+</div>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lmm_mel2</span>, <span class="st">"contrast"</span><span class="op">)</span></span></code></pre></div>
-<div class="cell-output-display">
-<div>
-<figure><p><img src="tumr_files/figure-html/unnamed-chunk-11-3.png" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section><section class="level2"><h3 id="checking-for-exponential-growth">Checking for exponential growth<a class="anchor" aria-label="anchor" href="#checking-for-exponential-growth"></a>
-</h3>
-<p>Since lmm() model the data on log scale by default and a straight line corresponds to exponential growth on log scale, we can check whether the exponential growth model fits well by plotting the residuals from Linear Mixed Model vs time.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/check_exp.html">check_exp</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure><p><img src="tumr_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
@@ -386,13 +367,10 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 </div>
 </div>
 </div>
-</section></section><section class="section level2"><h2 id="flexible-modeling-of-nonlinear-growth">Flexible modeling of nonlinear growth<a class="anchor" aria-label="anchor" href="#flexible-modeling-of-nonlinear-growth"></a>
-</h2>
-<p>For datasets that exhibit non-linear growth, we also provide the <a href="articles/quadratic.html">Exponential quadratic model</a> and <a href="articles/gam.html">Generalized Addictive Model (GAM)</a> as alternative modeling approaches. Examples of their applications can be found in the linked articles.</p>
-</section><section class="section level2"><h2 id="tumor-doubling-time-based-on-lmm">Tumor Doubling Time Based on lmm()<a class="anchor" aria-label="anchor" href="#tumor-doubling-time-based-on-lmm"></a>
-</h2>
+</section><section class="level2"><h3 id="tumor-doubling-time-based-on-lmm">Tumor Doubling Time Based on lmm()<a class="anchor" aria-label="anchor" href="#tumor-doubling-time-based-on-lmm"></a>
+</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dtime.html">dtime</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$method
@@ -410,6 +388,25 @@ $summary
 5         E 0.48   0.46 0.34  0.73</code></pre>
 </div>
 </div>
+</section><section class="level2"><h3 id="checking-for-exponential-growth">Checking for exponential growth<a class="anchor" aria-label="anchor" href="#checking-for-exponential-growth"></a>
+</h3>
+<p>Since lmm() model the data on log scale by default and a straight line corresponds to exponential growth on log scale, we can check whether the exponential growth model fits well by plotting the residuals from Linear Mixed Model vs time.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/check_exp.html">check_exp</a></span><span class="op">(</span><span class="va">lmm_mel2</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="tumr_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section></section><section class="section level2"><h2 id="flexible-modeling-of-nonlinear-growth">Flexible modeling of nonlinear growth<a class="anchor" aria-label="anchor" href="#flexible-modeling-of-nonlinear-growth"></a>
+</h2>
+<p>For datasets that exhibit non-linear growth, we also provide the <a href="articles/quadratic.html">Exponential quadratic model</a> and <a href="articles/gam.html">Generalized Addictive Model (GAM)</a> as alternative modeling approaches. Examples of their applications can be found in the linked articles.</p>
 </section><section class="section level2"><h2 id="bayesian-hierarchical-linear-model">Bayesian hierarchical linear model<a class="anchor" aria-label="anchor" href="#bayesian-hierarchical-linear-model"></a>
 </h2>
 <p>In addition to the linear mixed-effects modeling, our package also supports fitting a Bayesian hierarchical linear model. Detailed usage of this model is described in an <a href="articles/bhm.html">article</a>.</p>
@@ -506,7 +503,7 @@ $summary
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: September 23, 2026</p>
+  <p>Last updated: September 24, 2026</p>
 </div>
 
     </footer>

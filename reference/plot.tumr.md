@@ -24,3 +24,19 @@ plot(x, ...)
 ## Value
 
 A ggplot object.
+
+## Examples
+
+``` r
+data(melanoma2)
+melanoma2$months <- melanoma2$Day / (365/12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
+plot(mel2)
+
+plot(mel2, par = FALSE)
+
+plot(mel2, fold = TRUE)
+
+plot(mel2, par = FALSE, fold = TRUE)
+
+```

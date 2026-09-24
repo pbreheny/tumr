@@ -101,8 +101,6 @@ dtime(lmm_obj)
 
 ## Visualization and Diagnostics
 
-- [`plot_median()`](https://pbreheny.github.io/tumr/reference/plot_median.md)
-  : Plot tumor volume or fold change over time using median curves
 - [`check_exp()`](https://pbreheny.github.io/tumr/reference/check_exp.md)
   : Diagnostic plots for exponential growth assumption
 
@@ -139,7 +137,6 @@ dtime(lmm_obj)
 
 ### All vignettes
 
-- [AR(1)](https://pbreheny.github.io/tumr/articles/AR(1).md):
 - [Bayesian Hierarchical Linear
   Model](https://pbreheny.github.io/tumr/articles/bhm.md):
 - [tumr data sets](https://pbreheny.github.io/tumr/articles/data.md):

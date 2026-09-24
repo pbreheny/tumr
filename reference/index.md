@@ -42,8 +42,6 @@
 
 ## Visualization and Diagnostics
 
-- [`plot_median()`](https://pbreheny.github.io/tumr/reference/plot_median.md)
-  : Plot tumor volume or fold change over time using median curves
 - [`check_exp()`](https://pbreheny.github.io/tumr/reference/check_exp.md)
   : Diagnostic plots for exponential growth assumption
 

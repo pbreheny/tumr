@@ -98,6 +98,6 @@ plot(pros_meta, par = TRUE, fold = TRUE)
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-plot_median(pros_meta, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
-plot_median(pros_meta, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
+plot(pros_meta, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
+plot(pros_meta, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```

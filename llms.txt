@@ -40,8 +40,9 @@ plot(rfeat_mel2)
 # Linear mixed-effects modeling
 lmm_obj <- lmm(mel2)
 summary(lmm_obj)
-plot(lmm_obj, "response")
-plot(lmm_obj, "slope")
+plot(lmm_obj, "predict")
+plot(lmm_obj, "predict_fold") + ggplot2::scale_y_log10()
+plot(lmm_obj, "contrast")
 
 # Nonlinear model - Exponential quadratic model
 quad_obj <- quad(mel2)

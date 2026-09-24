@@ -2,7 +2,7 @@ url: https://pbreheny.github.io/tumr/
 
 template:
   bootstrap: 5
-  bootswatch: pulse
+  bootswatch: flatly
   math-rendering: katex
   includes:
     in_header: |
@@ -45,7 +45,6 @@ reference:
 
   - title: "Visualization and Diagnostics"
     contents:
-      - plot_median
       - check_exp
 
   - title: "S3 Methods"
@@ -68,7 +67,7 @@ footer:
     left: developed_by
     right: last_updated
   components:
-    last_updated: !expr paste("Last updated:", format(Sys.time(), "%B %d, %Y"))
+    last_updated: "Last updated: BUILD_DATE"
 
 
 

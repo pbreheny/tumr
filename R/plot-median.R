@@ -90,17 +90,6 @@ get_lld <- function(x, lld = NULL) {
 #'   is used.
 #'
 #' @return A ggplot object
-#'
-#' @examples
-#' data(melanoma2)
-#' melanoma2$months <- melanoma2$Day / (365/12)
-#' mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
-#' plot_median(mel2)
-#' plot_median(mel2, par = FALSE)
-#' plot_median(mel2, fold = TRUE)
-#' plot_median(mel2, par = FALSE, fold = TRUE)
-#'
-#' @export
 
 plot_median <- function(tumr_obj = NULL,
                         data = NULL,
@@ -446,8 +435,17 @@ plot_median <- function(tumr_obj = NULL,
 #'
 #' @return A ggplot object.
 #'
+#' @examples
+#' data(melanoma2)
+#' melanoma2$months <- melanoma2$Day / (365/12)
+#' mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
+#' plot(mel2)
+#' plot(mel2, par = FALSE)
+#' plot(mel2, fold = TRUE)
+#' plot(mel2, par = FALSE, fold = TRUE)
+#'
 #' @export
+
 plot.tumr <- function(x, ...) {
   plot_median(tumr_obj = x, ...)
 }
-

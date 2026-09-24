@@ -48,9 +48,13 @@ jobs:
           cmdstanr::install_cmdstan(cores = parallel::detectCores())
         shell: Rscript {0}
 
+      - name: Add build date
+        run: |
+          BUILD_DATE=$(date +"%B %d, %Y")
+          sed -i "s/BUILD_DATE/$BUILD_DATE/g" _pkgdown.yml
+
       - name: Build site
         run: |
-          options(yaml.eval.expr = TRUE)
           pkgdown::build_site_github_pages(
             new_process = FALSE,
             install = FALSE

@@ -194,10 +194,25 @@ Finally, tumr provides a plot() method for lmm objects that produces two visuali
 2. Estimated mean growth slopes for each group with confidence intervals
 
 ```{r}
+#| layout-ncol: 2
+#| fig-width: 4
+#| fig-height: 3.5
 plot(lmm_mel2, "predict")
 plot(lmm_mel2, "predict_fold") + ggplot2::scale_y_log10()
+```
+
+
+
+```{r}
 plot(lmm_mel2, "contrast")
 ```
+
+## Tumor Doubling Time Based on lmm()
+
+```{r}
+dtime(lmm_mel2)
+```
+
 
 ## Checking for exponential growth 
 
@@ -216,12 +231,6 @@ check_exp(lmm_mel2)
 For datasets that exhibit non-linear growth, we also provide the [Exponential quadratic model](articles/quadratic.html) and [Generalized Addictive Model (GAM)](articles/gam.html)
 as alternative modeling approaches. Examples of their applications can be found in the linked articles. 
 
-
-# Tumor Doubling Time Based on lmm()
-
-```{r}
-dtime(lmm_mel2)
-```
 
 
 # Bayesian hierarchical linear model

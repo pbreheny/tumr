@@ -51,7 +51,7 @@ jobs:
       - name: Add build date
         run: |
           BUILD_DATE=$(date +"%B %d, %Y")
-          sed -i "s/BUILD_DATE/$BUILD_DATE/g" _pkgdown.yml
+          sed -i "s/BUILD_DATE/$BUILD_DATE/g" pkgdown/_pkgdown.yml
 
       - name: Build site
         run: |

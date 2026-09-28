@@ -158,6 +158,30 @@ summary(fit)
     # ℹ 3 more variables: pct_diff_mean <dbl>, pct_diff_q5 <dbl>,
     #   pct_diff_q95 <dbl>
 
+Also, we can compute tumor doubling time using
+[`dtime()`](https://pbreheny.github.io/tumr/reference/dtime.md).
+
+``` r
+
+dtime(fit)
+```
+
+    $method
+    [1] "Tumor Doubling Time Based on Bayesian hierarchical Model"
+
+    $message
+    [1] "The model should demonstrate an exponential growth pattern."
+
+    $summary
+    # A tibble: 5 × 5
+      treatment  mean median  q2.5 q97.5
+      <chr>     <dbl>  <dbl> <dbl> <dbl>
+    1 A          8.77   8.65  7.04  11.2
+    2 B         18.4   17.3  11.9   31.0
+    3 C         13.5   13.1   9.79  19.5
+    4 D         13.0   12.5   9.22  19.4
+    5 E         14.8   14.2  10.2   23.2
+
 ### Plots
 
 Posterior results can be visualized using the
@@ -179,21 +203,21 @@ different `type` options. The available plot types include:
 plot(fit, type = "predict")
 ```
 
-![](bhm_files/figure-html/unnamed-chunk-4-1.png)
+![](bhm_files/figure-html/unnamed-chunk-5-1.png)
 
 ``` r
 
 plot(fit, type = "slope")
 ```
 
-![](bhm_files/figure-html/unnamed-chunk-4-2.png)
+![](bhm_files/figure-html/unnamed-chunk-5-2.png)
 
 ``` r
 
 plot(fit, type = "contrast")
 ```
 
-![](bhm_files/figure-html/unnamed-chunk-4-3.png)
+![](bhm_files/figure-html/unnamed-chunk-5-3.png)
 
 ``` r
 
@@ -203,7 +227,7 @@ plot(fit, type = "contrast") +
   )
 ```
 
-![](bhm_files/figure-html/unnamed-chunk-4-4.png)
+![](bhm_files/figure-html/unnamed-chunk-5-4.png)
 
 ``` r
 
@@ -212,14 +236,14 @@ plot(fit, type = "trace")
 
     $trace_intercept
 
-![](bhm_files/figure-html/unnamed-chunk-4-5.png)
+![](bhm_files/figure-html/unnamed-chunk-5-5.png)
 
 
     $trace_slope
 
-![](bhm_files/figure-html/unnamed-chunk-4-6.png)
+![](bhm_files/figure-html/unnamed-chunk-5-6.png)
 
 
     $trace_slope_diff
 
-![](bhm_files/figure-html/unnamed-chunk-4-7.png)
+![](bhm_files/figure-html/unnamed-chunk-5-7.png)

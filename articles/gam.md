@@ -49,9 +49,6 @@ plot(mel1)
 plot(mel1) + ggplot2::scale_y_log10()
 ```
 
-    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite values.
-    log-10 transformation introduced infinite values.
-
 ![](gam_files/figure-html/unnamed-chunk-4-2.png)
 
 ``` r

@@ -6,8 +6,6 @@
   tumr object
 - [`process_data()`](https://pbreheny.github.io/tumr/reference/process_data.md)
   : Process data to be used in plot_median
-- [`get_lld()`](https://pbreheny.github.io/tumr/reference/get_lld.md) :
-  Get lower limit of detection
 - [`get_limit()`](https://pbreheny.github.io/tumr/reference/get_limit.md)
   : Calculate the Lower Detection Limit
 - [`breast`](https://pbreheny.github.io/tumr/reference/breast.md) :

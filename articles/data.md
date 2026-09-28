@@ -24,13 +24,6 @@ plot(mel1, par = TRUE, fold = TRUE)
 ``` r
 
 plot(mel1, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
-```
-
-    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite values.
-    log-10 transformation introduced infinite values.
-
-``` r
-
 plot(mel1, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
@@ -53,13 +46,6 @@ plot(breast_meta, par = TRUE, fold = TRUE)
 ``` r
 
 plot(breast_meta, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
-```
-
-    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite values.
-    log-10 transformation introduced infinite values.
-
-``` r
-
 plot(breast_meta, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 

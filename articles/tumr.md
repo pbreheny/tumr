@@ -97,7 +97,7 @@ missing observations.
 ``` r
 
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
-plot(mel2, par = TRUE)
+plot(mel2, par = TRUE, fold = FALSE)
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-5-1.png)
@@ -119,13 +119,6 @@ original volume and the fold change (log scale).
 ``` r
 
 plot(mel2, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
-```
-
-    Warning in ggplot2::scale_y_log10(): log-10 transformation introduced infinite
-    values.
-
-``` r
-
 plot(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 

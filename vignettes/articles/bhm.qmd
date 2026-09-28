@@ -152,6 +152,7 @@ fit <- bhm(mel2)
 
 ## Summary of the results
 
+
 Posterior summaries can be obtained using the `summary()` method. The output reports posterior means and corresponding credible intervals for all estimated quantities, including:
 
 - Treatment-specific intercepts
@@ -164,6 +165,11 @@ Posterior summaries can be obtained using the `summary()` method. The output rep
 summary(fit)
 ```
 
+Also, we can compute tumor doubling time using `dtime()`.
+
+```{r}
+dtime(fit)
+```
 
 
 

@@ -28,14 +28,12 @@ bhm <- function(tumr_obj,
                 diagnostics = FALSE,
                 return_fit = TRUE,
                 ...) {
-
   if (!inherits(tumr_obj, "tumr")) {
     stop(
       "tumr_obj must be a tumr object created by tumr().",
       call. = FALSE
     )
   }
-
   # Check CmdStanR
   if (!requireNamespace("cmdstanr", quietly = TRUE)) {
     stop(
@@ -44,7 +42,6 @@ bhm <- function(tumr_obj,
       call. = FALSE
     )
   }
-
   cmdstan_available <- tryCatch(
     {
       cmdstanr::cmdstan_version()
@@ -52,7 +49,6 @@ bhm <- function(tumr_obj,
     },
     error = function(e) FALSE
   )
-
   if (!cmdstan_available) {
     stop(
       "CmdStan is not installed or cannot be found.\n",
@@ -61,14 +57,12 @@ bhm <- function(tumr_obj,
       call. = FALSE
     )
   }
-
   # Extract information from tumr object
   id <- tumr_obj$id
   time <- tumr_obj$time
   measure <- tumr_obj$measure
   group <- tumr_obj$group
   data <- tumr_obj$data
-
   # Check required information
   if (is.null(data) ||
       is.null(id) ||
@@ -80,30 +74,21 @@ bhm <- function(tumr_obj,
       call. = FALSE
     )
   }
-
   # Standardize variable names internally
   data[[".id"]] <- base::as.factor(data[[id]])
   data[[".time"]] <- data[[time]]
   data[[".measure"]] <- data[[measure]]
   data[[".group"]] <- base::as.factor(data[[group]])
-
   # Order observations by subject and time
-  data <- data[
-    order(data[[".id"]], data[[".time"]]),
-    ,
-    drop = FALSE
-  ]
-
+  data <- data[order(data[[".id"]], data[[".time"]]), ,drop = FALSE]
   # Subject IDs
   id_levels <- levels(data[[".id"]])
   id_index <- as.integer(data[[".id"]])
   N_subj <- length(id_levels)
   N <- nrow(data)
-
   # Outcome and time
   y <- log1p(data[[".measure"]])
   t <- data[[".time"]]
-
   # Handle censoring
   if (!is.null(cens)) {
     is_cens <- as.integer(y <= cens)
@@ -113,28 +98,20 @@ bhm <- function(tumr_obj,
     is_cens <- NULL
     y_stan <- y
   }
-
   # Make sure each subject belongs to exactly one treatment group
-  trt_check <- tapply(
-    data[[".group"]],
-    id_index,
-    function(x) length(unique(x))
-  )
-
+  trt_check <- tapply(data[[".group"]], id_index, function(x) length(unique(x)))
   if (any(trt_check != 1)) {
     stop(
       "Each subject must have exactly one treatment.",
       call. = FALSE
     )
   }
-
   # Subject-level treatment assignment
   id_first <- !duplicated(id_index)
   trt_by_id <- droplevels(data[[".group"]][id_first])
   trt_levels <- levels(trt_by_id)
   trt_subj <- as.integer(trt_by_id)
   K <- length(trt_levels)
-
   # Stan data
   stan_data <- list(
     N = N,
@@ -145,26 +122,18 @@ bhm <- function(tumr_obj,
     y = as.vector(y_stan),
     t = as.vector(t)
   )
-
   if (!is.null(cens)) {
     stan_data$C <- as.numeric(cens)
     stan_data$is_cens <- as.integer(is_cens)
   }
-
   # Choose Stan model
   stan_name <- if (is.null(cens)) {
     "bhm"
   } else {
     "bhm_cens"
   }
-
   # Locate Stan source file installed with tumr
-  stan_source <- system.file(
-    "stan",
-    paste0(stan_name, ".stan"),
-    package = "tumr"
-  )
-
+  stan_source <- system.file("stan", paste0(stan_name, ".stan"), package = "tumr")
   if (!nzchar(stan_source)) {
     stop(
       "Stan model file '",
@@ -173,40 +142,19 @@ bhm <- function(tumr_obj,
       call. = FALSE
     )
   }
-
   # Create a user-writable cache directory for compiled Stan models
-  cache_dir <- file.path(
-    tools::R_user_dir("tumr", which = "cache"),
-    "stan"
-  )
-
-  dir.create(
-    cache_dir,
-    recursive = TRUE,
-    showWarnings = FALSE
-  )
-
-  stan_file <- file.path(
-    cache_dir,
-    paste0(stan_name, ".stan")
-  )
-
+  cache_dir <- file.path(tools::R_user_dir("tumr", which = "cache"), "stan")
+  dir.create(cache_dir, recursive = TRUE, showWarnings = FALSE)
+  stan_file <- file.path(cache_dir, paste0(stan_name, ".stan"))
   # Copy Stan source to cache if it is new or has changed
   copy_stan <- !file.exists(stan_file)
-
   if (!copy_stan) {
     copy_stan <-
       unname(tools::md5sum(stan_source)) !=
       unname(tools::md5sum(stan_file))
   }
-
   if (copy_stan) {
-    copied <- file.copy(
-      stan_source,
-      stan_file,
-      overwrite = TRUE
-    )
-
+    copied <- file.copy(stan_source, stan_file, overwrite = TRUE)
     if (!copied) {
       stop(
         "Failed to copy Stan model to the user cache directory.",
@@ -214,7 +162,6 @@ bhm <- function(tumr_obj,
       )
     }
   }
-
   # Compile Stan model at runtime
   model <- cmdstanr::cmdstan_model(
     stan_file = stan_file,
@@ -223,7 +170,6 @@ bhm <- function(tumr_obj,
       PRECOMPILED_HEADERS = FALSE
     )
   )
-
   # Fit model
   fit <- model$sample(
     data = stan_data,
@@ -234,10 +180,8 @@ bhm <- function(tumr_obj,
     seed = 2025,
     ...
   )
-
   # Posterior summaries
   sum_tbl <- fit$summary()
-
   parse_1index <- function(x, prefix) {
     as.integer(
       sub(
@@ -247,7 +191,6 @@ bhm <- function(tumr_obj,
       )
     )
   }
-
   parse_2index <- function(x, prefix) {
     m <- regexec(
       paste0(
@@ -257,25 +200,17 @@ bhm <- function(tumr_obj,
       ),
       x
     )
-
     r <- regmatches(x, m)[[1]]
-
     if (length(r) != 3) {
       return(c(NA_integer_, NA_integer_))
     }
-
-    c(
-      as.integer(r[2]),
-      as.integer(r[3])
-    )
+    c(as.integer(r[2]), as.integer(r[3]))
   }
-
   # Treatment-specific slopes
   slope_each <- dplyr::filter(
     sum_tbl,
     grepl("^Slope\\[", .data$variable)
   )
-
   if (nrow(slope_each) > 0) {
     k <- parse_1index(
       slope_each$variable,
@@ -298,31 +233,26 @@ bhm <- function(tumr_obj,
       .data$ess_bulk,
       .data$ess_tail
     )
-
     slope_each <- dplyr::arrange(
       slope_each,
       .data$treatment
     )
   }
-
   # Treatment-specific intercepts
   int_each <- dplyr::filter(
     sum_tbl,
     grepl("^Int\\[", .data$variable)
   )
-
   if (nrow(int_each) > 0) {
     k <- parse_1index(
       int_each$variable,
       "Int"
     )
-
     int_each <- dplyr::mutate(
       int_each,
       k = k,
       treatment = trt_levels[k]
     )
-
     int_each <- dplyr::select(
       int_each,
       .data$treatment,
@@ -333,19 +263,10 @@ bhm <- function(tumr_obj,
       .data$ess_bulk,
       .data$ess_tail
     )
-
-    int_each <- dplyr::arrange(
-      int_each,
-      .data$treatment
-    )
+    int_each <- dplyr::arrange(int_each, .data$treatment)
   }
-
   # Pairwise slope differences
-  slope_diff <- dplyr::filter(
-    sum_tbl,
-    grepl("^SlopeDiff\\[", .data$variable)
-  )
-
+  slope_diff <- dplyr::filter(sum_tbl, grepl("^SlopeDiff\\[", .data$variable))
   if (nrow(slope_diff) > 0) {
     ij <- t(
       vapply(
@@ -355,7 +276,6 @@ bhm <- function(tumr_obj,
         prefix = "SlopeDiff"
       )
     )
-
     slope_diff$i <- ij[, 1]
     slope_diff$j <- ij[, 2]
 
@@ -376,7 +296,6 @@ bhm <- function(tumr_obj,
         .data$trt_j
       )
     )
-
     slope_diff <- dplyr::select(
       slope_diff,
       .data$contrast,
@@ -387,13 +306,11 @@ bhm <- function(tumr_obj,
       .data$ess_bulk,
       .data$ess_tail
     )
-
     slope_diff <- dplyr::arrange(
       slope_diff,
       .data$contrast
     )
   }
-
   # Output
   out <- list(
     slope_each = slope_each,
@@ -410,16 +327,12 @@ bhm <- function(tumr_obj,
       Group = group
     )
   )
-
   if (isTRUE(diagnostics)) {
     out$diagnostics <- fit$diagnostic_summary()
   }
-
   if (isTRUE(return_fit)) {
     out$fit <- fit
   }
-
   class(out) <- "bhm"
-
   out
 }

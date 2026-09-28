@@ -24,7 +24,6 @@ reference:
     contents:
       - tumr
       - process_data
-      - get_lld
       - get_limit
       - breast
       - melanoma1

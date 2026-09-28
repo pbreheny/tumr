@@ -95,7 +95,7 @@ The figure below compares a naive visualization without accounting for censoring
 #| fig-width: 4
 #| fig-height: 3.5
 plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
-plot(mel2, par = TRUE)
+plot(mel2, par = TRUE, fold = FALSE)
 ```
 
 The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect. In contrast, the parametric approach shown in the right panel effectively addresses the issues observed in the left panel.

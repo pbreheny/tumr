@@ -27,20 +27,17 @@ process_data <- function(time, measure) {
         if (i > first_val_index && i <= last_val_index) measure_clean[i] <- interp_fun(time[i])
       }
     }
-
     # Carry forward trailing missing values
     if (last_val_index < length(measure)) {
       measure_clean[(last_val_index + 1):length(measure)] <- measure[last_val_index]
     }
   }
-
   # event = 1 means observed or interpolated;
   # event = 0 means trailing carried-forward value
   missing_vector <- rep(1, length(measure))
   if (last_val_index < length(measure)) {
     missing_vector[(last_val_index + 1):length(measure)] <- 0
   }
-
   list(data_no_missing_values = measure_clean, missing_vector = missing_vector)
 }
 
@@ -63,7 +60,6 @@ process_data <- function(time, measure) {
 
 plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
                         measure = NULL, id = NULL, par = TRUE, fold = FALSE, lld = NULL) {
-
   if (!is.null(tumr_obj)) {
     if (is.null(id)) id <- tumr_obj$id
     if (is.null(time)) time <- tumr_obj$time
@@ -71,11 +67,9 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
     if (is.null(group)) group <- tumr_obj$group
     if (is.null(data)) data <- tumr_obj$data
   }
-
   if (is.null(data) || is.null(group) || is.null(time) || is.null(measure) || is.null(id)) {
     stop("Please provide data, group, time, measure, and id, or supply tumr_obj.")
   }
-
   # Complete missing time points within each subject
   data <- data |>
     tidyr::complete(!!rlang::sym(id), !!rlang::sym(time)) |>
@@ -83,7 +77,6 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
     dplyr::arrange(.data[[time]], .by_group = TRUE) |>
     tidyr::fill(!!rlang::sym(group), .direction = "downup") |>
     dplyr::ungroup()
-
   # Replace zero measurements by the global lower limit of detection or set by users
   if (any(data[[measure]] == 0, na.rm = TRUE)) {
     if (!is.null(lld)) {
@@ -94,7 +87,6 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
     }
     data[[measure]][!is.na(data[[measure]]) & data[[measure]] == 0] <- lld_used
   }
-
   # Process missing values subject by subject
   processed_data <- data |>
     dplyr::group_by(.data[[id]]) |>
@@ -109,33 +101,27 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
       )
     }) |>
     dplyr::ungroup()
-
   # Compute fold change within each subject
   compute_fold_data <- function(df, time_var) {
     df <- df |> dplyr::arrange(.data[[time_var]])
     baseline <- df$volume[1]
-
     if (is.na(baseline)) {
       idx <- which(!is.na(df$volume))[1]
       baseline <- if (!is.na(idx)) df$volume[idx] else NA_real_
     }
-
     if (is.na(baseline) || baseline <= 0) {
       df$baseline <- baseline
       df$fold_change <- NA_real_
       return(df)
     }
-
     df$baseline <- baseline
     df$fold_change <- df$volume / baseline
     df
   }
-
   analysis_data <- processed_data |>
     dplyr::group_by(.data[[id]]) |>
     dplyr::group_modify(~ compute_fold_data(.x, time_var = time)) |>
     dplyr::ungroup()
-
   group_size <- analysis_data |>
     dplyr::distinct(.data[[group]], .data[[id]]) |>
     dplyr::count(.data[[group]], name = "group_n")
@@ -147,25 +133,29 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
     ok <- !is.na(x)
     x <- x[ok]
     event <- event[ok]
-
     observed_n <- sum(event == 1)
     censored_n <- sum(event == 0)
-
-    if (length(x) == 0 || any(x <= 0)) {
+    if (length(x) == 0 || any(x <= 0) || all(event == 0)) {
       return(tibble::tibble(
         MedianValue = NA_real_,
         observed_n = observed_n,
         censored_n = censored_n
       ))
     }
-
+    unique_x <- unique(x)
+    if (length(unique_x) == 1 && all(event == 1)) {
+      return(tibble::tibble(
+        MedianValue = unique_x[1],
+        observed_n = observed_n,
+        censored_n = censored_n
+      ))
+    }
     y <- log(x)
     fit <- tryCatch(
       survival::survreg(survival::Surv(y, event) ~ 1, dist = "gaussian"),
       warning = function(w) NULL,
       error = function(e) NULL
     )
-
     if (is.null(fit)) {
       return(tibble::tibble(
         MedianValue = NA_real_,
@@ -173,11 +163,9 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
         censored_n = censored_n
       ))
     }
-
     med <- exp(stats::coef(fit)[1])
     tibble::tibble(MedianValue = unname(med), observed_n = observed_n, censored_n = censored_n)
   }
-
   # Nonparametric median
   get_nonparametric_summary <- function(df, value_col) {
     x <- df[[value_col]]
@@ -185,10 +173,8 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
     ok <- !is.na(x)
     x <- x[ok]
     event <- event[ok]
-
     observed_n <- sum(event == 1)
     censored_n <- sum(event == 0)
-
     if (length(x) == 0) {
       return(tibble::tibble(
         MedianValue = NA_real_,
@@ -196,12 +182,10 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
         censored_n = censored_n
       ))
     }
-
     fit <- tryCatch(
       survival::survfit(survival::Surv(x, event) ~ 1),
       error = function(e) NULL
     )
-
     if (is.null(fit)) {
       return(tibble::tibble(
         MedianValue = NA_real_,
@@ -209,11 +193,9 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
         censored_n = censored_n
       ))
     }
-
     med <- unname(summary(fit)$table["median"])
     tibble::tibble(MedianValue = med, observed_n = observed_n, censored_n = censored_n)
   }
-
   value_col <- if (fold) "fold_change" else "volume"
 
   if (par) {
@@ -221,7 +203,6 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
       dplyr::group_by(.data[[time]], .data[[group]]) |>
       dplyr::group_modify(~ get_parametric_summary(.x, value_col = value_col)) |>
       dplyr::ungroup()
-
     plot_title <- if (fold) {
       "Fold Change over Time (Parametric Method)"
     } else {
@@ -232,14 +213,12 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
       dplyr::group_by(.data[[time]], .data[[group]]) |>
       dplyr::group_modify(~ get_nonparametric_summary(.x, value_col = value_col)) |>
       dplyr::ungroup()
-
     plot_title <- if (fold) {
       "Fold Change over Time (Nonparametric Method)"
     } else {
       "Volume over Time (Nonparametric Method)"
     }
   }
-
   # Stop median curve once at least 60% are censored
   summary_data <- summary_data |>
     dplyr::left_join(group_size, by = group) |>
@@ -263,10 +242,8 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
     y_ind <- "volume"
     y_lab <- "Volume"
   }
-
   data_sum <- summary_data |>
     dplyr::filter(!is.na(MedianValue), is.finite(MedianValue))
-
   ggplot2::ggplot() +
     ggplot2::geom_line(
       data = data_ind,

@@ -5,7 +5,7 @@
 [![R-CMD-check](https://github.com/pbreheny/tumr/workflows/R-CMD-check/badge.svg)](https://github.com/pbreheny/tumr/actions)
 <!-- badges: end -->
 
-## tumr <img src="man/figures/logo.png" align="right" width="150"/>
+## A tutorial using tumr <img src="man/figures/logo.png" align="right" width="150"/>
 
 tumr is a collection of tools for visualizing and analyzing tumor growth data. 
 
@@ -63,3 +63,7 @@ plot(gam_obj, "contrast")
 dtime(lmm_obj)
 ```
 
+## Find and report an issue
+
+If you encounter problems or bugs using this package, please file an issue!
+Good software depends on getting feedback from users. When doing so, please provide a [minimal reproducible example](https://pbreheny.org/web/reproducible.html).

@@ -1,6 +1,6 @@
 # tumr
 
-## tumr ![](reference/figures/logo.png)
+## A tutorial using tumr ![](reference/figures/logo.png)
 
 tumr is a collection of tools for visualizing and analyzing tumor growth
 data.
@@ -57,3 +57,10 @@ plot(gam_obj, "contrast")
 # Compute Tumor Doubling Time based on Linear mixed-effects modeling
 dtime(lmm_obj)
 ```
+
+## Find and report an issue
+
+If you encounter problems or bugs using this package, please file an
+issue! Good software depends on getting feedback from users. When doing
+so, please provide a [minimal reproducible
+example](https://pbreheny.org/web/reproducible.html).

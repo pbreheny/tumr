@@ -98,12 +98,8 @@ example](https://pbreheny.org/web/reproducible.html).
   Tumor Doubling Time Based on Fitted Tumor Growth Model
 - [`rfeat()`](https://pbreheny.github.io/tumr/reference/rfeat.md) :
   Analysis based on response features
-- [`rfeat_pwr()`](https://pbreheny.github.io/tumr/reference/rfeat_pwr.md)
-  : Analysis based on response features
 - [`tumr_power()`](https://pbreheny.github.io/tumr/reference/tumr_power.md)
   : Power calculation for tumor growth
-- [`gendat()`](https://pbreheny.github.io/tumr/reference/gendat.md) :
-  Generate tumor data: Time to reach endpoint
 
 ## Visualization and Diagnostics
 

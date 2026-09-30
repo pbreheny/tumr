@@ -38,9 +38,7 @@ reference:
       - bhm
       - dtime
       - rfeat
-      - rfeat_pwr
       - tumr_power
-      - gendat
 
   - title: "Visualization and Diagnostics"
     contents:

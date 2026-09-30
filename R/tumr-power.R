@@ -35,6 +35,7 @@ tumr_power <- function(n, effect_size, N=1000, ...) {
 #'
 #' @return A p-value
 #'
+#' @keywords internal
 #'
 #' @examples
 #' \dontrun{

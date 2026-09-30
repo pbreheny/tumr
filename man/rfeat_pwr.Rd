@@ -24,3 +24,4 @@ rfeat_pwr(dat)
 }
 
 }
+\keyword{internal}

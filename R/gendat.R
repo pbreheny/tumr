@@ -10,6 +10,8 @@
 #' @return M            Idealized 'true' size for each mouse at each time (no error)
 #' @return B            'True' growth rate for each mouse (in data-generating mechanism)
 #'
+#' @keywords internal
+#'
 #' @examples
 #' \dontrun{
 #' Data <- gendat(5, effect_size=2, m=6)

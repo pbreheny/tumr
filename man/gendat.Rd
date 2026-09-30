@@ -36,3 +36,4 @@ matplot(Data$time, t(Data$Y[,,2]), lty=1, type='l', col='#008DFF', add=TRUE)
 }
 
 }
+\keyword{internal}

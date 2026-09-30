@@ -151,8 +151,6 @@ The example below uses comparison = "both" to perform ANOVA followed by Tukey po
 The plot() method for rfeat objects displays both the individual subject slopes and the group-level means.
 
 ```{r}
-#| fig-width: 4
-#| fig-height: 3.5
 plot(rfeat_mel2)
 ```
 

@@ -43,8 +43,19 @@ summary(fit_quad)
 ## Plot
 
 ```{r}
+#| layout-ncol: 2
+#| fig-width: 4
+#| fig-height: 3.5
 plot(mel1) 
 plot(mel1) + ggplot2::scale_y_log10()
+```
+
+
+```{r}
+#| layout-ncol: 2
+#| fig-width: 4
+#| fig-height: 3.5
 plot(fit_quad, "predict")
 plot(fit_quad, "contrast")
 ```
+

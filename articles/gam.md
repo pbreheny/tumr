@@ -40,14 +40,10 @@ summary(fit)
 ``` r
 
 plot(mel1) 
+plot(mel1) + ggplot2::scale_y_log10()
 ```
 
 ![](gam_files/figure-html/unnamed-chunk-4-1.png)
-
-``` r
-
-plot(mel1) + ggplot2::scale_y_log10()
-```
 
 ![](gam_files/figure-html/unnamed-chunk-4-2.png)
 
@@ -59,11 +55,11 @@ plot(fit, "predict")
     Model has log transformed response. Predictions are on transformed
       scale.
 
-![](gam_files/figure-html/unnamed-chunk-4-3.png)
-
 ``` r
 
 plot(fit, "contrast")
 ```
 
-![](gam_files/figure-html/unnamed-chunk-4-4.png)
+![](gam_files/figure-html/unnamed-chunk-5-1.png)
+
+![](gam_files/figure-html/unnamed-chunk-5-2.png)

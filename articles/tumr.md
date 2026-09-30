@@ -90,6 +90,29 @@ tumr’s methods.
 
 ### Our plots are good
 
+Before any summary statistic is computed, the function:
+
+1.  **Aligns time points across subjects** Rows are added for unobserved
+    time points so that all subjects share a common time grid.
+2.  **Handles trailing missing values due to censoring** The last
+    observed value is carried forward and marked with a “+” to indicate
+    right-censoring.
+
+- Example: 3, 6, 9, NA → 3, 6, 9, 9+
+
+3.  **Interpolates embedded missing values** Missing observations that
+    occur between recorded time points are interpolated to preserve
+    trajectory continuity.
+
+After preprocessing, tumor volume summaries could be computed at each
+time point within each treatment group using a Kaplan–Meier approach.
+This strategy ensures that summaries reflect both observed data and
+informative missingness, producing a visualization that represents tumor
+growth dynamics over time. Although the nonparametric approach has
+certain advantages, in our experience, it does not capture the growth
+trend as accurately as the parametric approach. Therefore, in the
+following sections, we will focus primarily on the parametric approach.
+
 The figure below compares a naive visualization without accounting for
 censoring with a parametric approach that accounts for censoring and
 missing observations.
@@ -125,26 +148,6 @@ plot(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ![](tumr_files/figure-html/unnamed-chunk-6-1.png)
 
 ![](tumr_files/figure-html/unnamed-chunk-6-2.png)
-
-Before any summary statistic is computed, the function:
-
-1.  **Aligns time points across subjects** Rows are added for unobserved
-    time points so that all subjects share a common time grid.
-2.  **Handles trailing missing values due to censoring** The last
-    observed value is carried forward and marked with a “+” to indicate
-    right-censoring.
-
-- Example: 3, 6, 9, NA → 3, 6, 9, 9+
-
-3.  **Interpolates embedded missing values** Missing observations that
-    occur between recorded time points are interpolated to preserve
-    trajectory continuity.
-
-After preprocessing, tumor volume summaries are computed at each time
-point within each treatment group using a Kaplan–Meier–based approach.
-This strategy ensures that summaries reflect both observed data and
-informative missingness, producing a visualization that more accurately
-represents tumor growth dynamics over time.
 
 ## Response feature analysis
 
@@ -288,11 +291,12 @@ summary(lmm_mel2)
 
 ### Plotting Linear mixed-effects modeling results
 
-Finally, tumr provides a plot() method for lmm objects that produces two
-visualizations:
+Finally, tumr provides a plot() method for lmm objects that produces
+three visualizations:
 
 1.  Predicted tumor growth trajectories over time (log scale)
-2.  Estimated mean growth slopes for each group with confidence
+2.  Predicted fold change over time (log scale)
+3.  Estimated mean growth slopes for each group with confidence
     intervals
 
 ``` r

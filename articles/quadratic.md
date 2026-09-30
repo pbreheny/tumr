@@ -52,14 +52,10 @@ summary(fit_quad)
 ``` r
 
 plot(mel1) 
+plot(mel1) + ggplot2::scale_y_log10()
 ```
 
 ![](quadratic_files/figure-html/unnamed-chunk-4-1.png)
-
-``` r
-
-plot(mel1) + ggplot2::scale_y_log10()
-```
 
 ![](quadratic_files/figure-html/unnamed-chunk-4-2.png)
 
@@ -71,11 +67,11 @@ plot(fit_quad, "predict")
     Model has log transformed response. Predictions are on transformed
       scale.
 
-![](quadratic_files/figure-html/unnamed-chunk-4-3.png)
-
 ``` r
 
 plot(fit_quad, "contrast")
 ```
 
-![](quadratic_files/figure-html/unnamed-chunk-4-4.png)
+![](quadratic_files/figure-html/unnamed-chunk-5-1.png)
+
+![](quadratic_files/figure-html/unnamed-chunk-5-2.png)

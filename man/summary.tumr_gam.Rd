@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary-gam.R
 \name{summary.tumr_gam}
 \alias{summary.tumr_gam}
-\title{Summary of a GAM Fit for Tumor Growth Data}
+\title{Creates a summary of a gam object}
 \usage{
 \method{summary}{tumr_gam}(object, ...)
 }

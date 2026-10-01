@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot-median.R
 \name{process_data}
 \alias{process_data}
-\title{Process data to be used in plot_median}
+\title{Process data to be used in plot(tumr_obj)}
 \usage{
 process_data(time, measure)
 }
@@ -15,5 +15,5 @@ process_data(time, measure)
 A list with cleaned measurements and event indicators
 }
 \description{
-Process data to be used in plot_median
+Process data to be used in plot(tumr_obj)
 }

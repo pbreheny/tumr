@@ -1,4 +1,4 @@
-#' Bayesian Hierarchical Linear Model for Tumor Growth Data
+#' Bayesian hierarchical linear model for Tumor Growth Data
 #'
 #' @param tumr_obj A \code{tumr} object created by \code{\link{tumr}}.
 #' @param cens Optional numeric scalar. If provided, observations with

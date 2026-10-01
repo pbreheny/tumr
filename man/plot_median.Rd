@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot-median.R
 \name{plot_median}
 \alias{plot_median}
-\title{Plot tumor volume or fold change over time using median curves}
+\title{Plot tumor volume or fold change over time}
 \usage{
 plot_median(
   tumr_obj = NULL,
@@ -41,5 +41,5 @@ If NULL, the one half of the minimum nonzero value in the full dataset is used.}
 A ggplot object
 }
 \description{
-Plot tumor volume or fold change over time using median curves
+Plot tumor volume or fold change over time
 }

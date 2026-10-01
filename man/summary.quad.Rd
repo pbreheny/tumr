@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary-quad.R
 \name{summary.quad}
 \alias{summary.quad}
-\title{Summary of Exponential quadratic model}
+\title{Creates a summary of a quad object}
 \usage{
 \method{summary}{quad}(object, ...)
 }

@@ -1,4 +1,4 @@
-#' Process data to be used in plot_median
+#' Process data to be used in plot(tumr_obj)
 #'
 #' @param time vector of time measurements
 #' @param measure vector of tumor growth measurements
@@ -42,7 +42,7 @@ process_data <- function(time, measure) {
 }
 
 
-#' Plot tumor volume or fold change over time using median curves
+#' Plot tumor volume or fold change over time
 #'
 #' @param tumr_obj Optional tumr object created by tumr()
 #' @param data Tumor growth data

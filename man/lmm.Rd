@@ -2,7 +2,7 @@
 % Please edit documentation in R/lmm.R
 \name{lmm}
 \alias{lmm}
-\title{Linear Mixed Model for Tumor Growth Data}
+\title{Linear mixed-effects Modeling for Tumor Growth Data}
 \usage{
 lmm(
   tumr_obj = NULL,
@@ -36,7 +36,7 @@ lmm(
 summary of linear mixed model fit
 }
 \description{
-Linear Mixed Model for Tumor Growth Data
+Linear mixed-effects Modeling for Tumor Growth Data
 }
 \examples{
 data(melanoma1)

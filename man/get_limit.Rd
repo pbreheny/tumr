@@ -2,7 +2,7 @@
 % Please edit documentation in R/get-limit.R
 \name{get_limit}
 \alias{get_limit}
-\title{Calculate the Lower Detection Limit}
+\title{Calculate the one-half of the minimum nonzero volume}
 \usage{
 get_limit(x)
 }

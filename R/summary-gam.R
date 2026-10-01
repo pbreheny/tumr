@@ -1,4 +1,4 @@
-#' Summary of a GAM Fit for Tumor Growth Data
+#' Creates a summary of a gam object
 #'
 #' Returns the full \code{mgcv} GAM summary and pairwise group comparisons
 #' via \code{emmeans::pairs()}.

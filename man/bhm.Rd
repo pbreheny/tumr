@@ -2,7 +2,7 @@
 % Please edit documentation in R/bhm.R
 \name{bhm}
 \alias{bhm}
-\title{Bayesian Hierarchical Linear Model for Tumor Growth Data}
+\title{Bayesian hierarchical linear model for Tumor Growth Data}
 \usage{
 bhm(tumr_obj, cens = NULL, diagnostics = FALSE, return_fit = TRUE, ...)
 }
@@ -25,7 +25,7 @@ An object of class \code{"bhm"} containing posterior summaries
 and optionally diagnostics and the CmdStan fit.
 }
 \description{
-Bayesian Hierarchical Linear Model for Tumor Growth Data
+Bayesian hierarchical linear model for Tumor Growth Data
 }
 \examples{
 \dontrun{

@@ -1,4 +1,4 @@
-#' Linear Mixed Model for Tumor Growth Data
+#' Linear mixed-effects Modeling for Tumor Growth Data
 #'
 #' @param tumr_obj takes tumr_obj created by tumr()
 #' @param data  tumor growth data

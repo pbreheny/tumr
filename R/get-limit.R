@@ -1,4 +1,4 @@
-#' Calculate the Lower Detection Limit
+#' Calculate the one-half of the minimum nonzero volume
 #'
 #' Calculates a lower detection limit based on the smallest nonzero observed
 #' tumor volume. The limit is defined as one-half of the minimum nonzero

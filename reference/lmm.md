@@ -1,6 +1,6 @@
-# Linear Mixed Model for Tumor Growth Data
+# Linear mixed-effects Modeling for Tumor Growth Data
 
-Linear Mixed Model for Tumor Growth Data
+Linear mixed-effects Modeling for Tumor Growth Data
 
 ## Usage
 

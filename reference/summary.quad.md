@@ -1,4 +1,4 @@
-# Summary of Exponential quadratic model
+# Creates a summary of a quad object
 
 Returns the full linear mixed-model summary and pairwise treatment
 comparisons based on estimated marginal means.

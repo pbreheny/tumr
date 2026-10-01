@@ -1,6 +1,6 @@
-# Bayesian Hierarchical Linear Model for Tumor Growth Data
+# Bayesian hierarchical linear model for Tumor Growth Data
 
-Bayesian Hierarchical Linear Model for Tumor Growth Data
+Bayesian hierarchical linear model for Tumor Growth Data
 
 ## Usage
 

@@ -5,9 +5,9 @@
 - [`tumr()`](https://pbreheny.github.io/tumr/reference/tumr.md) : Create
   tumr object
 - [`process_data()`](https://pbreheny.github.io/tumr/reference/process_data.md)
-  : Process data to be used in plot_median
+  : Process data to be used in plot(tumr_obj)
 - [`get_limit()`](https://pbreheny.github.io/tumr/reference/get_limit.md)
-  : Calculate the Lower Detection Limit
+  : Calculate the one-half of the minimum nonzero volume
 - [`breast`](https://pbreheny.github.io/tumr/reference/breast.md) :
   Tumor growth data for a breast cancer model
 - [`melanoma1`](https://pbreheny.github.io/tumr/reference/melanoma1.md)
@@ -20,13 +20,13 @@
 ## Tumor Growth Models, Summaries, and Power
 
 - [`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md) : Linear
-  Mixed Model for Tumor Growth Data
+  mixed-effects Modeling for Tumor Growth Data
 - [`quad()`](https://pbreheny.github.io/tumr/reference/quad.md) :
   Exponential quadratic Model for Tumor Growth Data
 - [`tumr_gam()`](https://pbreheny.github.io/tumr/reference/tumr_gam.md)
   : Generalized Additive Model for Tumor Growth Data
 - [`bhm()`](https://pbreheny.github.io/tumr/reference/bhm.md) : Bayesian
-  Hierarchical Linear Model for Tumor Growth Data
+  hierarchical linear model for Tumor Growth Data
 - [`dtime()`](https://pbreheny.github.io/tumr/reference/dtime.md) :
   Tumor Doubling Time Based on Fitted Tumor Growth Model
 - [`rfeat()`](https://pbreheny.github.io/tumr/reference/rfeat.md) :
@@ -54,7 +54,7 @@
 - [`plot(`*`<tumr_gam>`*`)`](https://pbreheny.github.io/tumr/reference/plot.tumr_gam.md)
   : Plot GAM Fit for Tumor Growth Data
 - [`plot_median()`](https://pbreheny.github.io/tumr/reference/plot_median.md)
-  : Plot tumor volume or fold change over time using median curves
+  : Plot tumor volume or fold change over time
 - [`print(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/print.lmm.md)
   : Prints relevant output from lmm
 - [`print(`*`<rfeat>`*`)`](https://pbreheny.github.io/tumr/reference/print.rfeat.md)
@@ -64,6 +64,6 @@
 - [`summary(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/summary.lmm.md)
   : Creates a summary of an lmm object
 - [`summary(`*`<quad>`*`)`](https://pbreheny.github.io/tumr/reference/summary.quad.md)
-  : Summary of Exponential quadratic model
+  : Creates a summary of a quad object
 - [`summary(`*`<tumr_gam>`*`)`](https://pbreheny.github.io/tumr/reference/summary.tumr_gam.md)
-  : Summary of a GAM Fit for Tumor Growth Data
+  : Creates a summary of a gam object

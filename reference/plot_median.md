@@ -1,6 +1,6 @@
-# Plot tumor volume or fold change over time using median curves
+# Plot tumor volume or fold change over time
 
-Plot tumor volume or fold change over time using median curves
+Plot tumor volume or fold change over time
 
 ## Usage
 

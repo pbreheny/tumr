@@ -1,6 +1,6 @@
-# Process data to be used in plot_median
+# Process data to be used in plot(tumr_obj)
 
-Process data to be used in plot_median
+Process data to be used in plot(tumr_obj)
 
 ## Usage
 

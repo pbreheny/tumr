@@ -29,6 +29,8 @@ jobs:
           extra-packages: |
             any::rcmdcheck
             any::pbkrtest
+            any::quarto
+            any::tinytest
           dependencies: '"hard"'
           needs: check
 

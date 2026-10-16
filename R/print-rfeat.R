@@ -3,10 +3,9 @@
 #' @param x rfeat object
 #' @param ... Other parameters
 #'
-#' @return relevant output
+#' @returns relevant output
 #'
 #' @export
-
 print.rfeat <- function(x, ...){
   print(x$test)
 }

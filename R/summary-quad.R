@@ -1,16 +1,16 @@
 #' Creates a summary of a quad object
 #'
-#' Returns the full linear mixed-model summary and pairwise treatment
-#' comparisons based on estimated marginal means.
+#' Returns the full linear mixed-model summary and pairwise treatment comparisons based on estimated
+#' marginal means.
 #'
 #' @param object An object of class \code{"quad"}.
 #' @param ... Currently ignored.
 #'
-#' @return An object of class \code{"summary.quad"} containing:
+#' @returns An object of class \code{"summary.quad"} containing:
+#'
 #' \describe{
 #'   \item{\code{model_summary}}{Full summary of the fitted linear mixed model.}
-#'   \item{\code{pairwise_tests}}{Pairwise treatment comparisons with
-#'     Holm-adjusted p-values.}
+#'   \item{\code{pairwise_tests}}{Pairwise treatment comparisons with Holm-adjusted p-values.}
 #' }
 #'
 #'#' @examples
@@ -20,9 +20,9 @@
 #' fit_gam <- tumr_gam(mel1)
 #' summary(fit_gam)
 #'
-#' @method summary quad
 #' @export
-
+#'
+#' @method summary quad
 summary.quad <- function(object, ...) {
   em <- emmeans::emmeans(object$fit, specs = ~ Treatment)
   con <- emmeans::contrast(em, method = "pairwise", adjust = "holm")

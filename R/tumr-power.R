@@ -1,21 +1,19 @@
 #' Power calculation for tumor growth
 #'
-#' Estimates power using simulated tumor growth data and a response-feature
-#' analysis.
+#' Estimates power using simulated tumor growth data and a response-feature analysis.
 #'
 #' @param n Sample size per group.
 #' @param effect_size Treatment effect size.
 #' @param N Number of simulations. Default is 1000.
 #' @param ... Additional arguments for data generation.
 #'
-#' @return A data frame containing simulation settings and p-values.
+#' @returns A data frame containing simulation settings and p-values.
 #'
 #' @examples
 #' res <- tumr_power(8, 2, N = 10)
 #' mean(res$p < 0.05)
 #'
 #' @export
-
 tumr_power <- function(n, effect_size, N=1000, ...) {
   out <- expand.grid(rep = 1:N, n = n, effect_size = effect_size, p=NA)
   pb <- utils::txtProgressBar(0, nrow(out), style=3)
@@ -30,20 +28,16 @@ tumr_power <- function(n, effect_size, N=1000, ...) {
 
 #' Analysis based on response features
 #'
-#' @param Data    From gendat
-#' @param linear  Assume linear growth?
+#' @param Data From gendat
+#' @param linear Assume linear growth?
 #'
-#' @return A p-value
-#'
-#' @keywords internal
+#' @returns A p-value
 #'
 #' @examples
 #' \dontrun{
 #' dat <- gendat(5, 2, 6)
 #' rfeat_pwr(dat)
 #' }
-#'
-
 rfeat_pwr <- function(Data, linear=TRUE) {
   y <- as.numeric(apply(Data$Y, c(1,3), function(x) coef(lm(x~Data$time))[2]))
   n <- dim(Data$Y)[1]

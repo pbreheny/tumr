@@ -1,12 +1,10 @@
 #' Diagnostic plots for exponential growth assumption
 #'
 #' @param lmm_obj An lmm object created by lmm().
-#' @param type Diagnostic plot type. Options are:
-#'   "time" for residuals vs time,
-#'   "fitted" for residuals vs fitted values,
-#'   "qq" for QQ plot of residuals.
+#' @param type Diagnostic plot type. Options are: "time" for residuals vs time, "fitted" for
+#'   residuals vs fitted values, "qq" for QQ plot of residuals.
 #'
-#' @return A ggplot object.
+#' @returns A ggplot object.
 #'
 #' @examples
 #' data(melanoma1)
@@ -16,7 +14,6 @@
 #' check_exp(lmm1)
 #'
 #' @export
-
 check_exp <- function(lmm_obj, type = c("time", "fitted", "qq")) {
   type <- match.arg(type)
   if (!inherits(lmm_obj, "lmm")) {

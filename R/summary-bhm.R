@@ -3,7 +3,7 @@
 #' @param object bhm object
 #' @param ... further arguments passed to or from other methods
 #'
-#' @return a list containing posterior summaries on log scale and exp scale
+#' @returns a list containing posterior summaries on log scale and exp scale
 #'
 #' @examples
 #' \dontrun{
@@ -13,8 +13,8 @@
 #' fit <- bhm(mel2)
 #' summary(fit)
 #' }
+#'
 #' @export
-
 summary.bhm <- function(object, ...) {
 
   slope_each <- object$slope_each

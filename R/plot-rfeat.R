@@ -3,7 +3,7 @@
 #' @param x An rfeat object
 #' @param ... Other parameters
 #'
-#' @return A plot
+#' @returns A plot
 #'
 #' @examples
 #' example <- rfeat(data = breast,
@@ -13,10 +13,8 @@
 #' group = "Treatment",
 #' comparison = "t.test")
 #' plot(example)
+#'
 #' @export
-
-
-
 plot.rfeat <- function (x, ...) {
 
   ggplot2::ggplot(x$betas, ggplot2::aes(x = x$betas$Group, y = x$betas$Beta, color = x$betas$Group)) +

@@ -3,8 +3,7 @@
 #' @param time vector of time measurements
 #' @param measure vector of tumor growth measurements
 #'
-#' @return A list with cleaned measurements and event indicators
-
+#' @returns A list with cleaned measurements and event indicators
 process_data <- function(time, measure) {
   if (length(time) != length(measure)) stop("time and measure must have the same length.")
   if (all(is.na(measure))) stop("Must have at least one non-missing value.")
@@ -50,14 +49,13 @@ process_data <- function(time, measure) {
 #' @param time Column of repeated time measurements
 #' @param measure Column of repeated tumor measurements
 #' @param id Column of subject IDs
-#' @param par Logical. If TRUE, use parametric median estimation.
-#'   If FALSE, use nonparametric Kaplan-Meier estimation.
+#' @param par Logical. If TRUE, use parametric median estimation. If FALSE, use nonparametric
+#'   Kaplan-Meier estimation.
 #' @param fold Logical. If TRUE, plot fold change instead of raw volume.
-#' @param lld Optional lower limit of detection used to replace zero values.
-#'   If NULL, the one half of the minimum nonzero value in the full dataset is used.
+#' @param lld Optional lower limit of detection used to replace zero values. If NULL, the one half
+#'   of the minimum nonzero value in the full dataset is used.
 #'
-#' @return A ggplot object
-
+#' @returns A ggplot object
 plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
                         measure = NULL, id = NULL, par = TRUE, fold = FALSE, lld = NULL) {
   if (!is.null(tumr_obj)) {
@@ -275,7 +273,7 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
 #' @param x A tumr object created by \code{tumr()}.
 #' @param ... Additional arguments passed to \code{plot_median()}.
 #'
-#' @return A ggplot object.
+#' @returns A ggplot object.
 #'
 #' @examples
 #' data(melanoma2)
@@ -287,7 +285,6 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
 #' plot(mel2, par = FALSE, fold = TRUE)
 #'
 #' @export
-
 plot.tumr <- function(x, ...) {
   plot_median(tumr_obj = x, ...)
 }

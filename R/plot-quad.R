@@ -7,11 +7,10 @@
 #' @param type Type of plot to produce. Either \code{"predict"} for fitted
 #'   treatment-specific growth curves or \code{"contrast"} for pairwise
 #'   treatment contrasts over time. Default is \code{"predict"}.
-#' @param n_grid Number of time points used to construct the fitted curves.
-#'   Default is 20.
+#' @param n_grid Number of time points used to construct the fitted curves. Default is 20.
 #' @param ... Additional arguments passed to plotting functions.
 #'
-#' @return A \code{ggplot} object.
+#' @returns A \code{ggplot} object.
 #'
 #' @examples
 #' data(melanoma1)
@@ -21,9 +20,9 @@
 #' plot(quad_obj, type = "predict")
 #' plot(quad_obj, type = "contrast")
 #'
-#' @method plot quad
 #' @export
-
+#'
+#' @method plot quad
 plot.quad <- function(x,
                       type = c("predict", "contrast"),
                       n_grid = 20,

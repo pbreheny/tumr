@@ -2,12 +2,13 @@
 #'
 #' @param x A fitted model object.
 #'
-#' @return A list with three components:
+#' @returns A list with three components:
 #' \itemize{
 #'   \item \code{method}: character string describing the method used.
 #'   \item \code{message}: character string indicating that the model should demonstrate an exponential growth pattern.
 #'   \item \code{summary}: a data frame summarizing tumor doubling time by treatment group, including mean, median, and 95\% intervals.
 #' }
+#'
 #' @examples
 #' \dontrun{
 #' data(melanoma2)
@@ -20,7 +21,6 @@
 #' }
 #'
 #' @export
-
 dtime <- function(x) {
   if (inherits(x, "bhm")) {
     draws_slope <- posterior::as_draws_df(

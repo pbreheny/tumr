@@ -4,7 +4,8 @@
 #' @param type Character string specifying which plot to produce. One of
 #'   \code{"predict"}, \code{"predict_fold"} and \code{"contrast"}.
 #' @param ... further arguments passed to or from other methods
-#' @return A list of ggplot objects.
+#'
+#' @returns A list of ggplot objects.
 #'
 #' @examples
 #' melanoma1$months <- melanoma1$Day / (365/12)
@@ -15,7 +16,6 @@
 #' plot(mel1_lmm, "contrast")
 #'
 #' @export
-
 plot.lmm <- function(x,
                      type = c("predict", "predict_fold", "contrast"),
                      ...){

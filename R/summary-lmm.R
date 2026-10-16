@@ -3,7 +3,7 @@
 #' @param object lmm object
 #' @param ... further arguments passed to or from other methods
 #'
-#' @return a summary of the lmm object
+#' @returns a summary of the lmm object
 #'
 #' @examples
 #' melanoma1$months <- melanoma1$Day / (365/12)
@@ -12,7 +12,6 @@
 #' summary(mel1_lmm)
 #'
 #' @export
-
 summary.lmm <- function(object, ...) {
   group_var <- object$relevant_info$Group
 

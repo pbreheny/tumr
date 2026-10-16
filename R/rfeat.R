@@ -1,10 +1,9 @@
 #' Analysis based on response features
 #'
-#'
 #' exponential growth, separate packages
 #'
-#' @param data    From gendat
-#' @param id  Column of subject ID's
+#' @param data From gendat
+#' @param id Column of subject ID's
 #' @param time Column of repeated time measurements
 #' @param measure Column of repeated measurements of tumor
 #' @param group Column specifying the treatment group for each measurement
@@ -12,7 +11,7 @@
 #' @param comparison Takes "t.test", "anova", "tukey", or "both"
 #' @param tumr_obj takes tumr_obj created by tumr()
 #'
-#' @return A p-value
+#' @returns A p-value
 #'
 #' @examples
 #' data(breast)
@@ -33,7 +32,6 @@
 #' comparison = "anova")
 #'
 #' @export
-
 rfeat <- function(tumr_obj = NULL, data = NULL, id = NULL, time = NULL, measure = NULL, group = NULL, log = TRUE, comparison = c("t.test", "anova", "tukey", "both")) {
   comparison <- match.arg(comparison)
 

@@ -6,7 +6,7 @@
 #' @param n_grid Number of time grid points. Defaults to \code{x$n_grid}.
 #' @param ... Currently ignored.
 #'
-#' @return A \code{ggplot} object.
+#' @returns A \code{ggplot} object.
 #'
 #' @examples
 #' data(melanoma1)
@@ -16,9 +16,9 @@
 #' plot(fit_gam, "predict")
 #' plot(fit_gam, "contrast")
 #'
-#' @method plot tumr_gam
 #' @export
-
+#'
+#' @method plot tumr_gam
 plot.tumr_gam <- function(x, type = c("predict", "contrast"),
                           n_grid = NULL, ...) {
   type <- match.arg(type)

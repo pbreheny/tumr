@@ -5,7 +5,8 @@
 #' \code{Volume} value in the data.
 #'
 #' @param x The tumr object.
-#' @return A numeric value as the lower detection limit.
+#'
+#' @returns A numeric value as the lower detection limit.
 #'
 #' @examples
 #' data(melanoma1)
@@ -14,7 +15,6 @@
 #' get_limit(mel1)
 #'
 #' @export
-
 get_limit <- function(x) {
   min_nonzero <- min(x$data$Volume[x$data$Volume > 0], na.rm = TRUE)
   return(min_nonzero / 2)

@@ -1,16 +1,14 @@
 #' Exponential quadratic Model for Tumor Growth Data
 #'
-#' Fits an Exponential quadratic model for tumor growth data and computes
-#' pairwise treatment contrasts over a grid of time points using estimated
-#' marginal means.
+#' Fits an Exponential quadratic model for tumor growth data and computes pairwise treatment
+#' contrasts over a grid of time points using estimated marginal means.
 #'
 #' @param tumr_obj A `tumr` object created by [tumr()].
-#' @param n_grid Number of time points used to evaluate treatment contrasts.
-#'   Default is 20.
+#' @param n_grid Number of time points used to evaluate treatment contrasts. Default is 20.
 #' @param ... Further arguments passed to [lme4::lmer()].
 #'
-#' @return An object of class `quad` containing the fitted model,
-#' estimated marginal means, and pairwise treatment contrasts.
+#' @returns An object of class `quad` containing the fitted model, estimated marginal means, and
+#'   pairwise treatment contrasts.
 #'
 #' @examples
 #' data(melanoma1)
@@ -19,7 +17,6 @@
 #' quad_obj <- quad(mel1)
 #'
 #' @export
-
 quad <- function(tumr_obj = NULL,
                  n_grid = 20,
                  ...) {

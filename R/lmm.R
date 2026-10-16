@@ -1,15 +1,15 @@
 #' Linear mixed-effects Modeling for Tumor Growth Data
 #'
 #' @param tumr_obj takes tumr_obj created by tumr()
-#' @param data  tumor growth data
-#' @param id  Column of subject ID's
+#' @param data tumor growth data
+#' @param id Column of subject ID's
 #' @param time Column of repeated time measurements
 #' @param measure Column of repeated measurements of tumor
 #' @param group Column specifying the treatment group for each measurement
 #' @param formula linear mixed model formula
 #' @param ... Further arguments to [lme4::lmer()]
 #'
-#' @return summary of linear mixed model fit
+#' @returns summary of linear mixed model fit
 #'
 #' @examples
 #' data(melanoma1)
@@ -32,7 +32,6 @@
 #' )
 #'
 #' @export
-
 lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = NULL, measure = NULL, group = NULL, ...){
   if (!is.null(tumr_obj)) {
     if (is.null(id)) id <- tumr_obj$id

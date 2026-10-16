@@ -3,10 +3,9 @@
 #' @param x lmm object
 #' @param ... Other parameters
 #'
-#' @return relevant output
+#' @returns relevant output
 #'
 #' @export
-
 print.lmm <- function(x, ...){
   print(x$model)
 }

@@ -4,7 +4,8 @@
 #' @param n_grid Number of time grid points for prediction. Default \code{20}.
 #' @param ... Further arguments passed to \code{\link[mgcv]{gam}}.
 #'
-#' @return An object of class \code{"tumr_gam"} with components:
+#' @returns An object of class \code{"tumr_gam"} with components:
+#'
 #' \describe{
 #'   \item{\code{fit}}{The \code{mgcv::gam} object.}
 #'   \item{\code{data}}{Processed data with internal column names.}
@@ -20,7 +21,6 @@
 #' tumr_gam(mel1)
 #'
 #' @export
-
 tumr_gam <- function(tumr_obj = NULL, n_grid = 20, ...) {
   data <- tumr_obj$data
   id <- tumr_obj$id

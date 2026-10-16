@@ -9,7 +9,7 @@
 #' @param return_fit Logical; whether to return the CmdStan fit object.
 #' @param ... Further arguments passed to the CmdStan sampling method.
 #'
-#' @return An object of class \code{"bhm"} containing posterior summaries
+#' @returns An object of class \code{"bhm"} containing posterior summaries
 #'   and optionally diagnostics and the CmdStan fit.
 #'
 #' @examples
@@ -22,7 +22,6 @@
 #' }
 #'
 #' @export
-
 bhm <- function(tumr_obj,
                 cens = NULL,
                 diagnostics = FALSE,

@@ -6,11 +6,11 @@
 #' @param object An object of class \code{"tumr_gam"}.
 #' @param ... Currently ignored.
 #'
-#' @return An object of class \code{"summary.tumr_gam"} with components:
+#' @returns An object of class \code{"summary.tumr_gam"} with components:
+#'
 #' \describe{
 #'   \item{\code{gam_summary}}{Full \code{mgcv::summary.gam} output.}
-#'   \item{\code{pairwise_tests}}{Data frame of pairwise Wald test results
-#'     with adjusted p-values.}
+#'   \item{\code{pairwise_tests}}{Data frame of pairwise Wald test results with adjusted p-values.}
 #'   \item{\code{relevant_info}}{Column name metadata.}
 #' }
 #'
@@ -22,7 +22,6 @@
 #' summary(fit)
 #'
 #' @export
-
 summary.tumr_gam <- function(object, ...) {
   re_terms <- c("s(ID)", "s(ID,Time)")
   em <- emmeans::emmeans(object$fit, specs = ~ Treatment, exclude = re_terms)

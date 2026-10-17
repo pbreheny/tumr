@@ -2,7 +2,7 @@
 #'
 #' @param x lmm object
 #' @param type Character string specifying which plot to produce. One of
-#'   \code{"predict"}, \code{"predict_fold"} and \code{"contrast"}.
+#'   `"predict"`, `"predict_fold"` and `"contrast"`.
 #' @param ... further arguments passed to or from other methods
 #'
 #' @returns A list of ggplot objects.

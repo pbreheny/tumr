@@ -12,9 +12,11 @@ dtime(x)
 \value{
 A list with three components:
 \itemize{
-\item \code{method}: character string describing the method used.
-\item \code{message}: character string indicating that the model should demonstrate an exponential growth pattern.
-\item \code{summary}: a data frame summarizing tumor doubling time by treatment group, including mean, median, and 95\\% intervals.
+\item \code{method}: Character string describing the method used.
+\item \code{message}: Character string indicating that the model should
+demonstrate an exponential growth pattern.
+\item \code{summary}: A data frame summarizing tumor doubling time by
+treatment group, including mean, median, and 95\% intervals.
 }
 }
 \description{

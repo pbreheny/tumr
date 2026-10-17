@@ -9,10 +9,8 @@ check_exp(lmm_obj, type = c("time", "fitted", "qq"))
 \arguments{
 \item{lmm_obj}{An lmm object created by lmm().}
 
-\item{type}{Diagnostic plot type. Options are:
-"time" for residuals vs time,
-"fitted" for residuals vs fitted values,
-"qq" for QQ plot of residuals.}
+\item{type}{Diagnostic plot type. Options are: "time" for residuals vs time, "fitted" for
+residuals vs fitted values, "qq" for QQ plot of residuals.}
 }
 \value{
 A ggplot object.

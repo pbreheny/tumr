@@ -13,8 +13,7 @@
 treatment-specific growth curves or \code{"contrast"} for pairwise
 treatment contrasts over time. Default is \code{"predict"}.}
 
-\item{n_grid}{Number of time points used to construct the fitted curves.
-Default is 20.}
+\item{n_grid}{Number of time points used to construct the fitted curves. Default is 20.}
 
 \item{...}{Additional arguments passed to plotting functions.}
 }

@@ -12,11 +12,12 @@
 \item{type}{Character string specifying which plot to produce. One of
 \code{"slope"}, \code{"contrast"}, or \code{"trace"}.}
 
-\item{...}{Further arguments passed to trace plotting functions (currently used
-only when \code{type = "trace"}).}
+\item{...}{Further arguments passed to trace plotting functions (currently
+used only when \code{type = "trace"}).}
 }
 \value{
-If \code{type} is \code{"predict"}, \code{"slope"}, or \code{"contrast"}, returns a \code{ggplot} object.
+If \code{type} is \code{"predict"}, \code{"slope"}, or \code{"contrast"}, returns a
+\code{ggplot} object.
 If \code{type} is \code{"trace"}, returns a list of \code{ggplot} objects with elements
 \code{trace_intercept}, \code{trace_slope}, and \code{trace_slope_diff}.
 }

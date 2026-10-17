@@ -1,12 +1,12 @@
 #' Plot GAM Fit for Tumor Growth Data
 #'
-#' @param x An object of class \code{"tumr_gam"}.
-#' @param type Either \code{"predict"} (fitted curves per group) or
-#'   \code{"contrast"} (pairwise differences over time).
-#' @param n_grid Number of time grid points. Defaults to \code{x$n_grid}.
+#' @param x An object of class `"tumr_gam"`.
+#' @param type Either `"predict"` (fitted curves per group) or
+#'   `"contrast"` (pairwise differences over time).
+#' @param n_grid Number of time grid points. Defaults to `x$n_grid`.
 #' @param ... Currently ignored.
 #'
-#' @returns A \code{ggplot} object.
+#' @returns A `ggplot` object.
 #'
 #' @examples
 #' data(melanoma1)

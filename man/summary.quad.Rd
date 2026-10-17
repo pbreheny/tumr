@@ -13,20 +13,20 @@
 }
 \value{
 An object of class \code{"summary.quad"} containing:
-\describe{
-\item{\code{model_summary}}{Full summary of the fitted linear mixed model.}
-\item{\code{pairwise_tests}}{Pairwise treatment comparisons with
-Holm-adjusted p-values.}
+\itemize{
+\item \code{model_summary}: Full summary of the fitted linear mixed model.
+\item \code{pairwise_tests}: Pairwise treatment comparisons with Holm-adjusted p-values.
 }
-
-#' @examples
+}
+\description{
+Returns the full linear mixed-model summary and pairwise treatment comparisons based on estimated
+marginal means.
+}
+\examples{
 data(melanoma1)
 melanoma1$months <- melanoma1$Day / (365/12)
 mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
-fit_gam <- tumr_gam(mel1)
-summary(fit_gam)
-}
-\description{
-Returns the full linear mixed-model summary and pairwise treatment
-comparisons based on estimated marginal means.
+fit_quad <- quad(mel1)
+summary(fit_quad)
+
 }

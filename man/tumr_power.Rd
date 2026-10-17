@@ -19,8 +19,7 @@ tumr_power(n, effect_size, N = 1000, ...)
 A data frame containing simulation settings and p-values.
 }
 \description{
-Estimates power using simulated tumor growth data and a response-feature
-analysis.
+Estimates power using simulated tumor growth data and a response-feature analysis.
 }
 \examples{
 res <- tumr_power(8, 2, N = 10)

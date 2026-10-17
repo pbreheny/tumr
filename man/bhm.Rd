@@ -7,7 +7,7 @@
 bhm(tumr_obj, cens = NULL, diagnostics = FALSE, return_fit = TRUE, ...)
 }
 \arguments{
-\item{tumr_obj}{A \code{tumr} object created by \code{\link{tumr}}.}
+\item{tumr_obj}{A \code{tumr} object created by \code{\link[=tumr]{tumr()}}.}
 
 \item{cens}{Optional numeric scalar. If provided, observations with
 \code{log1p(measure) <= cens} are treated as left-censored at
@@ -21,7 +21,7 @@ non-censored model.}
 \item{...}{Further arguments passed to the CmdStan sampling method.}
 }
 \value{
-An object of class \code{"bhm"} containing posterior summaries
+An object of class \code{bhm} containing posterior summaries
 and optionally diagnostics and the CmdStan fit.
 }
 \description{

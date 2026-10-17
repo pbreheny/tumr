@@ -1,16 +1,16 @@
 #' Plot the result of Exponential quadratic model
 #'
 #' Plots fitted treatment-specific quadratic growth curves or pairwise
-#' treatment contrasts over time from a fitted \code{quad} object.
+#' treatment contrasts over time from a fitted `quad` object.
 #'
-#' @param x An object of class \code{"quad"}.
-#' @param type Type of plot to produce. Either \code{"predict"} for fitted
-#'   treatment-specific growth curves or \code{"contrast"} for pairwise
-#'   treatment contrasts over time. Default is \code{"predict"}.
+#' @param x An object of class `"quad"`.
+#' @param type Type of plot to produce. Either `"predict"` for fitted
+#'   treatment-specific growth curves or `"contrast"` for pairwise
+#'   treatment contrasts over time. Default is `"predict"`.
 #' @param n_grid Number of time points used to construct the fitted curves. Default is 20.
 #' @param ... Additional arguments passed to plotting functions.
 #'
-#' @returns A \code{ggplot} object.
+#' @returns A `ggplot` object.
 #'
 #' @examples
 #' data(melanoma1)

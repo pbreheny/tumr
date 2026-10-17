@@ -3,11 +3,12 @@
 #' @param x A fitted model object.
 #'
 #' @returns A list with three components:
-#' \itemize{
-#'   \item \code{method}: character string describing the method used.
-#'   \item \code{message}: character string indicating that the model should demonstrate an exponential growth pattern.
-#'   \item \code{summary}: a data frame summarizing tumor doubling time by treatment group, including mean, median, and 95\% intervals.
-#' }
+#'
+#' - `method`: Character string describing the method used.
+#' - `message`: Character string indicating that the model should
+#'   demonstrate an exponential growth pattern.
+#' - `summary`: A data frame summarizing tumor doubling time by
+#'   treatment group, including mean, median, and 95% intervals.
 #'
 #' @examples
 #' \dontrun{
@@ -79,11 +80,13 @@ dtime <- function(x) {
       }
       slopes
     }
-    set.seed(2026)
-    boot_res <- lme4::bootMer(
+    boot_res <- withr::with_seed(
+      2026,
+      lme4::bootMer(
       fit,
       FUN = boot_fun_slope,
       nsim = 1000
+      )
     )
     dtime_mat <- ifelse(boot_res$t > 0, log(2) / boot_res$t, Inf)
     summary_tbl <- as.data.frame(

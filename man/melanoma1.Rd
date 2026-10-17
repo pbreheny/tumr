@@ -6,15 +6,14 @@
 \title{Tumor growth data for a melanoma cancer model (A375)}
 \format{
 A data frame with 600 rows and 4 variables:
+
 \describe{
 \item{ID}{Mouse identifier to indicate repeated measurements on the same mouse. (factor)}
 \item{Day}{Day of measurment (integer)}
 \item{Volume}{Tumor volume (double)}
-\item{Treatment}{Treatment group (factor).
-A = control,
-B = Vemurafenib (BRAF inhibitor),
-C = Buthionine sulfoximine (BSO),
-D = Vemurafenib + BSO.
+\item{Treatment}{
+Treatment group (factor). A = control, B = Vemurafenib (BRAF inhibitor), C = Buthionine
+sulfoximine (BSO), D = Vemurafenib + BSO.
 }
 }
 }
@@ -25,7 +24,7 @@ University of Iowa, Holden Cancer Center, experiment SLB19-022.
 melanoma1
 }
 \description{
-The A375 cell line (metastatic melanoma) was used to create CDX (Cell Line
-Derived Xenograft) mice.
+The A375 cell line (metastatic melanoma) was used to create CDX (Cell Line Derived Xenograft)
+mice.
 }
 \keyword{datasets}

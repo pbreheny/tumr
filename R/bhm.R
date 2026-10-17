@@ -1,15 +1,15 @@
 #' Bayesian hierarchical linear model for Tumor Growth Data
 #'
-#' @param tumr_obj A \code{tumr} object created by \code{\link{tumr}}.
+#' @param tumr_obj A `tumr` object created by [tumr()].
 #' @param cens Optional numeric scalar. If provided, observations with
-#'   \code{log1p(measure) <= cens} are treated as left-censored at
-#'   \code{cens}. Set \code{cens = NULL} (default) to fit the
+#'   `log1p(measure) <= cens` are treated as left-censored at
+#'   `cens`. Set `cens = NULL` (default) to fit the
 #'   non-censored model.
 #' @param diagnostics Logical; whether to return diagnostic summaries.
 #' @param return_fit Logical; whether to return the CmdStan fit object.
 #' @param ... Further arguments passed to the CmdStan sampling method.
 #'
-#' @returns An object of class \code{"bhm"} containing posterior summaries
+#' @returns An object of class `bhm` containing posterior summaries
 #'   and optionally diagnostics and the CmdStan fit.
 #'
 #' @examples

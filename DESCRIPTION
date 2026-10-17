@@ -21,7 +21,8 @@ Imports:
   tidyr,
   purrr,
   reformulas,
-  optimx
+  optimx,
+  withr
 Suggests:
   lme4,
   lmerTest,
@@ -30,7 +31,6 @@ Suggests:
   posterior,
   bayesplot,
   mgcv,
-  nlme,
   rmarkdown,
   scales,
   tinytest

@@ -3,22 +3,20 @@
 #' Returns the full linear mixed-model summary and pairwise treatment comparisons based on estimated
 #' marginal means.
 #'
-#' @param object An object of class \code{"quad"}.
+#' @param object An object of class `"quad"`.
 #' @param ... Currently ignored.
 #'
-#' @returns An object of class \code{"summary.quad"} containing:
+#' @returns An object of class `"summary.quad"` containing:
 #'
-#' \describe{
-#'   \item{\code{model_summary}}{Full summary of the fitted linear mixed model.}
-#'   \item{\code{pairwise_tests}}{Pairwise treatment comparisons with Holm-adjusted p-values.}
-#' }
+#' - `model_summary`: Full summary of the fitted linear mixed model.
+#' - `pairwise_tests`: Pairwise treatment comparisons with Holm-adjusted p-values.
 #'
-#'#' @examples
+#' @examples
 #' data(melanoma1)
 #' melanoma1$months <- melanoma1$Day / (365/12)
 #' mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
-#' fit_gam <- tumr_gam(mel1)
-#' summary(fit_gam)
+#' fit_quad <- quad(mel1)
+#' summary(fit_quad)
 #'
 #' @export
 #'

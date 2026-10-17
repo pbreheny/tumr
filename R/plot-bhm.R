@@ -1,18 +1,19 @@
 #' Creates plots for a bhm object
 #'
 #' Produces interval plots for treatment-specific slopes, slope contrasts,
-#' or MCMC trace plots based on posterior summaries returned by \code{summary()}.
+#' or MCMC trace plots based on posterior summaries returned by `summary()`.
 #'
-#' @param x A \code{bhm} object returned by \code{bhm()}.
+#' @param x A `bhm` object returned by `bhm()`.
 #' @param type Character string specifying which plot to produce. One of
-#'   \code{"slope"}, \code{"contrast"}, or \code{"trace"}.
-#' @param ... Further arguments passed to trace plotting functions (currently used
-#'   only when \code{type = "trace"}).
+#'   `"slope"`, `"contrast"`, or `"trace"`.
+#' @param ... Further arguments passed to trace plotting functions (currently
+#'   used only when `type = "trace"`).
 #'
 #' @returns
-#' If \code{type} is \code{"predict"}, \code{"slope"}, or \code{"contrast"}, returns a \code{ggplot} object.
-#' If \code{type} is \code{"trace"}, returns a list of \code{ggplot} objects with elements
-#' \code{trace_intercept}, \code{trace_slope}, and \code{trace_slope_diff}.
+#' If `type` is `"predict"`, `"slope"`, or `"contrast"`, returns a
+#' `ggplot` object.
+#' If `type` is `"trace"`, returns a list of `ggplot` objects with elements
+#' `trace_intercept`, `trace_slope`, and `trace_slope_diff`.
 #'
 #' @examples
 #' \dontrun{

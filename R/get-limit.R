@@ -2,7 +2,7 @@
 #'
 #' Calculates a lower detection limit based on the smallest nonzero observed
 #' tumor volume. The limit is defined as one-half of the minimum nonzero
-#' \code{Volume} value in the data.
+#' `Volume` value in the data.
 #'
 #' @param x The tumr object.
 #'

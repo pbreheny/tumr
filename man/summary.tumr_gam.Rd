@@ -13,11 +13,10 @@
 }
 \value{
 An object of class \code{"summary.tumr_gam"} with components:
-\describe{
-\item{\code{gam_summary}}{Full \code{mgcv::summary.gam} output.}
-\item{\code{pairwise_tests}}{Data frame of pairwise Wald test results
-with adjusted p-values.}
-\item{\code{relevant_info}}{Column name metadata.}
+\itemize{
+\item \code{gam_summary}: Full \code{mgcv::summary.gam} output.
+\item \code{pairwise_tests}: Data frame of pairwise Wald test results with adjusted p-values.
+\item \code{relevant_info}: Column name metadata.
 }
 }
 \description{

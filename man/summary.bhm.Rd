@@ -25,4 +25,5 @@ mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 fit <- bhm(mel2)
 summary(fit)
 }
+
 }

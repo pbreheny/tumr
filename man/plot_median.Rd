@@ -29,13 +29,13 @@ plot_median(
 
 \item{id}{Column of subject IDs}
 
-\item{par}{Logical. If TRUE, use parametric median estimation.
-If FALSE, use nonparametric Kaplan-Meier estimation.}
+\item{par}{Logical. If TRUE, use parametric median estimation. If FALSE, use nonparametric
+Kaplan-Meier estimation.}
 
 \item{fold}{Logical. If TRUE, plot fold change instead of raw volume.}
 
-\item{lld}{Optional lower limit of detection used to replace zero values.
-If NULL, the one half of the minimum nonzero value in the full dataset is used.}
+\item{lld}{Optional lower limit of detection used to replace zero values. If NULL, the one half
+of the minimum nonzero value in the full dataset is used.}
 }
 \value{
 A ggplot object

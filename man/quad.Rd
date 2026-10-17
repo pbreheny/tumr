@@ -9,19 +9,17 @@ quad(tumr_obj = NULL, n_grid = 20, ...)
 \arguments{
 \item{tumr_obj}{A \code{tumr} object created by \code{\link[=tumr]{tumr()}}.}
 
-\item{n_grid}{Number of time points used to evaluate treatment contrasts.
-Default is 20.}
+\item{n_grid}{Number of time points used to evaluate treatment contrasts. Default is 20.}
 
 \item{...}{Further arguments passed to \code{\link[lme4:lmer]{lme4::lmer()}}.}
 }
 \value{
-An object of class \code{quad} containing the fitted model,
-estimated marginal means, and pairwise treatment contrasts.
+An object of class \code{quad} containing the fitted model, estimated marginal means, and
+pairwise treatment contrasts.
 }
 \description{
-Fits an Exponential quadratic model for tumor growth data and computes
-pairwise treatment contrasts over a grid of time points using estimated
-marginal means.
+Fits an Exponential quadratic model for tumor growth data and computes pairwise treatment
+contrasts over a grid of time points using estimated marginal means.
 }
 \examples{
 data(melanoma1)

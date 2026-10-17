@@ -1,18 +1,16 @@
 #' Generalized Additive Model for Tumor Growth Data
 #'
-#' @param tumr_obj A \code{tumr} object created by \code{\link{tumr}}.
-#' @param n_grid Number of time grid points for prediction. Default \code{20}.
-#' @param ... Further arguments passed to \code{\link[mgcv]{gam}}.
+#' @param tumr_obj A `tumr` object created by [tumr()].
+#' @param n_grid Number of time grid points for prediction. Default `20`.
+#' @param ... Further arguments passed to [mgcv::gam()].
 #'
-#' @returns An object of class \code{"tumr_gam"} with components:
+#' @returns An object of class `tumr_gam` with components:
 #'
-#' \describe{
-#'   \item{\code{fit}}{The \code{mgcv::gam} object.}
-#'   \item{\code{data}}{Processed data with internal column names.}
-#'   \item{\code{formula}}{The formula used.}
-#'   \item{\code{relevant_info}}{Named list of column names and reference group.}
-#'   \item{\code{n_grid}}{Number of prediction grid points.}
-#' }
+#' - `fit`: The `mgcv::gam` object.
+#' - `data`: Processed data with internal column names.
+#' - `formula`: The formula used.
+#' - `relevant_info`: Named list of column names and reference group.
+#' - `n_grid`: Number of prediction grid points.
 #'
 #' @examples
 #' data(melanoma1)

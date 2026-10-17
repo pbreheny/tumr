@@ -1,18 +1,16 @@
 #' Creates a summary of a gam object
 #'
-#' Returns the full \code{mgcv} GAM summary and pairwise group comparisons
-#' via \code{emmeans::pairs()}.
+#' Returns the full `mgcv` GAM summary and pairwise group comparisons
+#' via `emmeans::pairs()`.
 #'
-#' @param object An object of class \code{"tumr_gam"}.
+#' @param object An object of class `"tumr_gam"`.
 #' @param ... Currently ignored.
 #'
-#' @returns An object of class \code{"summary.tumr_gam"} with components:
+#' @returns An object of class `"summary.tumr_gam"` with components:
 #'
-#' \describe{
-#'   \item{\code{gam_summary}}{Full \code{mgcv::summary.gam} output.}
-#'   \item{\code{pairwise_tests}}{Data frame of pairwise Wald test results with adjusted p-values.}
-#'   \item{\code{relevant_info}}{Column name metadata.}
-#' }
+#' - `gam_summary`: Full `mgcv::summary.gam` output.
+#' - `pairwise_tests`: Data frame of pairwise Wald test results with adjusted p-values.
+#' - `relevant_info`: Column name metadata.
 #'
 #' @examples
 #' data(melanoma1)

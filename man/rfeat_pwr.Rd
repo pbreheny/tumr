@@ -22,6 +22,4 @@ Analysis based on response features
 dat <- gendat(5, 2, 6)
 rfeat_pwr(dat)
 }
-
 }
-\keyword{internal}

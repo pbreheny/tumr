@@ -7,20 +7,20 @@
 tumr_gam(tumr_obj = NULL, n_grid = 20, ...)
 }
 \arguments{
-\item{tumr_obj}{A \code{tumr} object created by \code{\link{tumr}}.}
+\item{tumr_obj}{A \code{tumr} object created by \code{\link[=tumr]{tumr()}}.}
 
 \item{n_grid}{Number of time grid points for prediction. Default \code{20}.}
 
-\item{...}{Further arguments passed to \code{\link[mgcv]{gam}}.}
+\item{...}{Further arguments passed to \code{\link[mgcv:gam]{mgcv::gam()}}.}
 }
 \value{
-An object of class \code{"tumr_gam"} with components:
-\describe{
-\item{\code{fit}}{The \code{mgcv::gam} object.}
-\item{\code{data}}{Processed data with internal column names.}
-\item{\code{formula}}{The formula used.}
-\item{\code{relevant_info}}{Named list of column names and reference group.}
-\item{\code{n_grid}}{Number of prediction grid points.}
+An object of class \code{tumr_gam} with components:
+\itemize{
+\item \code{fit}: The \code{mgcv::gam} object.
+\item \code{data}: Processed data with internal column names.
+\item \code{formula}: The formula used.
+\item \code{relevant_info}: Named list of column names and reference group.
+\item \code{n_grid}: Number of prediction grid points.
 }
 }
 \description{

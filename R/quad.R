@@ -17,9 +17,15 @@
 #' quad_obj <- quad(mel1)
 #'
 #' @export
-quad <- function(tumr_obj = NULL,
+quad <- function(tumr_obj,
                  n_grid = 20,
                  ...) {
+  if (!inherits(tumr_obj, "tumr")) {
+    stop(
+      "tumr_obj must be a tumr object created by tumr().",
+      call. = FALSE
+    )
+  }
   data <- tumr_obj$data
   id <- tumr_obj$id
   time <- tumr_obj$time

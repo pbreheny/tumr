@@ -4,7 +4,7 @@
 \alias{tumr_gam}
 \title{Generalized Additive Model for Tumor Growth Data}
 \usage{
-tumr_gam(tumr_obj = NULL, n_grid = 20, ...)
+tumr_gam(tumr_obj, n_grid = 20, ...)
 }
 \arguments{
 \item{tumr_obj}{A \code{tumr} object created by \code{\link[=tumr]{tumr()}}.}

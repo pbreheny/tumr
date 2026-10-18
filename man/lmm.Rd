@@ -2,60 +2,28 @@
 % Please edit documentation in R/lmm.R
 \name{lmm}
 \alias{lmm}
-\title{Linear mixed-effects Modeling for Tumor Growth Data}
+\title{Linear Mixed-effects Modeling for Tumor Growth Data}
 \usage{
-lmm(
-  tumr_obj = NULL,
-  formula = NULL,
-  data = NULL,
-  id = NULL,
-  time = NULL,
-  measure = NULL,
-  group = NULL,
-  ...
-)
+lmm(tumr_obj, formula = NULL, ...)
 }
 \arguments{
-\item{tumr_obj}{takes tumr_obj created by tumr()}
+\item{tumr_obj}{A tumr object created by \code{\link[=tumr]{tumr()}}.}
 
-\item{formula}{linear mixed model formula}
+\item{formula}{Linear mixed-effects model formula.}
 
-\item{data}{tumor growth data}
-
-\item{id}{Column of subject ID's}
-
-\item{time}{Column of repeated time measurements}
-
-\item{measure}{Column of repeated measurements of tumor}
-
-\item{group}{Column specifying the treatment group for each measurement}
-
-\item{...}{Further arguments to \code{\link[lme4:lmer]{lme4::lmer()}}}
+\item{...}{Further arguments to \code{\link[lme4:lmer]{lme4::lmer()}}.}
 }
 \value{
-summary of linear mixed model fit
+Summary of linear mixed-effects model fit.
 }
 \description{
-Linear mixed-effects Modeling for Tumor Growth Data
+Linear Mixed-effects Modeling for Tumor Growth Data
 }
 \examples{
 data(melanoma1)
-melanoma1$months <- melanoma1$Day / (365/12)
+melanoma1$months <- melanoma1$Day / (365 / 12)
 mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 lmm(mel1)
-
-lmm(
-tumr_obj = mel1,
-formula = "Volume ~ Day + (1 | ID)"
-)
-
-data(breast)
-lmm(
-data = breast,
-id = "ID",
-group = "Treatment",
-time = "Week",
-measure = "Volume"
-)
+lmm(mel1, formula = "Volume ~ Day + (1 | ID)")
 
 }

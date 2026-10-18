@@ -16,6 +16,7 @@
 #'
 #' @export
 get_limit <- function(x) {
-  min_nonzero <- min(x$data$Volume[x$data$Volume > 0], na.rm = TRUE)
+  values <- x$data[[x$measure]]
+  min_nonzero <- min(values[values > 0], na.rm = TRUE)
   return(min_nonzero / 2)
 }

@@ -43,31 +43,39 @@ process_data <- function(time, measure) {
 
 #' Plot tumor volume or fold change over time
 #'
-#' @param tumr_obj Optional tumr object created by tumr()
-#' @param data Tumor growth data
-#' @param group Column specifying treatment group
-#' @param time Column of repeated time measurements
-#' @param measure Column of repeated tumor measurements
-#' @param id Column of subject IDs
+#' @param x A `tumr` object created by [tumr()].
 #' @param par Logical. If TRUE, use parametric median estimation. If FALSE, use nonparametric
 #'   Kaplan-Meier estimation.
 #' @param fold Logical. If TRUE, plot fold change instead of raw volume.
-#' @param lld Optional lower limit of detection used to replace zero values. If NULL, the one half
-#'   of the minimum nonzero value in the full dataset is used.
+#' @param lld Optional lower limit of detection used to replace zero values. If NULL,
+#'   the lower limit is calculated using [get_limit()].
+#' @param ... Additional arguments.
 #'
 #' @returns A ggplot object
-plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
-                        measure = NULL, id = NULL, par = TRUE, fold = FALSE, lld = NULL) {
-  if (!is.null(tumr_obj)) {
-    if (is.null(id)) id <- tumr_obj$id
-    if (is.null(time)) time <- tumr_obj$time
-    if (is.null(measure)) measure <- tumr_obj$measure
-    if (is.null(group)) group <- tumr_obj$group
-    if (is.null(data)) data <- tumr_obj$data
+#'
+#' @examples
+#' data(melanoma2)
+#' melanoma2$months <- melanoma2$Day / (365 / 12)
+#' mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
+#' plot(mel2)
+#' plot(mel2, par = FALSE)
+#' plot(mel2, fold = TRUE)
+#' plot(mel2, par = FALSE, fold = TRUE)
+#'
+#' @export
+plot.tumr <- function(x, par = TRUE, fold = FALSE, lld = NULL, ...) {
+  if (!inherits(x, "tumr")) {
+    stop(
+      "x must be a tumr object created by tumr().",
+      call. = FALSE
+    )
   }
-  if (is.null(data) || is.null(group) || is.null(time) || is.null(measure) || is.null(id)) {
-    stop("Please provide data, group, time, measure, and id, or supply tumr_obj.")
-  }
+  id <- x$id
+  time <- x$time
+  measure <- x$measure
+  group <- x$group
+  data <- x$data
+
   # Complete missing time points within each subject
   data <- data |>
     tidyr::complete(!!rlang::sym(id), !!rlang::sym(time)) |>
@@ -75,16 +83,17 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
     dplyr::arrange(.data[[time]], .by_group = TRUE) |>
     tidyr::fill(!!rlang::sym(group), .direction = "downup") |>
     dplyr::ungroup()
+
   # Replace zero measurements by the global lower limit of detection or set by users
   if (any(data[[measure]] == 0, na.rm = TRUE)) {
     if (!is.null(lld)) {
       lld_used <- lld
     } else {
-      min_nonzero <- min(data[[measure]][data[[measure]] > 0], na.rm = TRUE)
-      lld_used <- min_nonzero / 2
+      lld_used <- get_limit(x)
     }
     data[[measure]][!is.na(data[[measure]]) & data[[measure]] == 0] <- lld_used
   }
+
   # Process missing values subject by subject
   processed_data <- data |>
     dplyr::group_by(.data[[id]]) |>
@@ -99,6 +108,7 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
       )
     }) |>
     dplyr::ungroup()
+
   # Compute fold change within each subject
   compute_fold_data <- function(df, time_var) {
     df <- df |> dplyr::arrange(.data[[time_var]])
@@ -116,10 +126,12 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
     df$fold_change <- df$volume / baseline
     df
   }
+
   analysis_data <- processed_data |>
     dplyr::group_by(.data[[id]]) |>
     dplyr::group_modify(~ compute_fold_data(.x, time_var = time)) |>
     dplyr::ungroup()
+
   group_size <- analysis_data |>
     dplyr::distinct(.data[[group]], .data[[id]]) |>
     dplyr::count(.data[[group]], name = "group_n")
@@ -164,6 +176,7 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
     med <- exp(stats::coef(fit)[1])
     tibble::tibble(MedianValue = unname(med), observed_n = observed_n, censored_n = censored_n)
   }
+
   # Nonparametric median
   get_nonparametric_summary <- function(df, value_col) {
     x <- df[[value_col]]
@@ -194,6 +207,7 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
     med <- unname(summary(fit)$table["median"])
     tibble::tibble(MedianValue = med, observed_n = observed_n, censored_n = censored_n)
   }
+
   value_col <- if (fold) "fold_change" else "volume"
 
   if (par) {
@@ -217,31 +231,34 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
       "Volume over Time (Nonparametric Method)"
     }
   }
+
   # Stop median curve once at least 60% are censored
   summary_data <- summary_data |>
     dplyr::left_join(group_size, by = group) |>
     dplyr::arrange(.data[[group]], .data[[time]]) |>
     dplyr::group_by(.data[[group]]) |>
     dplyr::mutate(
-      stop_curve = (censored_n / group_n) >= 0.6,
-      stop_after = cumsum(stop_curve) > 0,
-      MedianValue = dplyr::if_else(stop_after, NA_real_, MedianValue)
+      stop_curve = (.data$censored_n / .data$group_n) >= 0.6,
+      stop_after = cumsum(.data$stop_curve) > 0,
+      MedianValue = dplyr::if_else(.data$stop_after, NA_real_, .data$MedianValue)
     ) |>
     dplyr::ungroup()
 
   if (fold) {
     data_ind <- analysis_data |>
-      dplyr::filter(event == 1, !is.na(fold_change), is.finite(fold_change))
+      dplyr::filter(.data$event == 1, !is.na(.data$fold_change), is.finite(.data$fold_change))
     y_ind <- "fold_change"
     y_lab <- "Fold Change"
   } else {
     data_ind <- analysis_data |>
-      dplyr::filter(event == 1, !is.na(volume), is.finite(volume))
+      dplyr::filter(.data$event == 1, !is.na(.data$volume), is.finite(.data$volume))
     y_ind <- "volume"
     y_lab <- "Volume"
   }
+
   data_sum <- summary_data |>
-    dplyr::filter(!is.na(MedianValue), is.finite(MedianValue))
+    dplyr::filter(!is.na(.data$MedianValue), is.finite(.data$MedianValue))
+
   ggplot2::ggplot() +
     ggplot2::geom_line(
       data = data_ind,
@@ -265,27 +282,4 @@ plot_median <- function(tumr_obj = NULL, data = NULL, group = NULL, time = NULL,
     ggplot2::labs(x = time, y = y_lab, title = plot_title, color = group) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_blank())
-}
-
-
-
-#' Plot a tumr object
-#'
-#' @param x A tumr object created by `tumr()`.
-#' @param ... Additional arguments passed to `plot_median()`.
-#'
-#' @returns A ggplot object.
-#'
-#' @examples
-#' data(melanoma2)
-#' melanoma2$months <- melanoma2$Day / (365 / 12)
-#' mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
-#' plot(mel2)
-#' plot(mel2, par = FALSE)
-#' plot(mel2, fold = TRUE)
-#' plot(mel2, par = FALSE, fold = TRUE)
-#'
-#' @export
-plot.tumr <- function(x, ...) {
-  plot_median(tumr_obj = x, ...)
 }

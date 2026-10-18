@@ -1,69 +1,42 @@
-#' Linear mixed-effects Modeling for Tumor Growth Data
+#' Linear Mixed-effects Modeling for Tumor Growth Data
 #'
-#' @param tumr_obj takes tumr_obj created by tumr()
-#' @param data tumor growth data
-#' @param id Column of subject ID's
-#' @param time Column of repeated time measurements
-#' @param measure Column of repeated measurements of tumor
-#' @param group Column specifying the treatment group for each measurement
-#' @param formula linear mixed model formula
-#' @param ... Further arguments to [lme4::lmer()]
+#' @param tumr_obj A tumr object created by [tumr()].
+#' @param formula Linear mixed-effects model formula.
+#' @param ... Further arguments to [lme4::lmer()].
 #'
-#' @returns summary of linear mixed model fit
+#' @returns Summary of linear mixed-effects model fit.
 #'
 #' @examples
 #' data(melanoma1)
-#' melanoma1$months <- melanoma1$Day / (365/12)
+#' melanoma1$months <- melanoma1$Day / (365 / 12)
 #' mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 #' lmm(mel1)
-#'
-#' lmm(
-#' tumr_obj = mel1,
-#' formula = "Volume ~ Day + (1 | ID)"
-#' )
-#'
-#' data(breast)
-#' lmm(
-#' data = breast,
-#' id = "ID",
-#' group = "Treatment",
-#' time = "Week",
-#' measure = "Volume"
-#' )
+#' lmm(mel1, formula = "Volume ~ Day + (1 | ID)")
 #'
 #' @export
-lmm <- function(tumr_obj = NULL, formula = NULL, data = NULL, id = NULL, time = NULL, measure = NULL, group = NULL, ...){
-  if (!is.null(tumr_obj)) {
-    if (is.null(id)) id <- tumr_obj$id
-    if (is.null(time)) time <- tumr_obj$time
-    if (is.null(measure)) measure <- tumr_obj$measure
-    if (is.null(group)) group <- tumr_obj$group
-    if (is.null(data)) data <- tumr_obj$data
+lmm <- function(tumr_obj, formula = NULL,...){
+  if (!inherits(tumr_obj, "tumr")) {
+    stop("Input must be a tumr object")
   }
+  id <- tumr_obj$id
+  time <- tumr_obj$time
+  measure <- tumr_obj$measure
+  group <- tumr_obj$group
+  data <- tumr_obj$data
   # Replace zero values with the lower limit
-  if (!is.null(tumr_obj)) {
-    limit <- get_limit(tumr_obj)
-  } else {
-    limit <- min(
-      data[[measure]][data[[measure]] > 0],
-      na.rm = TRUE
-    ) / 2
-  }
+  limit <- get_limit(tumr_obj)
   idx <- !is.na(data[[measure]]) & data[[measure]] == 0
   data[[measure]][idx] <- limit
   if (is.null(formula)) {
-    formula_string <- paste0("log(", measure, ") ~ ", group, " * ", time, " + (", time, " | ", id, ")")
+    formula_string <- paste0(
+      "log(", measure, ") ~ ", group, " * ", time,
+      " + (", time, " | ", id, ")"
+    )
     formula <- as.formula(formula_string)
-  }
-  if (!is.null(formula)) {
+  } else {
     formula <- as.formula(formula)
   }
-  relevant_info <- list(
-    ID = id,
-    Time = time,
-    Measure = measure,
-    Group = group
-  )
+  relevant_info <- list(ID = id, Time = time, Measure = measure, Group = group)
   model <- lme4::lmer(formula = formula,
                       data = data,
                       control = lme4::lmerControl(optimizer ='optimx', optCtrl=list(method='nlminb')),

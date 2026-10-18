@@ -4,7 +4,7 @@
 \alias{quad}
 \title{Exponential quadratic Model for Tumor Growth Data}
 \usage{
-quad(tumr_obj = NULL, n_grid = 20, ...)
+quad(tumr_obj, n_grid = 20, ...)
 }
 \arguments{
 \item{tumr_obj}{A \code{tumr} object created by \code{\link[=tumr]{tumr()}}.}

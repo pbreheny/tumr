@@ -2,20 +2,28 @@
 % Please edit documentation in R/plot-median.R
 \name{plot.tumr}
 \alias{plot.tumr}
-\title{Plot a tumr object}
+\title{Plot tumor volume or fold change over time}
 \usage{
-\method{plot}{tumr}(x, ...)
+\method{plot}{tumr}(x, par = TRUE, fold = FALSE, lld = NULL, ...)
 }
 \arguments{
-\item{x}{A tumr object created by \code{tumr()}.}
+\item{x}{A \code{tumr} object created by \code{\link[=tumr]{tumr()}}.}
 
-\item{...}{Additional arguments passed to \code{plot_median()}.}
+\item{par}{Logical. If TRUE, use parametric median estimation. If FALSE, use nonparametric
+Kaplan-Meier estimation.}
+
+\item{fold}{Logical. If TRUE, plot fold change instead of raw volume.}
+
+\item{lld}{Optional lower limit of detection used to replace zero values. If NULL,
+the lower limit is calculated using \code{\link[=get_limit]{get_limit()}}.}
+
+\item{...}{Additional arguments.}
 }
 \value{
-A ggplot object.
+A ggplot object
 }
 \description{
-Plot a tumr object
+Plot tumor volume or fold change over time
 }
 \examples{
 data(melanoma2)

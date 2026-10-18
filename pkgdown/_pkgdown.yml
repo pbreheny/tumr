@@ -38,6 +38,7 @@ reference:
       - bhm
       - dtime
       - rfeat
+      - rfeat_pwr
       - tumr_power
 
   - title: "Visualization and Diagnostics"

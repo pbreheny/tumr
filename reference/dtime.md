@@ -18,13 +18,13 @@ dtime(x)
 
 A list with three components:
 
-- `method`: character string describing the method used.
+- `method`: Character string describing the method used.
 
-- `message`: character string indicating that the model should
+- `message`: Character string indicating that the model should
   demonstrate an exponential growth pattern.
 
-- `summary`: a data frame summarizing tumor doubling time by treatment
-  group, including mean, median, and 95\\
+- `summary`: A data frame summarizing tumor doubling time by treatment
+  group, including mean, median, and 95% intervals.
 
 ## Examples
 

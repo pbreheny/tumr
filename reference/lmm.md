@@ -1,66 +1,38 @@
-# Linear mixed-effects Modeling for Tumor Growth Data
+# Linear Mixed-effects Modeling for Tumor Growth Data
 
-Linear mixed-effects Modeling for Tumor Growth Data
+Linear Mixed-effects Modeling for Tumor Growth Data
 
 ## Usage
 
 ``` r
-lmm(
-  tumr_obj = NULL,
-  formula = NULL,
-  data = NULL,
-  id = NULL,
-  time = NULL,
-  measure = NULL,
-  group = NULL,
-  ...
-)
+lmm(tumr_obj, formula = NULL, ...)
 ```
 
 ## Arguments
 
 - tumr_obj:
 
-  takes tumr_obj created by tumr()
+  A tumr object created by
+  [`tumr()`](https://pbreheny.github.io/tumr/reference/tumr.md).
 
 - formula:
 
-  linear mixed model formula
-
-- data:
-
-  tumor growth data
-
-- id:
-
-  Column of subject ID's
-
-- time:
-
-  Column of repeated time measurements
-
-- measure:
-
-  Column of repeated measurements of tumor
-
-- group:
-
-  Column specifying the treatment group for each measurement
+  Linear mixed-effects model formula.
 
 - ...:
 
   Further arguments to
-  [`lme4::lmer()`](https://rdrr.io/pkg/lme4/man/lmer.html)
+  [`lme4::lmer()`](https://rdrr.io/pkg/lme4/man/lmer.html).
 
 ## Value
 
-summary of linear mixed model fit
+Summary of linear mixed-effects model fit.
 
 ## Examples
 
 ``` r
 data(melanoma1)
-melanoma1$months <- melanoma1$Day / (365/12)
+melanoma1$months <- melanoma1$Day / (365 / 12)
 mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 lmm(mel1)
 #> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
@@ -105,11 +77,7 @@ lmm(mel1)
 #> TrtmntB:mnt  0.430 -0.494 -0.307 -0.329 -0.762              
 #> TrtmntC:mnt  0.398 -0.308 -0.559 -0.304 -0.705  0.537       
 #> TrtmntD:mnt  0.421 -0.326 -0.301 -0.483 -0.746  0.569  0.526
-
-lmm(
-tumr_obj = mel1,
-formula = "Volume ~ Day + (1 | ID)"
-)
+lmm(mel1, formula = "Volume ~ Day + (1 | ID)")
 #> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 #> lmerModLmerTest]
 #> Formula: Volume ~ Day + (1 | ID)
@@ -139,51 +107,4 @@ formula = "Volume ~ Day + (1 | ID)"
 #> Correlation of Fixed Effects:
 #>     (Intr)
 #> Day -0.351
-
-data(breast)
-lmm(
-data = breast,
-id = "ID",
-group = "Treatment",
-time = "Week",
-measure = "Volume"
-)
-#> boundary (singular) fit: see help('isSingular')
-#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-#> lmerModLmerTest]
-#> Formula: log(Volume) ~ Treatment * Week + (Week | ID)
-#>    Data: data
-#> Control: 
-#> lme4::lmerControl(optimizer = "optimx", optCtrl = list(method = "nlminb"))
-#> 
-#> REML criterion at convergence: 975.2
-#> 
-#> Scaled residuals: 
-#>      Min       1Q   Median       3Q      Max 
-#> -2.80081 -0.22807  0.01603  0.60054  2.48668 
-#> 
-#> Random effects:
-#>  Groups   Name        Variance Std.Dev. Corr  
-#>  ID       (Intercept) 0.8621   0.9285         
-#>           Week        0.1147   0.3387   -1.00 
-#>  Residual             0.8947   0.9459         
-#> Number of obs: 319, groups:  ID, 28
-#> 
-#> Fixed effects:
-#>                   Estimate Std. Error       df t value Pr(>|t|)    
-#> (Intercept)        3.31900    0.29483 27.40569  11.257 8.72e-12 ***
-#> TreatmentVEH       0.30984    0.41826 27.71677   0.741    0.465    
-#> Week               0.44786    0.09333 25.43923   4.799 6.02e-05 ***
-#> TreatmentVEH:Week -0.07829    0.13226 25.64042  -0.592    0.559    
-#> ---
-#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-#> 
-#> Correlation of Fixed Effects:
-#>             (Intr) TrtVEH Week  
-#> TreatmntVEH -0.705              
-#> Week        -0.932  0.657       
-#> TrtmntVEH:W  0.658 -0.932 -0.706
-#> optimizer (optimx) convergence code: 0 (OK)
-#> boundary (singular) fit: see help('isSingular')
-#> 
 ```

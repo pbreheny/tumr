@@ -1,29 +1,43 @@
-# Plot a tumr object
+# Plot tumor volume or fold change over time
 
-Plot a tumr object
+Plot tumor volume or fold change over time
 
 ## Usage
 
 ``` r
 # S3 method for class 'tumr'
-plot(x, ...)
+plot(x, par = TRUE, fold = FALSE, lld = NULL, ...)
 ```
 
 ## Arguments
 
 - x:
 
-  A tumr object created by
+  A `tumr` object created by
   [`tumr()`](https://pbreheny.github.io/tumr/reference/tumr.md).
+
+- par:
+
+  Logical. If TRUE, use parametric median estimation. If FALSE, use
+  nonparametric Kaplan-Meier estimation.
+
+- fold:
+
+  Logical. If TRUE, plot fold change instead of raw volume.
+
+- lld:
+
+  Optional lower limit of detection used to replace zero values. If
+  NULL, the lower limit is calculated using
+  [`get_limit()`](https://pbreheny.github.io/tumr/reference/get_limit.md).
 
 - ...:
 
-  Additional arguments passed to
-  [`plot_median()`](https://pbreheny.github.io/tumr/reference/plot_median.md).
+  Additional arguments.
 
 ## Value
 
-A ggplot object.
+A ggplot object
 
 ## Examples
 

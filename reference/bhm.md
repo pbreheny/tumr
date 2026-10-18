@@ -13,7 +13,7 @@ bhm(tumr_obj, cens = NULL, diagnostics = FALSE, return_fit = TRUE, ...)
 - tumr_obj:
 
   A `tumr` object created by
-  [`tumr`](https://pbreheny.github.io/tumr/reference/tumr.md).
+  [`tumr()`](https://pbreheny.github.io/tumr/reference/tumr.md).
 
 - cens:
 
@@ -35,7 +35,7 @@ bhm(tumr_obj, cens = NULL, diagnostics = FALSE, return_fit = TRUE, ...)
 
 ## Value
 
-An object of class `"bhm"` containing posterior summaries and optionally
+An object of class `bhm` containing posterior summaries and optionally
 diagnostics and the CmdStan fit.
 
 ## Examples

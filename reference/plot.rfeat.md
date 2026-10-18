@@ -33,4 +33,5 @@ measure = "Volume",
 group = "Treatment",
 comparison = "t.test")
 plot(example)
+
 ```

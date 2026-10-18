@@ -5,7 +5,7 @@ Generalized Additive Model for Tumor Growth Data
 ## Usage
 
 ``` r
-tumr_gam(tumr_obj = NULL, n_grid = 20, ...)
+tumr_gam(tumr_obj, n_grid = 20, ...)
 ```
 
 ## Arguments
@@ -13,7 +13,7 @@ tumr_gam(tumr_obj = NULL, n_grid = 20, ...)
 - tumr_obj:
 
   A `tumr` object created by
-  [`tumr`](https://pbreheny.github.io/tumr/reference/tumr.md).
+  [`tumr()`](https://pbreheny.github.io/tumr/reference/tumr.md).
 
 - n_grid:
 
@@ -22,31 +22,22 @@ tumr_gam(tumr_obj = NULL, n_grid = 20, ...)
 - ...:
 
   Further arguments passed to
-  [`gam`](https://rdrr.io/pkg/mgcv/man/gam.html).
+  [`mgcv::gam()`](https://rdrr.io/pkg/mgcv/man/gam.html).
 
 ## Value
 
-An object of class `"tumr_gam"` with components:
+An object of class `tumr_gam` with components:
 
-- `fit`:
+- `fit`: The [`mgcv::gam`](https://rdrr.io/pkg/mgcv/man/gam.html)
+  object.
 
-  The [`mgcv::gam`](https://rdrr.io/pkg/mgcv/man/gam.html) object.
+- `data`: Processed data with internal column names.
 
-- `data`:
+- `formula`: The formula used.
 
-  Processed data with internal column names.
+- `relevant_info`: Named list of column names and reference group.
 
-- `formula`:
-
-  The formula used.
-
-- `relevant_info`:
-
-  Named list of column names and reference group.
-
-- `n_grid`:
-
-  Number of prediction grid points.
+- `n_grid`: Number of prediction grid points.
 
 ## Examples
 
@@ -675,7 +666,7 @@ tumr_gam(mel1)
 #> $formula
 #> log(Volume) ~ Treatment + s(Time, by = Treatment) + s(ID, bs = "re") + 
 #>     s(ID, Time, bs = "re")
-#> <environment: 0x5567412a3c58>
+#> <environment: 0x55dcfdd4f188>
 #> 
 #> $relevant_info
 #> $relevant_info$ID

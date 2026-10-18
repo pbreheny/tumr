@@ -24,14 +24,25 @@ summary(object, ...)
 
 An object of class `"summary.quad"` containing:
 
-- `model_summary`:
+- `model_summary`: Full summary of the fitted linear mixed model.
 
-  Full summary of the fitted linear mixed model.
+- `pairwise_tests`: Pairwise treatment comparisons with Holm-adjusted
+  p-values.
 
-- `pairwise_tests`:
+## Examples
 
-  Pairwise treatment comparisons with Holm-adjusted p-values.
-
-\#' @examples data(melanoma1) melanoma1\$months \<- melanoma1\$Day /
-(365/12) mel1 \<- tumr(melanoma1, ID, months, Volume, Treatment) fit_gam
-\<- tumr_gam(mel1) summary(fit_gam)
+``` r
+data(melanoma1)
+melanoma1$months <- melanoma1$Day / (365/12)
+mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
+fit_quad <- quad(mel1)
+summary(fit_quad)
+#> NOTE: Results may be misleading due to involvement in interactions
+#>  contrast   estimate        SE p.value
+#>     A - B  4.8419694 0.5525961  0.0000
+#>     A - C  0.2878099 0.5630237  0.6125
+#>     A - D  5.9225040 0.5688272  0.0000
+#>     B - C -4.5541595 0.5531198  0.0000
+#>     B - D  1.0805346 0.5590261  0.1259
+#>     C - D  5.6346941 0.5693359  0.0000
+```

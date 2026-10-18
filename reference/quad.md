@@ -7,7 +7,7 @@ marginal means.
 ## Usage
 
 ``` r
-quad(tumr_obj = NULL, n_grid = 20, ...)
+quad(tumr_obj, n_grid = 20, ...)
 ```
 
 ## Arguments

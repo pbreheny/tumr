@@ -24,19 +24,14 @@ summary(object, ...)
 
 An object of class `"summary.tumr_gam"` with components:
 
-- `gam_summary`:
-
-  Full
+- `gam_summary`: Full
   [`mgcv::summary.gam`](https://rdrr.io/pkg/mgcv/man/summary.gam.html)
   output.
 
-- `pairwise_tests`:
+- `pairwise_tests`: Data frame of pairwise Wald test results with
+  adjusted p-values.
 
-  Data frame of pairwise Wald test results with adjusted p-values.
-
-- `relevant_info`:
-
-  Column name metadata.
+- `relevant_info`: Column name metadata.
 
 ## Examples
 

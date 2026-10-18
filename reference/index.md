@@ -20,7 +20,7 @@
 ## Tumor Growth Models, Summaries, and Power
 
 - [`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md) : Linear
-  mixed-effects Modeling for Tumor Growth Data
+  Mixed-effects Modeling for Tumor Growth Data
 - [`quad()`](https://pbreheny.github.io/tumr/reference/quad.md) :
   Exponential quadratic Model for Tumor Growth Data
 - [`tumr_gam()`](https://pbreheny.github.io/tumr/reference/tumr_gam.md)
@@ -31,6 +31,8 @@
   Tumor Doubling Time Based on Fitted Tumor Growth Model
 - [`rfeat()`](https://pbreheny.github.io/tumr/reference/rfeat.md) :
   Analysis based on response features
+- [`rfeat_pwr()`](https://pbreheny.github.io/tumr/reference/rfeat_pwr.md)
+  : Analysis based on response features
 - [`tumr_power()`](https://pbreheny.github.io/tumr/reference/tumr_power.md)
   : Power calculation for tumor growth
 
@@ -50,11 +52,9 @@
 - [`plot(`*`<rfeat>`*`)`](https://pbreheny.github.io/tumr/reference/plot.rfeat.md)
   : Plot based on rfeat analysis
 - [`plot(`*`<tumr>`*`)`](https://pbreheny.github.io/tumr/reference/plot.tumr.md)
-  : Plot a tumr object
+  : Plot tumor volume or fold change over time
 - [`plot(`*`<tumr_gam>`*`)`](https://pbreheny.github.io/tumr/reference/plot.tumr_gam.md)
   : Plot GAM Fit for Tumor Growth Data
-- [`plot_median()`](https://pbreheny.github.io/tumr/reference/plot_median.md)
-  : Plot tumor volume or fold change over time
 - [`print(`*`<lmm>`*`)`](https://pbreheny.github.io/tumr/reference/print.lmm.md)
   : Prints relevant output from lmm
 - [`print(`*`<rfeat>`*`)`](https://pbreheny.github.io/tumr/reference/print.rfeat.md)

@@ -14,22 +14,22 @@
 #' @export
 summary.lmm <- function(object, ...) {
   group_var <- object$relevant_info$Group
-
   overall_effect <- emmeans::emtrends(object$model_sum,
                                       ~ 1,
-                                      var = object$relevant_info$Time)
+                                      var = object$relevant_info$Time,
+                                      lmer.df = "satterthwaite"
+                                      )
   effect_by_time <- emmeans::emtrends(object$model_sum,
                                       specs = reformulate(group_var),
-                                      var = object$relevant_info$Time)
+                                      var = object$relevant_info$Time,
+                                      lmer.df = "satterthwaite"
+                                      )
   contrast_slopes <- emmeans::contrast(effect_by_time, method = "pairwise")
-
-
   result <- list(
-    'overall effect of time' = overall_effect,
+    'overall effect of time'       = overall_effect,
     'slope of treatment over time' = effect_by_time,
-    'test slope differences' = contrast_slopes
+    'test slope differences'       = contrast_slopes
   )
-
   return(result)
 }
 

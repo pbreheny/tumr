@@ -28,7 +28,6 @@ jobs:
         with:
           extra-packages: |
             any::rcmdcheck
-            any::pbkrtest
             any::quarto
             any::tinytest
           dependencies: '"hard"'

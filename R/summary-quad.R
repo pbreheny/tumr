@@ -22,7 +22,7 @@
 #'
 #' @method summary quad
 summary.quad <- function(object, ...) {
-  em <- emmeans::emmeans(object$fit, specs = ~ Treatment)
+  em <- emmeans::emmeans(object$fit, specs = ~ Treatment, lmer.df = "satterthwaite")
   con <- emmeans::contrast(em, method = "pairwise", adjust = "holm")
   pairwise_raw <- as.data.frame(con)
   pairwise_tests <- data.frame(

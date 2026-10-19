@@ -54,7 +54,8 @@ quad <- function(tumr_obj,
   emm <- emmeans::emmeans(
     fit,
     ~ Treatment | Time,
-    at = list(Time = time_grid)
+    at = list(Time = time_grid),
+    lmer.df = "satterthwaite"
   )
   contrast_obj <- emmeans::contrast(emm, "pairwise")
   contrast_df <- as.data.frame(stats::confint(contrast_obj))

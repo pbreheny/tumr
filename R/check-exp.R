@@ -85,7 +85,7 @@ check_exp <- function(lmm_obj, type = c("time", "fitted", "qq")) {
       theoretical = qq$x,
       sample = qq$y
     )
-    p <- ggplot2::ggplot(qq_dat, ggplot2::aes(x = theoretical, y = sample)) +
+    p <- ggplot2::ggplot(qq_dat, ggplot2::aes(x = .data$theoretical, y = .data$sample)) +
       ggplot2::geom_point(alpha = 0.7) +
       ggplot2::geom_abline(
         intercept = mean(diag_dat$resid),

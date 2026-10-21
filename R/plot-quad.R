@@ -54,15 +54,15 @@ plot.quad <- function(x,
     p <- ggplot2::ggplot(
       x$contrast_df,
       ggplot2::aes(
-        x = Time,
-        y = estimate
+        x = .data$Time,
+        y = .data$estimate
       )
     ) +
       ggplot2::geom_point(color = "black") +
       ggplot2::geom_errorbar(
         ggplot2::aes(
-          ymin = lower.CL,
-          ymax = upper.CL
+          ymin = .data$lower.CL,
+          ymax = .data$upper.CL
         ),
         width = errorbar_width,
         linewidth = 0.6,

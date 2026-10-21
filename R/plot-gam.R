@@ -73,13 +73,13 @@ plot.tumr_gam <- function(x, type = c("predict", "contrast"),
     )
     p <- ggplot2::ggplot(
       contrast_df,
-      ggplot2::aes(x = Time, y = estimate)
+      ggplot2::aes(x = .data$Time, y = .data$estimate)
     ) +
       ggplot2::geom_point() +
       ggplot2::geom_errorbar(
         ggplot2::aes(
-          ymin = lower.CL,
-          ymax = upper.CL
+          ymin = .data$lower.CL,
+          ymax = .data$upper.CL
         ),
         width = 0.2,
         linewidth = 0.6

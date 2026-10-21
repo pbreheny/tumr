@@ -29,8 +29,8 @@ plot.lmm <- function(x,
                                  )
     if (type == "predict") {
       pred_df <- as.data.frame(pred)
-      p <- ggplot2::ggplot(pred_df, ggplot2::aes(x = x, y = predicted, color = group, fill = group)) +
-        ggplot2::geom_ribbon(ggplot2::aes(ymin = conf.low, ymax = conf.high), alpha = 0.15, color = NA) +
+      p <- ggplot2::ggplot(pred_df, ggplot2::aes(x = .data$x, y = .data$predicted, color = .data$group, fill = .data$group)) +
+        ggplot2::geom_ribbon(ggplot2::aes(ymin = .data$conf.low, ymax = .data$conf.high), alpha = 0.15, color = NA) +
         ggplot2::geom_line(linewidth = 1) +
         ggplot2::labs(
           title = "Predicted values of Volume (log scale)",
@@ -46,17 +46,17 @@ plot.lmm <- function(x,
     if (type == "predict_fold") {
       pred_df <- as.data.frame(pred)
       pred_df <- pred_df |>
-        dplyr::group_by(group) |>
+        dplyr::group_by(.data$group) |>
         dplyr::arrange(x, .by_group = TRUE) |>
         dplyr::mutate(
-          baseline = dplyr::first(predicted),
-          predicted_fold = exp(predicted - baseline),
-          conf.low_fold = exp(conf.low - baseline),
-          conf.high_fold = exp(conf.high - baseline)
+          baseline = dplyr::first(.data$predicted),
+          predicted_fold = exp(.data$predicted - .data$baseline),
+          conf.low_fold = exp(.data$conf.low - .data$baseline),
+          conf.high_fold = exp(.data$conf.high - .data$baseline)
         ) |>
         dplyr::ungroup()
-      p <- ggplot2::ggplot(pred_df, ggplot2::aes(x = x, y = predicted_fold, color = group, fill = group)) +
-        ggplot2::geom_ribbon(ggplot2::aes(ymin = conf.low_fold, ymax = conf.high_fold), alpha = 0.15, color = NA) +
+      p <- ggplot2::ggplot(pred_df, ggplot2::aes(x = .data$x, y = .data$predicted_fold, color = .data$group, fill = .data$group)) +
+        ggplot2::geom_ribbon(ggplot2::aes(ymin = .data$conf.low_fold, ymax = .data$conf.high_fold), alpha = 0.15, color = NA) +
         ggplot2::geom_line(linewidth = 1) +
         ggplot2::labs(
           title = "Predicted values of Volume (log scale)",

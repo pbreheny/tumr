@@ -7,3 +7,4 @@
 ^\.version\.json$
 ^\.quarto$
 ^vignettes/.quarto$
+^vignettes/articles/.*_files$

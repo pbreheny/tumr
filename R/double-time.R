@@ -36,17 +36,17 @@ dtime <- function(x) {
         values_to = "slope"
       ) |>
       dplyr::mutate(
-        k = as.integer(sub("Slope\\[([0-9]+)\\]", "\\1", parameter)),
-        treatment = x$trt_levels[k],
-        doubling_time = ifelse(slope > 0, log(2)/slope, Inf)
+        k = as.integer(sub("Slope\\[([0-9]+)\\]", "\\1", .data$parameter)),
+        treatment = x$trt_levels[.data$k],
+        doubling_time = ifelse(.data$slope > 0, log(2)/.data$slope, Inf)
       )
     summary_tbl <- draws_long |>
-      dplyr::group_by(treatment) |>
+      dplyr::group_by(.data$treatment) |>
       dplyr::summarise(
-        mean = mean(doubling_time),
-        median = median(doubling_time),
-        q2.5 = unname(quantile(doubling_time, 0.025)),
-        q97.5 = unname(quantile(doubling_time, 0.975)),
+        mean = mean(.data$doubling_time),
+        median = median(.data$doubling_time),
+        q2.5 = unname(quantile(.data$doubling_time, 0.025)),
+        q97.5 = unname(quantile(.data$doubling_time, 0.975)),
         .groups = "drop"
       )
     return(list(

@@ -46,7 +46,7 @@ rfeat <- function(tumr_obj = NULL, data = NULL, id = NULL, time = NULL, measure 
   unique_ids <- unique(data[[id]])
 
   betas <- data.frame(
-    ID = numeric(length(unique_ids)),
+    ID = character(length(unique_ids)),
     Beta = numeric(length(unique_ids)),
     Group = character(length(unique_ids)),
     stringsAsFactors = FALSE
@@ -67,10 +67,12 @@ rfeat <- function(tumr_obj = NULL, data = NULL, id = NULL, time = NULL, measure 
 
     model <- lm(as.formula(formula_str), data = smaller)
 
-    betas[j, "ID"] <- i
+    betas[j, "ID"] <- as.character(i)
     betas[j, "Beta"] <- coef(model)[[time]]
     betas[j, "Group"] <- as.character(unique(smaller[[group]]))
   }
+
+  betas <- betas[betas$ID != "", , drop = FALSE]
 
   # Group-level summary
   betas_summary <- betas |>

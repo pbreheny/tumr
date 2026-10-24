@@ -330,7 +330,7 @@ plot(lmm_mel2, "contrast")
 
 ``` r
 
-dtime(lmm_mel2)
+dtime(lmm_mel2, seed = 123)
 ```
 
     $method
@@ -341,10 +341,10 @@ dtime(lmm_mel2)
 
     $summary
       Treatment mean median q2.5 q97.5
-    1         A 0.30   0.30 0.24  0.38
-    2         B 0.60   0.57 0.39  0.97
-    3         C 0.44   0.42 0.32  0.63
-    4         D 0.42   0.41 0.31  0.60
+    1         A 0.30   0.29 0.24  0.38
+    2         B 0.61   0.57 0.40  1.00
+    3         C 0.44   0.43 0.33  0.63
+    4         D 0.42   0.41 0.31  0.61
     5         E 0.48   0.46 0.34  0.73
 
 ### Checking for exponential growth

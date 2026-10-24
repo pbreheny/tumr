@@ -5,7 +5,7 @@ Tumor Doubling Time Based on Fitted Tumor Growth Model
 ## Usage
 
 ``` r
-dtime(x)
+dtime(x, seed = NULL, nsim = 1000)
 ```
 
 ## Arguments
@@ -13,6 +13,14 @@ dtime(x)
 - x:
 
   A fitted model object.
+
+- seed:
+
+  Random seed for reproducibility.
+
+- nsim:
+
+  Number of bootstrap simulations.
 
 ## Value
 

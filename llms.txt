@@ -97,7 +97,7 @@ example](https://pbreheny.org/web/reproducible.html).
 - [`dtime()`](https://pbreheny.github.io/tumr/reference/dtime.md) :
   Tumor Doubling Time Based on Fitted Tumor Growth Model
 - [`rfeat()`](https://pbreheny.github.io/tumr/reference/rfeat.md) :
-  Analysis based on response features
+  Analysis Based on Response Features
 - [`rfeat_pwr()`](https://pbreheny.github.io/tumr/reference/rfeat_pwr.md)
   : Analysis based on response features
 - [`tumr_power()`](https://pbreheny.github.io/tumr/reference/tumr_power.md)

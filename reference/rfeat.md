@@ -1,17 +1,13 @@
-# Analysis based on response features
+# Analysis Based on Response Features
 
-exponential growth, separate packages
+Analyze individual tumor growth rates and compare them across treatment
+groups.
 
 ## Usage
 
 ``` r
 rfeat(
   tumr_obj = NULL,
-  data = NULL,
-  id = NULL,
-  time = NULL,
-  measure = NULL,
-  group = NULL,
   log = TRUE,
   comparison = c("t.test", "anova", "tukey", "both")
 )
@@ -21,51 +17,37 @@ rfeat(
 
 - tumr_obj:
 
-  takes tumr_obj created by tumr()
-
-- data:
-
-  From gendat
-
-- id:
-
-  Column of subject ID's
-
-- time:
-
-  Column of repeated time measurements
-
-- measure:
-
-  Column of repeated measurements of tumor
-
-- group:
-
-  Column specifying the treatment group for each measurement
+  A tumr object created by
+  [`tumr()`](https://pbreheny.github.io/tumr/reference/tumr.md).
 
 - log:
 
-  log transformation of measurement using log1p
+  Whether to apply log1p transformation to the tumor measurements.
+  Default is TRUE.
 
 - comparison:
 
-  Takes "t.test", "anova", "tukey", or "both"
+  Statistical comparison method. One of "t.test", "anova", "tukey", or
+  "both".
 
 ## Value
 
-A p-value
+A list with four components:
+
+- `relevant_information`: Variables used in the analysis.
+
+- `betas`: Individual-level estimated slopes.
+
+- `summary`: Average slope for each treatment group.
+
+- `test`: Results of the selected statistical test.
 
 ## Examples
 
 ``` r
 data(breast)
-rfeat(
-data = breast,
-id = "ID",
-time = "Week",
-measure = "Volume",
-group = "Treatment",
-comparison = "t.test")
+breast_obj <- tumr(breast, ID, Week, Volume, Treatment)
+rfeat(breast_obj, comparison = "t.test")
 #> 
 #>  Welch Two Sample t-test
 #> 
@@ -78,14 +60,16 @@ comparison = "t.test")
 #>  mean in group NR mean in group VEH 
 #>         0.8872739         0.7346541 
 #> 
+
 data(melanoma1)
-rfeat(
-data = melanoma1,
-id = "ID",
-time = "Day",
-measure = "Volume",
-group = "Treatment",
-comparison = "anova")
+melanoma_obj <- tumr(melanoma1, ID, Day, Volume, Treatment)
+#> Warning: 
+#> --------------------------------------------------------------------
+#> The time range is greater than 50, which may cause convergence
+#> issues when fitting lmm(). Consider rescaling the time variable
+#> to a larger unit (e.g., from days to weeks or months).
+#> --------------------------------------------------------------------
+rfeat(melanoma_obj, comparison = "anova")
 #>             Df  Sum Sq  Mean Sq F value   Pr(>F)    
 #> Group        3 0.04132 0.013775    26.4 1.13e-08 ***
 #> Residuals   31 0.01618 0.000522                     

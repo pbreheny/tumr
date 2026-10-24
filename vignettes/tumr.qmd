@@ -212,7 +212,7 @@ plot(lmm_mel2, "contrast")
 ## Tumor Doubling Time Based on lmm()
 
 ```{r}
-dtime(lmm_mel2)
+dtime(lmm_mel2, seed = 123)
 ```
 
 

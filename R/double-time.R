@@ -1,6 +1,8 @@
 #' Tumor Doubling Time Based on Fitted Tumor Growth Model
 #'
 #' @param x A fitted model object.
+#' @param seed Random seed for reproducibility.
+#' @param nsim Number of bootstrap simulations.
 #'
 #' @returns A list with three components:
 #'
@@ -22,7 +24,7 @@
 #' }
 #'
 #' @export
-dtime <- function(x) {
+dtime <- function(x, seed = NULL, nsim = 1000) {
   if (inherits(x, "bhm")) {
     draws_slope <- posterior::as_draws_df(
       x$fit$draws(variables = "Slope")
@@ -80,14 +82,12 @@ dtime <- function(x) {
       }
       slopes
     }
-    boot_res <- withr::with_seed(
-      2026,
-      lme4::bootMer(
-      fit,
-      FUN = boot_fun_slope,
-      nsim = 1000
-      )
-    )
+    boot_res <- withr::with_preserve_seed({
+      if (!is.null(seed)) {
+        set.seed(seed)
+      }
+      lme4::bootMer(fit, FUN = boot_fun_slope, nsim = nsim)
+    })
     dtime_mat <- ifelse(boot_res$t > 0, log(2) / boot_res$t, Inf)
     summary_tbl <- as.data.frame(
       t(apply(dtime_mat, 2, function(z) {

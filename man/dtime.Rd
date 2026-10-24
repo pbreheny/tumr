@@ -4,10 +4,14 @@
 \alias{dtime}
 \title{Tumor Doubling Time Based on Fitted Tumor Growth Model}
 \usage{
-dtime(x)
+dtime(x, seed = NULL, nsim = 1000)
 }
 \arguments{
 \item{x}{A fitted model object.}
+
+\item{seed}{Random seed for reproducibility.}
+
+\item{nsim}{Number of bootstrap simulations.}
 }
 \value{
 A list with three components:

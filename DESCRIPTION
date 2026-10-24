@@ -2,7 +2,7 @@ Package: tumr
 Title: A collection of tools for visualizing and analyzing tumor growth data
 Version: 0.7.1
 Authors@R: c(
-  person("Tian", "Zhao", role='aut', email="tian-zhao@uiowa.edu", comment=c(ORCID="0009-0006-9527-286X")),
+  person("Tian", "Zhao", role='aut', email="gapomochi@gmail.com", comment=c(ORCID="0009-0006-9527-286X")),
   person("Sydney", "Plowman", role='aut'),
   person("Patrick", "Breheny", role=c("aut","cre"),email="patrick-breheny@uiowa.edu", comment=c(ORCID="0000-0002-0650-1119"))
   )

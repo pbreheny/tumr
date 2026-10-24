@@ -20,7 +20,7 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Tian Zhao \email{tian-zhao@uiowa.edu} (\href{https://orcid.org/0009-0006-9527-286X}{ORCID})
+  \item Tian Zhao \email{gapomochi@gmail.com} (\href{https://orcid.org/0009-0006-9527-286X}{ORCID})
   \item Sydney Plowman
 }
 

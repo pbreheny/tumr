@@ -8,17 +8,16 @@ dat$Volume <- exp(0.1 * dat$Time + rnorm(nrow(dat), 0, 0.1))
 
 # Subjects with < 2 observations should be dropped, not left as placeholder rows
 short <- rbind(dat, data.frame(Time = 0, ID = "M7", Group = "A", Volume = 1))
-fit <- rfeat(data = short, id = "ID", time = "Time", measure = "Volume",
-             group = "Group", comparison = "anova")
+short_obj <- tumr(short, ID, Time, Volume, Group)
+fit <- rfeat(short_obj, comparison = "anova")
 expect_equal(nrow(fit$betas), 6)
 expect_false(any(fit$betas$Group == ""))
 expect_equal(sort(fit$summary$Group), c("A", "B"))
-expect_silent(rfeat(data = short, id = "ID", time = "Time", measure = "Volume",
-                    group = "Group", comparison = "t.test"))
+expect_silent(rfeat(short_obj, comparison = "t.test"))
 
 # Factor IDs should be reported as their labels, not integer codes
 fdat <- dat
 fdat$ID <- factor(fdat$ID)
-fit <- rfeat(data = fdat, id = "ID", time = "Time", measure = "Volume",
-             group = "Group")
+fdat_obj <- tumr(fdat, ID, Time, Volume, Group)
+fit <- rfeat(fdat_obj)
 expect_equal(as.character(fit$betas$ID), paste0("M", 1:6))

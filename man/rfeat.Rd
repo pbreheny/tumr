@@ -2,58 +2,43 @@
 % Please edit documentation in R/rfeat.R
 \name{rfeat}
 \alias{rfeat}
-\title{Analysis based on response features}
+\title{Analysis Based on Response Features}
 \usage{
 rfeat(
   tumr_obj = NULL,
-  data = NULL,
-  id = NULL,
-  time = NULL,
-  measure = NULL,
-  group = NULL,
   log = TRUE,
   comparison = c("t.test", "anova", "tukey", "both")
 )
 }
 \arguments{
-\item{tumr_obj}{takes tumr_obj created by tumr()}
+\item{tumr_obj}{A tumr object created by \code{tumr()}.}
 
-\item{data}{From gendat}
+\item{log}{Whether to apply log1p transformation to the tumor
+measurements. Default is TRUE.}
 
-\item{id}{Column of subject ID's}
-
-\item{time}{Column of repeated time measurements}
-
-\item{measure}{Column of repeated measurements of tumor}
-
-\item{group}{Column specifying the treatment group for each measurement}
-
-\item{log}{log transformation of measurement using log1p}
-
-\item{comparison}{Takes "t.test", "anova", "tukey", or "both"}
+\item{comparison}{Statistical comparison method. One of
+"t.test", "anova", "tukey", or "both".}
 }
 \value{
-A p-value
+A list with four components:
+\itemize{
+\item \code{relevant_information}: Variables used in the analysis.
+\item \code{betas}: Individual-level estimated slopes.
+\item \code{summary}: Average slope for each treatment group.
+\item \code{test}: Results of the selected statistical test.
+}
 }
 \description{
-exponential growth, separate packages
+Analyze individual tumor growth rates and compare them across
+treatment groups.
 }
 \examples{
 data(breast)
-rfeat(
-data = breast,
-id = "ID",
-time = "Week",
-measure = "Volume",
-group = "Treatment",
-comparison = "t.test")
+breast_obj <- tumr(breast, ID, Week, Volume, Treatment)
+rfeat(breast_obj, comparison = "t.test")
+
 data(melanoma1)
-rfeat(
-data = melanoma1,
-id = "ID",
-time = "Day",
-measure = "Volume",
-group = "Treatment",
-comparison = "anova")
+melanoma_obj <- tumr(melanoma1, ID, Day, Volume, Treatment)
+rfeat(melanoma_obj, comparison = "anova")
 
 }

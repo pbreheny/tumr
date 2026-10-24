@@ -1,84 +1,70 @@
-#' Analysis based on response features
+#' Analysis Based on Response Features
 #'
-#' exponential growth, separate packages
+#' Analyze individual tumor growth rates and compare them across
+#' treatment groups.
 #'
-#' @param data From gendat
-#' @param id Column of subject ID's
-#' @param time Column of repeated time measurements
-#' @param measure Column of repeated measurements of tumor
-#' @param group Column specifying the treatment group for each measurement
-#' @param log log transformation of measurement using log1p
-#' @param comparison Takes "t.test", "anova", "tukey", or "both"
-#' @param tumr_obj takes tumr_obj created by tumr()
+#' @param tumr_obj A tumr object created by `tumr()`.
+#' @param log Whether to apply log1p transformation to the tumor
+#'   measurements. Default is TRUE.
+#' @param comparison Statistical comparison method. One of
+#'   "t.test", "anova", "tukey", or "both".
 #'
-#' @returns A p-value
+#' @returns A list with four components:
+#'
+#' - `relevant_information`: Variables used in the analysis.
+#' - `betas`: Individual-level estimated slopes.
+#' - `summary`: Average slope for each treatment group.
+#' - `test`: Results of the selected statistical test.
 #'
 #' @examples
 #' data(breast)
-#' rfeat(
-#' data = breast,
-#' id = "ID",
-#' time = "Week",
-#' measure = "Volume",
-#' group = "Treatment",
-#' comparison = "t.test")
+#' breast_obj <- tumr(breast, ID, Week, Volume, Treatment)
+#' rfeat(breast_obj, comparison = "t.test")
+#'
 #' data(melanoma1)
-#' rfeat(
-#' data = melanoma1,
-#' id = "ID",
-#' time = "Day",
-#' measure = "Volume",
-#' group = "Treatment",
-#' comparison = "anova")
+#' melanoma_obj <- tumr(melanoma1, ID, Day, Volume, Treatment)
+#' rfeat(melanoma_obj, comparison = "anova")
 #'
 #' @export
-rfeat <- function(tumr_obj = NULL, data = NULL, id = NULL, time = NULL, measure = NULL, group = NULL, log = TRUE, comparison = c("t.test", "anova", "tukey", "both")) {
-  comparison <- match.arg(comparison)
-
-  if (!is.null(tumr_obj)) {
-    if (is.null(id)) id <- tumr_obj$id
-    if (is.null(time)) time <- tumr_obj$time
-    if (is.null(measure)) measure <- tumr_obj$measure
-    if (is.null(group)) group <- tumr_obj$group
-    if (is.null(data)) data <- tumr_obj$data
+rfeat <- function(tumr_obj = NULL,
+                  log = TRUE,
+                  comparison = c("t.test", "anova", "tukey", "both")) {
+  if (!inherits(tumr_obj, "tumr")) {
+    stop("tumr_obj must be a tumr object.")
   }
-
+  comparison <- match.arg(comparison)
+  id <- tumr_obj$id
+  time <- tumr_obj$time
+  measure <- tumr_obj$measure
+  group <- tumr_obj$group
+  data <- tumr_obj$data
   unique_ids <- unique(data[[id]])
-
   betas <- data.frame(
     ID = character(length(unique_ids)),
     Beta = numeric(length(unique_ids)),
     Group = character(length(unique_ids)),
     stringsAsFactors = FALSE
   )
-
   for (j in seq_along(unique_ids)) {
     i <- unique_ids[j]
     smaller <- data[data[[id]] == i, ]
-
     # Skip if insufficient data for linear model
     if (nrow(smaller) < 2) next
-
     if (log == FALSE){
       formula_str <- paste(measure, "~", time)
     } else {
       formula_str <- paste("log1p(", measure, ")", "~", time)
     }
-
     model <- lm(as.formula(formula_str), data = smaller)
-
     betas[j, "ID"] <- as.character(i)
     betas[j, "Beta"] <- coef(model)[[time]]
     betas[j, "Group"] <- as.character(unique(smaller[[group]]))
   }
-
   betas <- betas[betas$ID != "", , drop = FALSE]
-
   # Group-level summary
   betas_summary <- betas |>
     dplyr::group_by(.data[["Group"]]) |>
     dplyr::summarise(average = mean(.data[["Beta"]]), .groups = "drop")
-
   # Corrected statistical test using individual-level data
   if (comparison == "t.test") {
     stat_test <- t.test(Beta ~ Group, data = betas)
@@ -92,25 +78,10 @@ rfeat <- function(tumr_obj = NULL, data = NULL, id = NULL, time = NULL, measure 
       tukey = TukeyHSD(aov(Beta ~ Group, data = betas))
     )
   }
-
-
-  relevant_info <- list(
-    ID = id,
-    Time = time,
-    Measure = measure,
-    Group = group
-  )
-
-    result <- list(
-      relevant_information = relevant_info,
-      betas = betas,
-      summary = betas_summary,
-      test = stat_test
-    )
+  relevant_info <- list(ID = id, Time = time, Measure = measure, Group = group)
+  result <- list(relevant_information = relevant_info, betas = betas, summary = betas_summary, test = stat_test)
   class(result) <- "rfeat"
-
   return(result)
-
   print(result)
 }
 

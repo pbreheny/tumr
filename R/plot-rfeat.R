@@ -6,12 +6,9 @@
 #' @returns A plot
 #'
 #' @examples
-#' example <- rfeat(data = breast,
-#' id = "ID",
-#' time = "Week",
-#' measure = "Volume",
-#' group = "Treatment",
-#' comparison = "t.test")
+#' data(breast)
+#' breast_obj <- tumr(breast, ID, Week, Volume, Treatment)
+#' example <- rfeat(breast_obj, comparison = "t.test")
 #' plot(example)
 #'
 #' @export

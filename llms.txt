@@ -55,7 +55,7 @@ plot(gam_obj, "predict")
 plot(gam_obj, "contrast")
 
 # Compute Tumor Doubling Time based on Linear mixed-effects modeling
-dtime(lmm_obj)
+dtime(lmm_obj, seed = 123, nsim = 1000)
 ```
 
 ## Find and report an issue

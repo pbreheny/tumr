@@ -18,7 +18,7 @@ Useful links:
 
 Authors:
 
-- Tian Zhao <tian-zhao@uiowa.edu>
+- Tian Zhao <gapomochi@gmail.com>
   ([ORCID](https://orcid.org/0009-0006-9527-286X))
 
 - Sydney Plowman

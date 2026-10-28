@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tumr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,8 +79,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> lmerModLmerTest]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Formula: log(Volume) ~ Treatment * months + (months | ID)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Data: data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lme4::lmerControl(optimizer = "optimx", optCtrl = list(method = "nlminb"))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control: lme4::lmerControl(optimizer = "nlminbwrap")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> REML criterion at convergence: 1735.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -122,8 +121,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> lmerModLmerTest]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Formula: Volume ~ Day + (1 | ID)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Data: data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lme4::lmerControl(optimizer = "optimx", optCtrl = list(method = "nlminb"))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control: lme4::lmerControl(optimizer = "nlminbwrap")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> REML criterion at convergence: 8820.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

@@ -39,8 +39,7 @@ lmm(mel1)
 #> lmerModLmerTest]
 #> Formula: log(Volume) ~ Treatment * months + (months | ID)
 #>    Data: data
-#> Control: 
-#> lme4::lmerControl(optimizer = "optimx", optCtrl = list(method = "nlminb"))
+#> Control: lme4::lmerControl(optimizer = "nlminbwrap")
 #> 
 #> REML criterion at convergence: 1735.1
 #> 
@@ -82,8 +81,7 @@ lmm(mel1, formula = "Volume ~ Day + (1 | ID)")
 #> lmerModLmerTest]
 #> Formula: Volume ~ Day + (1 | ID)
 #>    Data: data
-#> Control: 
-#> lme4::lmerControl(optimizer = "optimx", optCtrl = list(method = "nlminb"))
+#> Control: lme4::lmerControl(optimizer = "nlminbwrap")
 #> 
 #> REML criterion at convergence: 8820.6
 #> 

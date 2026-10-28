@@ -239,8 +239,6 @@ can be customized if desired.
 lmm_mel2 <- lmm(mel2)
 ```
 
-    Loading required namespace: optimx
-
 ### Summarizing Linear mixed-effects modeling results
 
 The summary() method for lmm objects uses the emmeans package to report:

@@ -22,7 +22,8 @@ Imports:
   purrr,
   withr,
   lme4,
-  lmerTest
+  lmerTest,
+  optimx
 Suggests:
   quarto,
   cmdstanr (>= 0.6.0),
@@ -31,8 +32,7 @@ Suggests:
   mgcv,
   rmarkdown,
   scales,
-  tinytest,
-  optimx
+  tinytest
 Additional_repositories: https://stan-dev.r-universe.dev/, https://mc-stan.org/r-packages/
 VignetteBuilder: quarto
 URL: https://pbreheny.github.io/tumr/, https://github.com/pbreheny/tumr

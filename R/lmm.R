@@ -14,7 +14,7 @@
 #' lmm(mel1, formula = "Volume ~ Day + (1 | ID)")
 #'
 #' @export
-lmm <- function(tumr_obj, formula = NULL,...){
+lmm <- function(tumr_obj, formula = NULL, ...) {
   if (!inherits(tumr_obj, "tumr")) {
     stop("Input must be a tumr object")
   }
@@ -29,26 +29,31 @@ lmm <- function(tumr_obj, formula = NULL,...){
   data[[measure]][idx] <- limit
   if (is.null(formula)) {
     formula_string <- paste0(
-      "log(", measure, ") ~ ", group, " * ", time,
-      " + (", time, " | ", id, ")"
+      "log(",
+      measure,
+      ") ~ ",
+      group,
+      " * ",
+      time,
+      " + (",
+      time,
+      " | ",
+      id,
+      ")"
     )
     formula <- as.formula(formula_string)
   } else {
     formula <- as.formula(formula)
   }
   relevant_info <- list(ID = id, Time = time, Measure = measure, Group = group)
-  model <- lme4::lmer(formula = formula,
-                      data = data,
-                      control = lme4::lmerControl(optimizer ='optimx', optCtrl=list(method='nlminb')),
-                      ...)
-  model_p <- lmerTest::as_lmerModLmerTest(model)
-  result <- list(
-    relevant_info = relevant_info,
-    model_sum     = model,
-    model         = summary(model_p)
+  model <- lme4::lmer(
+    formula = formula,
+    data = data,
+    control = lme4::lmerControl(optimizer = 'nlminbwrap'),
+    ...
   )
+  model_p <- lmerTest::as_lmerModLmerTest(model)
+  result <- list(relevant_info = relevant_info, model_sum = model, model = summary(model_p))
   class(result) <- "lmm"
   return(result)
 }
-
-

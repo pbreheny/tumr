@@ -1,11 +1,9 @@
-# tumr
-
 <!-- badges: start -->
 [![GitHub version](https://img.shields.io/static/v1?label=GitHub&message=0.7.2&color=blue&logo=github)](https://github.com/pbreheny/tumr)
 [![R-CMD-check](https://github.com/pbreheny/tumr/workflows/R-CMD-check/badge.svg)](https://github.com/pbreheny/tumr/actions)
 <!-- badges: end -->
 
-## A tutorial using tumr <img src="man/figures/logo.png" align="right" width="150"/>
+## Analysis of tumor growth data <img src="man/figures/logo.png" align="right" width="150"/>
 
 tumr is a collection of tools for visualizing and analyzing tumor growth data. 
 

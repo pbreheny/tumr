@@ -1,14 +1,13 @@
 Package: tumr
-Title: A collection of tools for visualizing and analyzing tumor growth data
+Title: A collection of tools for visualizing and analyzing longitudinal tumor growth data
 Version: 0.7.2
 Authors@R: c(
   person("Tian", "Zhao", role='aut', email="gapomochi@gmail.com", comment=c(ORCID="0009-0006-9527-286X")),
   person("Sydney", "Plowman", role='aut'),
   person("Patrick", "Breheny", role=c("aut","cre"),email="patrick-breheny@uiowa.edu", comment=c(ORCID="0000-0002-0650-1119"))
   )
-Description: This package contains functions for tumor growth rate experiments:
-  plotting and analyzing existing data, simulating new data, and power/sample
-  size calculations.
+Description: This package provides tools for analyzing longitudinal tumor growth data, including visualization of growth trajectories, model fits, and diagnostics. Statistical methods include linear mixed-effects, 
+nonlinear, and Bayesian models, along with tumor doubling time estimation, response feature analysis, simulation, and power and sample size calculations.
 Depends: R (>= 4.3.0)
 Imports:
   dplyr,

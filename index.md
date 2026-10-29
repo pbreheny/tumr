@@ -1,6 +1,4 @@
-# tumr
-
-## A tutorial using tumr ![](reference/figures/logo.png)
+## Analysis of tumor growth data ![](reference/figures/logo.png)
 
 tumr is a collection of tools for visualizing and analyzing tumor growth
 data.

@@ -289,7 +289,10 @@ plot.tumr <- function(x, par = TRUE, fold = FALSE, lld = NULL, panel = FALSE, ..
   if (panel) {
     p <- p +
       ggplot2::facet_wrap(
-        ggplot2::vars(!!rlang::sym(group))
+        ggplot2::vars(!!rlang::sym(group)),
+        ncol = 2,
+        axes = "all",
+        axis.labels =  "all"
       ) +
       ggplot2::theme(legend.position = "none")
   }

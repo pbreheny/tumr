@@ -23,13 +23,41 @@ plot(mel1, par = TRUE, fold = TRUE)
 
 ``` r
 
-plot(mel1, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
-plot(mel1, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
+plot(mel1, par = TRUE, fold = FALSE, panel = TRUE)
 ```
 
 ![](data_files/figure-html/unnamed-chunk-4-1.png)
 
+``` r
+
+plot(mel1, par = TRUE, fold = TRUE, panel = TRUE)
+```
+
 ![](data_files/figure-html/unnamed-chunk-4-2.png)
+
+``` r
+
+plot(mel1, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
+plot(mel1, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
+```
+
+![](data_files/figure-html/unnamed-chunk-5-1.png)
+
+![](data_files/figure-html/unnamed-chunk-5-2.png)
+
+``` r
+
+plot(mel1, par = TRUE, fold = FALSE, panel = TRUE) + ggplot2::scale_y_log10()
+```
+
+![](data_files/figure-html/unnamed-chunk-6-1.png)
+
+``` r
+
+plot(mel1, par = TRUE, fold = TRUE, panel = TRUE) + ggplot2::scale_y_log10()
+```
+
+![](data_files/figure-html/unnamed-chunk-6-2.png)
 
 ## Breast Cancer Data Set, *breast*
 
@@ -39,9 +67,23 @@ plot(breast_meta, par = TRUE, fold = FALSE)
 plot(breast_meta, par = TRUE, fold = TRUE)
 ```
 
-![](data_files/figure-html/unnamed-chunk-6-1.png)
+![](data_files/figure-html/unnamed-chunk-8-1.png)
 
-![](data_files/figure-html/unnamed-chunk-6-2.png)
+![](data_files/figure-html/unnamed-chunk-8-2.png)
+
+``` r
+
+plot(breast_meta, par = TRUE, fold = FALSE, panel = TRUE)
+```
+
+![](data_files/figure-html/unnamed-chunk-9-1.png)
+
+``` r
+
+plot(breast_meta, par = TRUE, fold = TRUE, panel = TRUE)
+```
+
+![](data_files/figure-html/unnamed-chunk-9-2.png)
 
 ``` r
 
@@ -49,9 +91,23 @@ plot(breast_meta, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
 plot(breast_meta, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
-![](data_files/figure-html/unnamed-chunk-7-1.png)
+![](data_files/figure-html/unnamed-chunk-10-1.png)
 
-![](data_files/figure-html/unnamed-chunk-7-2.png)
+![](data_files/figure-html/unnamed-chunk-10-2.png)
+
+``` r
+
+plot(breast_meta, par = TRUE, fold = FALSE, panel = TRUE) + ggplot2::scale_y_log10()
+```
+
+![](data_files/figure-html/unnamed-chunk-11-1.png)
+
+``` r
+
+plot(breast_meta, par = TRUE, fold = TRUE, panel = TRUE) + ggplot2::scale_y_log10()
+```
+
+![](data_files/figure-html/unnamed-chunk-11-2.png)
 
 ## Prostate Cancer Data Set, *prostate*
 
@@ -61,9 +117,23 @@ plot(pros_meta, par = TRUE, fold = FALSE)
 plot(pros_meta, par = TRUE, fold = TRUE)
 ```
 
-![](data_files/figure-html/unnamed-chunk-9-1.png)
+![](data_files/figure-html/unnamed-chunk-13-1.png)
 
-![](data_files/figure-html/unnamed-chunk-9-2.png)
+![](data_files/figure-html/unnamed-chunk-13-2.png)
+
+``` r
+
+plot(pros_meta, par = TRUE, fold = FALSE, panel = TRUE)
+```
+
+![](data_files/figure-html/unnamed-chunk-14-1.png)
+
+``` r
+
+plot(pros_meta, par = TRUE, fold = TRUE, panel = TRUE)
+```
+
+![](data_files/figure-html/unnamed-chunk-14-2.png)
 
 ``` r
 
@@ -71,6 +141,20 @@ plot(pros_meta, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
 plot(pros_meta, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
-![](data_files/figure-html/unnamed-chunk-10-1.png)
+![](data_files/figure-html/unnamed-chunk-15-1.png)
 
-![](data_files/figure-html/unnamed-chunk-10-2.png)
+![](data_files/figure-html/unnamed-chunk-15-2.png)
+
+``` r
+
+plot(pros_meta, par = TRUE, fold = FALSE, panel = TRUE) + ggplot2::scale_y_log10()
+```
+
+![](data_files/figure-html/unnamed-chunk-16-1.png)
+
+``` r
+
+plot(pros_meta, par = TRUE, fold = TRUE, panel = TRUE) + ggplot2::scale_y_log10()
+```
+
+![](data_files/figure-html/unnamed-chunk-16-2.png)

@@ -136,6 +136,17 @@ progressively smaller subset of subjects rather than a true biological
 effect. In contrast, the parametric approach shown in the right panel
 effectively addresses the issues observed in the left panel.
 
+Setting `panel = TRUE` displays individual tumor growth trajectories and
+estimated median curves in separate facets for each treatment group,
+supporting both tumor volume and fold change.
+
+``` r
+
+plot(mel2, par = TRUE, fold = FALSE, panel = TRUE)
+```
+
+![](tumr_files/figure-html/unnamed-chunk-6-1.png)
+
 Also, in the figure below, we present both the parametric method on the
 original volume and the fold change (log scale).
 
@@ -145,9 +156,23 @@ plot(mel2, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
 plot(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-6-1.png)
+![](tumr_files/figure-html/unnamed-chunk-7-1.png)
 
-![](tumr_files/figure-html/unnamed-chunk-6-2.png)
+![](tumr_files/figure-html/unnamed-chunk-7-2.png)
+
+``` r
+
+plot(mel2, par = TRUE, fold = FALSE, panel = TRUE) + ggplot2::scale_y_log10()
+```
+
+![](tumr_files/figure-html/unnamed-chunk-8-1.png)
+
+``` r
+
+plot(mel2, par = TRUE, fold = TRUE, panel = TRUE) + ggplot2::scale_y_log10()
+```
+
+![](tumr_files/figure-html/unnamed-chunk-8-2.png)
 
 ## Response feature analysis
 
@@ -213,7 +238,7 @@ slopes and the group-level means.
 plot(rfeat_mel2)
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-8-1.png)
+![](tumr_files/figure-html/unnamed-chunk-10-1.png)
 
 ## Linear mixed-effects modeling
 
@@ -313,16 +338,16 @@ plot(lmm_mel2, "predict_fold") + ggplot2::scale_y_log10()
     Model has log transformed response. Predictions are on transformed
       scale.
 
-![](tumr_files/figure-html/unnamed-chunk-11-1.png)
+![](tumr_files/figure-html/unnamed-chunk-13-1.png)
 
-![](tumr_files/figure-html/unnamed-chunk-11-2.png)
+![](tumr_files/figure-html/unnamed-chunk-13-2.png)
 
 ``` r
 
 plot(lmm_mel2, "contrast")
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-12-1.png)
+![](tumr_files/figure-html/unnamed-chunk-14-1.png)
 
 ### Tumor Doubling Time Based on lmm()
 
@@ -359,7 +384,7 @@ check_exp(lmm_mel2)
 
     `geom_smooth()` using formula = 'y ~ x'
 
-![](tumr_files/figure-html/unnamed-chunk-14-1.png)
+![](tumr_files/figure-html/unnamed-chunk-16-1.png)
 
 ## Flexible modeling of nonlinear growth
 

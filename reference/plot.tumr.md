@@ -6,7 +6,7 @@ Plot tumor volume or fold change over time
 
 ``` r
 # S3 method for class 'tumr'
-plot(x, par = TRUE, fold = FALSE, lld = NULL, ...)
+plot(x, par = TRUE, fold = FALSE, lld = NULL, panel = FALSE, ...)
 ```
 
 ## Arguments
@@ -31,6 +31,11 @@ plot(x, par = TRUE, fold = FALSE, lld = NULL, ...)
   NULL, the lower limit is calculated using
   [`get_limit()`](https://pbreheny.github.io/tumr/reference/get_limit.md).
 
+- panel:
+
+  Logical. If TRUE, display each treatment group in a separate facet. If
+  FALSE, overlay all treatment groups in a single panel.
+
 - ...:
 
   Additional arguments.
@@ -52,5 +57,7 @@ plot(mel2, par = FALSE)
 plot(mel2, fold = TRUE)
 
 plot(mel2, par = FALSE, fold = TRUE)
+
+plot(mel2, par = FALSE, fold = FALSE, panel = TRUE)
 
 ```

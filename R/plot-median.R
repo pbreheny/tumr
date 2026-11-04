@@ -49,6 +49,9 @@ process_data <- function(time, measure) {
 #' @param fold Logical. If TRUE, plot fold change instead of raw volume.
 #' @param lld Optional lower limit of detection used to replace zero values. If NULL,
 #'   the lower limit is calculated using [get_limit()].
+#' @param panel Logical. If TRUE, display each treatment group
+#'   in a separate facet. If FALSE, overlay all treatment
+#'   groups in a single panel.
 #' @param ... Additional arguments.
 #'
 #' @returns A ggplot object
@@ -61,9 +64,10 @@ process_data <- function(time, measure) {
 #' plot(mel2, par = FALSE)
 #' plot(mel2, fold = TRUE)
 #' plot(mel2, par = FALSE, fold = TRUE)
+#' plot(mel2, par = FALSE, fold = FALSE, panel = TRUE)
 #'
 #' @export
-plot.tumr <- function(x, par = TRUE, fold = FALSE, lld = NULL, ...) {
+plot.tumr <- function(x, par = TRUE, fold = FALSE, lld = NULL, panel = FALSE, ...) {
   if (!inherits(x, "tumr")) {
     stop(
       "x must be a tumr object created by tumr().",
@@ -259,7 +263,7 @@ plot.tumr <- function(x, par = TRUE, fold = FALSE, lld = NULL, ...) {
   data_sum <- summary_data |>
     dplyr::filter(!is.na(.data$MedianValue), is.finite(.data$MedianValue))
 
-  ggplot2::ggplot() +
+  p <- ggplot2::ggplot() +
     ggplot2::geom_line(
       data = data_ind,
       ggplot2::aes(
@@ -282,4 +286,12 @@ plot.tumr <- function(x, par = TRUE, fold = FALSE, lld = NULL, ...) {
     ggplot2::labs(x = time, y = y_lab, title = plot_title, color = group) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_blank())
+  if (panel) {
+    p <- p +
+      ggplot2::facet_wrap(
+        ggplot2::vars(!!rlang::sym(group))
+      ) +
+      ggplot2::theme(legend.position = "none")
+  }
+  p
 }

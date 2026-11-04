@@ -110,7 +110,15 @@ plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
 plot(mel2, par = TRUE, fold = FALSE)
 ```
 
-The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect. In contrast, the parametric approach shown in the right panel effectively addresses the issues observed in the left panel.
+The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect. In contrast, the parametric approach shown in the right panel effectively addresses the issues observed in the left panel. 
+
+Setting `panel = TRUE` displays individual tumor growth trajectories and estimated median curves in separate facets for each treatment group, supporting both tumor volume and fold change.
+
+```{r}
+plot(mel2, par = TRUE, fold = FALSE, panel = TRUE)
+```
+
+
 
 Also, in the figure below, we present both the parametric method on the original volume and the fold change (log scale).
 
@@ -123,7 +131,10 @@ plot(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
 
 
-
+```{r}
+plot(mel2, par = TRUE, fold = FALSE, panel = TRUE) + ggplot2::scale_y_log10()
+plot(mel2, par = TRUE, fold = TRUE, panel = TRUE) + ggplot2::scale_y_log10()
+```
 
 # Response feature analysis
 

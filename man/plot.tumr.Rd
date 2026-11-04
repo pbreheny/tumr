@@ -4,7 +4,7 @@
 \alias{plot.tumr}
 \title{Plot tumor volume or fold change over time}
 \usage{
-\method{plot}{tumr}(x, par = TRUE, fold = FALSE, lld = NULL, ...)
+\method{plot}{tumr}(x, par = TRUE, fold = FALSE, lld = NULL, panel = FALSE, ...)
 }
 \arguments{
 \item{x}{A \code{tumr} object created by \code{\link[=tumr]{tumr()}}.}
@@ -16,6 +16,10 @@ Kaplan-Meier estimation.}
 
 \item{lld}{Optional lower limit of detection used to replace zero values. If NULL,
 the lower limit is calculated using \code{\link[=get_limit]{get_limit()}}.}
+
+\item{panel}{Logical. If TRUE, display each treatment group
+in a separate facet. If FALSE, overlay all treatment
+groups in a single panel.}
 
 \item{...}{Additional arguments.}
 }
@@ -33,5 +37,6 @@ plot(mel2)
 plot(mel2, par = FALSE)
 plot(mel2, fold = TRUE)
 plot(mel2, par = FALSE, fold = TRUE)
+plot(mel2, par = FALSE, fold = FALSE, panel = TRUE)
 
 }

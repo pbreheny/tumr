@@ -38,6 +38,13 @@ mel1 <- tumr(melanoma1, ID, months, Volume, Treatment)
 plot(mel1, par = TRUE, fold = FALSE)
 plot(mel1, par = TRUE, fold = TRUE)
 ```
+```{r}
+plot(mel1, par = TRUE, fold = FALSE, panel = TRUE)
+plot(mel1, par = TRUE, fold = TRUE, panel = TRUE)
+```
+
+
+
 
 ```{r}
 #| layout-ncol: 2
@@ -46,7 +53,10 @@ plot(mel1, par = TRUE, fold = TRUE)
 plot(mel1, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
 plot(mel1, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
-
+```{r}
+plot(mel1, par = TRUE, fold = FALSE, panel = TRUE) + ggplot2::scale_y_log10()
+plot(mel1, par = TRUE, fold = TRUE, panel = TRUE) + ggplot2::scale_y_log10()
+```
 
 ## Breast Cancer Data Set, *breast*
 
@@ -64,7 +74,10 @@ breast_meta <- tumr(breast, ID, Week, Volume, Treatment)
 plot(breast_meta, par = TRUE, fold = FALSE)
 plot(breast_meta, par = TRUE, fold = TRUE)
 ```
-
+```{r}
+plot(breast_meta, par = TRUE, fold = FALSE, panel = TRUE)
+plot(breast_meta, par = TRUE, fold = TRUE, panel = TRUE)
+```
 
 ```{r}
 #| layout-ncol: 2
@@ -73,7 +86,10 @@ plot(breast_meta, par = TRUE, fold = TRUE)
 plot(breast_meta, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
 plot(breast_meta, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 ```
-
+```{r}
+plot(breast_meta, par = TRUE, fold = FALSE, panel = TRUE) + ggplot2::scale_y_log10()
+plot(breast_meta, par = TRUE, fold = TRUE, panel = TRUE) + ggplot2::scale_y_log10()
+```
 
 ## Prostate Cancer Data Set, *prostate*
 
@@ -92,7 +108,10 @@ pros_meta <- tumr(prostate, ID, Age, BLI, Genotype)
 plot(pros_meta, par = TRUE, fold = FALSE)
 plot(pros_meta, par = TRUE, fold = TRUE)
 ```
-
+```{r}
+plot(pros_meta, par = TRUE, fold = FALSE, panel = TRUE)
+plot(pros_meta, par = TRUE, fold = TRUE, panel = TRUE)
+```
 
 ```{r}
 #| layout-ncol: 2
@@ -100,4 +119,11 @@ plot(pros_meta, par = TRUE, fold = TRUE)
 #| fig-height: 3.5
 plot(pros_meta, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
 plot(pros_meta, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
+```
+
+
+
+```{r}
+plot(pros_meta, par = TRUE, fold = FALSE, panel = TRUE) + ggplot2::scale_y_log10()
+plot(pros_meta, par = TRUE, fold = TRUE, panel = TRUE) + ggplot2::scale_y_log10()
 ```

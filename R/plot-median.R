@@ -294,7 +294,8 @@ plot.tumr <- function(x, par = TRUE, fold = FALSE, lld = NULL, panel = FALSE, ..
         axes = "all",
         axis.labels =  "all"
       ) +
-      ggplot2::theme(legend.position = "none")
+      ggplot2::theme(legend.position = "none",
+                     aspect.ratio = 0.8)
   }
   p
 }

@@ -290,12 +290,10 @@ plot.tumr <- function(x, par = TRUE, fold = FALSE, lld = NULL, panel = FALSE, ..
     p <- p +
       ggplot2::facet_wrap(
         ggplot2::vars(!!rlang::sym(group)),
-        ncol = 2,
         axes = "all",
         axis.labels =  "all"
       ) +
-      ggplot2::theme(legend.position = "none",
-                     aspect.ratio = 0.8)
+      ggplot2::theme(legend.position = "none")
   }
   p
 }

@@ -31,6 +31,12 @@ plot(mel2, par = TRUE, fold = TRUE)
 plot(mel2, par = TRUE) + ggplot2::scale_y_log10()
 plot(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
 
+# Set panel = TRUE to display separate panels by treatment group.
+plot(mel2, par = TRUE, panel = TRUE)
+plot(mel2, par = TRUE, fold = TRUE, panel = TRUE)
+plot(mel2, par = TRUE, panel = TRUE) + ggplot2::scale_y_log10()
+plot(mel2, par = TRUE, fold = TRUE, panel = TRUE) + ggplot2::scale_y_log10()
+
 # Response feature analysis
 rfeat_mel2 <- rfeat(mel2, comparison = "both")
 plot(rfeat_mel2)

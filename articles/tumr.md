@@ -138,7 +138,7 @@ effectively addresses the issues observed in the left panel.
 
 Setting `panel = TRUE` displays individual tumor growth trajectories and
 estimated group-level curves in separate panels for each treatment
-group, for both tumor volume and fold change.
+group.
 
 ``` r
 
@@ -353,7 +353,7 @@ plot(lmm_mel2, "contrast")
 
 ``` r
 
-dtime(lmm_mel2, seed = 123)
+dtime(lmm_mel2, seed = 123, nsim = 1000)
 ```
 
     $method

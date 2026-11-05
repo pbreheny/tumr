@@ -180,7 +180,7 @@
 </div>
 </div>
 <p>The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect. In contrast, the parametric approach shown in the right panel effectively addresses the issues observed in the left panel.</p>
-<p>Setting <code>panel = TRUE</code> displays individual tumor growth trajectories and estimated median curves in separate facets for each treatment group, supporting both tumor volume and fold change.</p>
+<p>Setting <code>panel = TRUE</code> displays individual tumor growth trajectories and estimated group-level curves in separate panels for each treatment group, for both tumor volume and fold change.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span>, panel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>

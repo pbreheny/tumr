@@ -137,8 +137,8 @@ effect. In contrast, the parametric approach shown in the right panel
 effectively addresses the issues observed in the left panel.
 
 Setting `panel = TRUE` displays individual tumor growth trajectories and
-estimated median curves in separate facets for each treatment group,
-supporting both tumor volume and fold change.
+estimated group-level curves in separate panels for each treatment
+group, for both tumor volume and fold change.
 
 ``` r
 

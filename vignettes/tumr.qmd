@@ -112,7 +112,7 @@ plot(mel2, par = TRUE, fold = FALSE)
 
 The plot on the left uses a straightforward summary of observed data at each time point. This approach ignores the structure of missingness common in tumor growth studies, where subjects frequently leave the study due to censoring or dropout. As a result, the apparent decline in tumor volume over time is an artifact of estimating summaries from a progressively smaller subset of subjects rather than a true biological effect. In contrast, the parametric approach shown in the right panel effectively addresses the issues observed in the left panel. 
 
-Setting `panel = TRUE` displays individual tumor growth trajectories and estimated group-level curves in separate panels for each treatment group, for both tumor volume and fold change.
+Setting `panel = TRUE` displays individual tumor growth trajectories and estimated group-level curves in separate panels for each treatment group.
 
 ```{r}
 plot(mel2, par = TRUE, fold = FALSE, panel = TRUE)
@@ -223,7 +223,7 @@ plot(lmm_mel2, "contrast")
 ## Tumor Doubling Time Based on lmm()
 
 ```{r}
-dtime(lmm_mel2, seed = 123)
+dtime(lmm_mel2, seed = 123, nsim = 1000)
 ```
 
 

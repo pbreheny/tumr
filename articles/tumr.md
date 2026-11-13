@@ -131,7 +131,7 @@ missing observations.
 
 ``` r
 
-plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
+plot_mean(melanoma2, Treatment, months, Volume, ID, stat = mean)
 plot(mel2, par = TRUE, fold = FALSE)
 ```
 

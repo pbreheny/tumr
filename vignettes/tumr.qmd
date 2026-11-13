@@ -118,7 +118,7 @@ The figure below compares a naive visualization without accounting for censoring
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 3.5
-plot_mean(melanoma2, Treatment, Day, Volume, ID, stat = mean)
+plot_mean(melanoma2, Treatment, months, Volume, ID, stat = mean)
 plot(mel2, par = TRUE, fold = FALSE)
 ```
 

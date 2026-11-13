@@ -52,6 +52,8 @@ process_data <- function(time, measure) {
 #' @param panel Logical. If TRUE, display each treatment group
 #'   in a separate facet. If FALSE, overlay all treatment
 #'   groups in a single panel.
+#' @param individual Logical. If TRUE, display individual tumor growth
+#'   trajectories. Also enabled when panel = TRUE. Default is FALSE.
 #' @param ... Additional arguments.
 #'
 #' @returns A ggplot object
@@ -67,13 +69,20 @@ process_data <- function(time, measure) {
 #' plot(mel2, par = FALSE, fold = FALSE, panel = TRUE)
 #'
 #' @export
-plot.tumr <- function(x, par = TRUE, fold = FALSE, lld = NULL, panel = FALSE, ...) {
+plot.tumr <- function(x,
+                      par = TRUE,
+                      fold = FALSE,
+                      lld = NULL,
+                      panel = FALSE,
+                      individual = FALSE,
+                      ...) {
   if (!inherits(x, "tumr")) {
     stop(
       "x must be a tumr object created by tumr().",
       call. = FALSE
     )
   }
+  show_individual <- individual || panel
   id <- x$id
   time <- x$time
   measure <- x$measure
@@ -263,17 +272,21 @@ plot.tumr <- function(x, par = TRUE, fold = FALSE, lld = NULL, panel = FALSE, ..
   data_sum <- summary_data |>
     dplyr::filter(!is.na(.data$MedianValue), is.finite(.data$MedianValue))
 
-  p <- ggplot2::ggplot() +
-    ggplot2::geom_line(
-      data = data_ind,
-      ggplot2::aes(
-        x = .data[[time]],
-        y = .data[[y_ind]],
-        group = .data[[id]],
-        color = .data[[group]]
-      ),
-      alpha = 0.5
-    ) +
+  p <- ggplot2::ggplot()
+  if (show_individual) {
+    p <- p +
+      ggplot2::geom_line(
+        data = data_ind,
+        ggplot2::aes(
+          x = .data[[time]],
+          y = .data[[y_ind]],
+          group = .data[[id]],
+          color = .data[[group]]
+        ),
+        alpha = 0.5
+      )
+  }
+  p <- p +
     ggplot2::geom_line(
       data = data_sum,
       ggplot2::aes(
@@ -291,7 +304,7 @@ plot.tumr <- function(x, par = TRUE, fold = FALSE, lld = NULL, panel = FALSE, ..
       ggplot2::facet_wrap(
         ggplot2::vars(!!rlang::sym(group)),
         axes = "all",
-        axis.labels =  "all"
+        axis.labels = "all"
       ) +
       ggplot2::theme(legend.position = "none")
   }

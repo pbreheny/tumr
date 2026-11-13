@@ -4,15 +4,7 @@
 \alias{plot.tumr}
 \title{Plot tumor volume or fold change over time}
 \usage{
-\method{plot}{tumr}(
-  x,
-  par = TRUE,
-  fold = FALSE,
-  lld = NULL,
-  panel = FALSE,
-  individual = FALSE,
-  ...
-)
+\method{plot}{tumr}(x, par = TRUE, fold = FALSE, lld = NULL, panel = FALSE, ind = FALSE, ...)
 }
 \arguments{
 \item{x}{A \code{tumr} object created by \code{\link[=tumr]{tumr()}}.}
@@ -29,7 +21,7 @@ the lower limit is calculated using \code{\link[=get_limit]{get_limit()}}.}
 in a separate facet. If FALSE, overlay all treatment
 groups in a single panel.}
 
-\item{individual}{Logical. If TRUE, display individual tumor growth
+\item{ind}{Logical. If TRUE, display individual tumor growth
 trajectories. Also enabled when panel = TRUE. Default is FALSE.}
 
 \item{...}{Additional arguments.}

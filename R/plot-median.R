@@ -52,7 +52,7 @@ process_data <- function(time, measure) {
 #' @param panel Logical. If TRUE, display each treatment group
 #'   in a separate facet. If FALSE, overlay all treatment
 #'   groups in a single panel.
-#' @param individual Logical. If TRUE, display individual tumor growth
+#' @param ind Logical. If TRUE, display individual tumor growth
 #'   trajectories. Also enabled when panel = TRUE. Default is FALSE.
 #' @param ... Additional arguments.
 #'
@@ -74,7 +74,7 @@ plot.tumr <- function(x,
                       fold = FALSE,
                       lld = NULL,
                       panel = FALSE,
-                      individual = FALSE,
+                      ind = FALSE,
                       ...) {
   if (!inherits(x, "tumr")) {
     stop(
@@ -82,7 +82,7 @@ plot.tumr <- function(x,
       call. = FALSE
     )
   }
-  show_individual <- individual || panel
+  show_individual <- ind || panel
   id <- x$id
   time <- x$time
   measure <- x$measure

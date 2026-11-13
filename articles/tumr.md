@@ -52,7 +52,7 @@ Code
 ``` r
 
 plot_mean <- function(data, group, time, measure, id, stat = median,
-                      remove_na = FALSE, individual = FALSE) {
+                      remove_na = FALSE, ind = FALSE) {
   data_summary <- data |>
     dplyr::group_by({{group}}, {{time}}) |>
     dplyr::summarise(measure = stat({{measure}}, na.rm = remove_na), .groups = "drop_last") |>
@@ -64,7 +64,7 @@ plot_mean <- function(data, group, time, measure, id, stat = median,
     data_full <- data
   }
   p <- ggplot2::ggplot()
-  if (individual) {
+  if (ind) {
     p <- p +
       ggplot2::geom_line(
         data = data_full,

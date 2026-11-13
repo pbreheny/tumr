@@ -6,7 +6,15 @@ Plot tumor volume or fold change over time
 
 ``` r
 # S3 method for class 'tumr'
-plot(x, par = TRUE, fold = FALSE, lld = NULL, panel = FALSE, ...)
+plot(
+  x,
+  par = TRUE,
+  fold = FALSE,
+  lld = NULL,
+  panel = FALSE,
+  individual = FALSE,
+  ...
+)
 ```
 
 ## Arguments
@@ -35,6 +43,11 @@ plot(x, par = TRUE, fold = FALSE, lld = NULL, panel = FALSE, ...)
 
   Logical. If TRUE, display each treatment group in a separate facet. If
   FALSE, overlay all treatment groups in a single panel.
+
+- individual:
+
+  Logical. If TRUE, display individual tumor growth trajectories. Also
+  enabled when panel = TRUE. Default is FALSE.
 
 - ...:
 

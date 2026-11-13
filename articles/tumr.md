@@ -51,36 +51,48 @@ Code
 
 ``` r
 
-plot_mean <- function(data, group, time, measure, id, stat = median, remove_na = FALSE){
+plot_mean <- function(data, group, time, measure, id, stat = median,
+                      remove_na = FALSE, individual = FALSE) {
   data_summary <- data |>
     dplyr::group_by({{group}}, {{time}}) |>
     dplyr::summarise(measure = stat({{measure}}, na.rm = remove_na), .groups = "drop_last") |>
     dplyr::ungroup()
-
   if (remove_na == TRUE) {
     data_full <- data |>
-      na.omit(data)
+      na.omit()
   } else {
     data_full <- data
   }
-
-  ggplot2::ggplot() +
-    ggplot2::geom_line(data = data_full,
-                       ggplot2::aes(x = {{time}},
-                                    y = {{measure}},
-                                    group = {{id}},
-                                    color = {{group}}),
-                       alpha = 0.5)  +
-    ggplot2::geom_line(data = data_summary,
-                       ggplot2::aes(x = {{time}},
-                                    y = measure,
-                                    color = {{group}}),
-                       linewidth = 1.2) +
+  p <- ggplot2::ggplot()
+  if (individual) {
+    p <- p +
+      ggplot2::geom_line(
+        data = data_full,
+        ggplot2::aes(
+          x = {{time}},
+          y = {{measure}},
+          group = {{id}},
+          color = {{group}}
+        ),
+        alpha = 0.5
+      )
+  }
+  p +
+    ggplot2::geom_line(
+      data = data_summary,
+      ggplot2::aes(
+        x = {{time}},
+        y = measure,
+        color = {{group}}
+      ),
+      linewidth = 1.2
+    ) +
     ggplot2::labs(
-            y = "Volume",
-            title = "Without Accounting for Censoring"
-          ) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_blank())
-
+      y = "Volume",
+      title = "Without Accounting for Censoring"
+    ) +
+    ggplot2::theme_bw() +
+    ggplot2::theme(panel.border = ggplot2::element_blank())
 }
 ```
 

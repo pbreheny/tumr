@@ -51,6 +51,33 @@ reference:
       - starts_with("print.")
       - starts_with("summary.")
 
+
+
+
+
+articles:
+  - title: "Articles"
+    navbar: ~
+    contents:
+      - '"articles/data"'
+      - '"articles/missing-data"'
+
+  - title: "Core analysis"
+    navbar: "Core analysis"
+    contents:
+      - '"articles/response-features"'
+
+  - title: "Advanced modeling"
+    navbar: "Advanced modeling"
+    contents:
+      - '"articles/quadratic"'
+      - '"articles/gam"'
+      - '"articles/bhm"'
+
+
+
+
+
 navbar:
   structure:
     left: [intro, articles, reference, news]

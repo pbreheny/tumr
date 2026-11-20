@@ -1,0 +1,51 @@
+
+---
+title: "Response feature analysis"
+vignette: >
+  %\VignetteIndexEntry{Response feature analysis}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+Response feature analysis is a two-stage approach for analyzing longitudinal tumor growth data. It summarizes each subject's growth trajectory using an interpretable response feature and compares these features across treatment groups.
+
+The `rfeat()` function implements this approach by estimating subject-specific growth slopes and performing statistical comparisons between treatment groups.
+
+## Preparing the data
+
+We use the `melanoma2` dataset included with the package.
+
+```{r}
+library(tumr)
+data("melanoma2")
+
+melanoma2$months <- melanoma2$Day / (365 / 12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
+```
+
+## Fitting response feature analysis
+
+The `rfeat()` function:
+
+1. Estimates a growth slope for each subject.
+2. Summarizes the slopes within each treatment group.
+3. Performs statistical comparisons between groups.
+
+Available comparisons include t-tests, ANOVA, Tukey post-hoc tests, and a combination of ANOVA and Tukey tests.
+
+The following example uses `comparison = "both"` to perform ANOVA and Tukey post-hoc comparisons.
+
+```{r}
+rfeat_mel2 <- rfeat(mel2, comparison = "both")
+rfeat_mel2
+```
+
+## Visualizing response features
+
+The `plot()` method displays individual subject slopes and group-level mean estimates.
+
+```{r}
+plot(rfeat_mel2)
+```
+
+This visualization provides a convenient way to examine variation in tumor growth rates across subjects and treatment groups.

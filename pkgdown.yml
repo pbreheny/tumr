@@ -5,9 +5,11 @@ articles:
   articles/bhm: bhm.html
   articles/data: data.html
   articles/gam: gam.html
+  articles/missing-data: missing-data.html
   articles/quadratic: quadratic.html
+  articles/response-features: response-features.html
   tumr: tumr.html
-last_built: 2026-11-13T16:06Z
+last_built: 2026-11-20T06:16Z
 urls:
   reference: https://pbreheny.github.io/tumr/reference
   article: https://pbreheny.github.io/tumr/articles

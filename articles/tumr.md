@@ -1,10 +1,16 @@
-# Getting started with the tumr package
+# Getting started
 
-In this guide, we demonstrate the core functionality of the tumr package
-using the melanoma2 dataset included with the package. All code required
-to reproduce the examples is provided below.
+The `tumr` package provides tools for visualizing and analyzing
+longitudinal tumor growth data. This guide demonstrates its core
+functionality, including tumor growth visualization and linear
+mixed-effects modeling, using the `melanoma2` dataset included with the
+package. All code required to reproduce the examples is provided below.
 
-## Loading the Data
+## Getting started
+
+### Loading the data
+
+First, load the package and the example dataset.
 
 ``` r
 
@@ -12,17 +18,18 @@ library(tumr)
 data("melanoma2")
 ```
 
-## Creating a tumr Object
+### Creating a tumr object
 
-Most tumr functions operate on a tumr object, which stores both the data
-and its associated metadata (subject ID, time, outcome, and grouping
-variable).
+Most functions in `tumr` operate on a `tumr` object, which stores the
+longitudinal data along with its associated metadata, including subject
+ID, time, tumor measurements, and treatment group.
 
-To create a tumr object, use the tumr() function:
+To create a `tumr` object, use the
+[`tumr()`](https://pbreheny.github.io/tumr/reference/tumr.md) function:
 
 ``` r
 
-melanoma2$months <- melanoma2$Day / (365/12)
+melanoma2$months <- melanoma2$Day / (365 / 12)
 mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
 ```
 
@@ -33,37 +40,54 @@ Column names can also be supplied as character strings:
 mel2 <- tumr(melanoma2, "ID", "months", "Volume", "Treatment")
 ```
 
-- This object can now be passed directly to other `tumr` functions.
-- Note that the function used to create a `tumr` object includes a
-  built-in mechanism to check the scale of the time variable.
+The resulting object can be passed directly to other functions in the
+package. The
+[`tumr()`](https://pbreheny.github.io/tumr/reference/tumr.md) function
+also includes a built-in mechanism to check the scale of the time
+variable.
 
-## Visualizing tumor growth under informative dropout
+## Visualizing tumor growth
 
-### Existing Naive Mean-Based Visualization is bad
+Longitudinal tumor growth studies frequently involve missing
+observations and informative dropout, which can lead to misleading
+growth trajectories when only observed measurements are summarized.
 
-Before introducing tumr functionality, we first construct a simple
-plotting function to illustrate a common pitfall in tumor growth
-visualization.
+To address these issues, `tumr` preprocesses missing observations and
+incorporates censoring information when estimating tumor growth
+trajectories. Details are provided in [Handling missing observations and
+censoring](https://pbreheny.github.io/tumr/articles/missing-data.md).
 
-##### Code for plot_mean()
+### Comparison with naive visualization
 
-Code
+To illustrate the potential impact of missing observations and dropout,
+we first define a simple plotting function that summarizes the observed
+tumor volumes at each time point without explicitly accounting for
+censoring.
+
+Show code for naive visualization
 
 ``` r
 
-plot_mean <- function(data, group, time, measure, id, stat = median,
-                      remove_na = FALSE, ind = FALSE) {
+plot_mean <- function(data, group, time, measure, id,
+                      stat = median, remove_na = FALSE,
+                      ind = FALSE) {
   data_summary <- data |>
     dplyr::group_by({{group}}, {{time}}) |>
-    dplyr::summarise(measure = stat({{measure}}, na.rm = remove_na), .groups = "drop_last") |>
+    dplyr::summarise(
+      measure = stat({{measure}}, na.rm = remove_na),
+      .groups = "drop_last"
+    ) |>
     dplyr::ungroup()
+
   if (remove_na == TRUE) {
     data_full <- data |>
       na.omit()
   } else {
     data_full <- data
   }
+
   p <- ggplot2::ggplot()
+
   if (ind) {
     p <- p +
       ggplot2::geom_line(
@@ -77,6 +101,7 @@ plot_mean <- function(data, group, time, measure, id, stat = median,
         alpha = 0.5
       )
   }
+
   p +
     ggplot2::geom_line(
       data = data_summary,
@@ -92,46 +117,23 @@ plot_mean <- function(data, group, time, measure, id, stat = median,
       title = "Without Accounting for Censoring"
     ) +
     ggplot2::theme_bw() +
-    ggplot2::theme(panel.border = ggplot2::element_blank())
+    ggplot2::theme(
+      panel.border = ggplot2::element_blank()
+    )
 }
 ```
 
-**Note:** plot_mean() is not part of the tumr package. It is defined
-here solely to provide a baseline visualization for comparison with
-tumr’s methods.
+**Note:** `plot_mean()` is not part of the `tumr` package. It is defined
+here solely to provide a baseline visualization for comparison with the
+methods implemented in `tumr`.
 
-### Our plots are good
-
-Before any summary statistic is computed, the function:
-
-1.  **Aligns time points across subjects** Rows are added for unobserved
-    time points so that all subjects share a common time grid.
-2.  **Handles trailing missing values due to censoring** The last
-    observed value is carried forward and marked with a “+” to indicate
-    right-censoring.
-
-- Example: 3, 6, 9, NA → 3, 6, 9, 9+
-
-3.  **Interpolates embedded missing values** Missing observations that
-    occur between recorded time points are interpolated to preserve
-    trajectory continuity.
-
-After preprocessing, tumor volume summaries could be computed at each
-time point within each treatment group using a Kaplan–Meier approach.
-This strategy ensures that summaries reflect both observed data and
-informative missingness, producing a visualization that represents tumor
-growth dynamics over time. Although the nonparametric approach has
-certain advantages, in our experience, it does not capture the growth
-trend as accurately as the parametric approach. Therefore, in the
-following sections, we will focus primarily on the parametric approach.
-
-The figure below compares a naive visualization without accounting for
-censoring with a parametric approach that accounts for censoring and
-missing observations.
+The following figure compares a naive mean-based visualization with the
+parametric approach provided by `tumr`.
 
 ``` r
 
-plot_mean(melanoma2, Treatment, months, Volume, ID, stat = mean)
+plot_mean(melanoma2, Treatment, months, Volume, ID,
+          stat = mean)
 plot(mel2, par = TRUE, fold = FALSE)
 ```
 
@@ -139,18 +141,30 @@ plot(mel2, par = TRUE, fold = FALSE)
 
 ![](tumr_files/figure-html/unnamed-chunk-5-2.png)
 
-The plot on the left uses a straightforward summary of observed data at
-each time point. This approach ignores the structure of missingness
-common in tumor growth studies, where subjects frequently leave the
-study due to censoring or dropout. As a result, the apparent decline in
-tumor volume over time is an artifact of estimating summaries from a
-progressively smaller subset of subjects rather than a true biological
-effect. In contrast, the parametric approach shown in the right panel
-effectively addresses the issues observed in the left panel.
+The plot on the left displays the mean tumor volume calculated from the
+available observations at each time point. This approach does not
+account for the structure of missingness commonly encountered in tumor
+growth studies, where subjects may leave the study because of censoring
+or dropout.
+
+As a result, an apparent decline in average tumor volume may arise from
+a progressively smaller and potentially selective subset of subjects
+rather than a true biological reduction in tumor growth.
+
+In contrast, the parametric approach shown in the right panel estimates
+group-level growth trajectories using the modeling framework implemented
+in `tumr`. By incorporating its handling of missing observations and
+censoring, this approach provides an alternative representation of tumor
+growth dynamics over time.
+
+### Individual tumor growth trajectories
 
 Setting `panel = TRUE` displays individual tumor growth trajectories and
 estimated group-level curves in separate panels for each treatment
 group.
+
+This allows the variation among individual subjects to be examined
+alongside the estimated growth trend for each treatment group.
 
 ``` r
 
@@ -159,130 +173,97 @@ plot(mel2, par = TRUE, fold = FALSE, panel = TRUE)
 
 ![](tumr_files/figure-html/unnamed-chunk-6-1.png)
 
-Also, in the figure below, we present both the parametric method on the
-original volume and the fold change (log scale).
+### Logarithmic scale and fold change
+
+Tumor growth can also be examined on a logarithmic scale, which is
+particularly useful when tumor volumes span a wide range or exhibit
+approximately exponential growth.
+
+The `fold` argument controls whether the visualization displays the
+original tumor volume (`fold = FALSE`) or fold change relative to
+baseline (`fold = TRUE`).
+
+The following figures display both measurements on a logarithmic scale.
 
 ``` r
 
-plot(mel2, par = TRUE, fold = FALSE) + ggplot2::scale_y_log10()
-plot(mel2, par = TRUE, fold = TRUE) + ggplot2::scale_y_log10()
+plot(mel2, par = TRUE, fold = FALSE) +
+  ggplot2::scale_y_log10()
+plot(mel2, par = TRUE, fold = TRUE) +
+  ggplot2::scale_y_log10()
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-7-1.png)
 
 ![](tumr_files/figure-html/unnamed-chunk-7-2.png)
 
+The same options can be combined with `panel = TRUE` to display
+individual trajectories and estimated group-level curves separately for
+each treatment group.
+
 ``` r
 
-plot(mel2, par = TRUE, fold = FALSE, panel = TRUE) + ggplot2::scale_y_log10()
+plot(mel2, par = TRUE, fold = FALSE, panel = TRUE) +
+  ggplot2::scale_y_log10()
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-8-1.png)
 
 ``` r
 
-plot(mel2, par = TRUE, fold = TRUE, panel = TRUE) + ggplot2::scale_y_log10()
+plot(mel2, par = TRUE, fold = TRUE, panel = TRUE) +
+  ggplot2::scale_y_log10()
 ```
 
 ![](tumr_files/figure-html/unnamed-chunk-8-2.png)
 
-## Response feature analysis
+## Linear mixed-effects models
 
-One of the primary analysis tools in tumr is the rfeat() function, which
-implements response feature analysis. This two-stage approach simplifies
-complex longitudinal data by extracting a single interpretable summary
-measure per subject.
+In addition to visualization, `tumr` provides tools for statistical
+modeling of longitudinal tumor growth data.
 
-Specifically, rfeat():
+The [`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md) function
+fits a linear mixed-effects model, which is well suited for repeated
+tumor measurements because it accounts for correlation among
+observations from the same subject.
 
-1.  Computes a growth slope (beta coefficient) for each subject
+Linear mixed-effects models incorporate two types of effects:
 
-2.  Averages these slopes within each treatment group
+- **Fixed effects:** Population-level effects of interest, such as
+  treatment, time, and their interaction.
+- **Random effects:** Subject-specific deviations that account for
+  individual variability and within-subject correlation.
 
-3.  Compares group-level summaries using one of the following methods:
+By default, the model includes treatment, time, and their interaction as
+fixed effects, together with subject-specific random intercepts and
+slopes.
 
-    - t-test
-    - ANOVA
-    - Tukey post-hoc test
-    - Both ANOVA and Tukey post-hoc tests
-
-The example below uses comparison = “both” to perform ANOVA followed by
-Tukey post-hoc comparisons.
-
-``` r
-
-(rfeat_mel2 <- rfeat(mel2, comparison = "both"))
-```
-
-    $anova
-                Df Sum Sq Mean Sq F value Pr(>F)
-    Group        4  7.794  1.9485   2.938 0.0314 *
-    Residuals   42 27.853  0.6632
-    ---
-    Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-    $tukey
-      Tukey multiple comparisons of means
-        95% family-wise confidence level
-
-    Fit: aov(formula = Beta ~ Group, data = betas)
-
-    $Group
-              diff        lwr        upr     p adj
-    B-A -1.2033657 -2.2696725 -0.1370590 0.0200139
-    C-A -0.8320576 -1.8699243  0.2058092 0.1701000
-    D-A -0.7204285 -1.7582952  0.3174383 0.2941216
-    E-A -0.9384152 -2.0392391  0.1624087 0.1274422
-    C-B  0.3713082 -0.6949985  1.4376149 0.8572838
-    D-B  0.4829373 -0.5833695  1.5492440 0.6982531
-    E-B  0.2649505 -0.8627267  1.3926278 0.9618601
-    D-C  0.1116291 -0.9262377  1.1494958 0.9980027
-    E-C -0.1063576 -1.2071816  0.9944663 0.9986875
-    E-D -0.2179867 -1.3188107  0.8828372 0.9794890
-
-### Plotting Response Feature Results
-
-The plot() method for rfeat objects displays both the individual subject
-slopes and the group-level means.
-
-``` r
-
-plot(rfeat_mel2)
-```
-
-![](tumr_files/figure-html/unnamed-chunk-10-1.png)
-
-## Linear mixed-effects modeling
-
-The tumr package also includes lmm(), which fits a linear mixed effects
-model to tumor growth data. Linear mixed models are well suited for
-longitudinal data because they account for:
-
-- Fixed effects: population-level effects of interest (e.g., treatment,
-  time)
-- Random effects: subject-specific variability that induces correlation
-  among repeated measurements
-
-By default, lmm() fits the model:
+The model can be represented schematically as:
 
 `log(measure) ~ group * time + (time | id)`
 
-This specification allows each subject to have their own growth
+This specification allows each subject to have an individual growth
 trajectory while estimating overall treatment effects. The model formula
-can be customized if desired.
+can also be customized if desired.
+
+### Fitting the model
+
+The [`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md) function
+accepts a `tumr` object directly.
 
 ``` r
 
 lmm_mel2 <- lmm(mel2)
 ```
 
-### Summarizing Linear mixed-effects modeling results
+### Summarizing model results
 
-The summary() method for lmm objects uses the emmeans package to report:
+The [`summary()`](https://rdrr.io/r/base/summary.html) method uses the
+`emmeans` package to report:
 
-- The overall effect of time
-- Treatment-specific slopes over time
-- Statistical tests comparing slope differences between groups
+1.  The overall effect of time.
+2.  Treatment-specific growth slopes over time.
+3.  Statistical comparisons of growth slopes between treatment groups.
 
 ``` r
 
@@ -324,15 +305,21 @@ summary(lmm_mel2)
     Degrees-of-freedom method: satterthwaite
     P value adjustment: tukey method for comparing a family of 5 estimates 
 
-### Plotting Linear mixed-effects modeling results
+These results provide information about the estimated tumor growth rates
+and whether the rates differ across treatment groups.
 
-Finally, tumr provides a plot() method for lmm objects that produces
-three visualizations:
+### Visualizing model results
 
-1.  Predicted tumor growth trajectories over time (log scale)
-2.  Predicted fold change over time (log scale)
-3.  Estimated mean growth slopes for each group with confidence
-    intervals
+The [`plot()`](https://rdrr.io/r/graphics/plot.default.html) method for
+fitted LMM objects provides three types of visualizations:
+
+1.  Predicted tumor growth trajectories over time.
+2.  Predicted fold change over time.
+3.  Estimated mean growth slopes for each treatment group with
+    confidence intervals.
+
+The first two plots show the predicted tumor volume and fold change over
+time.
 
 ``` r
 
@@ -344,24 +331,36 @@ plot(lmm_mel2, "predict")
 
 ``` r
 
-plot(lmm_mel2, "predict_fold") + ggplot2::scale_y_log10()
+plot(lmm_mel2, "predict_fold") +
+  ggplot2::scale_y_log10()
 ```
 
     Model has log transformed response. Predictions are on transformed
       scale.
 
-![](tumr_files/figure-html/unnamed-chunk-13-1.png)
+![](tumr_files/figure-html/unnamed-chunk-11-1.png)
 
-![](tumr_files/figure-html/unnamed-chunk-13-2.png)
+![](tumr_files/figure-html/unnamed-chunk-11-2.png)
+
+Treatment-specific growth slopes and their confidence intervals can also
+be visualized using the `"contrast"` option.
 
 ``` r
 
 plot(lmm_mel2, "contrast")
 ```
 
-![](tumr_files/figure-html/unnamed-chunk-14-1.png)
+![](tumr_files/figure-html/unnamed-chunk-12-1.png)
 
-### Tumor Doubling Time Based on lmm()
+This visualization facilitates comparisons of estimated growth rates
+across treatment groups.
+
+### Tumor doubling time
+
+The [`dtime()`](https://pbreheny.github.io/tumr/reference/dtime.md)
+function estimates tumor doubling times from the fitted linear
+mixed-effects model, providing an interpretable measure of tumor growth
+rate.
 
 ``` r
 
@@ -382,12 +381,23 @@ dtime(lmm_mel2, seed = 123, nsim = 1000)
     4         D 0.42   0.41 0.31  0.61
     5         E 0.48   0.46 0.34  0.73
 
+The `seed` argument ensures reproducibility, and `nsim` specifies the
+number of simulations.
+
 ### Checking for exponential growth
 
-Since lmm() model the data on log scale by default and a straight line
-corresponds to exponential growth on log scale, we can check whether the
-exponential growth model fits well by plotting the residuals from Linear
-Mixed Model vs time.
+The default linear mixed-effects modeling approach assumes an
+approximately linear relationship between log-transformed tumor volume
+and time.
+
+Because a straight line on the log-volume scale corresponds to
+exponential growth on the original scale, the adequacy of this
+assumption can be assessed by examining model residuals over time.
+
+The
+[`check_exp()`](https://pbreheny.github.io/tumr/reference/check_exp.md)
+function provides a diagnostic visualization for evaluating the
+exponential growth assumption.
 
 ``` r
 
@@ -396,21 +406,35 @@ check_exp(lmm_mel2)
 
     `geom_smooth()` using formula = 'y ~ x'
 
-![](tumr_files/figure-html/unnamed-chunk-16-1.png)
+![](tumr_files/figure-html/unnamed-chunk-14-1.png)
 
-## Flexible modeling of nonlinear growth
+Systematic patterns in the residuals may indicate departures from
+exponential growth and suggest that a more flexible model is needed.
 
-For datasets that exhibit non-linear growth, we also provide the
-[Exponential quadratic
-model](https://pbreheny.github.io/tumr/articles/articles/quadratic.md)
-and [Generalized Addictive Model
-(GAM)](https://pbreheny.github.io/tumr/articles/articles/gam.md) as
-alternative modeling approaches. Examples of their applications can be
-found in the linked articles.
+## Further reading
 
-## Bayesian hierarchical linear model
+The `tumr` package provides several additional methods for analyzing
+longitudinal tumor growth data.
 
-In addition to the linear mixed-effects modeling, our package also
-supports fitting a Bayesian hierarchical linear model. Detailed usage of
-this model is described in an
-[article](https://pbreheny.github.io/tumr/articles/articles/bhm.md).
+- [Response feature
+  analysis](https://pbreheny.github.io/tumr/articles/response-features.md)
+  — A two-stage approach that estimates subject-specific growth slopes
+  and compares them across treatment groups.
+
+- [Quadratic growth
+  models](https://pbreheny.github.io/tumr/articles/quadratic.md) — An
+  extension of linear mixed-effects models that incorporates quadratic
+  time effects to capture nonlinear tumor growth.
+
+- [Generalized additive
+  models](https://pbreheny.github.io/tumr/articles/gam.md) — A flexible
+  modeling approach that uses smooth functions to describe nonlinear
+  tumor growth trajectories.
+
+- [Bayesian hierarchical
+  models](https://pbreheny.github.io/tumr/articles/bhm.md) — A Bayesian
+  approach to modeling longitudinal tumor growth while accounting for
+  subject-level variability and uncertainty.
+
+These articles provide more detailed explanations, examples, and
+additional modeling options.

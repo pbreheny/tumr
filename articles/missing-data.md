@@ -1,0 +1,61 @@
+# Handling missing observations and censoring
+
+Longitudinal tumor growth studies frequently involve missing
+observations and informative dropout. For example, animals with large
+tumors may be removed from a study when their tumor volumes exceed a
+predefined threshold.
+
+Consequently, simply averaging the observed tumor volumes at each time
+point may produce misleading growth trajectories, as the remaining
+subjects may no longer be representative of the original study
+population.
+
+The `tumr` package provides visualization methods designed to handle
+missing observations and censoring in longitudinal tumor growth data.
+
+## Data preprocessing
+
+Before computing tumor growth summaries, the data are preprocessed using
+the following steps:
+
+### Aligning time points across subjects
+
+Missing rows are introduced for unobserved time points so that all
+subjects share a common time grid. This allows tumor measurements to be
+compared consistently across subjects at each time point.
+
+### Handling trailing missing values due to censoring
+
+When observations are missing after the last recorded measurement, the
+last observed value is carried forward and marked with a `+` to indicate
+right-censoring.
+
+For example:
+
+`3, 6, 9, NA` → `3, 6, 9, 9+`
+
+The carried-forward value is treated as a censored observation rather
+than an additional observed tumor measurement.
+
+### Interpolating embedded missing values
+
+Missing observations occurring between two recorded measurements are
+estimated using linear interpolation to preserve the continuity of
+individual growth trajectories.
+
+For example, at equally spaced time points:
+
+`3, NA, 9` → `3, 6, 9`
+
+## Estimating tumor growth summaries
+
+After preprocessing, tumor volume summaries can be estimated at each
+time point within each treatment group using a Kaplan–Meier approach.
+This nonparametric method incorporates censoring information into the
+estimation of tumor volume distributions.
+
+Although the nonparametric approach has certain advantages, it may not
+capture the underlying growth trend as accurately as a parametric
+approach in some applications. Therefore, the examples in the [Getting
+started](https://pbreheny.github.io/tumr/tumr.md) guide focus primarily
+on parametric visualization.

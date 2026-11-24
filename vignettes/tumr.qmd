@@ -164,7 +164,7 @@ plot(mel2, par = TRUE, fold = TRUE, panel = TRUE) +
   ggplot2::scale_y_log10()
 ```
 
-## Linear mixed-effects models
+## Linear mixed-effects models {#lmm}
 
 In addition to visualization, `tumr` provides tools for statistical modeling of longitudinal tumor growth data.
 

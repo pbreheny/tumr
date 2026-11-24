@@ -65,6 +65,7 @@ articles:
   - title: "Core analysis"
     navbar: "Core analysis"
     contents:
+      - lmm
       - '"articles/response-features"'
 
   - title: "Advanced modeling"
@@ -74,8 +75,11 @@ articles:
       - '"articles/gam"'
       - '"articles/bhm"'
 
-
-
+external-articles:
+  - name: lmm
+    title: Linear mixed-effects models
+    description: Analysis of tumor growth using linear mixed-effects models.
+    href: https://pbreheny.github.io/tumr/articles/tumr.html#lmm
 
 
 navbar:

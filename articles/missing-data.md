@@ -54,6 +54,24 @@ time point within each treatment group using a Kaplan–Meier approach.
 This nonparametric method incorporates censoring information into the
 estimation of tumor volume distributions.
 
+``` r
+
+library(tumr)
+data("melanoma2")
+melanoma2$months <- melanoma2$Day / (365 / 12)
+mel2 <- tumr(melanoma2, ID, months, Volume, Treatment)
+plot(mel2, par = FALSE, fold = FALSE)
+```
+
+![](missing-data_files/figure-html/unnamed-chunk-1-1.png)
+
+``` r
+
+plot(mel2, par = FALSE, fold = FALSE, panel = TRUE)
+```
+
+![](missing-data_files/figure-html/unnamed-chunk-1-2.png)
+
 Although the nonparametric approach has certain advantages, it may not
 capture the underlying growth trend as accurately as a parametric
 approach in some applications. Therefore, the examples in the [Getting

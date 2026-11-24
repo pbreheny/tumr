@@ -108,6 +108,28 @@
 </section></section><section class="level2"><h2 id="estimating-tumor-growth-summaries">Estimating tumor growth summaries<a class="anchor" aria-label="anchor" href="#estimating-tumor-growth-summaries"></a>
 </h2>
 <p>After preprocessing, tumor volume summaries can be estimated at each time point within each treatment group using a Kaplan–Meier approach. This nonparametric method incorporates censoring information into the estimation of tumor volume distributions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pbreheny.github.io/tumr/">tumr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"melanoma2"</span><span class="op">)</span></span>
+<span><span class="va">melanoma2</span><span class="op">$</span><span class="va">months</span> <span class="op">&lt;-</span> <span class="va">melanoma2</span><span class="op">$</span><span class="va">Day</span> <span class="op">/</span> <span class="op">(</span><span class="fl">365</span> <span class="op">/</span> <span class="fl">12</span><span class="op">)</span></span>
+<span><span class="va">mel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tumr.html">tumr</a></span><span class="op">(</span><span class="va">melanoma2</span>, <span class="va">ID</span>, <span class="va">months</span>, <span class="va">Volume</span>, <span class="va">Treatment</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">FALSE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="missing-data_files/figure-html/unnamed-chunk-1-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">FALSE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span>, panel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="missing-data_files/figure-html/unnamed-chunk-1-2.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>Although the nonparametric approach has certain advantages, it may not capture the underlying growth trend as accurately as a parametric approach in some applications. Therefore, the examples in the <a href="../tumr.html">Getting started</a> guide focus primarily on parametric visualization.</p>
 </section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -265,7 +287,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: November 20, 2026</p>
+  <p>Last updated: November 24, 2026</p>
 </div>
 
     </footer>

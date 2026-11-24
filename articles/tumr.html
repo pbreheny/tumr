@@ -86,7 +86,7 @@
 
 
     <p>The <code>tumr</code> package provides tools for visualizing and analyzing longitudinal tumor growth data. This guide demonstrates its core functionality, including tumor growth visualization and linear mixed-effects modeling, using the <code>melanoma2</code> dataset included with the package. All code required to reproduce the examples is provided below.</p>
-<section class="level2"><h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+<section class="level2"><h2 id="data-preparation">Data preparation<a class="anchor" aria-label="anchor" href="#data-preparation"></a>
 </h2>
 <section class="level3"><h3 id="loading-the-data">Loading the data<a class="anchor" aria-label="anchor" href="#loading-the-data"></a>
 </h3>
@@ -191,13 +191,11 @@
 </div>
 </div>
 </div>
-<p>The plot on the left displays the mean tumor volume calculated from the available observations at each time point. This approach does not account for the structure of missingness commonly encountered in tumor growth studies, where subjects may leave the study because of censoring or dropout.</p>
-<p>As a result, an apparent decline in average tumor volume may arise from a progressively smaller and potentially selective subset of subjects rather than a true biological reduction in tumor growth.</p>
-<p>In contrast, the parametric approach shown in the right panel estimates group-level growth trajectories using the modeling framework implemented in <code>tumr</code>. By incorporating its handling of missing observations and censoring, this approach provides an alternative representation of tumor growth dynamics over time.</p>
+<p>The plot on the left displays the mean tumor volume calculated from the available observations at each time point. This approach does not account for the structure of missingness commonly encountered in tumor growth studies, where subjects may leave the study because of censoring or dropout. As a result, an apparent decline in average tumor volume may arise from a progressively smaller and potentially selective subset of subjects rather than a true biological reduction in tumor growth.</p>
+<p>In contrast, the parametric approach shown in the right panel estimates group-level growth trajectories, providing a more accurate representation of tumor growth dynamics over time.</p>
 </section><section class="level3"><h3 id="individual-tumor-growth-trajectories">Individual tumor growth trajectories<a class="anchor" aria-label="anchor" href="#individual-tumor-growth-trajectories"></a>
 </h3>
-<p>Setting <code>panel = TRUE</code> displays individual tumor growth trajectories and estimated group-level curves in separate panels for each treatment group.</p>
-<p>This allows the variation among individual subjects to be examined alongside the estimated growth trend for each treatment group.</p>
+<p>Setting <code>panel = TRUE</code> displays individual tumor growth trajectories and estimated group-level curves in separate panels for each treatment group. This allows the variation among individual subjects to be examined alongside the estimated growth trend for each treatment group.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mel2</span>, par <span class="op">=</span> <span class="cn">TRUE</span>, fold <span class="op">=</span> <span class="cn">FALSE</span>, panel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -322,7 +320,7 @@ P value adjustment: tukey method for comparing a family of 5 estimates </code></
 <p>These results provide information about the estimated tumor growth rates and whether the rates differ across treatment groups.</p>
 </section><section class="level3"><h3 id="visualizing-model-results">Visualizing model results<a class="anchor" aria-label="anchor" href="#visualizing-model-results"></a>
 </h3>
-<p>The <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method for fitted LMM objects provides three types of visualizations:</p>
+<p>The <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method for fitted <code><a href="../reference/lmm.html">lmm()</a></code> objects provides three types of visualizations:</p>
 <ol type="1">
 <li>Predicted tumor growth trajectories over time.</li>
 <li>Predicted fold change over time.</li>
@@ -408,15 +406,13 @@ $summary
 <p>Systematic patterns in the residuals may indicate departures from exponential growth and suggest that a more flexible model is needed.</p>
 </section></section><section class="level2"><h2 id="further-reading">Further reading<a class="anchor" aria-label="anchor" href="#further-reading"></a>
 </h2>
-<p>The <code>tumr</code> package provides several additional methods for analyzing longitudinal tumor growth data.</p>
+<p>The <code>tumr</code> package provides several additional useful methods for analyzing tumor growth data. These articles provide more detailed explanations, examples, and additional modeling options.</p>
 <ul>
-<li><p><a href="response-features.html">Response feature analysis</a> — A two-stage approach that estimates subject-specific growth slopes and compares them across treatment groups.</p></li>
-<li><p><a href="quadratic.html">Quadratic growth models</a> — An extension of linear mixed-effects models that incorporates quadratic time effects to capture nonlinear tumor growth.</p></li>
-<li><p><a href="gam.html">Generalized additive models</a> — A flexible modeling approach that uses smooth functions to describe nonlinear tumor growth trajectories.</p></li>
-<li><p><a href="bhm.html">Bayesian hierarchical models</a> — A Bayesian approach to modeling longitudinal tumor growth while accounting for subject-level variability and uncertainty.</p></li>
-</ul>
-<p>These articles provide more detailed explanations, examples, and additional modeling options.</p>
-</section><script id="quarto-html-after-body" type="application/javascript">
+<li><p><a href="response-features.html">Response feature analysis</a></p></li>
+<li><p><a href="quadratic.html">Exponential quadratic model</a></p></li>
+<li><p><a href="gam.html">Generalized Additive Model (GAM)</a></p></li>
+<li><p><a href="bhm.html">Bayesian hierarchical Linear Model</a></p></li>
+</ul></section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -572,7 +568,7 @@ $summary
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Last updated: November 20, 2026</p>
+  <p>Last updated: November 24, 2026</p>
 </div>
 
     </footer>

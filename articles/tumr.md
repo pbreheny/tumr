@@ -6,7 +6,7 @@ functionality, including tumor growth visualization and linear
 mixed-effects modeling, using the `melanoma2` dataset included with the
 package. All code required to reproduce the examples is provided below.
 
-## Getting started
+## Data preparation
 
 ### Loading the data
 
@@ -145,26 +145,20 @@ The plot on the left displays the mean tumor volume calculated from the
 available observations at each time point. This approach does not
 account for the structure of missingness commonly encountered in tumor
 growth studies, where subjects may leave the study because of censoring
-or dropout.
-
-As a result, an apparent decline in average tumor volume may arise from
-a progressively smaller and potentially selective subset of subjects
-rather than a true biological reduction in tumor growth.
+or dropout. As a result, an apparent decline in average tumor volume may
+arise from a progressively smaller and potentially selective subset of
+subjects rather than a true biological reduction in tumor growth.
 
 In contrast, the parametric approach shown in the right panel estimates
-group-level growth trajectories using the modeling framework implemented
-in `tumr`. By incorporating its handling of missing observations and
-censoring, this approach provides an alternative representation of tumor
-growth dynamics over time.
+group-level growth trajectories, providing a more accurate
+representation of tumor growth dynamics over time.
 
 ### Individual tumor growth trajectories
 
 Setting `panel = TRUE` displays individual tumor growth trajectories and
 estimated group-level curves in separate panels for each treatment
-group.
-
-This allows the variation among individual subjects to be examined
-alongside the estimated growth trend for each treatment group.
+group. This allows the variation among individual subjects to be
+examined alongside the estimated growth trend for each treatment group.
 
 ``` r
 
@@ -311,7 +305,8 @@ and whether the rates differ across treatment groups.
 ### Visualizing model results
 
 The [`plot()`](https://rdrr.io/r/graphics/plot.default.html) method for
-fitted LMM objects provides three types of visualizations:
+fitted [`lmm()`](https://pbreheny.github.io/tumr/reference/lmm.md)
+objects provides three types of visualizations:
 
 1.  Predicted tumor growth trajectories over time.
 2.  Predicted fold change over time.
@@ -413,28 +408,18 @@ exponential growth and suggest that a more flexible model is needed.
 
 ## Further reading
 
-The `tumr` package provides several additional methods for analyzing
-longitudinal tumor growth data.
+The `tumr` package provides several additional useful methods for
+analyzing tumor growth data. These articles provide more detailed
+explanations, examples, and additional modeling options.
 
 - [Response feature
   analysis](https://pbreheny.github.io/tumr/articles/response-features.md)
-  — A two-stage approach that estimates subject-specific growth slopes
-  and compares them across treatment groups.
 
-- [Quadratic growth
-  models](https://pbreheny.github.io/tumr/articles/quadratic.md) — An
-  extension of linear mixed-effects models that incorporates quadratic
-  time effects to capture nonlinear tumor growth.
+- [Exponential quadratic
+  model](https://pbreheny.github.io/tumr/articles/quadratic.md)
 
-- [Generalized additive
-  models](https://pbreheny.github.io/tumr/articles/gam.md) — A flexible
-  modeling approach that uses smooth functions to describe nonlinear
-  tumor growth trajectories.
+- [Generalized Additive Model
+  (GAM)](https://pbreheny.github.io/tumr/articles/gam.md)
 
-- [Bayesian hierarchical
-  models](https://pbreheny.github.io/tumr/articles/bhm.md) — A Bayesian
-  approach to modeling longitudinal tumor growth while accounting for
-  subject-level variability and uncertainty.
-
-These articles provide more detailed explanations, examples, and
-additional modeling options.
+- [Bayesian hierarchical Linear
+  Model](https://pbreheny.github.io/tumr/articles/bhm.md)

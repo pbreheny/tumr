@@ -8,6 +8,11 @@
 
 ### Core analysis
 
+- [Linear mixed-effects
+  models](https://pbreheny.github.io/tumr/articles/tumr.html#lmm):
+
+  Analysis of tumor growth using linear mixed-effects models.
+
 - [Response feature
   analysis](https://pbreheny.github.io/tumr/articles/response-features.md):
 
